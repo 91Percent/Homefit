@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>수정수정</h1>
-	<h1>보미보미</h1>
+	<h1>pull request</h1>
 </body>
 </html>
