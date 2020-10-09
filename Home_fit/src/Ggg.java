@@ -1,8 +1,8 @@
 
 public class Ggg {
 	public static void main(String[] args) {
-		System.out.println("ÇÑ±ÛÇÑ±Û");
-		System.out.println("¼¼Á¾´ë¿Õ");
+		System.out.println("ì§„ì§œ");
+		System.out.println("ë ê±°ì•¼!");
 		
 	}
 }
