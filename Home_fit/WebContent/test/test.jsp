@@ -8,5 +8,6 @@
 </head>
 <body>
 	<h1>풀 리퀘스트 테스트입니다!</h1>
+	<h2>test</h2>
 </body>
 </html>
