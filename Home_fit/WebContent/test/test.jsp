@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>pull request test</h1>
+	<h1>풀 리퀘스트 테스트</h1>
 </body>
 </html>
