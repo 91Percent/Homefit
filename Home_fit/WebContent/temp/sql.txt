@@ -15,17 +15,35 @@ CREATE TABLE home_user(
    CONSTRAINT PK_home_user PRIMARY KEY(id)
 );
 
-INSERT INTO home_user VALUES('bomi','1111','ÀÌº¸¹Ì','bomi@naver.com','female',
-'2000-01-01','010-1111-1111','¼­¿ïÆ¯º°½Ã °­³²±¸ ¿ª»ïµ¿','0','»ó','y');
-INSERT INTO home_user VALUES('seunggu','2222','Áö½Â±¸','seunggu@naver.com','male',
-'2000-02-02','010-2222-2222','¼­¿ïÆ¯º°½Ã °­³²±¸ »ï¼ºµ¿','0','»ó','y');
-INSERT INTO home_user VALUES('sujeong','3333','±è¼öÁ¤','sujeong@naver.com','female',
-'2000-03-03','010-3333-3333','¼­¿ïÆ¯º°½Ã °­³²±¸ ´ëÄ¡µ¿','0','»ó','y');
-INSERT INTO home_user VALUES('hanbi','4444','±èÇÑºñ','hanbi@naver.com','female',
-'2000-04-04','010-4444-4444','¼­¿ïÆ¯º°½Ã °­³²±¸ Ã»´ãµ¿','0','Áß','n');
-INSERT INTO home_user VALUES('haeni','5555','ÀÌÇØ´Ï','haeni@naver.com','female',
-'2000-05-05','010-5555-5555','¼­¿ïÆ¯º°½Ã °­³²±¸ ½Å»çµ¿','0','Áß','n');
-INSERT INTO home_user VALUES('chihun','6666','¾ÈÄ¡ÈÆ','chihun@naver.com','male',
-'2000-06-06','010-6666-6666','¼­¿ïÆ¯º°½Ã °­³²±¸ ³íÇö1µ¿','0','ÇÏ','n');
-INSERT INTO home_user VALUES('dongeun','7777','ÀÌµ¿Àº','dongeun@naver.com','male',
-'2000-07-07','010-7777-7777','¼­¿ïÆ¯º°½Ã °­³²±¸ ³íÇö2µ¿','0','ÇÏ','n');
+INSERT INTO home_user VALUES('bomi','1111','ì´ë³´ë¯¸','bomi@naver.com','female',
+'2000-01-01','010-1111-1111','ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ì—­ì‚¼ë™','0','ìƒ','y');
+INSERT INTO home_user VALUES('seunggu','2222','ì§€ìŠ¹êµ¬','seunggu@naver.com','male',
+'2000-02-02','010-2222-2222','ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ì‚¼ì„±ë™','0','ìƒ','y');
+INSERT INTO home_user VALUES('sujeong','3333','ê¹€ìˆ˜ì •','sujeong@naver.com','female',
+'2000-03-03','010-3333-3333','ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ëŒ€ì¹˜ë™','0','ìƒ','y');
+INSERT INTO home_user VALUES('hanbi','4444','ê¹€í•œë¹„','hanbi@naver.com','female',
+'2000-04-04','010-4444-4444','ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ì²­ë‹´ë™','0','ì¤‘','n');
+INSERT INTO home_user VALUES('haeni','5555','ì´í•´ë‹ˆ','haeni@naver.com','female',
+'2000-05-05','010-5555-5555','ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ì‹ ì‚¬ë™','0','ì¤‘','n');
+INSERT INTO home_user VALUES('chihun','6666','ì•ˆì¹˜í›ˆ','chihun@naver.com','male',
+'2000-06-06','010-6666-6666','ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ë…¼í˜„1ë™','0','í•˜','n');
+INSERT INTO home_user VALUES('dongeun','7777','ì´ë™ì€','dongeun@naver.com','male',
+'2000-07-07','010-7777-7777','ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ë…¼í˜„2ë™','0','í•˜','n');
+
+
+CREATE TABLE hometraining
+(
+	cate_no      NUMBER         NOT NULL,
+	home_no      NUMBER         NOT NULL,
+	home_level   VARCHAR2(300) ,
+	subject      VARCHAR2(500) ,
+	poster       VARCHAR2(500) ,
+	focus        VARCHAR2(300) ,
+	muscle       VARCHAR2(500) ,
+	equipment    VARCHAR2(500) ,
+	step_no      VARCHAR2(200) ,
+	step_content CLOB,
+	step_image   CLOB,
+	tip          VARCHAR2(1000),
+	CONSTRAINT PK_hometraining PRIMARY KEY (home_no)
+);
