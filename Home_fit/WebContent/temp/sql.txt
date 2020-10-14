@@ -1,0 +1,31 @@
+// home_user 
+
+CREATE TABLE home_user(
+   id       VARCHAR2(300) NOT NULL,
+   pwd      VARCHAR2(200) NOT NULL,
+   name     VARCHAR2(200) NOT NULL,
+   email    VARCHAR2(300),
+   gender   VARCHAR2(200) NOT NULL,
+   birthday DATE,
+   phone    VARCHAR2(300) NOT NULL,
+   address  VARCHAR2(500) NOT NULL,
+   hit      NUMBER, 
+   home_level    VARCHAR2(300),
+    admin   CHAR(1) CHECK(admin IN('y','n')),
+   CONSTRAINT PK_home_user PRIMARY KEY(id)
+);
+
+INSERT INTO home_user VALUES('bomi','1111','이보미','bomi@naver.com','female',
+'2000-01-01','010-1111-1111','서울특별시 강남구 역삼동','0','상','y');
+INSERT INTO home_user VALUES('seunggu','2222','지승구','seunggu@naver.com','male',
+'2000-02-02','010-2222-2222','서울특별시 강남구 삼성동','0','상','y');
+INSERT INTO home_user VALUES('sujeong','3333','김수정','sujeong@naver.com','female',
+'2000-03-03','010-3333-3333','서울특별시 강남구 대치동','0','상','y');
+INSERT INTO home_user VALUES('hanbi','4444','김한비','hanbi@naver.com','female',
+'2000-04-04','010-4444-4444','서울특별시 강남구 청담동','0','중','n');
+INSERT INTO home_user VALUES('haeni','5555','이해니','haeni@naver.com','female',
+'2000-05-05','010-5555-5555','서울특별시 강남구 신사동','0','중','n');
+INSERT INTO home_user VALUES('chihun','6666','안치훈','chihun@naver.com','male',
+'2000-06-06','010-6666-6666','서울특별시 강남구 논현1동','0','하','n');
+INSERT INTO home_user VALUES('dongeun','7777','이동은','dongeun@naver.com','male',
+'2000-07-07','010-7777-7777','서울특별시 강남구 논현2동','0','하','n');
