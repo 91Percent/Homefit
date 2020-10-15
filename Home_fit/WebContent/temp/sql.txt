@@ -1,5 +1,4 @@
 // home_user 
-
 CREATE TABLE home_user(
    id       VARCHAR2(300) NOT NULL,
    pwd      VARCHAR2(200) NOT NULL,
@@ -30,7 +29,7 @@ INSERT INTO home_user VALUES('chihun','6666','안치훈','chihun@naver.com','mal
 INSERT INTO home_user VALUES('dongeun','7777','이동은','dongeun@naver.com','male',
 '2000-07-07','010-7777-7777','서울특별시 강남구 논현2동','0','하','n');
 
-
+// hometraining
 CREATE TABLE hometraining
 (
 	cate_no      NUMBER         NOT NULL,
@@ -46,4 +45,48 @@ CREATE TABLE hometraining
 	step_image   CLOB,
 	tip          VARCHAR2(1000),
 	CONSTRAINT PK_hometraining PRIMARY KEY (home_no)
+);
+
+// calorie_dictionary
+CREATE TABLE calorie_dictionary
+(
+   calorie_no number,
+   cno        VARCHAR2(500) ,
+   brand      VARCHAR2(500) ,
+   type       VARCHAR2(500) ,
+   name       VARCHAR2(500) ,
+   kcal       VARCHAR2(500) ,
+   eye        VARCHAR2(500),
+   gram       VARCHAR2(500) ,
+   CONSTRAINT PK_calorie_dictionary PRIMARY KEY (calorie_no)
+);
+
+// ht_news
+CREATE TABLE ht_news
+(
+   title   VARCHAR2(500) NOT NULL,
+   poster  VARCHAR2(500) NOT NULL,
+   news_date    DATE         ,
+   content CLOB          NOT NULL,
+   author  VARCHAR2(500),
+   CONSTRAINT PK_ht_news PRIMARY KEY (title)
+);
+
+//  HOMEFIT_Recipe
+CREATE TABLE HOMEFIT_Recipe
+(
+   id          VARCHAR2(500)  NOT NULL,
+   cate_no     NUMBER         NOT NULL,
+   Recipe_no   NUMBER         NOT NULL,
+   poster      VARCHAR2(500) ,
+   subject     VARCHAR2(500) ,
+   grade       NUMBER ,
+   Ingredients CLOB,
+   step        VARCHAR2(2000),
+   step_poster VARCHAR2(2000),
+   summary     VARCHAR2(2000),
+   feces       VARCHAR2(500) ,
+   timer       VARCHAR2(1000),
+   Difficulty  CLOB,
+   CONSTRAINT PK_Recipe PRIMARY KEY (Recipe_no)
 );
