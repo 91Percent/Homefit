@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.shop-mapper">
+
+	<!-- 데이터 긁기 -->
+	<insert id="shopInsert" parameterType="ShopVO">
+    <selectKey keyProperty="shop_no" resultType="int" order="BEFORE">
+      SELECT NVL(MAX(shop_no)+1,1) FROM shop
+    </selectKey>
+    INSERT INTO shop VALUES(
+      #{cate_no},
+      #{shop_no},
+      #{title},
+      #{poster},
+      #{subtitle},
+      #{price},
+      #{content},
+      #{delivery_fee},
+      0
+    )
+	</insert>
+	
+	<!-- 샵목록 -->
+	<select id="shopListData" resultType="com.sist.vo.ShopVO" parameterType="hashmap">
+    SELECT cate_no,shop_no,title,poster,subtitle,price,content,delivery_fee,hit,num
+    FROM (SELECT cate_no,shop_no,title,poster,subtitle,price,content,delivery_fee,hit,rownum as num 
+    FROM (SELECT cate_no,shop_no,title,poster,subtitle,price,content,delivery_fee,hit 
+    FROM shop ORDER BY shop_no ASC))
+    WHERE num BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="shopTotalPage" resultType="int">
+    SELECT CEIL(COUNT(*)/20.0) FROM shop
+  </select>
+	
+	<!-- 샵디테일, 장바구니 -->
+	<select id="shopDetailData" resultType="com.sist.vo.ShopVO" parameterType="int">
+    SELECT cate_no,shop_no,title,poster,subtitle,price,content,delivery_fee,hit
+    FROM shop
+    WHERE shop_no=#{shop_no}
+	</select>
+	
+	<select id="shopDetailData2" resultType="com.sist.vo.ShopVO" parameterType="string">
+    SELECT cate_no,shop_no,title,poster,subtitle,price,content,delivery_fee,hit
+    FROM shop
+    WHERE title=#{title}
+	</select>
+	
+	<!-- main페이지 Best상품 -->
+	
+	
+	
+	
+	
+	
+	<!-- 장바구니 -->
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>
+
+
+
+
