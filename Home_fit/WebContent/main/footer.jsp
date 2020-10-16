@@ -9,7 +9,7 @@
 <body>
 <footer class="footer">
 		<div class="footer-area">
-			<div class="container">
+			<div class="container-fluid">
 				<div class="row section_gap">
 					<div class="col-lg-3 col-md-6 col-sm-6">
 						<div class="single-footer-widget tp_widgets">

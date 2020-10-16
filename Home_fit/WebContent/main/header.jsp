@@ -41,10 +41,10 @@
                 </ul>
 							</li>
 							<li class="nav-item submenu dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                <a href="../challenge/Challenge.do" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">함께도전해요</a>
                 <ul class="dropdown-menu">
-                  <li class="nav-item"><a class="nav-link" href="login.html">도전</a></li>
+                  <li class="nav-item"><a class="nav-link" href="../challenge/Challenge.do">도전</a></li>
                   <li class="nav-item"><a class="nav-link" href="register.html">블라블라</a></li>
                   <li class="nav-item"><a class="nav-link" href="tracking-order.html">알아서채움</a></li>
                 </ul>

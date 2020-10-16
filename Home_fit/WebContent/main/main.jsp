@@ -19,15 +19,15 @@
 </head>
 <body>
   <!--================ Start Header Menu Area =================-->
-	<jsp:include page="../main/header.jsp"></jsp:include>
+	<jsp:include page="../main/header.jsp"/>
   
 	<!--================ End Header Menu Area =================-->
 	
 
     
     <!--================ Hero banner start =================-->
-<div class="container">
-<jsp:include page="${main_jsp }"></jsp:include>
+<div class="container-fluid">
+<jsp:include page="${main_jsp}"/>
 </div>
   <!--================ Start footer Area  =================-->	
 	<jsp:include page="../main/footer.jsp"></jsp:include>

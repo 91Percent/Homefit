@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.dao.Challenge-mmpaer">
+
+ <select id="ChallengeListData" resultType="ChallengeVO" parameterType="hashmap">
+     SELECT Challenge_no,cate,TO_CHAR(START_DAY,'YYYY-MM-DD') as db_start_day,title, limit, poster,content,id_leader,num 
+     FROM (SELECT Challenge_no,cate,START_DAY,title, limit, poster,content,id_leader,rownum as num 
+     FROM (SELECT Challenge_no,cate,START_DAY,title, limit, poster,content,id_leader 
+     FROM Challenge ORDER BY challenge_no DESC)) 
+     WHERE num BETWEEN #{start} AND #{end}
+     <!-- 
+     CHALLENGE_NO NOT NULL NUMBER        
+	CATE         NOT NULL VARCHAR2(500) 
+	START_DAY    NOT NULL DATE          
+	TITLE        NOT NULL VARCHAR2(500) 
+	LIMIT        NOT NULL NUMBER        
+	POSTER                VARCHAR2(500) 
+	CONTENT               VARCHAR2(500) 
+	ID_LEADER    NOT NULL VARCHAR2(300)
+     -->
+</select>  
+<select id="ChanllenDetailData" resultType="ChallengeVO" parameterType="int">
+	SELECT * FROM Challenge
+	WHERE Challenge_no = #{no}
+</select>
+
+<select id="Challenge_CertifiedData" resultType="Challenge_CertifiedVO" parameterType="int">
+	SELECT * FROM Challenge_Certified
+	WHERE Challenge_no = #{no}
+</select>
+
+<insert id="Challenge_CertifiedUpload"  parameterType="Challenge_CertifiedVO">
+    <selectKey keyProperty="certified_no" resultType="int" order="BEFORE">
+      SELECT NVL(MAX(certified_no)+1,1) FROM Challenge_Certified
+    </selectKey>
+	INSERT INTO Challenge_Certified VALUES(
+     #{challenge_no},
+     #{poster},
+     SYSDATE,
+     #{certified_check},
+     #{certified_no}
+	)
+</insert>
+</mapper>
