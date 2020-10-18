@@ -23,12 +23,12 @@
 	SELECT * FROM Challenge
 	WHERE Challenge_no = #{no}
 </select>
-
+	
 <select id="Challenge_CertifiedData" resultType="Challenge_CertifiedVO" parameterType="int">
 	SELECT * FROM Challenge_Certified
 	WHERE Challenge_no = #{no}
 </select>
-
+	 
 <insert id="Challenge_CertifiedUpload"  parameterType="Challenge_CertifiedVO">
     <selectKey keyProperty="certified_no" resultType="int" order="BEFORE">
       SELECT NVL(MAX(certified_no)+1,1) FROM Challenge_Certified

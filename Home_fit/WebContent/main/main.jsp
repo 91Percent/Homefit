@@ -22,8 +22,6 @@
 	<jsp:include page="../main/header.jsp"/>
   
 	<!--================ End Header Menu Area =================-->
-	
-	
     
     <!--================ Hero banner start =================-->
 <div class="container-fluid">
