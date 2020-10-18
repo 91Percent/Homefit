@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Aroma Shop - Home</title>
+<title>홈핏</title>
 <link rel="icon" href="img/Fevicon.png" type="image/png">
 <link rel="stylesheet" href="../template/vendors/bootstrap/bootstrap.min.css">
 <link rel="stylesheet" href="../template/vendors/fontawesome/css/all.min.css">
@@ -14,24 +14,23 @@
 <link rel="stylesheet" href="../template/vendors/owl-carousel/owl.theme.default.min.css">
 <link rel="stylesheet" href="../template/vendors/owl-carousel/owl.carousel.min.css">
 <link rel="stylesheet" href="../template/css/style.css">
+<link rel="stylesheet" href="../template/css/custom.css">
 </head>
 <body>
-	<!--================ Start Header Menu Area =================-->
+	<!--  header  -->
 	<jsp:include page="../main/header.jsp" />
 
-	<!--================ End Header Menu Area =================-->
-
-
-
-	<!--================ Hero banner start =================-->
+	<!--  container  -->
 	<div class="container-fluid">
 		<jsp:include page="${main_jsp}" />
+		<div class="container-temp"></div>
 	</div>
-	<!--================ Start footer Area  =================-->
+	
+	<!--  footer  -->
 	<jsp:include page="../main/footer.jsp"></jsp:include>
-	<!--================ End footer Area  =================-->
 
 
+	<!--  jquery / js  -->
 	<script src="../template/vendors/jquery/jquery-3.2.1.min.js"></script>
 	<script src="../template/vendors/bootstrap/bootstrap.bundle.min.js"></script>
 	<script src="../template/vendors/skrollr.min.js"></script>
