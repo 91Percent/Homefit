@@ -25,13 +25,15 @@
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">Shop(한비)</a>
                 <ul class="dropdown-menu">
-                  <li class="nav-item"><a class="nav-link" href="category.html">Shop Category</a></li>
-                  <li class="nav-item"><a class="nav-link" href="single-product.html">Product Details</a></li>
-                  <li class="nav-item"><a class="nav-link" href="checkout.html">Product Checkout</a></li>
-                  <li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
-                  <li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
+                <!-- category.html -->
+                  <li class="nav-item"><a class="nav-link" href="../shop/shop.do?cate_no=11">식단</a></li>
+                  <li class="nav-item"><a class="nav-link" href="single-product.html">건강간식</a></li>
+                  <li class="nav-item"><a class="nav-link" href="checkout.html">식사대용</a></li>
+                  <li class="nav-item"><a class="nav-link" href="confirmation.html">단백질보충</a></li>
+                  <li class="nav-item"><a class="nav-link" href="cart.html">체지방관리</a></li>
+                  <li class="nav-item"><a class="nav-link" href="cart.html">헬스케어</a></li>
                 </ul>
-							</li>
+			  </li>
               <li class="nav-item submenu dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">코치(치훈)</a>

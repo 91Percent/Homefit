@@ -58,13 +58,13 @@ public class ShopDAO {
 	}
 
 	// 총페이지 구하기
-	public static int shopTotalPage() {
+	public static int shopTotalPage(int cate_no) {
 		int total = 0;
 		SqlSession session = null;
 		try {
 			// 연결
 			session = ssf.openSession();
-			total = session.selectOne("shopTotalPage");
+			total = session.selectOne("shopTotalPage",cate_no);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
@@ -73,6 +73,13 @@ public class ShopDAO {
 		}
 		return total;
 	}
+	public static int movieTotalPage(int cateno)
+	   {
+		   SqlSession session=ssf.openSession();
+		   int total=session.selectOne("shopTotalPage", cateno);
+		   session.close();
+		   return total;
+	   }
 
 	public static ShopVO shopDetailData(int shop_no) {
 		ShopVO vo = new ShopVO();
