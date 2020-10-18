@@ -54,10 +54,11 @@
               <li class="nav-item submenu dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">홈트</a>
-                <ul class="dropdown-menu">
-                  <li class="nav-item"><a class="nav-link" href="login.html">근력</a></li>
-                  <li class="nav-item"><a class="nav-link" href="register.html">요가</a></li>
-                  <li class="nav-item"><a class="nav-link" href="tracking-order.html">필라</a></li>
+                   <ul class="dropdown-menu">
+                  <li class="nav-item"><a class="nav-link" href="../ex/total.do">홈트레이닝</a></li>
+                  <li class="nav-item"><a class="nav-link" href="../ex/weight.do?cate_no=1">근력</a></li>
+                  <li class="nav-item"><a class="nav-link" href="../ex/yoga.do?cate_no=2">요가</a></li>
+                  <li class="nav-item"><a class="nav-link" href="../ex/pila.do?cate_no=3">필라</a></li>
                 </ul>
               </li>
               <li class="nav-item submenu dropdown">

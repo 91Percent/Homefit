@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.dao.Challenge-mmpaer">
 
- <select id="ChallengeListData" resultType="ChallengeVO" parameterType="hashmap">
+<select id="ChallengeListData" resultType="ChallengeVO" parameterType="hashmap">
      SELECT Challenge_no,cate,TO_CHAR(START_DAY,'YYYY-MM-DD') as db_start_day,title, limit, poster,content,id_leader,num 
      FROM (SELECT Challenge_no,cate,START_DAY,title, limit, poster,content,id_leader,rownum as num 
      FROM (SELECT Challenge_no,cate,START_DAY,title, limit, poster,content,id_leader 

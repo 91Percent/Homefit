@@ -1,3 +1,4 @@
+
 package com.sist.dao;
 
 import java.io.Reader;
@@ -8,6 +9,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import com.sist.vo.*;
+/**
+ * @author 지승구
+ *
+ */
 public class Challenge_CertifiedDAO {
 
 	private static SqlSessionFactory ssf;

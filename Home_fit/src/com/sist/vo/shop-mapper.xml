@@ -13,10 +13,10 @@
     INSERT INTO shop VALUES(
       #{cate_no},
       #{shop_no},
-      #{title},
+      #{title}, 
       #{poster},
       #{subtitle},
-      #{price},
+      #{price}, 
       #{content},
       #{delivery_fee},
       0

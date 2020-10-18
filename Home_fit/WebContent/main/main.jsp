@@ -17,13 +17,13 @@
 
   <link rel="stylesheet" href="../template/css/style.css">
 </head>
-<body>
+<body>	
   <!--================ Start Header Menu Area =================-->
 	<jsp:include page="../main/header.jsp"/>
   
 	<!--================ End Header Menu Area =================-->
 	
-
+	
     
     <!--================ Hero banner start =================-->
 <div class="container-fluid">

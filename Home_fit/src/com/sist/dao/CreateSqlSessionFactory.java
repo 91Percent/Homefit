@@ -19,7 +19,7 @@ public class CreateSqlSessionFactory {
 			System.out.println(e.getMessage());
 		}
 	}
-
+	
 	public static SqlSessionFactory getSsf() {
 		return ssf;
 	}
