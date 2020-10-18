@@ -23,7 +23,7 @@
 			         <td colspan="5" class="text-right">
 			           <%-- ../main/main.jsp?mode=6 --%>
 			           <%-- ../board/update.jsp --%>
-			           <a href="../main/main.jsp?mode=12&no=${ vo.challenge_no}" class="btn btn-xs btn-primary">수정</a>
+			           <a href="../main/main.jsp?mode=12&no=${vo.challenge_no}" class="btn btn-xs btn-primary">수정</a>
 			           <%-- ../board/delete.jsp --%>
 			          <input type="button" class="btn btn-xs btn-success" id="delBtn" value="삭제">
 			           <%-- ../board/list.jsp --%>
@@ -78,17 +78,19 @@
 							             <div class="col-md-3">
             							 <div class="thumbnail">
 							               <a href="#">
-							                 <img src="/My_homework/1/${Certifiedvo.poster}" width=400px, height=300px>
+							                 <img src="/Home_fit/${vo.challenge_no}/${Certifiedvo.poster}" width=400px, height=300px>
 							               </a>
 							             </div>
 							          	 </div>
 				</c:forEach>
 				 </tr>
+				        <h1> uri = <%=request.getRequestURI() %></h1>
+       <h1> contextpath= <%=request.getContextPath() %>%></h1>
 			</table>
 					<div class="text-center">
 				     <a href="#" class="btn btn-lg btn-success">참여 하기 </a>
-				     <a href="Challenge_Certified.jsp?no=${ vo.challenge_no}" class="btn btn-lg btn-primary">인증 하기 </a>
+				     <a href="../challenge/Certified.do?challenge_no=${ vo.challenge_no}" class="btn btn-lg btn-primary">인증 하기 </a>
 					</div>
-	</div>
+	</div>		
 </body>			
 </html>

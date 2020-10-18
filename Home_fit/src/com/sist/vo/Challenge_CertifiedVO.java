@@ -10,6 +10,10 @@ CERTIFIED_DATE           DATE
 CERTIFIED_CHECK          VARCHAR2(500) 
 CERTIFIED_NO    NOT NULL NUMBER    
  */ 
+/**
+ * @author 지승구
+ *
+ */
 public class Challenge_CertifiedVO {
 	private int certified_no;
 	private int challenge_no;

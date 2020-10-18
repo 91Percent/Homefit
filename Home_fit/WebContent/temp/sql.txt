@@ -47,6 +47,7 @@ CREATE TABLE hometraining
 	CONSTRAINT PK_hometraining PRIMARY KEY (home_no)
 );
 
+
 // calorie_dictionary
 CREATE TABLE calorie_dictionary
 (
