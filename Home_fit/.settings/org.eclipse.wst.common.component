@@ -2,7 +2,7 @@
     <wb-module deploy-name="Home_fit">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="Home_fit"/>
         <property name="java-output-path" value="/Home_fit/build/classes"/>
+        <property name="context-root" value="Home_fit"/>
     </wb-module>
 </project-modules>
