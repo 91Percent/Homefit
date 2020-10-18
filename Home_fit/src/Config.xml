@@ -15,6 +15,10 @@
     <typeAlias type="com.sist.vo.tutor_VO" alias="tutor_VO"/>
     <typeAlias type="com.sist.vo.tutorReviewVO" alias="tutorReviewVO"/>
 	<typeAlias type="com.sist.vo.ShopVO" alias="ShopVO"/>
+	<typeAlias type="com.sist.vo.CalorieVO" alias="CalorieVO"/>
+	<typeAlias type="com.sist.vo.NewsVO" alias="NewsVO"/>
+	<typeAlias type="com.sist.vo.RecipeVO" alias="RecipeVO"/>
+	
   </typeAliases>
   <environments default="development"><!-- 개발 환경을 만든다 -->
     <environment id="development">
