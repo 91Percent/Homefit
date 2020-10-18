@@ -28,13 +28,22 @@
     SELECT cate_no,shop_no,title,poster,subtitle,price,content,delivery_fee,hit,num
     FROM (SELECT cate_no,shop_no,title,poster,subtitle,price,content,delivery_fee,hit,rownum as num 
     FROM (SELECT cate_no,shop_no,title,poster,subtitle,price,content,delivery_fee,hit 
-    FROM shop ORDER BY shop_no ASC))
+    FROM shop WHERE cate_no=#{cate_no} ORDER BY shop_no ASC))
     WHERE num BETWEEN #{start} AND #{end}
 	</select>
+
+	
+	
 	
 	<select id="shopTotalPage" resultType="int">
-    SELECT CEIL(COUNT(*)/20.0) FROM shop
-  </select>
+    SELECT CEIL(COUNT(*)/12.0) FROM shop
+    WHERE cate_no=#{cate_no}
+	</select>
+  
+
+  
+  
+  
 	
 	<!-- 샵디테일, 장바구니 -->
 	<select id="shopDetailData" resultType="com.sist.vo.ShopVO" parameterType="int">
@@ -48,6 +57,7 @@
     FROM shop
     WHERE title=#{title}
 	</select>
+	
 	
 	<!-- main페이지 Best상품 -->
 	
