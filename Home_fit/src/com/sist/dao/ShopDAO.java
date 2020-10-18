@@ -1,5 +1,4 @@
 package com.sist.dao;
-
 import java.io.*;
 import java.util.*;
 
@@ -9,6 +8,10 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import com.sist.vo.*;
 
+/**
+ * @author 김한비
+ *
+ */
 public class ShopDAO {
 
 	private static SqlSessionFactory ssf; // XML을 읽기

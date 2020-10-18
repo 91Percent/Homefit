@@ -1,4 +1,8 @@
 package com.sist.vo;
+/**
+ * @author 김한비
+ *
+ */
 public class ShopVO {
 	private int cate_no; // 카테고리
 	private int shop_no; // 번호	

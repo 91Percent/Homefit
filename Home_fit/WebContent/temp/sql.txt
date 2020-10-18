@@ -90,3 +90,76 @@ CREATE TABLE HOMEFIT_Recipe
    Difficulty  CLOB,
    CONSTRAINT PK_Recipe PRIMARY KEY (Recipe_no)
 );
+
+
+CREATE TABLE shop
+(
+	cate_no  NUMBER        ,
+	shop_no  NUMBER         NOT NULL,
+	title    VARCHAR2(500)  NOT NULL,
+	poster   VARCHAR2(500) ,
+	subtitle VARCHAR2(2000) NOT NULL,
+	price    VARCHAR2(500) ,
+	content  VARCHAR2(4000) ,
+	delivery_fee VARCHAR2(4000) ,
+	hit      NUMBER        ,	
+	CONSTRAINT PK_shop PRIMARY KEY (shop_no)
+);
+
+
+CREATE TABLE wishlist
+(
+	wishlist_no NUMBER NOT NULL,
+	shop_no NUMBER,       
+	id      VARCHAR2(300) NOT NULL,
+	count   NUMBER       ,
+	direct  VARCHAR2(200)
+);
+
+
+CREATE TABLE purchase
+(
+	purchase_no   NUMBER        NOT NULL,
+	wishlist_no NUMBER,
+	buyer_info VARCHAR2(1000) ,
+	address_info VARCHAR2(4000) ,
+	payment_info VARCHAR2(1000) ,
+	cancel     VARCHAR2(200),
+	admin_sign VARCHAR2(200),
+	date       DATE         ,
+	CONSTRAINT PK_Purchase PRIMARY KEY (purchase_no)
+);
+
+
+CREATE TABLE Challenge 
+(
+   Challenge_no NUMBER        NOT NULL,
+   cate         VARCHAR2(500) NOT NULL,
+   start_day    DATE          NOT NULL,
+   title        VARCHAR2(500) NOT NULL,
+   limit        NUMBER        NOT NULL,
+   poster       VARCHAR2(500),
+   content      VARCHAR2(500),
+   id_leader    VARCHAR2(300) NOT NULL,
+   CONSTRAINT PK_Challenge  PRIMARY KEY (Challenge_no)
+);
+
+
+CREATE TABLE Challenge_Participation 
+(
+   Challenge_no NUMBER        NOT NULL,
+   Challenge_id VARCHAR2(500) NOT NULL,
+   CONSTRAINT PK_Chaalenge_Participation  PRIMARY KEY (Challenge_id)
+);
+
+
+CREATE TABLE Challenge_Certified
+(
+   Challenge_no NUMBER        NOT NULL,
+   poster       VARCHAR2(500),
+   Certified_date         DATE         ,
+   Certified_check        VARCHAR2(500),
+   Certified_no NUMBER        NOT NULL,
+   CONSTRAINT PK_Challenge_Certified PRIMARY KEY (Certified_no)
+);
+

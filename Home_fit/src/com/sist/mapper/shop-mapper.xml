@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mapper.shop-mapper">
-
-	<!-- 데이터 긁기 -->
+<!-- 
+	@author 김한비
+-->
+ 
+ <!-- 데이터 긁기 -->
 	<insert id="shopInsert" parameterType="ShopVO">
     <selectKey keyProperty="shop_no" resultType="int" order="BEFORE">
       SELECT NVL(MAX(shop_no)+1,1) FROM shop

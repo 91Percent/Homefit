@@ -6,6 +6,11 @@ import com.sist.vo.*;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * @author 김한비
+ *
+ */
+
 public class ShopModel {
 	@RequestMapping("shop/shop.do")
 	public String shopListData(HttpServletRequest request) {
