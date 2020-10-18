@@ -16,17 +16,16 @@
     <typeAlias type="com.sist.vo.tutorReviewVO" alias="tutorReviewVO"/>
 	<typeAlias type="com.sist.vo.ShopVO" alias="ShopVO"/>
 	<typeAlias type="com.sist.vo.ExVO" alias="ExVO"/>
+	<typeAlias type="com.sist.vo.MemberVO" alias="MemberVO"/>
   </typeAliases>
   <environments default="development"><!-- 개발 환경을 만든다 -->
     <environment id="development">
-
        <transactionManager type="JDBC"/>
        <dataSource type="POOLED">
            <property name="driver" value="${driver}"/>
            <property name="url" value="${url}"/>
            <property name="username" value="${username}"/>
            <property name="password" value="${password}"/>
-
        </dataSource>
     </environment>
   </environments>
@@ -35,5 +34,6 @@
     <mapper resource="com/sist/mapper/coach-mapper.xml"/>
     <mapper resource="com/sist/mapper/shop-mapper.xml"/>
     <mapper resource="com/sist/mapper/Ex-mapper.xml"/>
+     <mapper resource="com/sist/mapper/member-mapper.xml"/>
   </mappers>
 </configuration>
