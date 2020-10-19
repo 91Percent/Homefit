@@ -6,10 +6,12 @@
   	<servlet-class>com.sist.controller.DispatcherServlet</servlet-class>
   	<init-param>
   		<param-name>contextConfigLocation</param-name>
+  		<!-- <param-value>/Users/haeni/git/Homefit/Home_fit/WebContent/WEB-INF/app.xml</param-value> -->
   		<param-value>C:\Users\Homefit\Home_fit\WebContent\WEB-INF\app.xml</param-value>
   	</init-param>
   	<init-param>
   		<param-name>path</param-name>
+  		<!-- <param-value>/Users/haeni/git/Homefit/Home_fit/src</param-value> -->
   		<param-value>C:\Users\Homefit\Home_fit\src</param-value>
   	</init-param>
   </servlet>

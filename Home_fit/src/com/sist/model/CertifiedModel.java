@@ -1,6 +1,5 @@
 package com.sist.model;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -81,6 +80,7 @@ public class CertifiedModel {
 		
 		String challenge_no = request.getParameter("challenge_no");
 		String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\"+challenge_no;
+//		String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\"+challenge_no;
 		File Folder = new File(path);
 		
 		if(!Folder.exists())
@@ -112,6 +112,7 @@ public class CertifiedModel {
 	     System.out.println("no 번호는 과연?"+challenge_no);
 	     
 	    String path="C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\"+challenge_no; // 파일이 업로드가 되면 어디에 저장 폴더 
+//	    String path="C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\"+challenge_no; // 파일이 업로드가 되면 어디에 저장 폴더 
 	    String enctype="UTF-8"; //한글파일명을 사용 여부 
 	    int size=1024*1024*100;//파일의 최대크기 
 	      // 사용자가 보내준 데이터를 받는다 (request=>파일을 받을 수 없다 , 일반데이터만 받는다)
@@ -158,7 +159,6 @@ public class CertifiedModel {
 	      
 	      // DAO를 호출한 다음에 INSERT요청 => 저장하는 SQL (databoard-mapper.xml)
 	      Challenge_CertifiedDAO.Challenge_CertifiedUpload(vo); // 추가 
-	    request.setAttribute("main_jsp","redirect:/challenge/Certified.jsp");
-		return "../main/main.jsp";
+	    return "redirect:../main/main.do";	    
 	}
 }
