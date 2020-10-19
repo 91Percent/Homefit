@@ -103,7 +103,7 @@ font-family: 'Nanum Pen Script',cursive;
                   </div>
                   <div class="card-body">
                     <p>pilates</p>
-                    <a href="#"><p>${vo.subject }</p></a>
+                    <a href="detail.do?home_no=${vo.home_no }"><p>${vo.subject }</p></a>
                   </div>
                 </div>
               </div>

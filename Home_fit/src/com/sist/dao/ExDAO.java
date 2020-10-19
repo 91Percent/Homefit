@@ -87,4 +87,11 @@ public class ExDAO {
 		session.close();
 		return total;
 	}
+	public static ExVO exDetailData(int home_no)
+	{
+		SqlSession session=ssf.openSession();
+		ExVO vo=session.selectOne("exDetailData",home_no);
+		session.close();
+		return vo;
+	}
 }

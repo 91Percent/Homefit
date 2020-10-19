@@ -174,4 +174,18 @@ public class ExModel {
 	       request.setAttribute("main_jsp","../ex/total.jsp");
 	        return "../main/main.jsp";
 	}
+	@RequestMapping("ex/detail.do")
+	public String ex_detail(HttpServletRequest request)
+	{
+		String home_no=request.getParameter("home_no");
+		System.out.println(home_no);
+		String page=request.getParameter("page");
+		String cate_no=request.getParameter("cate_no");
+		ExVO vo=ExDAO.exDetailData(Integer.parseInt(home_no));
+		if(page==null)
+			page="1";
+		request.setAttribute("vo", vo);
+		request.setAttribute("main_jsp", "../ex/ex_detail.jsp");
+		return "../main/main.jsp";
+	}
 }

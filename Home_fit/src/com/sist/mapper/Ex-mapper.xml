@@ -22,4 +22,8 @@
 <select id="exTotalPage2" resultType="int" parameterType="int">
 	SELECT CEIL(COUNT(*)/12.0) FROM hometraining
 </select>
+  <select id="exDetailData" resultType="ExVO" parameterType="int">
+   SELECT * FROM hometraining
+   WHERE home_no=#{home_no}
+  </select>
 </mapper>

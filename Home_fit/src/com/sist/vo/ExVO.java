@@ -16,7 +16,7 @@ package com.sist.vo;
 public class ExVO {
 	private int cate_no;
 	private int home_no;
-	private String home_lever;
+	private String home_level;
 	private String subject;
 	private String poster;
 	private String focus;
@@ -38,11 +38,12 @@ public class ExVO {
 	public void setHome_no(int home_no) {
 		this.home_no = home_no;
 	}
-	public String getHome_lever() {
-		return home_lever;
+	
+	public String getHome_level() {
+		return home_level;
 	}
-	public void setHome_lever(String home_lever) {
-		this.home_lever = home_lever;
+	public void setHome_level(String home_level) {
+		this.home_level = home_level;
 	}
 	public String getSubject() {
 		return subject;
