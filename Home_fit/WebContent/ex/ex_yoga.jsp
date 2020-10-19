@@ -95,7 +95,7 @@ font-family: 'Nanum Pen Script',cursive;
               <div class="col-md-6 col-lg-4">
                 <div class="card text-center card-product">
                   <div class="card-product__img">
-                    <img class="card-img" src="https://${vo.poster }" alt="">
+                    <img class="card-img" src="${vo.poster }" alt="">
                     <ul class="card-product__imgOverlay">
                       <li><button><i class="ti-search"></i></button></li>
                       <li><button><i class="ti-heart"></i></button></li>
