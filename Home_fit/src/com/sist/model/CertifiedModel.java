@@ -1,6 +1,5 @@
 package com.sist.model;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -158,7 +157,6 @@ public class CertifiedModel {
 	      
 	      // DAO를 호출한 다음에 INSERT요청 => 저장하는 SQL (databoard-mapper.xml)
 	      Challenge_CertifiedDAO.Challenge_CertifiedUpload(vo); // 추가 
-	    request.setAttribute("main_jsp","redirect:/challenge/Certified.jsp");
-		return "../main/main.jsp";
+	    return "redirect:../main/main.do";	    
 	}
 }

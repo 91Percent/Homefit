@@ -31,8 +31,6 @@
 	<jsp:include page="../main/footer.jsp"></jsp:include>
 	<!--================ End footer Area  =================-->
 
-
-
   <script src="../template/vendors/jquery/jquery-3.2.1.min.js"></script>
   <script src="../template/vendors/bootstrap/bootstrap.bundle.min.js"></script>
   <script src="../template/vendors/skrollr.min.js"></script>
