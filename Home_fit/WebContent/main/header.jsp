@@ -36,7 +36,7 @@
 	                  aria-expanded="false">Shop(한비)</a>
 	                <ul class="dropdown-menu">
 	                <!-- category.html -->
-	                  <li class="nav-item"><a class="nav-link" href="../shop/shop.do?cate_no=11">식단</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="">식단</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="single-product.html">건강간식</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="checkout.html">식사대용</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="confirmation.html">단백질보충</a></li>

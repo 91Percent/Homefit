@@ -64,7 +64,7 @@ public class ShopModel {
 	   String cate_no=request.getParameter("cate_no");
 	   
 	   if(cate_no==null) {
-		   cate_no="11";
+		   cate_no="411";
 	   }
 	   /*
 	   else if(Integer.parseInt(cate_no)/10==1) {
@@ -121,16 +121,14 @@ public class ShopModel {
 	
 	@RequestMapping("shop/shop_detail.do")
 	public String shopDetailData(HttpServletRequest request) {
+		//String page=request.getParameter("page");
+		//String cate_no=request.getParameter("cate_no");
+		String shop_no=request.getParameter("shop_no");
+		ShopVO vo=ShopDAO.shopDetailData(Integer.parseInt(shop_no));
 		
-		// String title=request.getParameter("title");
-		// List<ShopVO> list=ShopDAO.shopDetailData2(title);
-		// request.setAttribute("list", list);
-		////String shop_no=request.getParameter("shop_no");
-		Map map=new HashMap();
-		//int div=
-		//List<ShopVO> list=ShopDAO.shopDetailData(map);
-    	
-		request.setAttribute("main_jsp", "shop/shop_detail.jsp");
+    	request.setAttribute("vo", vo);
+		
+		request.setAttribute("main_jsp", "../shop/shop_detail.jsp");
 		return "../main/main.jsp";
 	}
 	

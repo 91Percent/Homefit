@@ -3,9 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:useBean id="model" class="com.sist.model.ShopModel"/>
-<%
-    model.shopListData(request);
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -186,16 +184,7 @@
     </div>
   </div>
 -->
-  
-<!-- 
-  <div class="row">
-    <div class="text-right">
-      <a href="#" class="btn btn-lg btn-primary">예매하기</a>
-      <a href="#" class="btn btn-lg btn-danger">찜하기</a>
-      <a href="../shop/shop.do" class="btn btn-lg btn-warning">목록</a>
-    </div>
-  </div>
- -->
+
  
    
 </body>

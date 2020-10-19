@@ -3,9 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:useBean id="model" class="com.sist.model.ShopModel"/>
-<%
-   model.shopDetailData(request);
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,35 +11,87 @@
 <title>Insert title here</title>
 </head>
 <body>
-  <div class="row">
-    <h1 class="text-center">&lt;${vo.title }&gt;상세보기</h1>
-    
-    <table class="table">
-      <tr>
-        <td width=30% class="text-center" rowspan="3">
-          <img src="${vo.poster }" width=50%>
-        </td>
-        <td colspan="2"><font color=orange>${vo.title }</font></td>
-      </tr>
-      <tr>
-        <td width=10%>상품설명</td>
-        <td width=60%>${vo.subtitle }</td>
-      </tr>
-      <div>
-      	
-        <a href="../shop/wishlist.do?shop_no=${vo.shop_no }" class="btn btn-lg btn-warning">장바구니</a>/
-        <a href="../shop/order.do?shop_no=${vo.shop_no }" class="btn btn-lg btn-warning">바로구매</a>
-      </div>
-          
-       
-    </table>
-  </div>
-  <div class="row">
-    <div class="text-right">
-      <a href="#" class="btn btn-lg btn-primary">예매하기</a>
-      <a href="#" class="btn btn-lg btn-danger">찜하기</a>
-      <a href="../shop/shop.do" class="btn btn-lg btn-warning">목록</a>
+
+
+
+	<!-- ================ start banner area ================= -->	
+	<section class="blog-banner-area" id="blog">
+		<div class="container h-100">
+			<div class="blog-banner">
+				<div class="text-center">
+					<h1>샵 디테일</h1>
+					<nav aria-label="breadcrumb" class="banner-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">G반</a></li>
+              <li class="breadcrumb-item active" aria-current="page">김한비</li>
+            </ol>
+          </nav>
+				</div>
+			</div>
     </div>
-  </div>
+	</section>
+	<!-- ================ end banner area ================= -->
+
+
+  <!--================Single Product Area =================-->
+	<div class="product_image_area">
+		<div class="container">
+			<div class="row s_product_inner">
+				<div class="col-lg-6">
+					<div class="owl-carousel owl-theme s_Product_carousel">
+						<div class="single-prd-item">
+							<img class="img-fluid" src="${vo.poster }">
+						</div>
+						<!-- <div class="single-prd-item">
+							<img class="img-fluid" src="img/category/s-p1.jpg" alt="">
+						</div>
+						<div class="single-prd-item">
+							<img class="img-fluid" src="img/category/s-p1.jpg" alt="">
+						</div> -->
+					</div>
+				</div>
+				<div class="col-lg-5 offset-lg-1">
+					<div class="s_product_text">
+						<h3>${vo.title }</h3>
+						<h2>$149.99</h2>
+						<ul class="list">
+							<li><a class="active" href="#"><span>Category</span> : Household</a></li>
+							<li><a href="#"><span>Availibility</span> : In Stock</a></li>
+						</ul>
+						<p>Mill Oil is an innovative oil filled radiator with the most modern technology. If you are looking for
+							something that can make your interior look awesome, and at the same time give you the pleasant warm feeling
+							during the winter.</p>
+						<div class="product_count">
+              <label for="qty">Quantity:</label>
+              <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+							 class="increase items-count" type="button"><i class="ti-angle-left"></i></button>
+							<input type="text" name="qty" id="sst" size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
+							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+               class="reduced items-count" type="button"><i class="ti-angle-right"></i></button>
+							<a class="button primary-btn" href="#">Add to Cart</a>               
+						</div>
+						<div class="card_area d-flex align-items-center">
+							<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
+							<a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--================End Single Product Area =================-->
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>

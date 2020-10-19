@@ -73,31 +73,19 @@ public class ShopDAO {
 		}
 		return total;
 	}
-	public static int movieTotalPage(int cateno)
+	
+	public static int movieTotalPage(int cate_no)
 	   {
 		   SqlSession session=ssf.openSession();
-		   int total=session.selectOne("shopTotalPage", cateno);
+		   int total=session.selectOne("shopTotalPage", cate_no);
 		   session.close();
 		   return total;
 	   }
 
 	public static ShopVO shopDetailData(int shop_no) {
-		ShopVO vo = new ShopVO();
-		// 연결
-		SqlSession session = null;
-		try {
-			// 연결 시도
-			session = ssf.openSession();
-			// SQL문장을 실행 => 결과값을 저장
-			vo = session.selectOne("shopDetailData", shop_no);
-		} catch (Exception ex) {
-			// 에러 처리
-			ex.printStackTrace();
-		} finally {
-			// 닫기 ==> 재사용이 가능하게 반환
-			if (session != null)
-				session.close();
-		}
+		SqlSession session=ssf.openSession();
+		ShopVO vo=session.selectOne("shopDetailData", shop_no);
+		session.close();
 		return vo;
 	}
 
