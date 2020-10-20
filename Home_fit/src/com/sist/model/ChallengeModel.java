@@ -153,7 +153,6 @@ public class ChallengeModel {
 	     vo.setDb_start_day(start_day);
 	     vo.setDb_end_day(end_day);
 	     vo.setId_leader("haenyi");
-	     
 	    
 	     
 	     // filename,filesize => 없는 경우 (파일을 올리지 않을 경우,파일 올릴 경우)
