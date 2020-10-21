@@ -62,17 +62,13 @@ public class ShopModel {
 	   if(page==null)
 		   page="1";
 	   String cate_no=request.getParameter("cate_no");
-	   
 	   if(cate_no==null) {
 		   cate_no="411";
 	   }
-	   /*
-	   else if(Integer.parseInt(cate_no)/10==1) {
-		   cate_no="1";
-	   }else if(Integer.parseInt(cate_no)/10==2) {
-		   cate_no="1";
-	   }
-	   */
+	   // cnum => cate_no의 십의자리 숫자
+	   int cnum=Integer.parseInt(cate_no);
+	   int cate_no_num=400+cnum*10+1;
+	   
 	   // Map 
 	   // 현재 페이지 
 	   int curpage=Integer.parseInt(page);
@@ -80,9 +76,12 @@ public class ShopModel {
 	   int start=(rowSize*curpage)-(rowSize-1);
 	   int end=rowSize*curpage;
 	   
+	   System.out.println(cate_no_num);
+	   
 	   // Map에 저장 
 	   Map map=new HashMap();
-	   map.put("cate_no", cate_no);
+	   //map.put("cate_no", cate_no);
+	   map.put("cate_no_num", cate_no_num);
 	   map.put("start", start);
 	   map.put("end", end);
 	   // 데이터베이스 연결 
@@ -98,7 +97,8 @@ public class ShopModel {
 	   		vo.setTitle(str);
 	   	}
 	   // 총페이지 
-	   int totalpage=ShopDAO.shopTotalPage(Integer.parseInt(cate_no));
+	   //int totalpage=ShopDAO.shopTotalPage(Integer.parseInt(cate_no));
+	   int totalpage=ShopDAO.shopTotalPage(cate_no_num);
 	   
 	   int BLOCK=totalpage;
 	   int startPage=((curpage-1)/BLOCK*BLOCK)+1;
@@ -108,6 +108,7 @@ public class ShopModel {
 	   
 	   // JSP에서 필요한 데이터를 보내기 시작 
 	   // request에 값을 채운다 
+	   request.setAttribute("cnum", cnum);
 	   request.setAttribute("list", list);
 	   request.setAttribute("curpage", curpage);
 	   request.setAttribute("totalpage", totalpage);

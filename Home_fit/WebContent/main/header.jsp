@@ -36,12 +36,12 @@
 	                  aria-expanded="false">Shop(한비)</a>
 	                <ul class="dropdown-menu">
 	                <!-- category.html -->
-	                  <li class="nav-item"><a class="nav-link" href="">식단</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="single-product.html">건강간식</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="checkout.html">식사대용</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="confirmation.html">단백질보충</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="cart.html">체지방관리</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="cart.html">헬스케어</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="../shop/shop.do?cate_no=1">식단</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="../shop/shop.do?cate_no=2">건강간식</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="../shop/shop.do?cate_no=3">식사대용</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="../shop/shop.do?cate_no=4">단백질보충</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="../shop/shop.do?cate_no=5">체지방관리</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="../shop/shop.do?cate_no=6">헬스케어</a></li>
 	                </ul>
 				  </li>
 	              <li class="nav-item submenu dropdown">
