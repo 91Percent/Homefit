@@ -30,9 +30,9 @@ Insert INTO coach_info VALUES(
 <select id="coachListData" resultType="tutor_VO" parameterType="hashmap">
 	SELECT coach_no,coach_name,coach_detail,coach_poster,poster,subject,content,price,review_avg,num
 	FROM (SELECT coach_no,coach_name,coach_detail,coach_poster,poster,subject,content,price,review_avg,rownum as num
-	FROM (SELECT coach_no,coach_name,coach_detail,coach_poster,poster,subject,content,price,review_avg,num
-	FROM coach_info))
-	WHERE num BETWEEN #{start} AND #{end}
+	FROM (SELECT coach_no,coach_name,coach_detail,coach_poster,poster,subject,content,price,review_avg
+	FROM coach_info WHERE cate_no=#{cateno}))
+	WHERE num BETWEEN #{start} AND #{end} 
 </select>
 <select id="coachTotalPage" resultType="int">
 	SELECT CEIL(COUNT(*)/10.0) FROM coach_info
@@ -42,7 +42,7 @@ Insert INTO coach_info VALUES(
 <select id="scheduleListData" resultType="ScheduleVO" parameterType="hashmap">
 	SELECT coach_no,month,time,place,reserve_check,schedule_no,num
 	FROM (SELECT coach_no,month,time,place,reserve_check,schedule_no,rownum as num
-	FROM (SELECT coach_no,month,time,place,reserve_check,schedule_no,num
+	FROM (SELECT coach_no,month,time,place,reserve_check,schedule_no
 	FROM coach_schedule))
 	WHERE num BETWEEN #{start} AND #{end}
 </select>

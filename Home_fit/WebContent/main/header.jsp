@@ -48,7 +48,7 @@
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 	                  aria-expanded="false">코치</a>
 	                <ul class="dropdown-menu">
-	                  <li class="nav-item"><a class="nav-link" href="blog.html">코치소개</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="../coach/coachlist.do">코치소개</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="single-blog.html">아돈노</a></li>
 	                </ul>
 				</li>

@@ -65,28 +65,32 @@ public class CoachDAO {
 		   }
 		   return list;
 	   }
-	   // 스케쥴 총페이지
-	   public static int coachTotalpage()
-	   {
-		   int total=0;
-		   SqlSession session=null;
-		   try
-		   {
-			   session=ssf.openSession();
-			   total=session.selectOne("scheduleTotalPage");
-		   }catch(Exception ex)
-		   {
-			   ex.printStackTrace();
-		   }
-		   finally
-		   {
-			   if(session!=null)
-				   session.close();
-		   }
-		   return total;
-	   }
 	   
-	   // 코치 목록
+	   
+	   // 스케쥴 총페이지
+//	   public static int coachTotalpage()
+//	   {
+//		   int total=0;
+//		   SqlSession session=null;
+//		   try
+//		   {
+//			   session=ssf.openSession();
+//			   total=session.selectOne("scheduleTotalPage");
+//		   }catch(Exception ex)
+//		   {
+//			   ex.printStackTrace();
+//		   }
+//		   finally
+//		   {
+//			   if(session!=null)
+//				   session.close();
+//		   }
+//		   return total;
+//	   }
+//	   
+	   
+	   
+	   // 코치 목록 데이터
 	   public static void CoachInsert(tutor_VO vo1)
 	   {
 		   SqlSession session=null;
@@ -104,8 +108,28 @@ public class CoachDAO {
 				   session.close();
 		   }
 	   }
+	   // 코치 정보 목록
+	   public static List<tutor_VO> coachListData(Map map)
+	   {
+		   List<tutor_VO> list=new ArrayList<tutor_VO>();
+		   SqlSession session=null;
+		   try
+		   {
+			   session=ssf.openSession();
+			   list=session.selectList("coachListData",map);
+		   }catch(Exception ex)
+		   {
+			   ex.printStackTrace();
+		   }
+		   finally
+		   {
+			   if(session!=null)
+				   session.close();
+		   }
+		   return list;
+	   }
 	   // 코치 총페이지
-	   public static int coachTotalpags()
+	   public static int coachTotalpages()
 	   {
 		   int total=0;
 		   SqlSession session=null;
