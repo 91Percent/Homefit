@@ -24,6 +24,7 @@
 	</insert>
 	
 	<!-- 샵목록 -->
+	<!-- 
 	<select id="shopListData" resultType="com.sist.vo.ShopVO" parameterType="hashmap">
     SELECT cate_no,shop_no,title,poster,subtitle,price,content,delivery_fee,hit,num
     FROM (SELECT cate_no,shop_no,title,poster,subtitle,price,content,delivery_fee,hit,rownum as num 
@@ -31,16 +32,28 @@
     FROM shop WHERE cate_no=#{cate_no} ORDER BY shop_no ASC))
     WHERE num BETWEEN #{start} AND #{end}
 	</select>
-
+	 -->
+	 <select id="shopListData" resultType="com.sist.vo.ShopVO" parameterType="hashmap">
+    SELECT cate_no,shop_no,title,poster,subtitle,price,content,delivery_fee,hit,num
+    FROM (SELECT cate_no,shop_no,title,poster,subtitle,price,content,delivery_fee,hit,rownum as num 
+    FROM (SELECT cate_no,shop_no,title,poster,subtitle,price,content,delivery_fee,hit 
+    	FROM shop 
+    	WHERE cate_no BETWEEN #{cate_no_num} AND #{cate_no_num}+8 
+    	ORDER BY shop_no ASC))
+    WHERE num BETWEEN #{start} AND #{end}
+	</select>
 	
 	
-	
+	<!-- 
 	<select id="shopTotalPage" resultType="int">
     SELECT CEIL(COUNT(*)/12.0) FROM shop
     WHERE cate_no=#{cate_no}
 	</select>
-  
-
+  	 -->
+	<select id="shopTotalPage" resultType="int">
+    SELECT CEIL(COUNT(*)/12.0) FROM shop
+    WHERE cate_no BETWEEN #{cate_no_num} AND #{cate_no_num}+8 
+	</select>
   
   
   
