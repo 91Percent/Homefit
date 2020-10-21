@@ -137,55 +137,29 @@
 		<ul class="pagination">
 			<c:if test="${curpage>BLOCK }">
 				<li class="page-item">
-					<a href="../shop/shop.do?page=${startPage-1 }" class="page-link" aria-label="Previous">&lt;</a>
+					<a href="../shop/shop.do?cate_no=${cate_no }&page=${startPage-1 }" class="page-link" aria-label="Previous">&lt;</a>
 				</li>
 			</c:if>
 			<c:forEach var="i" begin="${startPage }" end="${endPage }">
 				<c:if test="${i==curpage }">
 					<li class="active">
-						<a href="../shop/shop.do?page=${i} " class="page-link">${i }</a>
+						<a href="../shop/shop.do?cate_no=${cate_no }&page=${i} " class="page-link">${i }</a>
 					</li>
 				</c:if>
 				<c:if test="${i!=curpage }">
 					<li class="page-item">
-						<a href="../shop/shop.do?page=${i} " class="page-link">${i }</a>
+						<a href="../shop/shop.do?cate_no=${cate_no }&page=${i} " class="page-link">${i }</a>
 					</li>
 				</c:if>
 			</c:forEach>
 			<c:if test="${endPage<totalpage }">
 				<li class="page-item">
-					<a href="../shop/shop.do?page=${endPage+1 }" class="page-link" aria-label="Next">&gt;</a>
+					<a href="../shop/shop.do?cate_no=${cate_no }&page=${endPage+1 }" class="page-link" aria-label="Next">&gt;</a>
 				</li>
 			</c:if>
 		</nav>
 
 
-
-
-<!--  
-  <div class="row">
-    <div class="text-center">
-       <ul class="pagination">
-          <c:if test="${curpage>BLOCK }">
-           <li><a href="../movie/total.do?page=${startPage-1 }">&lt;</a></li>
-          </c:if>
-          <c:forEach var="i" begin="${startPage }" end="${endPage }">
-            <c:if test="${i==curpage }">
-              <li class="active"><a href="../movie/total.do?page=${i }">${i }</a></li>
-            </c:if>
-            <c:if test="${i!=curpage }">
-              <li><a href="../movie/total.do?page=${i }">${i }</a></li>
-            </c:if>
-          </c:forEach>
-          <c:if test="${endPage<totalpage }">
-		    <li><a href="../movie/total.do?page=${endPage+1 }">&gt;</a></li>
-		  </c:if>
-		</ul>
-    </div>
-  </div>
--->
-
- 
    
 </body>
 </html>
