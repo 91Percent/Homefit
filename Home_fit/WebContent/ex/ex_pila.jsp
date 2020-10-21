@@ -14,14 +14,22 @@ font-family: 'Nanum Pen Script',cursive;
 .p{
 font-family: 'Nanum Pen Script',cursive;
 }
+.h-100{
+background-image:url("pila.png");
+height: 100%;
+ background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 </style>
 </head>
 <body>
 <section class="blog-banner-area row1" id="category">
-		<div class="container h-100">
+			<div class="container h-100">
 			<div class="blog-banner">
 				<div class="text-center">
-					<h1>PILATES</h1>
+					<h1>Pilates</h1>
 					<nav aria-label="breadcrumb" class="banner-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="#">필라테스</a></li>
@@ -97,7 +105,7 @@ font-family: 'Nanum Pen Script',cursive;
                   <div class="card-product__img">
                     <img class="card-img" src="${vo.poster }" alt="">
                     <ul class="card-product__imgOverlay">
-                      <li><button><i class="ti-search"></i></button></li>
+                      <li><button onclick="location.href='detail.do?home_no=${vo.home_no }'"><i class="ti-search"></i></button></li>
                       <li><button><i class="ti-heart"></i></button></li>
                     </ul>
                   </div>

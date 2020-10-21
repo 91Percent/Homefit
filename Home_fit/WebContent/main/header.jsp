@@ -12,7 +12,7 @@
 	    <div class="main_menu">
 	      <nav class="navbar navbar-expand-lg navbar-light">
 	        <div class="container">
-	          <a class="navbar-brand logo_h" href="index.html">HOME FIT</a>
+	          <a class="navbar-brand logo_h" href="">HOME FIT</a>
 	          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 	            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	          	<span class="icon-bar"></span>
@@ -23,7 +23,7 @@
 	            <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
 	              <li class="nav-item submenu dropdown">
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-	                  aria-expanded="false">홈트</a>
+	                  aria-expanded="false">홈트레이닝</a>
 	                   <ul class="dropdown-menu">
 	                  <li class="nav-item"><a class="nav-link" href="../ex/total.do">홈트레이닝</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="../ex/weight.do?cate_no=1">근력</a></li>
@@ -33,7 +33,7 @@
 	              </li>
 	              <li class="nav-item submenu dropdown">
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-	                  aria-expanded="false">Shop(한비)</a>
+	                  aria-expanded="false">홈트샵</a>
 	                <ul class="dropdown-menu">
 	                <!-- category.html -->
 	                  <li class="nav-item"><a class="nav-link" href="../shop/shop.do?cate_no=1">식단</a></li>
@@ -46,7 +46,7 @@
 				  </li>
 	              <li class="nav-item submenu dropdown">
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-	                  aria-expanded="false">코치(치훈)</a>
+	                  aria-expanded="false">코치</a>
 	                <ul class="dropdown-menu">
 	                  <li class="nav-item"><a class="nav-link" href="blog.html">코치소개</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="single-blog.html">아돈노</a></li>
@@ -73,10 +73,11 @@
 	              </li>
 	            </ul>
 	
-	            <ul class="nav-shop">
-	              <li class="nav-item"><button><i class="ti-search"></i></button></li>
-	              <li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span></button> </li>
-	              <li class="nav-item"><a class="button button-header" href="#">Buy Now</a></li>
+	             <ul class="nav-shop" id="nav-user">
+	              <li class="nav-item"><button><a class="#" href="">로그인</a></button></li>
+	              <li class="nav-item">/</li>
+	              <li class="nav-item"><button><a class="#" href="">회원가입</a></button></li>
+	              <li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">1</span></button> </li>
 	            </ul>
 	          </div>
 	        </div>

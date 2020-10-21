@@ -79,39 +79,36 @@ public class CertifiedModel {
 		
 		
 		String challenge_no = request.getParameter("challenge_no");
-		String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\"+challenge_no;
 //		String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\"+challenge_no;
-		File Folder = new File(path);
-		
-		if(!Folder.exists())
-		{
-			try{
-				Folder.mkdir();
-				System.out.println("폴더가 생성되었습니다.");
-			}catch(Exception e){}
-		}else{
-			System.out.println("이미 폴더가 생성되어 있습니다.");
-		}
+////		String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\"+challenge_no;
+//		File Folder = new File(path);
+//		
+//		if(!Folder.exists())
+//		{
+//			try{
+//				Folder.mkdir();
+//				System.out.println("폴더가 생성되었습니다.");
+//			}catch(Exception e){}
+//		}else{
+//			System.out.println("이미 폴더가 생성되어 있습니다.");
+//		}
 		request.setAttribute("challenge_no", challenge_no);
+		
 		request.setAttribute("main_jsp","../challenge/Certified.jsp");
 		return "../main/main.jsp";
 	}	
 		
 	@RequestMapping("challenge/Certified_ok.do")
-	public String Certified_ok(HttpServletRequest request)
+	public String Certified_ok(HttpServletRequest request) throws IOException
 	{	
 		System.out.println("??");
-		 MultipartRequest mr;
 		 String filename ="";
-		    
+		 
 		try {
 	 	request.setCharacterEncoding("utf-8");// 한글 디코딩
 		}catch (IOException e) {e.printStackTrace();
 		}
-	     String challenge_no= request.getParameter("challenge_no");
-	     System.out.println("no 번호는 과연?"+challenge_no);
-	     
-	    String path="C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\"+challenge_no; // 파일이 업로드가 되면 어디에 저장 폴더 
+	    
 //	    String path="C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\"+challenge_no; // 파일이 업로드가 되면 어디에 저장 폴더 
 	    String enctype="UTF-8"; //한글파일명을 사용 여부 
 	    int size=1024*1024*100;//파일의 최대크기 
@@ -121,44 +118,70 @@ public class CertifiedModel {
 	    SimpleDateFormat sdfCurrent = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
 	 	Timestamp currentTime = new Timestamp(tempTime);
 	 	String today = sdfCurrent.format(currentTime);
-	      
-	   
-		try {
-			mr = new MultipartRequest(request,path,size,enctype,new DefaultFileRenamePolicy());
-			filename=mr.getOriginalFileName("upload");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	 	
+	 	String path="C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\challenge_poster"; // 파일이 업로드가 되면 어디에 저장 폴더 
 		
-	 /*     
-	      String name=mr.getParameter("name"); // 업로드시에만 사용
-	      String subject=mr.getParameter("subject");
-	      String content=mr.getParameter("content");
-	      String pwd=mr.getParameter("pwd");
-	 */   
-	      // 받은 데이터들을 DAO => DAO에서 오라클에 INSERT
-	      Challenge_CertifiedVO vo = new Challenge_CertifiedVO();
+	 	MultipartRequest mr = new MultipartRequest(request,path,size,enctype,new DefaultFileRenamePolicy());
+	 	String challenge_no =mr.getParameter("challenge_no");
+	 	//challenge_no=mr.getParameter("challenge_no");
+		filename=mr.getOriginalFileName("upload");
+		String realname = filename;
+		File photopath = new File(path);
+		File[] fileList = photopath.listFiles();
+//		if(fileList.length>0)
+//		{
+//			for(int i=0;i<fileList.length;i++)
+//			{
+//				if(filename.equals(fileList[i].getName()))
+//				System.out.println("파일 이름들"+fileList[i].getName());
+//				
+//			}
+//		}
+		int j=1;
+		System.out.println("파일 이름 길이"+filename.length());
+		System.out.println("파일 길이"+fileList.length);
+		if(fileList.length>1)
+		{
+			System.out.println("조건에 해당됐음.");
+			for(int i=0;i<fileList.length;i++)
+			{
+				if(filename.equals(fileList[i].getName()))
+				{
+					filename = realname;
+					System.out.println("파일 이름 :"+filename.substring(0,filename.length()-4));
+					System.out.println("중간 번호 :"+j);
+					System.out.println("확  장  자 :"+filename.substring(filename.lastIndexOf("p")));
+					filename=filename.substring(0,filename.length()-4)+j+filename.substring(filename.lastIndexOf("."));
+					i=0;
+					++j;
+					System.out.println("같은 이름 있음 ");
+				}
+			}
+		}
+			System.out.println("no 번호는 과연?"+challenge_no);
+			// 받은 데이터들을 DAO => DAO에서 오라클에 INSERT
+	    	Challenge_CertifiedVO vo = new Challenge_CertifiedVO();
 	      
-	      vo.setCertified_check("Y");
-	      vo.setChallenge_no(Integer.parseInt(challenge_no));
-	      vo.setChallenge_id("ji");
+	      
 	      // filename,filesize => 없는 경우 (파일을 올리지 않을 경우,파일 올릴 경우)
-	    
 	      // 사용자가 보낸 파일명을 읽어 온다 
 	      // <input type=file name=upload size=20 class="input-sm">
 	      if(filename==null)//파일을 올리지 않을 경우
 	      {
 	      	 vo.setPoster("");
 	      }
-	      
 	      else//파일 올릴 경우	
 	      { 
 	      	 vo.setPoster(filename);
-	      	 System.out.println("filename은 ?"+filename);
+	      	 System.out.println("filename ="+filename);
 	      }
-	      
+	      vo.setCertified_check("Y");
+	      vo.setChallenge_no(Integer.parseInt(challenge_no));
+	      vo.setChallenge_id("ji");
 	      // DAO를 호출한 다음에 INSERT요청 => 저장하는 SQL (databoard-mapper.xml)
 	      Challenge_CertifiedDAO.Challenge_CertifiedUpload(vo); // 추가 
-	    return "redirect:../main/main.do";	    
+	      
+	    return "redirect:../challenge/Challenge.do";	    
 	}
+	
 }

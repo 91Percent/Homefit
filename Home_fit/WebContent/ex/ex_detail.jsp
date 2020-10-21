@@ -29,7 +29,7 @@
 
   <!--================Single Product Area =================-->
 	<div class="product_image_area">
-		<div class="container">
+		<div class="container ">
 			<div class="row s_product_inner">
 				<div class="col-lg-6">
 					<div class="owl-carousel owl-theme s_Product_carousel">
@@ -63,27 +63,40 @@
       <div class="container">
         <div class="section-intro pb-60px">
           <h2>함께 따라해보는 <span class="section-intro__style">자세</span></h2>
-          <c:forTokens var="step" items="${vo.step_no }" delims="|">
-          ${step}
-		</c:forTokens>
+		     <c:forTokens var="c" items="${vo.step_no }" delims="|" varStatus="status" >
+		     ${c } 
+		     
+		       <c:forTokens var="p" items="${vo.step_content }" delims="|"  begin="${status.index }" end="${status.index }"> 
+		       ${p } <br> 
+		       
+		       <c:forTokens var="a" items="${vo.step_image }" delims="|"  begin="${status.index }" end="${status.index }"> 
+		       ${a } <br> 
+		       </c:forTokens>
+		      </c:forTokens>
+		  </c:forTokens>
         </div>
 
+		<c:forTokens var="c" items="${vo.step_no }" delims="|" varStatus="status" >
+		  <c:forTokens var="p" items="${vo.step_content }" delims="|"  begin="${status.index }" end="${status.index }">
+		  <c:forTokens var="a" items="${vo.step_image }" delims="|"  begin="${status.index }" end="${status.index }">
         <div class="row">
           <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
             <div class="card card-blog">
               <div class="card-blog__img">
-                <img class="card-img rounded-0" src="img/blog/blog1.png" alt="">
-              </div>
+                <img class="card-img rounded-0" src="${a }" alt="">
+		       </c:forTokens>
+              
               <div class="card-body">
-                <ul class="card-blog__info">
-                </ul>
-                <h4 class="card-blog__title">The Richland Center Shooping News and weekly shooper</h4>
-                <p>Let one fifth i bring fly to divided face for bearing divide unto seed. Winged divided light Forth.</p>
+                <h4 class="card-blog__title">
+               		 ${c }  </h4>
+                <p> ${p }</p>
+                </div>
               </div>
-            </div>
           </div>
           </div>
          </div>
+          </c:forTokens>
+		     </c:forTokens>
     </section>
 </body>
 </html>

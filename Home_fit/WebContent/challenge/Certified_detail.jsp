@@ -74,18 +74,18 @@
 				</table>
 				<h3 style=text-align:center>참석중인 사람들의 인증 사진</h3>
 				<c:forEach var="Certifiedvo" items="${Certifiedvo }">
-								
+										<h2>번호:${vo.challenge_no } 이름 ${Certifiedvo.poster}</h2>
 							             <div class="col-md-3">
             							 <div class="thumbnail">
 							               <a href="#">
-							                 <img src="/Home_fit/${vo.challenge_no}/${Certifiedvo.poster}" width=400px, height=300px>
+							                 <img src="/Home_fit/challenge_poster/${Certifiedvo.poster}" width=400px, height=300px>
 							               </a>
 							             </div>
 							          	 </div>
 				</c:forEach>
 				 </tr>
-				        <h1> uri = <%=request.getRequestURI() %></h1>
-       <h1> contextpath= <%=request.getContextPath() %>%></h1>
+<%-- 				        <h1> uri = <%=request.getRequestURI() %></h1> --%>
+<%--        <h1> contextpath= <%=request.getContextPath() %>%></h1> --%>
 			</table>
 					<div class="text-center">
 				     <a href="#" class="btn btn-lg btn-success">참여 하기 </a>
