@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -103,7 +104,6 @@ public class CertifiedModel {
 	{	
 		System.out.println("??");
 		 String filename ="";
-		 
 		try {
 	 	request.setCharacterEncoding("utf-8");// 한글 디코딩
 		}catch (IOException e) {e.printStackTrace();
@@ -124,8 +124,7 @@ public class CertifiedModel {
 	 	MultipartRequest mr = new MultipartRequest(request,path,size,enctype,new DefaultFileRenamePolicy());
 	 	String challenge_no =mr.getParameter("challenge_no");
 	 	//challenge_no=mr.getParameter("challenge_no");
-		filename=mr.getOriginalFileName("upload");
-		String realname = filename;
+		filename=mr.getFilesystemName("upload");
 		File photopath = new File(path);
 		File[] fileList = photopath.listFiles();
 //		if(fileList.length>0)
@@ -134,30 +133,31 @@ public class CertifiedModel {
 //			{
 //				if(filename.equals(fileList[i].getName()))
 //				System.out.println("파일 이름들"+fileList[i].getName());
-//				
 //			}
 //		}
 		int j=1;
 		System.out.println("파일 이름 길이"+filename.length());
 		System.out.println("파일 길이"+fileList.length);
-		if(fileList.length>1)
-		{
-			System.out.println("조건에 해당됐음.");
-			for(int i=0;i<fileList.length;i++)
-			{
-				if(filename.equals(fileList[i].getName()))
-				{
-					filename = realname;
-					System.out.println("파일 이름 :"+filename.substring(0,filename.length()-4));
-					System.out.println("중간 번호 :"+j);
-					System.out.println("확  장  자 :"+filename.substring(filename.lastIndexOf("p")));
-					filename=filename.substring(0,filename.length()-4)+j+filename.substring(filename.lastIndexOf("."));
-					i=0;
-					++j;
-					System.out.println("같은 이름 있음 ");
-				}
-			}
-		}
+//		if(fileList.length>1)
+//		{   
+//			System.out.println("조건에 해당됐음.");
+//			for(int i=0;i<fileList.length;i++)
+//			{	
+//				System.out.println("파일 이름"+filename);
+//				System.out.println("비교 파일 이름:"+fileList[i].getName());
+//				if(filename.equals(fileList[i].getName()))
+//				{
+//					filename = realname;
+////					System.out.println("파일 이름 :"+filename.substring(0,filename.length()-4));
+////					System.out.println("중간 번호 :"+j);
+////					System.out.println("확  장  자 :"+filename.substring(filename.lastIndexOf("p")));
+//					filename=filename.substring(0,filename.length()-4)+j+filename.substring(filename.lastIndexOf("."));
+//					i=0;
+//					++j;
+//					System.out.println("같은 이름 있음 ");
+//				}
+//			}
+//		}
 			System.out.println("no 번호는 과연?"+challenge_no);
 			// 받은 데이터들을 DAO => DAO에서 오라클에 INSERT
 	    	Challenge_CertifiedVO vo = new Challenge_CertifiedVO();

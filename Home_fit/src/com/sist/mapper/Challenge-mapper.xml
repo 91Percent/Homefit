@@ -42,8 +42,9 @@
  			#{poster},
  			#{content},
  			#{id_leader},
- 			#{db_end_day},
- 			SYSDATE <!-- 디폴트값 잡혀있는데 꼭넣어야 하나? -->
+ 			#{db_end_day}, 			
+ 			SYSDATE, <!-- 디폴트값 잡혀있는데 꼭넣어야 하나? -->
+ 			1
  		)
  	</insert>
  	

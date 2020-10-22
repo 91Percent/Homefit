@@ -9,10 +9,8 @@
 <title>Insert title here</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</script> 
+<link href="http://fonts.googleapis.com/earlyaccess/nanumpenscript.css" rel="stylesheet">
+
 </head> 
 <body>			
 	<!-- DAO에서 값을 가지고 온다 : board-mapper.xml에서 SQL문장을 작성 -->
@@ -69,14 +67,14 @@
 					<%-- 한줄 문자열 --%>
 					<pre style="white-space: pre-wrap;background-color:white; border:none">${vo.content}</pre>
 					</td>
-				</tr>
-				
-				</table>
+				</tr>	
+							
+				</table>	
 				<h3 style=text-align:center>참석중인 사람들의 인증 사진</h3>
 				<c:forEach var="Certifiedvo" items="${Certifiedvo }">
 										<h2>번호:${vo.challenge_no } 이름 ${Certifiedvo.poster}</h2>
 							             <div class="col-md-3">
-            							 <div class="thumbnail">
+            						 	 <div class="thumbnail">
 							               <a href="#">
 							                 <img src="/Home_fit/challenge_poster/${Certifiedvo.poster}" width=400px, height=300px>
 							               </a>

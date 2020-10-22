@@ -116,7 +116,7 @@ public class ChallengeModel {
 			e.printStackTrace();
 		}// 한글 디코딩
 		 
-	     String path="/Users/haeni/Documents/jsp-project/Homefit/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Home_fit2/challenge_poster";
+	     String path="C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\challenge_poster";
 	     String enctype="UTF-8"; //한글파일명을 사용 여부 
 	     int size=1024*1024*100;//파일의 최대크기 
 	     
@@ -147,8 +147,20 @@ public class ChallengeModel {
 	     vo.setDb_end_day(end_day);
 	     vo.setId_leader("haenyi");
 	     
-	    
-	     
+//	 		INSERT INTO challenge VALUES(
+//	 	 			challenge_no_seq.nextval,
+//	 	 			#{cate},
+//	 	 			#{db_start_day},<!-- yyyy-MM-dd 형태로 오라클에 저장되지 않는 것 같음 -->
+//	 	 			#{title},
+//	 	 			#{limit},
+//	 	 			#{poster},
+//	 	 			#{content},
+//	 	 			#{id_leader},
+//	 	 			#{db_end_day},
+//	 	 			1,
+//	 	 			SYSDATE <!-- 디폴트값 잡혀있는데 꼭넣어야 하나? -->
+//	 	 		)
+//	     
 	     // filename,filesize => 없는 경우 (파일을 올리지 않을 경우,파일 올릴 경우)
 	     String filename=mr.getFilesystemName("poster");
 	     // 사용자가 보낸 파일명을 읽어 온다 
