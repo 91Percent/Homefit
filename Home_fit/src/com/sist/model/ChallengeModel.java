@@ -3,6 +3,7 @@ package com.sist.model;
 import com.sist.vo.*;
 
 import java.io.*;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -21,14 +22,9 @@ public class ChallengeModel {
 	public String challengeListData(HttpServletRequest request)
 	{
 		String page = request.getParameter("page");
-		String cate = request.getParameter("cate");
-		
-		if(cate==null)
-			cate="food";
 		
 		if(page==null)
 			page="1";
-		
 		int curpage=Integer.parseInt(page);
 		int rowSize=20;
 		int start=rowSize*(curpage-1)+1;
@@ -37,10 +33,16 @@ public class ChallengeModel {
 		Map map = new HashMap();
 		map.put("start", start);
 		map.put("end",end);
-		map.put("cate",cate);
 		
-		List<ChallengeVO> list = ChallengeDAO.challengeListData(map);
+		List<ChallengeVO> list = ChallengeDAO.challengeTotalListData(map);
 				
+		int totalpage=ChallengeDAO.challengeTotalPage();
+		
+		int BLOCK=5;
+		int startPage=((curpage-1)/BLOCK*BLOCK)+1;
+		int endPage=((curpage-1)/BLOCK*BLOCK)+BLOCK;
+		
+		
 		for(ChallengeVO vo:list)
 		{
 			String str= vo.getTitle();
@@ -52,14 +54,17 @@ public class ChallengeModel {
 			vo.setTitle(str);
 		}
 		
-		int totalpage=ChallengeDAO.challengeTotalPage();
-		
-		request.setAttribute("list", list);
-		request.setAttribute("totalpage", totalpage);
-		request.setAttribute("curpage", curpage);
-		
-		request.setAttribute("main_jsp", "../challenge_room/challenge.jsp");
-		return "../main/main.jsp";
+		if(endPage>totalpage)
+			   endPage=totalpage;
+		   
+		   request.setAttribute("list", list);
+		   request.setAttribute("curpage", curpage);
+		   request.setAttribute("totalpage", totalpage);
+		   request.setAttribute("BLOCK", BLOCK);
+		   request.setAttribute("startPage", startPage);
+		   request.setAttribute("endPage", endPage);
+		   request.setAttribute("main_jsp", "../challenge_room/list.jsp");
+		   return "../main/main.jsp";
 		
 	}
 	
@@ -98,13 +103,6 @@ public class ChallengeModel {
 	@RequestMapping("challenge_room/insert.do")
 	public String Certified(HttpServletRequest request)
 	{
-		
-		
-		String challenge_no = request.getParameter("challenge_no");
-		String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\"+challenge_no;
-//		String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\"+challenge_no;
-		
-		request.setAttribute("challenge_no", challenge_no);
 		request.setAttribute("main_jsp","../challenge_room/insert.jsp");
 		return "../main/main.jsp";
 	}	
@@ -115,26 +113,21 @@ public class ChallengeModel {
 		 try {
 			request.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}// 한글 디코딩
-	     String path="/Users/haeni/Documents/WebDev/WebDev1/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/challenge_test/challenge_poster/";
+		 
+	     String path="/Users/haeni/Documents/jsp-project/Homefit/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Home_fit2/challenge_poster";
 	     String enctype="UTF-8"; //한글파일명을 사용 여부 
 	     int size=1024*1024*100;//파일의 최대크기 
-	     // 사용자가 보내준 데이터를 받는다 (request=>파일을 받을 수 없다 , 일반데이터만 받는다)
+	     
+	     // MultipartRequest : 사용자가 보내준 데이터를 받는다 (request=>파일을 받을 수 없다 , 일반데이터만 받는다)
 	     MultipartRequest mr = null;
 		try {
 			mr = new MultipartRequest(request,path,size,enctype,new DefaultFileRenamePolicy());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-
-	    /*  <jsp:useBean id="challenge" class="com.sist.dao.ChallengeVO">
-	     	<jsp:setProperty name="challenge" property="*"/>
-	     </jsp:useBean> */
-	   
 	     String title=mr.getParameter("title"); // 업로드시에만 사용
 	     String limit=mr.getParameter("limit");
 	     String content=mr.getParameter("content");
@@ -142,7 +135,6 @@ public class ChallengeModel {
 	     
 	     String start_day=mr.getParameter("start_day");
 	     String end_day=mr.getParameter("end_day");
-	     SimpleDateFormat temp= new SimpleDateFormat("yyyy-MM-dd");
 	     
 	     // 받은 데이터들을 DAO => DAO에서 오라클에 INSERT
 	     ChallengeVO vo=new ChallengeVO();
@@ -150,22 +142,23 @@ public class ChallengeModel {
 	     vo.setLimit(Integer.parseInt(limit));
 	     vo.setContent(content);
 	     vo.setCate(cate);
+	    
 	     vo.setDb_start_day(start_day);
 	     vo.setDb_end_day(end_day);
 	     vo.setId_leader("haenyi");
+	     
 	    
 	     
 	     // filename,filesize => 없는 경우 (파일을 올리지 않을 경우,파일 올릴 경우)
-	     String filename=mr.getOriginalFileName("poster");
+	     String filename=mr.getFilesystemName("poster");
 	     // 사용자가 보낸 파일명을 읽어 온다 
 	     // <input type=file name=upload size=20 class="input-sm">
 	     if(filename==null)//파일을 올리지 않을 경우
 	     {
-	    	 vo.setPoster("");
+	    	 vo.setPoster(" ");
 	     }
 	     else//파일 올릴 경우
 	     {
-	    	 // 업로드된 파일의 정보를 얻어온다 (파일 크기를 확인) => 다운로드 (프로그래바)
 	    	 vo.setPoster(filename);
 	     }
 	     
@@ -175,7 +168,8 @@ public class ChallengeModel {
 	         사용자 요청 ==> databoard-mapper.xml있는 SQL문장을 읽어 온다 (DAO => 읽어온 SQL문장을 실행 => JSP에 실행 결과출력 )
 	       insert.jsp      SQL           DAO => 실행 boardInsert()       insert_ok.jsp 호출 처리
 	     */
-	    request.setAttribute("main_jsp","redirect:/challenge_room/list.jsp");
+	     
+	    request.setAttribute("main_jsp","../challenge_room/list.jsp");
 		return "../main/main.jsp";
 	}
 

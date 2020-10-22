@@ -1,24 +1,10 @@
 <%@page import="com.sist.vo.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.sist.model.*"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<jsp:useBean id="model" class="com.sist.model.ChallengeModel"/>
-<c:set var="filepath" value="/Users/haeni/Documents/WebDev/WebDev1/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/challenge_test/challenge_poster/"/>
-<%-- <c:set var="start_day" value="start_day"/>
-<c:set var="end_day" value="end_day"/>
-<fmt:formatDate value="start_day" pattern="yy-MM-dd"/>
-<fmt:formatDate value="end_day" pattern="yy-MM-dd"/> --%>
-
-<%
-	model.challengeListData(request);
-%>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     
-
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
 
   <meta charset="utf-8">
@@ -32,7 +18,6 @@
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="css/shop-homepage.css" rel="stylesheet">
 
 </head>
 
@@ -45,7 +30,6 @@
 
       <div class="col-lg-3">
 
-        <h1 class="my-4">함께 도전해요</h1>
 
       </div>
       <!-- /.col-lg-3 -->
@@ -60,9 +44,8 @@
         <div class="row" style="padding:5px 0px">
 		 <c:forEach var="vo" items="${list }">
           <div class="col-lg-4 col-md-6 mb-4">
-					
 		  	<div class="card h-100">
-				<a href="../challenge_room/detail.do"><img class="card-img-top" src="${'../challenge_poster/'+=vo.poster }" alt="" width=300px, height=200px></a>
+				<a href="../challenge_room/detail.do"><img class="card-img-top" src="/Home_fit2/challenge_poster/${vo.poster }" width=300px, height=200px></a>
 				  <div class="card-body">
 				     <h4 class="card-title">
 				      	<a href="../challenge_room/detail.do">${vo.title }</a>
@@ -88,12 +71,27 @@
         </div>
         <!-- /.row -->
         
-        <div>
-        	<a href="../challenge_room/list.do?cate=${cate }&page=${curpage>1?curpage-1:curpage }" class="btn btn-sm btn-success">이전</a>
-        		${curpage } / ${totalpage }
-        	<a href="../challenge_room     /list.do?cate=${cate }&page=${curpage<totalpage?curpage+1:totalpage }" class="btn btn-sm btn-success">다음</a>        	
-        </div>
-
+    <div class="row">
+    <div class="text-center">
+       <ul class="pagination">
+          <c:if test="${curpage>BLOCK }">
+           <li><a href="../challenge_room/list.do?page=${startPage-1 }">&lt;</a></li>
+          </c:if>
+          <c:forEach var="i" begin="${startPage }" end="${endPage }">
+            <c:if test="${i==curpage }">
+              <li class="active"><a href="../challenge_room/list.do?page=${i }">${i }</a></li>
+            </c:if>
+            <c:if test="${i!=curpage }">
+              <li><a href="../challenge_room/list.do?page=${i }">${i }</a></li>
+            </c:if>
+          </c:forEach>
+          <c:if test="${endPage<totalpage }">
+		    <li><a href="../challenge_room/list.do?page=${endPage+1 }">&gt;</a></li>
+		  </c:if>
+		</ul>
+    </div>
+    </div>
+      
       </div>
       <!-- /.col-lg-9 -->
 
@@ -102,14 +100,8 @@
 
   </div>
   <!-- /.container -->
+  
 
-  <!-- Footer -->
-  <footer class="py-5 bg-dark">
-    <div class="container">
-     <!--  <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p> -->
-    </div>
-    <!-- /.container -->
-  </footer>
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>

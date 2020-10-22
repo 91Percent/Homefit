@@ -16,12 +16,7 @@ public class ChallengeDAO {
 	private static SqlSessionFactory ssf;
 	static
 	{
-		try {
-			Reader reader = Resources.getResourceAsReader("Config.xml");
-			ssf=new SqlSessionFactoryBuilder().build(reader);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		ssf=CreateSqlSessionFactory.getSsf();
 	}
 	
 
@@ -46,16 +41,16 @@ public class ChallengeDAO {
 		}
 	}
 
-	//<!-- 챌린지 목록 -->
-	//<select id="challengeListData" resultType="challengeVO" parameterType="hashmap">
-	public static List<ChallengeVO> challengeListData(Map map)
+	//<!-- 챌린지 전체목록 -->
+	//<select id="challengeTotalListData" resultType="ChallengeVO" parameterType="hashmap">
+	public static List<ChallengeVO> challengeTotalListData(Map map)
 	{
 		List<ChallengeVO> list=new ArrayList<ChallengeVO>();
 		SqlSession session=null;
 		try
 		{
 			session=ssf.openSession();
-			list=session.selectList("challengeListData",map);
+			list=session.selectList("challengeTotalListData",map);
 		}catch(Exception ex)
 		{
 			ex.printStackTrace();
@@ -68,8 +63,30 @@ public class ChallengeDAO {
 		return list;
 	}
 	
-	//<!-- 챌린지 목록 전체 페이지  -->
-	//<select id="challengeTotalPage" resultType="int">
+	
+	// 챌린지 카테고리별 목록
+	//<select id="challengeListData" resultType="challengeVO" parameterType="hashmap">
+	public static List<ChallengeVO> challengeCateListData(Map map)
+	{
+		List<ChallengeVO> list=new ArrayList<ChallengeVO>();
+		SqlSession session=null;
+		try
+		{
+			session=ssf.openSession();
+			list=session.selectList("challengeCateListData",map);
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			if(session!=null)
+				session.close();
+		}
+		return list;
+	}
+	
+	//<!-- 챌린지 목록 전체 페이지 수 -->
 	public static int challengeTotalPage()
 	{
 		int total=0;
@@ -90,14 +107,29 @@ public class ChallengeDAO {
 		return total;
 	}
 	
+	//<!-- 챌린지 목록 카테고리별 전체 페이지 수 -->
+		public static int challengeCateTotalPage()
+		{
+			int total=0;
+			SqlSession session=null;
+			try
+			{
+				session=ssf.openSession();
+				total=session.selectOne("challengeCateTotalPage");
+			}catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
+			finally
+			{
+				if(session!=null)
+					session.close();
+			}
+			return total;
+		}
+		
 	
 	
-	
-	
-
-	//<!-- 챌린지 cate별로 페이지 나눈 목록 -->
-	//<select id="challengeListData" resultType="challengeVO" parameterType="hashmap">
-
 	
 	//<!-- 도전 상세보기 -->
 	//<select id="challengDetailData" resultType="challengeVO" parameterType="int">
