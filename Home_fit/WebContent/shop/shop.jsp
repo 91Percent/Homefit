@@ -9,6 +9,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+    function value_check() {
+        var check_count = document.getElementsByName("brand").length;
+ 
+        for (var i=0; i<check_count; i++) {
+            if (document.getElementsByName("brand")[i].checked == true) {
+                alert(document.getElementsByName("brand")[i].value);
+            }
+        }
+    }
+</script>
 </head>
 <body>
 	<!-- ================ start banner area ================= -->	
@@ -28,7 +39,8 @@
     </div>
 	</section>
 	<!-- ================ end banner area ================= -->
-
+	
+		
 	<!-- ================ category section start ================= -->		  
   <section class="section-margin--small mb-5">
     <div class="container">
@@ -38,20 +50,27 @@
             <div class="head">전체 카테고리</div>
             <ul class="main-categories">
               <li class="common-filter">
-                <form action="#">
+                <form action="../shop/shop.do">
                   <ul>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="men" name="brand"><label for="men">식단<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="women" name="brand"><label for="women">건강간식<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="accessories" name="brand"><label for="accessories">식사대용<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="footwear" name="brand"><label for="footwear">단백질보충<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="bayItem" name="brand"><label for="bayItem">체지방관리<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="electronics" name="brand"><label for="electronics">헬스케어<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="cate1" name="cate_no" value="1"><label for="cate1">식단<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="cate2" name="cate_no" value="2"><label for="cate2">건강간식<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="cate3" name="cate_no" value="3"><label for="cate3">식사대용<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="cate4" name="cate_no" value="4"><label for="cate4">단백질보충<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="cate5" name="cate_no" value="5"><label for="cate5">체지방관리<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="cate6" name="cate_no" value="6"><label for="cate6">헬스케어<span> (3600)</span></label></li>
+                  	<button onclick="value_check()">체크된 객체 value 가져오기</button>
                   </ul>
                 </form>
               </li>
             </ul>
           </div>
-
+			
+			
+			
+			
+			
+			
+			
         </div>
         <div class="col-xl-9 col-lg-8 col-md-7">
           <!-- Start Filter Bar -->
