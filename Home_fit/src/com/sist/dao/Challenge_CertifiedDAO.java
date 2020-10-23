@@ -81,9 +81,27 @@ public class Challenge_CertifiedDAO {
 	{	
 		SqlSession session =null;
 		try {
-			System.out.println("입력!!!");
 			session=ssf.openSession(true);
 			session.insert("Challenge_CertifiedUpload",vo);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		
+	}
+	
+	
+	//<insert id="Challenge_participation" parameterType="ChallengeVO">
+	// 방 참가 하기
+	public static void Challenge_participation(Challenge_ParticipationVO vo)
+	{
+		SqlSession session=null;
+		try {
+			session=ssf.openSession(true);
+			session.insert("Challenge_participation",vo);
 			
 		}catch (Exception e) {
 			e.printStackTrace();

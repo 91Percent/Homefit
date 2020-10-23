@@ -23,7 +23,7 @@ public class ShopModel {
 	   if(cate_no==null) {
 		   cate_no="411";
 	   }
-	   
+	   System.out.println("카테고리번호 ");
 	   
 	   // cnum => cate_no의 십의자리 숫자
 	   int cnum=Integer.parseInt(cate_no);

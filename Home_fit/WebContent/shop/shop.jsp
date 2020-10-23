@@ -9,16 +9,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script>
-    function value_check() {
-        var check_count = document.getElementsByName("brand").length;
- 
-        for (var i=0; i<check_count; i++) {
-            if (document.getElementsByName("brand")[i].checked == true) {
-                alert(document.getElementsByName("brand")[i].value);
-            }
-        }
-    }
+<script type="text/javascript">
+function page(v){
+	location.href="../shop/shop.do?cate_no="+v;	
+}
 </script>
 </head>
 <body>
@@ -50,14 +44,14 @@
             <div class="head">전체 카테고리</div>
             <ul class="main-categories">
               <li class="common-filter">
-                <form action="../shop/shop.do">
+                <form action="../shop/shop.do" name="frm" method="post">
                   <ul>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="cate1" name="cate_no" value="1"><label for="cate1">식단<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="cate2" name="cate_no" value="2"><label for="cate2">건강간식<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="cate3" name="cate_no" value="3"><label for="cate3">식사대용<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="cate4" name="cate_no" value="4"><label for="cate4">단백질보충<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="cate5" name="cate_no" value="5"><label for="cate5">체지방관리<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="cate6" name="cate_no" value="6"><label for="cate6">헬스케어<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="cate1" name="cate_no" value="1" onclick="javascript:page('1')"><label for="cate1">식단<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="cate2" name="cate_no" value="2" onclick="javascript:page('2')"><label for="cate2">건강간식<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="cate3" name="cate_no" value="3" onclick="javascript:page('3')"><label for="cate3">식사대용<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="cate4" name="cate_no" value="4" onclick="javascript:page('4')"><label for="cate4">단백질보충<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="cate5" name="cate_no" value="5" onclick="javascript:page('5')"><label for="cate5">체지방관리<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="cate6" name="cate_no" value="6" onclick="javascript:page('6')"><label for="cate6">헬스케어<span> (3600)</span></label></li>
                   	<button onclick="value_check()">체크된 객체 value 가져오기</button>
                   </ul>
                 </form>

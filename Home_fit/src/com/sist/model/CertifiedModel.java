@@ -14,6 +14,7 @@ import com.sist.vo.*;
 import com.sist.dao.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -93,8 +94,13 @@ public class CertifiedModel {
 //		}else{
 //			System.out.println("이미 폴더가 생성되어 있습니다.");
 //		}
+		   HttpSession session=request.getSession();
+		   // request ==> Session/Cookie생성이 가능 
+		   session.setAttribute("id", "seunggu");
+		   
 		request.setAttribute("challenge_no", challenge_no);
 		
+		System.out.println("아이디 출력되나?"+session.getAttribute("id"));
 		request.setAttribute("main_jsp","../challenge/Certified.jsp");
 		return "../main/main.jsp";
 	}	
@@ -127,45 +133,12 @@ public class CertifiedModel {
 		filename=mr.getFilesystemName("upload");
 		File photopath = new File(path);
 		File[] fileList = photopath.listFiles();
-//		if(fileList.length>0)
-//		{
-//			for(int i=0;i<fileList.length;i++)
-//			{
-//				if(filename.equals(fileList[i].getName()))
-//				System.out.println("파일 이름들"+fileList[i].getName());
-//			}
-//		}
 		int j=1;
 		System.out.println("파일 이름 길이"+filename.length());
 		System.out.println("파일 길이"+fileList.length);
-//		if(fileList.length>1)
-//		{   
-//			System.out.println("조건에 해당됐음.");
-//			for(int i=0;i<fileList.length;i++)
-//			{	
-//				System.out.println("파일 이름"+filename);
-//				System.out.println("비교 파일 이름:"+fileList[i].getName());
-//				if(filename.equals(fileList[i].getName()))
-//				{
-//					filename = realname;
-////					System.out.println("파일 이름 :"+filename.substring(0,filename.length()-4));
-////					System.out.println("중간 번호 :"+j);
-////					System.out.println("확  장  자 :"+filename.substring(filename.lastIndexOf("p")));
-//					filename=filename.substring(0,filename.length()-4)+j+filename.substring(filename.lastIndexOf("."));
-//					i=0;
-//					++j;
-//					System.out.println("같은 이름 있음 ");
-//				}
-//			}
-//		}
 			System.out.println("no 번호는 과연?"+challenge_no);
-			// 받은 데이터들을 DAO => DAO에서 오라클에 INSERT
 	    	Challenge_CertifiedVO vo = new Challenge_CertifiedVO();
 	      
-	      
-	      // filename,filesize => 없는 경우 (파일을 올리지 않을 경우,파일 올릴 경우)
-	      // 사용자가 보낸 파일명을 읽어 온다 
-	      // <input type=file name=upload size=20 class="input-sm">
 	      if(filename==null)//파일을 올리지 않을 경우
 	      {
 	      	 vo.setPoster("");
@@ -184,4 +157,48 @@ public class CertifiedModel {
 	    return "redirect:../challenge/Challenge.do";	    
 	}
 	
+	//방 참가하기 
+	@RequestMapping("challenge/participation.do")
+	public String participation(HttpServletRequest request)
+	{
+		HttpSession session=request.getSession();
+		System.out.println("참여 하기 Model 동작");
+		//	private int challenge_no;
+		//  private String challnege_id;
+		String challenge_no = request.getParameter("challenge_no");
+//		String challenge_id = request.getParameter("challnege_id");
+		
+		//아이디는 세션에서 받아와야함
+		String challenge_id = (String) session.getAttribute("id");
+		System.out.println("참가하는 세션아이디"+challenge_id);
+		
+		Challenge_ParticipationVO participation_vo = new Challenge_ParticipationVO();
+		
+		participation_vo.setChallenge_no(Integer.parseInt(challenge_no));
+		participation_vo.setChallenge_id(challenge_id);
+		
+		Challenge_CertifiedDAO.Challenge_participation(participation_vo);
+		
+		
+		ChallengeVO vo = Challenge_CertifiedDAO.ChallengeDetailData(Integer.parseInt(challenge_no));
+		List<Challenge_CertifiedVO> list= Challenge_CertifiedDAO.CertifiedData(Integer.parseInt(challenge_no));
+  
+		
+		request.setAttribute("vo", vo);
+		request.setAttribute("Certifiedvo", list);
+		request.setAttribute("main_jsp","../challenge/Certified_detail.jsp");
+		return "../main/main.jsp";
+	}
+
+	//로그아웃 버튼  임시로 구현함.  2020-10-23
+	   @RequestMapping("member/logout.do")
+	   public String member_logout(HttpServletRequest request)
+	   {
+		   HttpSession session=request.getSession();
+		   System.out.println("세션 로그아웃전!"+session.getAttribute("id"));
+		   session.invalidate();
+//		   request.setAttribute("main_jsp","../challenge/Challenge.jsp");
+			return "redirect:../challenge/Challenge.do";
+	   }
+	   
 }

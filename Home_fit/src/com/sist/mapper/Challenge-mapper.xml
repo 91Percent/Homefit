@@ -99,4 +99,12 @@
      #{challenge_id}
 	)
 </insert>
+
+<insert id="Challenge_participation" parameterType="Challenge_ParticipationVO">
+	INSERT INTO challenge_participation VALUES(
+	#{challenge_no},
+	#{challenge_id}
+	)
+</insert>
+
 </mapper>
