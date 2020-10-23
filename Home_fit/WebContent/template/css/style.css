@@ -181,8 +181,8 @@ a {
 	box-shadow: none;
 	margin: 0px;
 	background: #fff
-}
-
+}	
+	
 @media ( min-width : 992px) {
 	.header_area .navbar .nav .nav-item.submenu ul {
 		position: absolute;
@@ -198,8 +198,8 @@ a {
 		padding: 0px;
 		border-radius: 0px
 	}
-}
-
+}	
+	
 .header_area .navbar .nav .nav-item.submenu ul:before {
 	content: "";
 	width: 0;

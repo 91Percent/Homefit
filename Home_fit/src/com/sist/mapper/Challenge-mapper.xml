@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.dao.Challenge-mmpaer">
-<!-- 챌린지 목록 -->
-	<select id="challengeListData" resultType="ChallengeVO" parameterType="hashmap">
+	<!-- 챌린지 전체목록 -->
+	<select id="challengeTotalListData" resultType="ChallengeVO" parameterType="hashmap">
+		SELECT start_day,end_day,poster,title,id_leader,limit, num
+		FROM (SELECT start_day,end_day,poster,title,id_leader,limit,rownum as num
+		FROM (SELECT start_day,end_day,poster,title,id_leader,limit
+		FROM challenge ORDER BY start_day DESC))
+		WHERE num BETWEEN #{start} AND #{end}
+	</select> 
+	
+	
+	<!-- 챌린지 목록 -->
+	<select id="challengeCateListData" resultType="ChallengeVO" parameterType="hashmap">
 		SELECT start_day,end_day,poster,title,id_leader,limit, num
 		FROM (SELECT start_day,end_day,poster,title,id_leader,limit,rownum as num
 		FROM (SELECT start_day,end_day,poster,title,id_leader,limit
@@ -10,22 +20,31 @@
 		WHERE num BETWEEN #{start} AND #{end}
 	</select> 
 	
-	<!-- 챌린지 목록 전체 페이지  -->
+	<!-- 챌린지 목록 전체 페이지 수  -->
 	<select id="challengeTotalPage" resultType="int">
 		SELECT CEIL(COUNT(*)/20.0) FROM challenge
 	</select>
+	
+	<!-- 챌린지 목록 카테고리별 페이지 수  -->
+	<select id="challengeCateTotalPage" resultType="int">
+		SELECT CEIL(COUNT(*)/20.0) FROM challenge
+		WHERE cate=#{cate}
+	</select>
+	
 	<!-- 챌린지 도전 추가하기 -->
 	<insert id="challengeInsert" parameterType="ChallengeVO">
  		INSERT INTO challenge VALUES(
  			challenge_no_seq.nextval,
  			#{cate},
- 			#{start_day},
+ 			#{db_start_day},<!-- yyyy-MM-dd 형태로 오라클에 저장되지 않는 것 같음 -->
  			#{title},
  			#{limit},
  			#{poster},
  			#{content},
  			#{id_leader},
- 			#{end_day}
+ 			#{db_end_day}, 			
+ 			SYSDATE, <!-- 디폴트값 잡혀있는데 꼭넣어야 하나? -->
+ 			1
  		)
  	</insert>
  	

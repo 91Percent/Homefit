@@ -23,9 +23,12 @@ public class ShopModel {
 	   if(cate_no==null) {
 		   cate_no="411";
 	   }
+	   
+	   
 	   // cnum => cate_no의 십의자리 숫자
 	   int cnum=Integer.parseInt(cate_no);
 	   int cate_no_num=400+cnum*10+1;
+	   
 	   
 	   // Map 
 	   // 현재 페이지 

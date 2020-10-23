@@ -27,6 +27,7 @@ public class ChallengeVO {
 	private Date end_day;
 	private String db_end_day;
 	private Date regdate;
+	private int period;
 	
 	
 	public String getCate() {
