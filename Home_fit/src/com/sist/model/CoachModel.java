@@ -44,11 +44,25 @@ public class CoachModel {
 		   // 총페이지 
 		   int totalpage=CoachDAO.coachTotalpages();
 		   
+		   int BLOCK=5;
+		   int startPage=((curpage-1)/BLOCK*BLOCK)+1;
+		   int endPage=((curpage-1)/BLOCK*BLOCK)+BLOCK;
+		   
+		   if(endPage>totalpage)
+		   {
+			   endPage = totalpage;
+		   }
+		   
+		   
 		   // JSP에서 필요한 데이터를 보내기 시작 
 		   // request에 값을 채운다 
 		   request.setAttribute("list", list);
 		   request.setAttribute("curpage", curpage);
 		   request.setAttribute("totalpage", totalpage);
+		   request.setAttribute("BLOCK", BLOCK);
+		   request.setAttribute("startPage", startPage);
+		   request.setAttribute("endPage", endPage);
+		   
 		// include 파일 지정
 		   request.setAttribute("main_jsp", "../coach/coachlist.jsp");
 		   return "../main/main.jsp";
@@ -56,36 +70,11 @@ public class CoachModel {
 	 @RequestMapping("coach/info.do")
 	 public String coachDetailData(HttpServletRequest request)
 	 {
-		 String page=request.getParameter("page");
-		   if(page==null)
-			   page="1";
-		   
-		   String cateno=request.getParameter("cateno");
-		   if(cateno==null)
-			   cateno="71";
-		   // Map 
-		   // 현재 페이지 
-		   int curpage=Integer.parseInt(page);
-		   int rowSize=12;
-		   int start=(rowSize*curpage)-(rowSize-1);
-		   int end=rowSize*curpage;
-		   
-		   
-		   // Map에 저장 
-		   Map map=new HashMap();
-		   List<tutor_VO> list=CoachDAO.coachListData(map);
-		   
-		   map.put("cateno", cateno);
-		   map.put("start", start);
-		   map.put("end", end);
-		   
-		  
-		   int totalpage=CoachDAO.coachTotalpages();
-		   
-		   request.setAttribute("list", list);
-		   request.setAttribute("curpage", curpage);
-		   request.setAttribute("totalpage", totalpage);
-		   return "../main/main.jsp";
+		 String coach_no=request.getParameter("coach_no");
+		 tutor_VO vo1=CoachDAO.coachDeatilData(Integer.parseInt(coach_no));
+		 request.setAttribute("vo", vo1);
+		 request.setAttribute("main_jsp", "../coach/info.jsp");
+		 return "../main/main.jsp";
 	 }
 	 
 }

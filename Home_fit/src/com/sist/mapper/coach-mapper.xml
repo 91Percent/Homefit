@@ -49,4 +49,9 @@ Insert INTO coach_info VALUES(
 <select id="scheduleTotalPage" resultType="int">
 	SELECT CEIL(COUNT(*)/10.0) FROM coach_schedule
 </select>
+
+<select id="coachDetailData" resultType="tutor_VO" parameterType="hashmap">
+	SELECT * FROM coach_info
+	WHERE coach_no=#{coach_no}
+</select>
 </mapper>

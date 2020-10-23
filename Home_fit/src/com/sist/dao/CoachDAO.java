@@ -148,5 +148,12 @@ public class CoachDAO {
 		   }
 		   return total;
 	   }
+	   public static tutor_VO coachDeatilData(int coach_no)
+	   {
+		   SqlSession session=ssf.openSession();
+		   tutor_VO vo=session.selectOne("coachDetailData",coach_no);
+		   session.close();
+		   return vo;
+	   }
 	   
 }
