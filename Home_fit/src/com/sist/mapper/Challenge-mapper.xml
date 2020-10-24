@@ -3,9 +3,9 @@
 <mapper namespace="com.sist.dao.Challenge-mmpaer">
 	<!-- 챌린지 전체목록 -->
 	<select id="challengeTotalListData" resultType="ChallengeVO" parameterType="hashmap">
-		SELECT start_day,end_day,poster,title,id_leader,limit, num
-		FROM (SELECT start_day,end_day,poster,title,id_leader,limit,rownum as num
-		FROM (SELECT start_day,end_day,poster,title,id_leader,limit
+		SELECT Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit, num
+		FROM (SELECT Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit,rownum as num
+		FROM (SELECT Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit
 		FROM challenge ORDER BY start_day DESC))
 		WHERE num BETWEEN #{start} AND #{end}
 	</select> 
@@ -13,9 +13,9 @@
 	
 	<!-- 챌린지 목록 -->
 	<select id="challengeCateListData" resultType="ChallengeVO" parameterType="hashmap">
-		SELECT start_day,end_day,poster,title,id_leader,limit, num
-		FROM (SELECT start_day,end_day,poster,title,id_leader,limit,rownum as num
-		FROM (SELECT start_day,end_day,poster,title,id_leader,limit
+		SELECT Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit, num
+		FROM (SELECT Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit,rownum as num
+		FROM (SELECT Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit
 		FROM challenge WHERE cate=#{cate} ORDER BY start_day DESC))
 		WHERE num BETWEEN #{start} AND #{end}
 	</select> 
@@ -48,14 +48,6 @@
  		)
  	</insert>
  	
- 	<!-- 상세보기 : 조회수는 필요 없겠지? -->
- 	<select id="challengeDetailData" parameterType="int" resultType="ChallengeVO">
- 		SELECT *
- 		<!-- (SELECT COUNT(*) FROM Challenge_Participation WHERE challenge_no=#{challenge_no}) -->
- 		FROM challenge
- 		WHERE challenge_no=#{challenge_no}
- 	</select>
- 	
 <select id="ChallengeListData" resultType="ChallengeVO" parameterType="hashmap">
      SELECT Challenge_no,cate,TO_CHAR(START_DAY,'YYYY-MM-DD') as db_start_day,title, limit, poster,content,id_leader,num 
      FROM (SELECT Challenge_no,cate,START_DAY,title, limit, poster,content,id_leader,rownum as num 
@@ -76,7 +68,7 @@
 <!-- 디테일 데이터  -->
 <select id="ChanllenDetailData" resultType="ChallengeVO" parameterType="int">
 	SELECT * FROM Challenge
-	WHERE Challenge_no = #{no}
+	WHERE Challenge_no = #{challenge_no}
 </select>
 	
 	<!-- 인증 사진 가져오는 부분 -->

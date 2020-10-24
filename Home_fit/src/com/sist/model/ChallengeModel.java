@@ -68,37 +68,21 @@ public class ChallengeModel {
 		
 	}
 	
-	@RequestMapping("challenge_room/detail.do")
+	@RequestMapping("challenge/Certified_detail.do")
 	public String challengDetailData(HttpServletRequest request)
 	{
 		
 		String challenge_no = request.getParameter("challenge_no");
 		
-		ChallengeVO vo = ChallengeDAO.challengDetailData(Integer.parseInt(challenge_no));
+		ChallengeVO vo = Challenge_CertifiedDAO.ChallengeDetailData(Integer.parseInt(challenge_no));
 		List<Challenge_CertifiedVO> list= Challenge_CertifiedDAO.CertifiedData(Integer.parseInt(challenge_no));
   
 		
 		request.setAttribute("vo", vo);
 		request.setAttribute("Certifiedvo", list);
-		request.setAttribute("main_jsp","../challenge_room/detail.jsp");
+		request.setAttribute("main_jsp","../challenge/Certified_detail.jsp");
 		return "../main/main.jsp";
 	}
-	
-	
-	/*
-	 * <insert id="challengeInsert" parameterType="challengeVO">
- 		INSERT INTO challenge VALUES(
- 			challenge_no_seq.nextval,
- 			#{start_day},
- 			#{end_day},
- 			#{poster},
- 			#{title},
- 			#{limit},
- 			#{content},
- 			#{cate},
- 		)
- 		</insert>
-	 */
 
 	@RequestMapping("challenge_room/insert.do")
 	public String Certified(HttpServletRequest request)

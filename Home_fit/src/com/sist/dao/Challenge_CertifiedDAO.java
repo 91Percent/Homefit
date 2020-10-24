@@ -41,13 +41,13 @@ public class Challenge_CertifiedDAO {
 		return list;
 	}
 
-	public static ChallengeVO ChallengeDetailData(int no) {
+	public static ChallengeVO ChallengeDetailData(int challenge_no) {
 		ChallengeVO vo = new ChallengeVO();
 		SqlSession session = null;
 		
 		try {
 			session=ssf.openSession();
-			vo  = session.selectOne("ChanllenDetailData",no);
+			vo  = session.selectOne("ChanllenDetailData",challenge_no);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
