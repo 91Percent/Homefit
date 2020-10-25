@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.sist.vo.*;
+
+import oracle.net.aso.p;
+
 import com.sist.dao.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -61,15 +64,37 @@ public class CertifiedModel {
 	
 	@RequestMapping("challenge/Certified_detail.do")
 	public String Certified_detail(HttpServletRequest request)
-	{
-		
+	{	
+		HttpSession session=request.getSession();
 		String challenge_no = request.getParameter("challenge_no");
-		
+		String challenge_id = (String) session.getAttribute("id");
+		if(challenge_id==null)
+		{
+			challenge_id="null";
+		}
 		ChallengeVO vo = Challenge_CertifiedDAO.ChallengeDetailData(Integer.parseInt(challenge_no));
 		List<Challenge_CertifiedVO> list= Challenge_CertifiedDAO.CertifiedData(Integer.parseInt(challenge_no));
-  
 		
-		request.setAttribute("vo", vo);
+		
+		//방에 유저가 있는지 없는지 검색하는 부분
+		Challenge_ParticipationVO parti_vo = new Challenge_ParticipationVO();
+		parti_vo.setChallenge_id(challenge_id);
+		parti_vo.setChallenge_no(Integer.parseInt(challenge_no));
+		System.out.println("챌린지 참가 아이디 "+challenge_id);
+		System.out.println("챌린지 방 번호 "+challenge_no);
+		int count = Challenge_CertifiedDAO.Challnege_paticipation_check(parti_vo);
+		//=========================
+		
+		
+		//유저가 방장인지 아닌지 검사하는 부분
+		if(challenge_id.equals(vo.getId_leader()))
+			count=3;
+		//=======================
+		
+		
+		System.out.println("로그인이 1이면 되어있는거야! "+count);					 	  
+		request.setAttribute("count", count);
+		request.setAttribute("vo",vo);
 		request.setAttribute("Certifiedvo", list);
 		request.setAttribute("main_jsp","../challenge/Certified_detail.jsp");
 		return "../main/main.jsp";
@@ -78,7 +103,6 @@ public class CertifiedModel {
 	@RequestMapping("challenge/Certified.do")
 	public String Certified(HttpServletRequest request)
 	{
-		
 		
 		String challenge_no = request.getParameter("challenge_no");
 //		String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\"+challenge_no;
@@ -94,13 +118,9 @@ public class CertifiedModel {
 //		}else{
 //			System.out.println("이미 폴더가 생성되어 있습니다.");
 //		}
-		   HttpSession session=request.getSession();
-		   // request ==> Session/Cookie생성이 가능 
-		   session.setAttribute("id", "seunggu");
 		   
 		request.setAttribute("challenge_no", challenge_no);
-		
-		System.out.println("아이디 출력되나?"+session.getAttribute("id"));
+
 		request.setAttribute("main_jsp","../challenge/Certified.jsp");
 		return "../main/main.jsp";
 	}	
@@ -167,7 +187,6 @@ public class CertifiedModel {
 		//  private String challnege_id;
 		String challenge_no = request.getParameter("challenge_no");
 //		String challenge_id = request.getParameter("challnege_id");
-		
 		//아이디는 세션에서 받아와야함
 		String challenge_id = (String) session.getAttribute("id");
 		System.out.println("참가하는 세션아이디"+challenge_id);
@@ -176,20 +195,19 @@ public class CertifiedModel {
 		
 		participation_vo.setChallenge_no(Integer.parseInt(challenge_no));
 		participation_vo.setChallenge_id(challenge_id);
-		
 		Challenge_CertifiedDAO.Challenge_participation(participation_vo);
 		
 		
 		ChallengeVO vo = Challenge_CertifiedDAO.ChallengeDetailData(Integer.parseInt(challenge_no));
 		List<Challenge_CertifiedVO> list= Challenge_CertifiedDAO.CertifiedData(Integer.parseInt(challenge_no));
-  
+		
 		
 		request.setAttribute("vo", vo);
 		request.setAttribute("Certifiedvo", list);
 		request.setAttribute("main_jsp","../challenge/Certified_detail.jsp");
 		return "../main/main.jsp";
-	}
-
+	}	
+		
 	//로그아웃 버튼  임시로 구현함.  2020-10-23
 	   @RequestMapping("member/logout.do")
 	   public String member_logout(HttpServletRequest request)
@@ -197,6 +215,18 @@ public class CertifiedModel {
 		   HttpSession session=request.getSession();
 		   System.out.println("세션 로그아웃전!"+session.getAttribute("id"));
 		   session.invalidate();
+//	   	   request.setAttribute("main_jsp","../challenge/Challenge.jsp");
+	   		return "redirect:../challenge/Challenge.do";
+	   }
+	   
+	   
+	   
+	   @RequestMapping("member/login.do")
+	   public String member_login(HttpServletRequest request)
+	   {
+	   		HttpSession session=request.getSession();
+		    session.setAttribute("id", "seunggu");
+			System.out.println("아이디 출력되나?"+session.getAttribute("id"));
 //		   request.setAttribute("main_jsp","../challenge/Challenge.jsp");
 			return "redirect:../challenge/Challenge.do";
 	   }

@@ -92,7 +92,23 @@ public class Challenge_CertifiedDAO {
 		}
 		
 	}
-	
+	//<select id="Challnege_paticipation_check" parameterType="Challenge_ParticipationVO" resultType="int">
+	//방에 유저가 있는지 없는지 검색
+	public static int Challnege_paticipation_check(Challenge_ParticipationVO vo)
+	{
+		SqlSession session = null;
+		int count =0;
+		try {
+			session=ssf.openSession();
+			count=session.selectOne("Challnege_paticipation_check",vo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return count;
+	}
 	
 	//<insert id="Challenge_participation" parameterType="ChallengeVO">
 	// 방 참가 하기

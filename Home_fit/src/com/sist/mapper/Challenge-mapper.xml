@@ -91,12 +91,18 @@
      #{challenge_id}
 	)
 </insert>
-
+<select id="Challnege_paticipation_check" parameterType="Challenge_ParticipationVO" resultType="int">
+	SELECT COUNT(*) FROM challenge_participation
+	WHERE challenge_no=#{challenge_no}
+	AND challenge_id=#{challenge_id}
+</select>
+<!-- 방 참가하는 부분 -->
 <insert id="Challenge_participation" parameterType="Challenge_ParticipationVO">
 	INSERT INTO challenge_participation VALUES(
 	#{challenge_no},
 	#{challenge_id}
 	)
 </insert>
+
 
 </mapper>

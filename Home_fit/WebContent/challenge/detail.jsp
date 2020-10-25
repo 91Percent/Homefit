@@ -1,29 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.sist.dao.*,java.util.*"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-<head>  
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="../template/vendors/owl-carousel/owl.carousel.min.css">
- <script type="text/javascript">
-  $(document).ready(function(){
-      var owl = $('.owl-custom');
-      owl.owlCarousel({
-          items: 4, // 아이템수
-          loop: false,       // 루프
-          dots: false,      // 닷츠
-          rewind: false // 반복    
-      });    
-  });
-  </script>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="http://fonts.googleapis.com/earlyaccess/nanumpenscript.css" rel="stylesheet">
-</head> 
-<body>			
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Aroma Shop - Blog Details</title>
+  <link rel="icon" href="img/Fevicon.png" type="image/png">
+  <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="vendors/themify-icons/themify-icons.css">
+	<link rel="stylesheet" href="vendors/linericon/style.css">
+  <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css">
+  <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+	<!-- ================ start banner area ================= -->	
+	<section class="blog-banner-area" id="blog">
+		<div class="container h-100">
+			<div class="blog-banner">
+				<div class="text-center">
+					<h1>함께 도전해요!</h1>
+					<nav aria-label="breadcrumb" class="banner-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Blog Details</li>
+            </ol>
+          </nav>
+				</div>
+			</div>
+    </div>
+	</section>
+	<!-- ================ end banner area ================= -->
+
+
+
+  <!--================Blog Area =================-->
 	<section class="blog_area single-post-area py-80px section-margin--small">
 			<div class="container">
 					<div class="row">
@@ -31,7 +46,7 @@
 									<div class="single-post row">
 											<div class="col-lg-12">
 													<div class="feature-img">
-															<img class="img-fluid" src="${vo.poster}" alt="">
+															<img class="img-fluid" src="img/blog/feature-img1.jpg" alt="">
 													</div>
 											</div>
 											<div class="col-lg-3  col-md-3">
@@ -44,26 +59,28 @@
 															</div>
 															<ul class="blog_meta list">
 																	<li>
-																			<a href="#">방장: ${vo.id_leader }
+																			<!-- 참여자수 -->
+																			<a href="#">${vo.id_leader }
 																					<i class="lnr lnr-user"></i>
 																			</a>
 																	</li>
 																	<li>
-																			<a href="#">등록일: ${vo.regdate }
+																			<a href="#">${vo.start_day }
 																					<i class="lnr lnr-calendar-full"></i>
 																			</a>
 																	</li>
 																	<li>
-																			<a href="#">도전 시작일: ${vo.start_day }
+																			<a href="#">${vo.hit }
 																					<i class="lnr lnr-eye"></i>
 																			</a>
 																	</li>
 																	<li>
-																			<a href="#">도전 종료일: ${vo.end_day }
+																			<a href="#">06 Comments
 																					<i class="lnr lnr-bubble"></i>
 																			</a>
 																	</li>
 															</ul>
+															<!-- 그룹리더 -->
 															<ul class="social-links">
 																	<li>
 																			<a href="#">
@@ -82,80 +99,25 @@
 																	</li>
 																	<li>
 																			<a href="#">
-														 						<i class="fab fa-behance"></i>																				
-													  						</a>
-													  				</li>
-													  		</ul>
+																				<i class="fab fa-behance"></i>																				
+																			</a>
+																	</li>
+															</ul>
 													</div>
-											</div>	 
+											</div>
 											<div class="col-lg-9 col-md-9 blog_details">
 													<h2>${vo.title }</h2>
 													<p class="excert">
-													 		[도전 내용] 	
+															${vo.content }
 													</p>
-													<p>
-													 			${vo.content }
-													</p>
-													<p>
-													 		
-													</p>
-											</div>	 
+											</div>
 											<div class="col-lg-12">
-													<div class="quotes">
-													 		MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money
-													 		on boot camp when you can get the MCSE study materials yourself at a fraction of the camp
-													 		price. However, who has the willpower to actually sit through a self-imposed MCSE training.
+													<div class="row">
+								
+															<div class="col-4">
+																	<img class="img-fluid" src="img/blog/post-img1.jpg" alt="">
+															</div>
 													</div>
-													<c:forEach var="Certifiedvo" items="${Certifiedvo }">
-													<h4>인증</h4>
-													<div class="owl-carousel owl-theme owl-custom" id="bestSellerCarousel">
-												          <div class="card text-center card-product">
-												            <div class="card-product__img">
-<%-- 												            	<img src="/Home_fit/challenge_poster/${Certifiedvo.poster}" alt=""> --%>
-												              <img class="img-fluid" src="/Home_fit/challenge_poster/${Certifiedvo.poster}" alt="">
-												              <ul class="card-product__imgOverlay">
-												                <li><button><i class="ti-search"></i></button></li>
-												                <li><button><i class="ti-shopping-cart"></i></button></li>
-												                <li><button><i class="ti-heart"></i></button></li>
-												              </ul>
-												            </div>
-												            <div class="card-body">
-												              <p>Accessories</p>
-												             <p href="single-product.html" class="card-product__title">아이디: ${Certifiedvo.challenge_id}</p>
-												              <p class="product__price">등록일: ${Certifiedvo.certified_date }</p>
-												            </div>
-												          </div>
-														</div>											
-<!-- 												밑에는  무슨 부분인지 모르겠음   필요없을거 같아서 주석 2020-10-24 [5:16] -->
-<!-- 													<div class="row"> -->
-<!-- 															<div class="col-6"> -->
-<%-- 																	<img class="img-fluid" src="/Home_fit/challenge_poster/${Certifiedvo.poster}" alt=""> --%>
-<!-- 																	<p>   -->
-<%-- 																		  ${Certifiedvo.challenge_id } --%>
-<!-- 																	</p> -->
-<!-- 															</div>	  -->
-<!-- <!-- 															<div class="col-6"> --> 
-<%-- <%-- 																	<img class="img-fluid" src="/Home_fit/challenge_poster/${Certifiedvo.poster}" alt=""> --%>
-<!-- <!-- 																	<p>   --> 
-<%-- <%-- 																		  ${Certifiedvo.challenge_id } --%> 
-<!-- <!-- 																	</p> --> 
-<!-- <!-- 															</div> --> 
-																   
-<!-- 															<div class="col-lg-12 mt-4"> -->
-																  	
-<!-- 															</div> -->
-<!-- 													</div>		   -->
-													</c:forEach>  
-													<p> 		  
-																[ 도전 글귀 ]MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money
-																on boot camp when you can get the MCSE study materials yourself at a fraction of
-																the camp price. However, who has the willpower.
-													</p>
-													<p align="center">
-													<c:if test="${count==1 || count==3}">
-														<a href="../challenge/Certified.do?challenge_no=${ vo.challenge_no}" class="button button-postComment button--active" >인증하기</a>
-													</c:if>													
-													</p>
 											</div>
 									</div>
 									<div class="navigation-area">
@@ -324,13 +286,7 @@
 															<textarea class="form-control mb-10" rows="5" name="message" placeholder="Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'"
 																	required=""></textarea>
 													</div>
-													<c:if test="${count==1 || count==3}">
-													<a href="../challenge/participation.do?challenge_no=${vo.challenge_no }" class="button button-postComment button--active">이미 참여 중인 도전입니다.</a>
-													</c:if>
-													<c:if test="${count==0}">
-													<a href="../challenge/participation.do?challenge_no=${vo.challenge_no }" class="button button-postComment button--active">참여 하기</a>
-													</c:if>
-													
+													<a href="#" class="button button-postComment button--active">Post Comment</a>
 											</form>
 									</div>
 							</div>
@@ -487,11 +443,45 @@
 													<div class="br"></div>
 											</aside>
 											<aside class="single-sidebar-widget tag_cloud_widget">
-											<c:if test="${count==3 }">
-												<p align="center">
-													<a href="" class="button button-postComment button--active">방 수정하기</a>
-												</p>
-											</c:if>
+													<h4 class="widget_title">Tag Clouds</h4>
+													<ul class="list">
+															<li>
+																	<a href="#">Technology</a>
+															</li>
+															<li>
+																	<a href="#">Fashion</a>
+															</li>
+															<li>
+																	<a href="#">Architecture</a>
+															</li>
+															<li>
+																	<a href="#">Fashion</a>
+															</li>
+															<li>
+																	<a href="#">Food</a>
+															</li>
+															<li>
+																	<a href="#">Technology</a>
+															</li>
+															<li>
+																	<a href="#">Lifestyle</a>
+															</li>
+															<li>
+																	<a href="#">Art</a>
+															</li>
+															<li>
+																	<a href="#">Adventure</a>
+															</li>
+															<li>
+																	<a href="#">Food</a>
+															</li>
+															<li>
+																	<a href="#">Lifestyle</a>
+															</li>
+															<li>
+																	<a href="#">Adventure</a>
+															</li>
+													</ul>
 											</aside>
 									</div>
 							</div>
@@ -499,23 +489,3 @@
 			</div>
 	</section>
 	<!--================Blog Area =================-->
-  
-
-  <!--================Instagram Area =================-->
-  <section class="instagram_area">
-    <div class="container box_1620">
-      <div class="insta_btn">
-        <a class="btn theme_btn" href="#">Follow us on instagram</a>
-      </div>
-      <div class="instagram_image row m0">
-        <a href="#"><img src="img/instagram/ins-1.jpg" alt=""></a>
-        <a href="#"><img src="img/instagram/ins-2.jpg" alt=""></a>
-        <a href="#"><img src="img/instagram/ins-3.jpg" alt=""></a>
-        <a href="#"><img src="img/instagram/ins-4.jpg" alt=""></a>
-        <a href="#"><img src="img/instagram/ins-5.jpg" alt=""></a>
-        <a href="#"><img src="img/instagram/ins-6.jpg" alt=""></a>
-      </div>
-    </div>
-  </section>
-</body>			
-</html>

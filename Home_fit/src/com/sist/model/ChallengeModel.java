@@ -151,7 +151,7 @@ public class ChallengeModel {
 	     // <input type=file name=upload size=20 class="input-sm">
 	     if(filename==null)//파일을 올리지 않을 경우
 	     {
-	    	 vo.setPoster(" ");
+	    	 vo.setPoster("");
 	     }
 	     else//파일 올릴 경우
 	     {
