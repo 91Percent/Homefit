@@ -7,12 +7,42 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="http://fonts.googleapis.com/earlyaccess/nanumpenscript.css" rel="stylesheet">
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('.pixel-radio').click(function(){
+		var check = $(this).attr("value");
+	 $.ajax({
+		 type:'post',
+		 url:'../ex/content.do?cate_no='+check,
+		 success:function(result)
+		 {
+			 $('.category-list').html(result);
+		 }
+	 });
+});
+});
+</script>
 <style>
 .row1{
 font-family: 'Nanum Pen Script',cursive;
 }
 .p{
 font-family: 'Nanum Pen Script',cursive;
+}
+.blog-banner-area::after {
+    background-image:url('yoga1.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-color:white;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 110%;
+    z-index: -1;
 }
 </style>
 </head>
@@ -42,9 +72,9 @@ font-family: 'Nanum Pen Script',cursive;
               <li class="common-filter">
                 <form action="#">
                   <ul>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="weight" name="brand"><label for="weight">근력 운동</label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="yoga" name="brand"><label for="yoga">요가</label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="pila" name="brand"><label for="pila">필라테스</label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="weight" value="1" name="ex"><label for="weight">근력 운동</label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="yoga" value="2" name="ex" checked="checked"><label for="yoga">요가</label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="pila" value="3" name="ex" ><label for="pila">필라테스</label></li>
                   </ul>
                 </form>
               </li>
