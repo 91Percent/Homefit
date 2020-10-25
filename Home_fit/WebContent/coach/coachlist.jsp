@@ -9,6 +9,42 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+var i;
+$(function(){
+      $('.pixel-radio').click(function(){
+         var id_check = $(this).attr("id");
+         if(id_check=='YOGA')
+            i='72';      
+         else if(id_check=='Pilates')
+            i='73';
+         else if(id_check=='G.X')
+            i='74';
+         else
+            i='71';
+         // id값 가져와서 비교하지말고 value 값을 불러와서 그냥 넣어주는게 코드가 더 간결할듯..
+         $.ajax({
+             type:'post',
+             url:'../coach/listlist.do?cateno='+i,
+             success:function(result)
+             {
+                $('.list_info').html(result);
+             }
+          });
+      });
+      $(function(){
+    	    $.ajax({
+    	       type:'post',
+    	       url:'../coach/listlist.do',
+    	       success:function(result)
+    	       {
+    	          $('.list_info').html(result);
+    	       }
+    	    });
+    	});
+});   
+</script>
 </head>
 <body>
 	<!-- ================ start banner area ================= -->	
@@ -40,8 +76,8 @@
               <li class="common-filter">
                 <form action="#">
                   <ul>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="PT" name="brand" submit="cate_no=71"><label for="PT">P.T<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="YOGA" name="brand" submit="cate_no=72"><label for="YOGA">YOGA<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="PT" name="brand"><label for="PT">P.T<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="YOGA" name="brand"><label for="YOGA">YOGA<span> (3600)</span></label></li>
                     <li class="filter-list"><input class="pixel-radio" type="radio" id="Pilates" name="brand"><label for="Pilates">Pilates<span> (3600)</span></label></li>
                     <li class="filter-list"><input class="pixel-radio" type="radio" id="G.X" name="brand"><label for="G.X">G.X<span> (3600)</span></label></li>
                   </ul>
@@ -79,70 +115,26 @@
           </div>
           <!-- End Filter Bar -->
           <!-- Start Best Seller -->
-          <section class="lattest-product-area pb-40 category-list">
-            <div class="row">
-            
-            <c:forEach var="vo" items="${list }">
-              <div class="col-md-6 col-lg-4">
-                <div class="card text-center card-product">
-                  <div class="card-product__img">
-                    <a href="../coach/info.do?coach_no=${vo.coach_no }" class="btn btn-lg">
-						<img src="${vo.poster }" alt="Lights" style="width:70%">
-					</a>
-                    <ul class="card-product__imgOverlay">
-                      <li><button><i class="ti-search"></i></button></li>
-                      <li><button><i class="ti-shopping-cart"></i></button></li>
-                      <li><button><i class="ti-heart"></i></button></li>
-                    </ul>
-                  </div>
-                  <div class="card-body">
-                    <a href="../coach/info.do?coach_no=${vo.coach_no }" class="btn btn-lg">${vo.coach_name }</a>
-                    <p class="card-product__price">${vo.subject}</p>
-                  </div>
-                </div>
-              </div>
-            </c:forEach>  
-            
-            </div>
-          </section>
+       	<section class="lattest-product-area pb-40 category-list">
+    	<div class="row">
+          <div class="list_info">
+          
+          	<!--코치 데이터 출력 위치 -->
+          
+          	</div>
+         </div>
+     	</section>
           <!-- End Best Seller -->
+          </div>
         </div>
       </div>
-    </div>
   </section>
 	<!-- ================ category section end ================= -->		  
 
 
     
     <!-- 페이지 바 -->
-	<nav class="blog-pagination justify-content-center d-flex">
-		<ul class="pagination">
-			<c:if test="${curpage>BLOCK }">
-				<li class="page-item">
-					<a href="../coach/coachlist.do?cate_no=${cate_no }&page=${startPage-1 }" class="page-link" aria-label="Previous">&lt;</a>
-				</li>
-			</c:if>
-			<c:forEach var="i" begin="${startPage }" end="${endPage }">
-				<c:if test="${i==curpage }">
-					<li class="active">
-						<a href="../coach/coachlist.do?cate_no=${cate_no }&page=${i} " class="page-link">${i }</a>
-					</li>
-				</c:if>
-				<c:if test="${i!=curpage }">
-					<li class="page-item">
-						<a href="../coach/coach.do?cate_no=${cate_no }&page=${i} " class="page-link">${i }</a>
-					</li>
-				</c:if>
-			</c:forEach>
-			<c:if test="${endPage<totalpage }">
-				<li class="page-item">
-					<a href="../coach/coach.do?cate_no=${cate_no }&page=${endPage+1 }" class="page-link" aria-label="Next">&gt;</a>
-				</li>
-			</c:if>
-		</nav>
 
-
-   
 </body>
 </html>
 

@@ -91,13 +91,13 @@ public class CoachDAO {
 	   
 	   
 	   // 코치 목록 데이터
-	   public static void CoachInsert(tutor_VO vo1)
+	   public static void CoachInsert(tutor_VO vo)
 	   {
 		   SqlSession session=null;
 		   try
 		   {
 			   session=ssf.openSession(true);
-			   session.insert("CoachInsert",vo1);
+			   session.insert("CoachInsert",vo);
 		   }catch(Exception ex)
 		   {
 			   ex.printStackTrace();
@@ -154,6 +154,15 @@ public class CoachDAO {
 		   tutor_VO vo=session.selectOne("coachDetailData",coach_no);
 		   session.close();
 		   return vo;
+	   }
+	   
+	   public static List<ScheduleVO> scheduleData(ScheduleVO vo)
+	   {
+	 	  SqlSession session=ssf.openSession();
+	 	  List<ScheduleVO> list = new ArrayList<ScheduleVO>();
+	 	  list=session.selectList("scheduleData",vo);
+	 	  session.close();
+	 	  return list;
 	   }
 	   
 }
