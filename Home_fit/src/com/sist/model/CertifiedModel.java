@@ -248,9 +248,23 @@ public class CertifiedModel {
 		System.out.println("이전 사진이름" + before_poster);
 		String start_day = mr.getParameter("start_day");
 		String end_day = mr.getParameter("end_day");
+		
 		String id_leader = (String) session.getAttribute("id");
+		
+		path = path+"\\"+before_poster;
+		File file = new File(path);
+		if(file.exists())
+		{
+			if(file.delete())
+			{
+				System.out.println(before_poster+"의 파일 삭제!");
+			}
+			else
+				System.out.println(before_poster+"의 파일 삭제 실패!");
+		}else
+			System.out.println("파일이 존재하지 않습니다.");
+		
 		// 받은 데이터들을 DAO => DAO에서 오라클에 INSERT
-
 		ChallengeVO vo = new ChallengeVO();
 		vo.setChallenge_no(Integer.parseInt(challenge_no));
 		vo.setTitle(title);

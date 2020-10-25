@@ -71,11 +71,11 @@
 				    </select>
 			       </td>
 			     </tr>
-	  	
 	  			<tr>
+					<%-- <a href="../challenge/download.jsp?poster=${vo.poster}">${vo.poster }</a> --%>
 			       <th class="danger text-right" width=30%>대표 사진</th>
 			       <td width=70%>
-			         <input type=file name=poster size=20 class="input-sm">
+			         <input type=file name=poster size=20 class="input-sm"> 
 			       </td>
 			     </tr>
 			     

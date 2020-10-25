@@ -32,10 +32,10 @@ public class ExModel {
 	       map.put("end",end);
 	       
 	       List<ExVO> list = ExDAO.exListData(map);
-    
+	       
 	       int totalpage=ExDAO.exTotalPage(Integer.parseInt(cate_no));
 	       int BLOCK=5;
-	   
+	       
 	       int startPage=((curpage-1)/BLOCK*BLOCK)+1;
 	       int endPage=((curpage-1)/BLOCK*BLOCK)+BLOCK;
 	       

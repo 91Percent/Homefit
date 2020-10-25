@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="../template/css/custom.css">
 </head>
 <body>
-
+	
 	<!--  header  -->
 	<jsp:include page="../main/header.jsp"></jsp:include>
 	
