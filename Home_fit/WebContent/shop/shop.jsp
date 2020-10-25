@@ -46,24 +46,18 @@ function page(v){
               <li class="common-filter">
                 <form action="../shop/shop.do" name="frm" method="post">
                   <ul>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="cate1" name="cate_no" value="1" onclick="javascript:page('1')"><label for="cate1">식단<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="cate2" name="cate_no" value="2" onclick="javascript:page('2')"><label for="cate2">건강간식<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="cate3" name="cate_no" value="3" onclick="javascript:page('3')"><label for="cate3">식사대용<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="cate4" name="cate_no" value="4" onclick="javascript:page('4')"><label for="cate4">단백질보충<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="cate5" name="cate_no" value="5" onclick="javascript:page('5')"><label for="cate5">체지방관리<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="cate6" name="cate_no" value="6" onclick="javascript:page('6')"><label for="cate6">헬스케어<span> (3600)</span></label></li>
+<!--                     <li class="filter-list"><input class="pixel-radio" type="radio" id="cate1" name="cate_no" value="1" onclick="javascript:page('1')"><label for="cate1">식단<span> (3600)</span></label></li> -->
+<!--                     <li class="filter-list"><input class="pixel-radio" type="radio" id="cate2" name="cate_no" value="2" onclick="javascript:page('2')"><label for="cate2">건강간식<span> (3600)</span></label></li> -->
+<!--                     <li class="filter-list"><input class="pixel-radio" type="radio" id="cate3" name="cate_no" value="3" onclick="javascript:page('3')"><label for="cate3">식사대용<span> (3600)</span></label></li> -->
+<!--                     <li class="filter-list"><input class="pixel-radio" type="radio" id="cate4" name="cate_no" value="4" onclick="javascript:page('4')"><label for="cate4">단백질보충<span> (3600)</span></label></li> -->
+<!--                     <li class="filter-list"><input class="pixel-radio" type="radio" id="cate5" name="cate_no" value="5" onclick="javascript:page('5')"><label for="cate5">체지방관리<span> (3600)</span></label></li> -->
+<!--                     <li class="filter-list"><input class="pixel-radio" type="radio" id="cate6" name="cate_no" value="6" onclick="javascript:page('6')"><label for="cate6">헬스케어<span> (3600)</span></label></li> -->
                   	<button onclick="value_check()">체크된 객체 value 가져오기</button>
                   </ul>
                 </form>
               </li>
             </ul>
           </div>
-			
-			
-			
-			
-			
-			
 			
         </div>
         <div class="col-xl-9 col-lg-8 col-md-7">

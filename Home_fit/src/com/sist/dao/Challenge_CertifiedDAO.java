@@ -127,6 +127,24 @@ public class Challenge_CertifiedDAO {
 		}
 		
 	}
-
+	
+	// <update id="Challenge_room_update" parameterType="ChallengeVO">
+	// 방 수정 업데이트
+	public static void Challenge_room_update(ChallengeVO vo)
+	{
+		SqlSession session=null;
+		try {
+			session=ssf.openSession(true);
+			session.update("Challenge_room_update",vo);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		
+	}
+	
 
 }

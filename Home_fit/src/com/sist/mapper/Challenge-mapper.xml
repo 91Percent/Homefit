@@ -66,8 +66,22 @@
      -->
 </select>  
 <!-- 디테일 데이터  -->
+
+<!-- CHALLENGE_NO NOT NULL NUMBER         -->
+<!-- CATE         NOT NULL VARCHAR2(500)  -->
+<!-- START_DAY    NOT NULL DATE           -->
+<!-- TITLE        NOT NULL VARCHAR2(500)  -->
+<!-- LIMIT        NOT NULL NUMBER         -->
+<!-- POSTER                VARCHAR2(500)  -->
+<!-- CONTENT               VARCHAR2(500)  -->
+<!-- ID_LEADER    NOT NULL VARCHAR2(300)  -->
+<!-- END_DAY               DATE           -->
+<!-- REGDATE               DATE           -->
+<!-- PERIOD                NUMBER         -->
+
+	<!-- Detail 데이터 가져오는 부분 -->
 <select id="ChanllenDetailData" resultType="ChallengeVO" parameterType="int">
-	SELECT * FROM Challenge
+	SELECT challenge_no,cate,TO_CHAR(start_day,'YYYY-MM-DD') as db_start_day,start_day,title,limit,poster,content,id_leader,end_day,regdate,period FROM Challenge
 	WHERE Challenge_no = #{challenge_no}
 </select>
 	
@@ -91,11 +105,14 @@
      #{challenge_id}
 	)
 </insert>
+<!-- 방에 참여중인지 확인하는 부분 -->
 <select id="Challnege_paticipation_check" parameterType="Challenge_ParticipationVO" resultType="int">
 	SELECT COUNT(*) FROM challenge_participation
 	WHERE challenge_no=#{challenge_no}
 	AND challenge_id=#{challenge_id}
 </select>
+
+
 <!-- 방 참가하는 부분 -->
 <insert id="Challenge_participation" parameterType="Challenge_ParticipationVO">
 	INSERT INTO challenge_participation VALUES(
@@ -104,5 +121,19 @@
 	)
 </insert>
 
+
+<!-- 방 업데이트 하는 부분 -->
+<update id="Challenge_room_update" parameterType="ChallengeVO">
+	UPDATE challenge SET 
+	cate=#{cate},
+	start_day=#{db_start_day},
+	title=#{title},
+	limit=#{limit},
+	poster=#{poster},
+	content=#{content},
+	id_leader=#{id_leader},
+	end_day=#{db_end_day}
+	WHERE challenge_no=#{challenge_no}
+</update>
 
 </mapper>

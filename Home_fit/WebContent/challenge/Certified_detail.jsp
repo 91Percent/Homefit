@@ -31,7 +31,7 @@
 									<div class="single-post row">
 											<div class="col-lg-12">
 													<div class="feature-img">
-															<img class="img-fluid" src="${vo.poster}" alt="">
+															<img class="img-fluid" src="/Home_fit/challenge_poster/${vo.poster}" alt="">
 													</div>
 											</div>
 											<div class="col-lg-3  col-md-3">
@@ -54,7 +54,7 @@
 																			</a>
 																	</li>
 																	<li>
-																			<a href="#">도전 시작일: ${vo.start_day }
+																			<a href="#">도전 시작일: ${vo.db_start_day }
 																					<i class="lnr lnr-eye"></i>
 																			</a>
 																	</li>
@@ -487,9 +487,15 @@
 													<div class="br"></div>
 											</aside>
 											<aside class="single-sidebar-widget tag_cloud_widget">
-											<c:if test="${count==3 }">
+											<c:if test="${count==3 && compare<0}">
 												<p align="center">
-													<a href="" class="button button-postComment button--active">방 수정하기</a>
+													<a href="../challenge/challenge_room_update.do?challenge_no=${vo.challenge_no }" class="button button-postComment button--active">도전 수정하기</a>
+												</p>
+											</c:if>
+											<c:if test="${count==3 && compare>=0}">
+												<p align="center">
+													<a href="" class="btn btn-sm btn-danger">도전 수정 불가</a>
+													<h4 align="center">도전이 이미 시작되었습니다.</h4>
 												</p>
 											</c:if>
 											</aside>

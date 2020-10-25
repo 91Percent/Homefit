@@ -39,6 +39,5 @@
 	<script src="../template/vendors/jquery.ajaxchimp.min.js"></script>
 	<script src="../template/vendors/mail-script.js"></script>
 	<script src="../template/js/main.js"></script>
-	
 </body>
 </html>

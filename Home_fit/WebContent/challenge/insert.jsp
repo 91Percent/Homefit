@@ -44,7 +44,7 @@
   <!--================Checkout Area =================-->
   <section class="checkout_area section-margin--small">
     <div class="container">
-  		  <form method="post" action="../challenge_room/insert_ok.do" enctype="multipart/form-data">
+  		  <form method="post" action="../challenge/insert_ok.do" enctype="multipart/form-data">
   		<div class="billing_details">
             <div class="row">
 	  		<table class="table table-hover">
