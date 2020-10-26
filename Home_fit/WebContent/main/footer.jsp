@@ -56,14 +56,14 @@
 									<span class="fa fa-location-arrow"></span> Head Office
 								</p>
 								<p>123, Main Street, Your City</p>
-
+			
 								<p class="sm-head">
 									<span class="fa fa-phone"></span> Phone Number
 								</p>
 								<p>
 									+123 456 7890 <br> +123 456 7890
 								</p>
-
+		
 								<p class="sm-head">
 									<span class="fa fa-envelope"></span> Email
 								</p>
@@ -76,7 +76,7 @@
 				</div>
 			</div>
 		</div>
-
+		
 		<div class="footer-bottom">
 			<div class="container">
 				<div class="row d-flex">
@@ -95,5 +95,5 @@
 			</div>
 		</div>
 	</footer>
-</body>
-</html>
+</body> 
+</html> 

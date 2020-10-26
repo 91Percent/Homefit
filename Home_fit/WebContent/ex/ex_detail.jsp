@@ -29,21 +29,16 @@
 
   <!--================Single Product Area =================-->
 	<div class="product_image_area">
-		<div class="container ">
+		<div class="container">
 			<div class="row s_product_inner">
 				<div class="col-lg-6">
 					<div class="owl-carousel owl-theme s_Product_carousel">
 						<div class="single-prd-item">
 							<img class="img-fluid" src="${vo.poster }" alt="">
 						</div>
-						<!-- <div class="single-prd-item">
-							<img class="img-fluid" src="img/category/s-p1.jpg" alt="">
-						</div>
-						<div class="single-prd-item">
-							<img class="img-fluid" src="img/category/s-p1.jpg" alt="">
-						</div> -->
 					</div>
 				</div>
+				
 				<div class="col-lg-5 offset-lg-1">
 					<div class="s_product_text">
 						<h2>${vo.subject}</h2>
@@ -57,46 +52,143 @@
 				</div>
 			</div>
 		</div>
-	</div>
 	<!--================End Single Product Area =================-->
-<section class="blog">
-      <div class="container">
-        <div class="section-intro pb-60px">
-          <h2>함께 따라해보는 <span class="section-intro__style">자세</span></h2>
-		     <c:forTokens var="c" items="${vo.step_no }" delims="|" varStatus="status" >
-		     ${c } 
+<!--  <section class="blog"> -->
+<!--       <div class="container"> -->
+<!--         <div class="section-intro pb-60px"> -->
+<!--           <h2>함께 따라해보는 <span class="section-intro__style">자세</span></h2> -->
+<%-- 		     <c:forTokens var="c" items="${vo.step_no }" delims="|" varStatus="status" > --%>
+<%-- 		     ${c }  --%>
 		     
-		       <c:forTokens var="p" items="${vo.step_content }" delims="|"  begin="${status.index }" end="${status.index }"> 
-		       ${p } <br> 
+<%-- 		       <c:forTokens var="p" items="${vo.step_content }" delims="|"  begin="${status.index }" end="${status.index }">  --%>
+<%-- 		       ${p } <br>  --%>
 		       
-		       <c:forTokens var="a" items="${vo.step_image }" delims="|"  begin="${status.index }" end="${status.index }"> 
-		       ${a } <br> 
-		       </c:forTokens>
-		      </c:forTokens>
-		  </c:forTokens>
-        </div>
+<%-- 		       <c:forTokens var="a" items="${vo.step_image }" delims="|"  begin="${status.index }" end="${status.index }">  --%>
+<%-- 		       ${a } <br>  --%>
+<%-- 		       </c:forTokens> --%>
+<%-- 		      </c:forTokens> --%>
+<%-- 		  </c:forTokens> --%>
+<!--         </div> -->
 
-		<c:forTokens var="c" items="${vo.step_no }" delims="|" varStatus="status" >
-		  <c:forTokens var="p" items="${vo.step_content }" delims="|"  begin="${status.index }" end="${status.index }">
-		  <c:forTokens var="a" items="${vo.step_image }" delims="|"  begin="${status.index }" end="${status.index }">
-        <div class="row">
-          <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
-            <div class="card card-blog">
-              <div class="card-blog__img">
-                <img class="card-img rounded-0" src="${a }" alt="">
-		       </c:forTokens>
+<%-- 		<c:forTokens var="c" items="${vo.step_no }" delims="|" varStatus="status" > --%>
+<%-- 		  <c:forTokens var="p" items="${vo.step_content }" delims="|"  begin="${status.index }" end="${status.index }"> --%>
+<%-- 		  <c:forTokens var="a" items="${vo.step_image }" delims="|"  begin="${status.index }" end="${status.index }"> --%>
+<!--         <div class="row"> -->
+<!--           <div class="col-md-6 col-lg-4 mb-4 mb-lg-0"> -->
+<!--             <div class="card card-blog"> -->
+<!--               <div class="card-blog__img"> -->
+<%--                 <img class="card-img rounded-0" src="https://${a }" alt=""> --%>
+<%-- 		       </c:forTokens> --%>
               
-              <div class="card-body">
-                <h4 class="card-blog__title">
-               		 ${c }  </h4>
-                <p> ${p }</p>
-                </div>
+<!--               <div class="card-body"> -->
+<!--                 <h4 class="card-blog__title"> -->
+<%--                		 ${c }  </h4> --%>
+<%--                 <p> ${p }</p> --%>
+<!--                 </div> -->
+<!--               </div> -->
+<!--           </div> -->
+<!--           </div> -->
+<!--          </div> -->
+<%--           </c:forTokens> --%>
+<%-- 		     </c:forTokens> --%>
+<!--     </section>  -->
+
+<!-- 이미지 카드 형식 -->
+<!-- <section class="section-margin calc-60px"> -->
+<!--       <div class="container"> -->
+<!--         <div class="section-intro pb-60px"> -->
+<!--           <h2>함께 따라하는  <span class="section-intro__style">자세</span></h2> -->
+<!--         </div> -->
+<!--         <div class="row"> -->
+<%--         <c:forTokens var="c" items="${vo.step_no }" delims="|" varStatus="status" > --%>
+<%--         <c:forTokens var="p" items="${vo.step_content }" delims="|"  begin="${status.index }" end="${status.index }">  --%>
+<%-- 		  <c:forTokens var="a" items="${vo.step_image }" delims="|"  begin="${status.index }" end="${status.index }"> --%>
+<!--           <div class="col-md-6 col-lg-4 col-xl-3"> -->
+<!--             <div class="card text-center card-product"> -->
+<!--               <div class="card-product__img"> -->
+<%--                 <img class="card-img" src="https://${a}" alt=""> --%>
+<!--               </div> -->
+<!--               <div class="card-body"> -->
+<%--                 <h4 class="card-product__title">${c }</h4> --%>
+<%--                 <p class="card-product__price">${p }</p> --%>
+<!--               </div> -->
+<!--             </div> -->
+<!--           </div> -->
+<%--           </c:forTokens> --%>
+<%--          </c:forTokens> --%>
+<%--         </c:forTokens> --%>
+<!--         </div> -->
+<!--       </div> -->
+<!--     </section> -->
+
+<!-- <!-- 이미지 무한 루프 --> -->
+<!--       <section class="section-margin calc-60px"> -->
+<!--       <div class="container"> -->
+<!--         <div class="section-intro pb-60px"> -->
+<!--           <h2>함께 따라하는 <span class="section-intro__style">동작</span></h2> -->
+<!--         </div> -->
+<!--         <div class="owl-carousel owl-theme" id="bestSellerCarousel"> -->
+<%--         <c:forTokens var="c" items="${vo.step_no }" delims="|" varStatus="status" >  --%>
+<%--          <c:forTokens var="p" items="${vo.step_content }" delims="|"  begin="${status.index }" end="${status.index }">  --%>
+<%--  		  <c:forTokens var="a" items="${vo.step_image }" delims="|"  begin="${status.index }" end="${status.index }">  --%>
+<!--           <div class="card text-center card-product"> -->
+<!--             <div class="card-product__img"> -->
+<%--               <img class="img-fluid" src="https://${a }" alt=""> --%>
+<!--             </div> -->
+<!--             <div class="card-body"> -->
+<%--               <h4 class="card-product__title">${c }</h4> --%>
+<%--               <p class="card-product__price">${p}</p> --%>
+<!--             </div> -->
+<!--           </div> -->
+        
+<%--          </c:forTokens> --%>
+<%--          </c:forTokens> --%>
+<%--         </c:forTokens> --%>
+<!--           </div> -->
+<!--         </div> -->
+<!--         </section> -->
+
+<section class="cart_area">
+      <div class="container">
+          <div class="cart_inner">
+              <div class="table-responsive">
+                  <table class="table">
+                      <thead>
+                          <tr>
+                              <th scope="col">StepNumber</th>
+                              <th scope="col">Content</th>
+                              <th scope="col"></th>
+                          </tr>
+                      </thead>
+                       <c:forTokens var="c" items="${vo.step_no }" delims="|" varStatus="status" >
+        <c:forTokens var="p" items="${vo.step_content }" delims="|"  begin="${status.index }" end="${status.index }"> 
+		  <c:forTokens var="a" items="${vo.step_image }" delims="|"  begin="${status.index }" end="${status.index }">
+                      <tbody>
+                          <tr>
+                         	 <td>
+                                 <h5>${c }</h5>
+                              </td>
+                              <td>
+                                  <div class="media">
+                                      <div class="d-flex">
+                                          <img src="${a }" alt="">
+                                      </div>
+                                      <div class="media-body">
+                                          <p>${p }</p>
+                                      </div>
+                                  </div>
+                              </td>
+                          </tr>
+                             </c:forTokens>
+					         </c:forTokens>
+					        </c:forTokens>
+                      </tbody>
+                  </table>
               </div>
           </div>
-          </div>
-         </div>
-          </c:forTokens>
-		     </c:forTokens>
-    </section>
+      </div>
+  </section>
+
+
 </body>
 </html>

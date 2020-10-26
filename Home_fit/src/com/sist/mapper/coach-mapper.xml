@@ -38,6 +38,13 @@ Insert INTO coach_info VALUES(
 	SELECT CEIL(COUNT(*)/10.0) FROM coach_info
 </select>
 
+
+<!-- 코치스케쥴데이터 -->
+  <select id="scheduleData" resultType="ScheduleVO" parameterType="ScheduleVO">
+   		SELECT * FROM coach_schedule
+   		WHERE coach_no=#{coach_no}
+   </select>
+   
 <!-- 코치스케쥴 -->
 <select id="scheduleListData" resultType="ScheduleVO" parameterType="hashmap">
 	SELECT coach_no,month,time,place,reserve_check,schedule_no,num
@@ -49,4 +56,11 @@ Insert INTO coach_info VALUES(
 <select id="scheduleTotalPage" resultType="int">
 	SELECT CEIL(COUNT(*)/10.0) FROM coach_schedule
 </select>
+
+<select id="coachDetailData" resultType="tutor_VO" parameterType="hashmap">
+	SELECT * FROM coach_info
+	WHERE coach_no=#{coach_no}
+</select>
+
+
 </mapper>

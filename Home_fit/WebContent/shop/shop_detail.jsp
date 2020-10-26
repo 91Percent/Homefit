@@ -11,9 +11,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-
-
 	<!-- ================ start banner area ================= -->	
 	<section class="blog-banner-area" id="blog">
 		<div class="container h-100">
@@ -30,8 +27,7 @@
 			</div>
     </div>
 	</section>
-	<!-- ================ end banner area ================= -->
-
+  <!-- ================ end banner area ================= -->
 
   <!--================Single Product Area =================-->
 	<div class="product_image_area">

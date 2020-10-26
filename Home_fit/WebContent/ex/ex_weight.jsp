@@ -6,6 +6,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('.pixel-radio').click(function(){
+		var check = $(this).attr("value");
+	 $.ajax({
+		 type:'post',
+		 url:'../ex/content.do?cate_no='+check,
+		 success:function(result)
+		 {
+			 $('.category-list').html(result);
+		 }
+	 });
+});
+});
+</script>
 <link href="http://fonts.googleapis.com/earlyaccess/nanumpenscript.css" rel="stylesheet">
 <style>
 .row1{
@@ -13,6 +29,19 @@ font-family: 'Nanum Pen Script',cursive;
 }
 .p{
 font-family: 'Nanum Pen Script',cursive;
+}
+.blog-banner-area::after {
+    background-image:url('workout2.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color:white;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
 }
 </style>
 </head>
@@ -41,10 +70,10 @@ font-family: 'Nanum Pen Script',cursive;
             <ul class="main-categories">
               <li class="common-filter">
                 <form action="#">
-                  <ul>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="weight" name="brand"><label for="weight">근력 운동</label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="yoga" name="brand"><label for="yoga">요가</label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="pila" name="brand"><label for="pila">필라테스</label></li>
+                   <ul>
+                   <li class="filter-list"><input class="pixel-radio" type="radio" id="weight" name="ex" value="1" checked="checked"><label for="weight">근력 운동</label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="yoga" name="ex" value="2"><label for="yoga">요가</label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="pila" name="ex" value="3" ><label for="pila">필라테스</label></li>
                   </ul>
                 </form>
               </li>

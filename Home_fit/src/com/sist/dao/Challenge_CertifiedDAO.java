@@ -41,13 +41,13 @@ public class Challenge_CertifiedDAO {
 		return list;
 	}
 
-	public static ChallengeVO ChallengeDetailData(int no) {
+	public static ChallengeVO ChallengeDetailData(int challenge_no) {
 		ChallengeVO vo = new ChallengeVO();
 		SqlSession session = null;
 		
 		try {
 			session=ssf.openSession();
-			vo  = session.selectOne("ChanllenDetailData",no);
+			vo  = session.selectOne("ChanllenDetailData",challenge_no);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -81,7 +81,6 @@ public class Challenge_CertifiedDAO {
 	{	
 		SqlSession session =null;
 		try {
-			System.out.println("입력!!!");
 			session=ssf.openSession(true);
 			session.insert("Challenge_CertifiedUpload",vo);
 			
@@ -93,6 +92,59 @@ public class Challenge_CertifiedDAO {
 		}
 		
 	}
-
+	//<select id="Challnege_paticipation_check" parameterType="Challenge_ParticipationVO" resultType="int">
+	//방에 유저가 있는지 없는지 검색
+	public static int Challnege_paticipation_check(Challenge_ParticipationVO vo)
+	{
+		SqlSession session = null;
+		int count =0;
+		try {
+			session=ssf.openSession();
+			count=session.selectOne("Challnege_paticipation_check",vo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return count;
+	}
+	
+	//<insert id="Challenge_participation" parameterType="ChallengeVO">
+	// 방 참가 하기
+	public static void Challenge_participation(Challenge_ParticipationVO vo)
+	{
+		SqlSession session=null;
+		try {
+			session=ssf.openSession(true);
+			session.insert("Challenge_participation",vo);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		
+	}
+	
+	// <update id="Challenge_room_update" parameterType="ChallengeVO">
+	// 방 수정 업데이트
+	public static void Challenge_room_update(ChallengeVO vo)
+	{
+		SqlSession session=null;
+		try {
+			session=ssf.openSession(true);
+			session.update("Challenge_room_update",vo);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		
+	}
+	
 
 }

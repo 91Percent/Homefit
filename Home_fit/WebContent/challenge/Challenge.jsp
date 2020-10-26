@@ -23,11 +23,11 @@
 				</div>
 			</div>
     </div>
-	</section>
+	</section>	
  	<div class="text-center">
-     <a href="../main/Challenge.jsp" class="btn btn-lg btn-active">전체 도전 목록 </a>
+     <a href="../main/Challenge.jsp" class="btn btn-lg btn-danger">전체 도전 목록 </a>
      <a href="../main/Challenge.jsp" class="btn btn-lg btn-primary">참여 중인 도전</a>
-	</div>		   
+	</div>		
 	<div class="row">
 	     	<c:forEach var="vo" items="${list}">
 	             <div class="col-md-4">
@@ -42,5 +42,9 @@
 	           </div>
 	    	</c:forEach>
     	</div>
+    		<p align="center">
+				<a href="../member/logout.do" class="button button-postComment button--active" >로그아웃</a>
+				<a href="../member/login.do" class="button button-postComment button--active" >로그인</a>
+			</p>
 </body>
 </html>

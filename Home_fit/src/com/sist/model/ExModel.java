@@ -32,10 +32,10 @@ public class ExModel {
 	       map.put("end",end);
 	       
 	       List<ExVO> list = ExDAO.exListData(map);
-    
+	       
 	       int totalpage=ExDAO.exTotalPage(Integer.parseInt(cate_no));
 	       int BLOCK=5;
-	   
+	       
 	       int startPage=((curpage-1)/BLOCK*BLOCK)+1;
 	       int endPage=((curpage-1)/BLOCK*BLOCK)+BLOCK;
 	       
@@ -187,5 +187,49 @@ public class ExModel {
 		request.setAttribute("vo", vo);
 		request.setAttribute("main_jsp", "../ex/ex_detail.jsp");
 		return "../main/main.jsp";
+	}
+	@RequestMapping("ex/content.do")
+	public String test(HttpServletRequest request)
+	{
+		String page = request.getParameter("page");
+	       if(page==null)
+	          page="1";
+	       String cate_no=request.getParameter("cate_no");
+			if(cate_no==null)
+				cate_no="1";
+	       System.out.println("page"+page);
+	       int curpage=Integer.parseInt(page);
+	       Map map = new HashMap();
+	       int rowSize=12;
+	       int start = (curpage*rowSize)-(rowSize-1);
+	       int end = curpage*rowSize;
+	         
+	       map.put("cate_no",cate_no);
+	       map.put("start",start);
+	       map.put("end",end);
+	       
+	       List<ExVO> list = ExDAO.exListData(map);
+    
+	       int totalpage=ExDAO.exTotalPage(Integer.parseInt(cate_no));
+	       int BLOCK=5;
+	   
+	       int startPage=((curpage-1)/BLOCK*BLOCK)+1;
+	       int endPage=((curpage-1)/BLOCK*BLOCK)+BLOCK;
+	       
+	       if(endPage>totalpage)
+	       {
+	          endPage = totalpage;
+	       }
+//	       System.out.println("start"+startPage);
+//	       System.out.println("list.size"+list.size());
+//	       System.out.println("ex/test.jsp 보내는 과정 실행입니듕21");
+	       request.setAttribute("list",list);
+	       request.setAttribute("curpage", curpage);
+	       request.setAttribute("totalpage", totalpage);
+	       request.setAttribute("BLOCK", BLOCK);
+	       request.setAttribute("startPage", startPage);
+	       request.setAttribute("endPage",endPage);
+	    //   request.setAttribute("main_jsp","../ex/test.jsp");
+	        return "../ex/content.jsp";
 	}
 }

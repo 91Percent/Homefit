@@ -6,6 +6,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('.pixel-radio').click(function(){
+		var check = $(this).attr("value");
+	 $.ajax({
+		 type:'post',
+		 url:'../ex/content.do?cate_no='+check,
+		 success:function(result)
+		 {
+			 $('.category-list').html(result);
+		 }
+	 });
+});
+});
+</script>
 <link href="http://fonts.googleapis.com/earlyaccess/nanumpenscript.css" rel="stylesheet">
 <style>
 .row1{
@@ -41,11 +57,12 @@ font-family: 'Nanum Pen Script',cursive;
             <ul class="main-categories">
               <li class="common-filter">
                 <form action="#">
-                  <ul>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="weight" name="brand"><label for="weight">근력 운동</label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="yoga" name="brand"><label for="yoga">요가</label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="pila" name="brand"><label for="pila">필라테스</label></li>
+                 <ul>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="weight" name="brand"value="1"><label for="weight">근력 운동</label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="yoga" name="brand" value="2"><label for="yoga">요가</label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="pila" name="brand" value="3"><label for="pila">필라테스</label></li>
                   </ul>
+
                 </form>
               </li>
             </ul>
@@ -70,12 +87,10 @@ font-family: 'Nanum Pen Script',cursive;
           <!-- Start Filter Bar -->
           <div class="filter-bar d-flex flex-wrap align-items-center">
             <div class="sorting">
-              <select>
+              <select name=ex onchange="sor">
                 <option value="1">근력</option>
-                <option value="1">기동성</option>
-                <option value="1">유연성</option>
-                <option value="1">밸런스</option>
-                <option value="1">호흡</option>
+                <option value="2">요가</option>
+                <option value="3">필라테스</option>
               </select>
             </div>
             <div>
@@ -90,7 +105,7 @@ font-family: 'Nanum Pen Script',cursive;
           <!-- End Filter Bar -->
           <!-- Start Best Seller -->
           <section class="lattest-product-area pb-40 category-list row1">
-            <div class="row">
+ 			<div class="row">
             <c:forEach var="vo" items="${list }">
               <div class="col-md-6 col-lg-4">
                 <div class="card text-center card-product">
@@ -108,6 +123,7 @@ font-family: 'Nanum Pen Script',cursive;
               </div>
               </c:forEach>
               </div>
+          
               <!-- 페이지 바 -->
                       <nav class="blog-pagination justify-content-center d-flex">
                           <ul class="pagination">
@@ -139,10 +155,8 @@ font-family: 'Nanum Pen Script',cursive;
                             </c:if>
                           </ul>
                       </nav>
-                  </div>
-              </div>
               
- 	          </section>
+ 	          </section> 
           <!-- End Best Seller -->
         </div>
       </div>
