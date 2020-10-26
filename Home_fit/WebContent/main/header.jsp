@@ -57,8 +57,9 @@
 	                  aria-expanded="false">함께도전해요</a>
 	                <ul class="dropdown-menu">
 	                <li class="nav-item"><a class="nav-link" href="../challenge/list.do">전체</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="../challenge/Challenge.do">식단챌린지</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="register.html">운동챌린지</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="../challenge/list.do?cate=food">식단챌린지</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="../challenge/list.do?cate=exercise
+	                  ">운동챌린지</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="tracking-order.html">기타</a></li>
 	                </ul>
 	             </li>

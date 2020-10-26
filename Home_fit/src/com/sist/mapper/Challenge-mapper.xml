@@ -1,34 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.dao.Challenge-mmpaer">
-	<!-- 챌린지 전체목록 -->
-	<select id="challengeTotalListData" resultType="ChallengeVO" parameterType="hashmap">
-		SELECT Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit, num
-		FROM (SELECT Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit,rownum as num
-		FROM (SELECT Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit
-		FROM challenge ORDER BY start_day DESC))
-		WHERE num BETWEEN #{start} AND #{end}
-	</select> 
-	
-	
-	<!-- 챌린지 목록 -->
+
+	<!-- 챌린지 list -->
 	<select id="challengeCateListData" resultType="ChallengeVO" parameterType="hashmap">
-		SELECT Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit, num
-		FROM (SELECT Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit,rownum as num
-		FROM (SELECT Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit
-		FROM challenge WHERE cate=#{cate} ORDER BY start_day DESC))
-		WHERE num BETWEEN #{start} AND #{end}
+	  <if test="cate==null">
+			SELECT Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit, num
+			FROM (SELECT Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit,rownum as num
+			FROM (SELECT Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit
+			FROM challenge ORDER BY start_day DESC))
+			WHERE num BETWEEN #{start} AND #{end}
+		</if>
+		<if test="cate!=null">
+			SELECT Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit, num
+			FROM (SELECT Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit,rownum as num
+			FROM (SELECT Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit
+			FROM challenge WHERE cate=#{cate} ORDER BY start_day DESC))
+			WHERE num BETWEEN #{start} AND #{end}
+		</if>
 	</select> 
 	
-	<!-- 챌린지 목록 전체 페이지 수  -->
-	<select id="challengeTotalPage" resultType="int">
-		SELECT CEIL(COUNT(*)/20.0) FROM challenge
-	</select>
 	
-	<!-- 챌린지 목록 카테고리별 페이지 수  -->
-	<select id="challengeCateTotalPage" resultType="int">
-		SELECT CEIL(COUNT(*)/20.0) FROM challenge
-		WHERE cate=#{cate}
+	<!-- 챌린지 목록 전체 및 카테고리별 페이지 수  -->
+	<select id="challengeCateTotalPage" resultType="int" parameterType="String">
+	<choose>
+		<when test="cate==null">
+			SELECT CEIL(COUNT(*)/20.0) FROM challenge
+		</when>
+		<otherwise>
+			SELECT CEIL(COUNT(*)/20.0) FROM challenge
+			WHERE cate=#{cate}
+		</otherwise>
+	  </choose>	
 	</select>
 	
 	<!-- 챌린지 도전 추가하기 -->

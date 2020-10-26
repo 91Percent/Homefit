@@ -303,7 +303,10 @@ public class CertifiedModel {
 	@RequestMapping("challenge/list.do")
 	public String challengeListData(HttpServletRequest request) {
 		String page = request.getParameter("page");
-
+		String cate = request.getParameter("cate");
+		if(cate==null)
+			cate=null;
+		
 		if (page == null)
 			page = "1";
 		int curpage = Integer.parseInt(page);
@@ -314,10 +317,11 @@ public class CertifiedModel {
 		Map map = new HashMap();
 		map.put("start", start);
 		map.put("end", end);
+		map.put("cate", cate);
+		System.out.println(cate);
+		List<ChallengeVO> list = ChallengeDAO.challengeCateListData(map);
 
-		List<ChallengeVO> list = ChallengeDAO.challengeTotalListData(map);
-
-		int totalpage = ChallengeDAO.challengeTotalPage();
+		int totalpage = ChallengeDAO.challengeCateTotalPage(cate);
 
 		int BLOCK = 5;
 		int startPage = ((curpage - 1) / BLOCK * BLOCK) + 1;

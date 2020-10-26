@@ -41,31 +41,8 @@ public class ChallengeDAO {
 		}
 	}
 
-	//<!-- 챌린지 전체목록 -->
-	//<select id="challengeTotalListData" resultType="ChallengeVO" parameterType="hashmap">
-	public static List<ChallengeVO> challengeTotalListData(Map map)
-	{
-		List<ChallengeVO> list=new ArrayList<ChallengeVO>();
-		SqlSession session=null;
-		try
-		{
-			session=ssf.openSession();
-			list=session.selectList("challengeTotalListData",map);
-		}catch(Exception ex)
-		{
-			ex.printStackTrace();
-		}
-		finally
-		{
-			if(session!=null)
-				session.close();
-		}
-		return list;
-	}
 	
-	
-	// 챌린지 카테고리별 목록
-	//<select id="challengeListData" resultType="challengeVO" parameterType="hashmap">
+	// 챌린지 전체 및 카테고리별 목록
 	public static List<ChallengeVO> challengeCateListData(Map map)
 	{
 		List<ChallengeVO> list=new ArrayList<ChallengeVO>();
@@ -85,37 +62,17 @@ public class ChallengeDAO {
 		}
 		return list;
 	}
-	
-	//<!-- 챌린지 목록 전체 페이지 수 -->
-	public static int challengeTotalPage()
-	{
-		int total=0;
-		SqlSession session=null;
-		try
-		{
-			session=ssf.openSession();
-			total=session.selectOne("challengeTotalPage");
-		}catch(Exception ex)
-		{
-			ex.printStackTrace();
-		}
-		finally
-		{
-			if(session!=null)
-				session.close();
-		}
-		return total;
-	}
+
 	
 	//<!-- 챌린지 목록 카테고리별 전체 페이지 수 -->
-		public static int challengeCateTotalPage()
+		public static int challengeCateTotalPage(String cate)
 		{
 			int total=0;
 			SqlSession session=null;
 			try
 			{
 				session=ssf.openSession();
-				total=session.selectOne("challengeCateTotalPage");
+				total=session.selectOne("challengeCateTotalPage",cate);
 			}catch(Exception ex)
 			{
 				ex.printStackTrace();

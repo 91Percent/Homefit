@@ -20,10 +20,8 @@
    .challengebtn {
     margin-bottom: 20px;
 	}
-  .pagination{display:inline-block;padding-left:0;margin:20px 0;border-radius:4px}.pagination>li{display:inline}.pagination>li>a,.pagination>li>span{position:relative;float:left;padding:6px 12px;margin-left:-1px;line-height:1.42857143;color:#337ab7;text-decoration:none;background-color:#fff;border:1px solid #ddd}.pagination>li>a:focus,.pagination>li>a:hover,.pagination>li>span:focus,.pagination>li>span:hover{z-index:2;color:#23527c;background-color:#eee;border-color:#ddd}.pagination>li:first-child>a,.pagination>li:first-child>span{margin-left:0;border-top-left-radius:4px;border-bottom-left-radius:4px}.pagination>li:last-child>a,.pagination>li:last-child>span{border-top-right-radius:4px;border-bottom-right-radius:4px}.pagination>.active>a,.pagination>.active>a:focus,.pagination>.active>a:hover,.pagination>.active>span,.pagination>.active>span:focus,.pagination>.active>span:hover{z-index:3;color:#fff;cursor:default;background-color:#337ab7;border-color:#337ab7}.pagination>.disabled>a,.pagination>.disabled>a:focus,.pagination>.disabled>a:hover,.pagination>.disabled>span,.pagination>.disabled>span:focus,.pagination>.disabled>span:hover{color:#777;cursor:not-allowed;background-color:#fff;border-color:#ddd}.pagination-lg>li>a,.pagination-lg>li>span{padding:10px 16px;font-size:18px;line-height:1.3333333}.pagination-lg>li:first-child>a,.pagination-lg>li:first-child>span{border-top-left-radius:6px;border-bottom-left-radius:6px}.pagination-lg>li:last-child>a,.pagination-lg>li:last-child>span{border-top-right-radius:6px;border-bottom-right-radius:6px}.pagination-sm>li>a,.pagination-sm>li>span{padding:5px 10px;font-size:12px;line-height:1.5}.pagination-sm>li:first-child>a,.pagination-sm>li:first-child>span{border-top-left-radius:3px;border-bottom-left-radius:3px}.pagination-sm>li:last-child>a,.pagination-sm>li:last-child>span{border-top-right-radius:3px;border-bottom-right-radius:3px}
-  .pager{padding-left:0;margin:20px 0;text-align:center;list-style:none}.pager li{display:inline}.pager li>a,.pager li>span{display:inline-block;padding:5px 14px;background-color:#fff;border:1px solid #ddd;border-radius:15px}.pager li>a:focus,.pager li>a:hover{text-decoration:none;background-color:#eee}.pager .next>a,.pager .next>span{float:right}.pager .previous>a,.pager .previous>span{float:left}.pager .disabled>a,.pager .disabled>a:focus,.pager .disabled>a:hover,.pager .disabled>span{color:#777;cursor:not-allowed;background-color:#fff}
-  .pager:after,.pager:before,.panel-body:after,.panel-body:before,.row:after,.row:before{display:table;content:" "}.btn-group-vertical>.btn-group:after,.btn-toolbar:after,.clearfix:after,.container-fluid:after,.container:after,.dl-horizontal dd:after,.form-horizontal .form-group:after,.modal-footer:after,.modal-header:after,.nav:after,.navbar-collapse:after,.navbar-header:after,.navbar:after,.pager:after,.panel-body:after,.row:after{clear:both}
-  </style>
+ </style>
+  
   
 </head>
 
@@ -48,12 +46,25 @@
 	
   <!-- ================ category section start ================= -->		  
   <section class="section-margin--small mb-5">
-    
-      <div class="container">
-         <div class="row">
+     <div class="container">
+            <div class="row"> 
             
             <!-- start : 상세 페이지 왼쪽 -->
             <div class="col-xl-3 col-lg-4 col-md-5">
+            <div class="sidebar-categories">
+            <div class="head">운동 종류</div>
+            <ul class="main-categories">
+              <li class="common-filter">
+                <form action="#">
+                   <ul>
+                   <li class="filter-list"><input class="pixel-radio" type="radio" id="weight" name="ex" value="1" checked="checked"><label for="weight">근력 운동</label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="yoga" name="ex" value="2"><label for="yoga">요가</label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="pila" name="ex" value="3" ><label for="pila">필라테스</label></li>
+                  </ul>
+                </form>
+              </li>
+            </ul>
+          </div>
                <div class="sidebar-filter">
                   <div class="top-filter-head">Challenge Filters</div>
                   <div class="common-filter">
@@ -160,7 +171,7 @@
           <!-- start : 도전방목록list-->
           <section class="lattest-product-area pb-40 category-list">
             <div class="row">
-			 <c:forEach var="vo" items="${list }">
+			 	<c:forEach var="vo" items="${list }">
 	          <div class="col-lg-4 col-md-6 mb-4">
 			  	<div class="card h-100">
 			  																			<!-- 승구야 여기 poster경로 바꿔~! -->
@@ -183,33 +194,46 @@
 	        		  <!-- </div> -->      		
 			  	</div>
 			  </div>
-			 </c:forEach>	
+	</c:forEach>
 	        </div>
           </section>
           <!-- end : 도전방목록list-->
-          
-		  <!-- start : Pagination -->
-		  <div class="row">
-		    <div class="text-center">
-		       <ul class="pagination">
-		          <c:if test="${curpage>BLOCK }">
-		           <li><a href="../challenge_room/list.do?page=${startPage-1 }">&lt;</a></li>
-		          </c:if>
-		          <c:forEach var="i" begin="${startPage }" end="${endPage }">
-		            <c:if test="${i==curpage }">
-		              <li class="active"><a href="../challenge_room/list.do?page=${i }">${i }</a></li>
-		            </c:if>
-		            <c:if test="${i!=curpage }">
-		              <li><a href="../challenge_room/list.do?page=${i }">${i }</a></li>
-		            </c:if>
-		          </c:forEach>
-		          <c:if test="${endPage<totalpage }">
-				    <li><a href="../challenge_room/list.do?page=${endPage+1 }">&gt;</a></li>
-				  </c:if>
-				</ul>
-		    </div>
-		    </div>
-		    <!-- end : Pagination-->
+					<nav class="blog-pagination justify-content-center d-flex">
+						<ul class="pagination">
+							<!-- 이전 -->
+							<c:if test="${cupage>BLOCK }">
+								<li class="page-item"><a href="../challenge_room/list.do?page=${startPage-1 }" class="page-link"
+									aria-label="Previous"> <span aria-hidden="true"> <span
+											class="lnr lnr-chevron-left"></span>
+									</span>
+								</a></li>
+							</c:if>
+							<!-- 이전 end -->
+							<c:forEach var="i" begin="${startPage }" end="${endPage }">
+							  <c:if test="${i==curpage }">
+								<li class="page-item active">
+									<a href="../challenge_room/list.do?page=${i }" class="page-link">${i }</a>
+								</li>
+							  </c:if>
+							  <c:if test="${i!=curpage }">
+								<li class="page-item">
+									<a href="../challenge_room/list.do?page=${i }" class="page-link">${i }</a>
+								</li>
+							  </c:if>
+							</c:forEach>
+							
+							<!-- 다음 -->
+							<c:if test="${endpage<totalpage }">
+								<li class="page-item"><a href="../challenge_room/list.do?page=${endPage+1 }" class="page-link"
+									aria-label="Next"> <span aria-hidden="true"> <span
+											class="lnr lnr-chevron-right"></span>
+									</span>
+								</a></li>
+							</c:if>
+							<!-- 다음 end -->
+						</ul>
+					</nav>
+
         </div>
         <!-- end : 상세페이지 오른쪽 -->
         
