@@ -30,6 +30,7 @@ public class ChallengeDAO {
 		{
 			session=ssf.openSession(true);
 			session.insert("challengeInsert", vo);
+			
 		}catch(Exception ex)
 		{
 			 ex.printStackTrace();
@@ -40,6 +41,21 @@ public class ChallengeDAO {
 				session.close(); //connection닫기(반환)
 		}
 	}
+	
+	 // 그룹 리더가 방 만들면 참가자로 추가하기
+	public static void leaderGroupIn(String id_leader)
+	{
+		SqlSession session=null;
+		try {
+			session=ssf.openSession(true);
+			session.insert("Challenge_participation", id_leader);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
+	
 
 	
 	// 챌린지 전체 및 카테고리별 목록

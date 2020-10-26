@@ -5,6 +5,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+ <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+<script type="text/javascript">
+functon subList(){
+	$.ajax({
+		type : "GET",
+        url : "list.jsp",
+        dataType : "text",
+        error : function() {
+          alert('통신실패!!');
+        },
+        success : function(data) {
+          $('#Context').html(data);
+        }
+	})
+}
+subList();
+</script>
 </head>
 <body>
 	<c:forEach var="vo" items="${list }">

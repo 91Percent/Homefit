@@ -59,7 +59,7 @@
 			     <tr>
 			       <th class="danger text-right" width=30%>아이디</th>
 			       <td width=85%>
-			         $(vo.)
+			         
 			       </td>
 			     </tr>
 			     

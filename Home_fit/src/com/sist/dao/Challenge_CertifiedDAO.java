@@ -22,6 +22,8 @@ public class Challenge_CertifiedDAO {
 		ssf=CreateSqlSessionFactory.getSsf();
 	}
 
+	
+	// 도전 목록
 	public static List<ChallengeVO> ChallengeListData(Map map) {
 		List<ChallengeVO> list = new ArrayList<ChallengeVO>();
 		SqlSession session = null;
@@ -41,6 +43,7 @@ public class Challenge_CertifiedDAO {
 		return list;
 	}
 
+	// 인증 상세보기
 	public static ChallengeVO ChallengeDetailData(int challenge_no) {
 		ChallengeVO vo = new ChallengeVO();
 		SqlSession session = null;
@@ -57,6 +60,9 @@ public class Challenge_CertifiedDAO {
 		}
 		return vo;
 	}
+	
+	
+	// 인증 데이터
 	public static List<Challenge_CertifiedVO> CertifiedData(int no)
 	{
 		List<Challenge_CertifiedVO> list = new ArrayList<Challenge_CertifiedVO>();
@@ -76,6 +82,8 @@ public class Challenge_CertifiedDAO {
 		
 		return list;
 	}	
+	
+	// 인증사진 올리기
 	// <insert id="Challenge_CertifiedUpload"  parameterType="Challenge_CertifiedVO">
 	public static void Challenge_CertifiedUpload(Challenge_CertifiedVO vo)
 	{	

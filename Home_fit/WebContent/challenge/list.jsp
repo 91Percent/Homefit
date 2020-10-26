@@ -21,8 +21,10 @@
     margin-bottom: 20px;
 	}
  </style>
-  
-  
+ <script type="text/javascript">
+
+ </script>
+
 </head>
 
 <body>
@@ -41,12 +43,17 @@
 				</div>
 			</div>
     </div>
-    
-    <p align="center">
-				<a href="../member/logout2.do" class="button button-postComment button--active" >로그아웃</a>
-				<a href="../member/login2.do" class="button button-postComment button--active" >로그인</a>
-			</p>
-    
+
+		<p align="center">
+			<a href="../member/logout2.do" id=logout
+				class="button button-postComment button--active">로그아웃</a> <a
+				href="../member/login2.do" id=login
+				class="button button-postComment button--active">로그인</a>
+		</p>
+		<c:if test="${id }!=null">
+		${id }님이 로그인 되었습니다.
+		</c:if>
+
 	</section>
 	<!-- ================ end banner area ================= -->
 	

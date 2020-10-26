@@ -175,6 +175,9 @@ public class CertifiedModel {
 		return "redirect:../challenge/Challenge.do";
 	}
 
+	
+	
+	
 	// 방 참가하기
 	@RequestMapping("challenge/participation.do")
 	public String participation(HttpServletRequest request) {
@@ -369,7 +372,7 @@ public class CertifiedModel {
 		request.setAttribute("main_jsp", "../challenge/insert.jsp");
 		return "../main/main.jsp";
 	}
-
+	
 	@RequestMapping("challenge/insert_ok.do")
 	public String challengeInsert_Ok(HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -411,20 +414,6 @@ public class CertifiedModel {
 		vo.setDb_end_day(end_day);
 		vo.setId_leader(id_leader);
 
-//	 	 	INSERT INTO challenge VALUES(
-//	 	 			challenge_no_seq.nextval,
-//	 	 			#{cate},
-//	 	 			#{db_start_day},<!-- yyyy-MM-dd 형태로 오라클에 저장되지 않는 것 같음 -->
-//	 	 			#{title},
-//	 	 			#{limit},
-//	 	 			#{poster},
-//	 	 			#{content},
-//	 	 			#{id_leader},
-//	 	 			#{db_end_day},
-//	 	 			1,
-//	 	 			SYSDATE <!-- 디폴트값 잡혀있는데 꼭넣어야 하나? -->
-//	 	 		)
-//	     
 		// filename,filesize => 없는 경우 (파일을 올리지 않을 경우,파일 올릴 경우)
 		String filename = mr.getFilesystemName("poster");
 		// 사용자가 보낸 파일명을 읽어 온다
