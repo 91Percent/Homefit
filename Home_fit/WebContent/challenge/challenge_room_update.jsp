@@ -47,6 +47,7 @@
 			</div>
     	</div>	
 	</section>	
+	
   <!--================Checkout Area =================-->
   <section class="checkout_area section-margin--small">
     <div class="container">
@@ -91,7 +92,7 @@
 			     <tr>
 			       <th class="danger text-right" width=30%>도전 시작일</th>
 			       <td width=70%> 
-			         <input type=date name=start_day class="input-sm" id="db_stary_inpt"min=<fmt:formatDate value="${today}" pattern="yyyy-MM-dd" /> checked="${vo.db_start_day }"  required>
+			         <input type=date name=start_day class="input-sm" id="db_stary_inpt" min=<fmt:formatDate value="${today}" pattern="yyyy-MM-dd" /> required>
 			         * 오늘 보다 이전의 날짜를 선택할 수 없습니다.
 			         <!-- <span class="validity"></span> -->
 			       </td>
