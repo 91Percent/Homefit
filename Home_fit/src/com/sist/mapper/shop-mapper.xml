@@ -38,9 +38,14 @@
     FROM (SELECT cate_no,shop_no,title,poster,subtitle,price,content,delivery_fee,hit,rownum as num 
     FROM (SELECT cate_no,shop_no,title,poster,subtitle,price,content,delivery_fee,hit 
     	FROM shop 
-    	WHERE cate_no BETWEEN #{cate_no_num} AND #{cate_no_num}+8 
+    	WHERE cate_no BETWEEN #{sub_cate_no_num} AND #{sub_cate_no_num}+8 
     	ORDER BY shop_no ASC))
     WHERE num BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="shop_listListData" resultType="com.sist.vo.ShopVO">
+    SELECT cate_no,shop_no,title,poster,subtitle,price,content,delivery_fee,hit 
+    FROM shop
 	</select>
 	
 	
@@ -52,11 +57,16 @@
   	 -->
 	<select id="shopTotalPage" resultType="int">
     SELECT CEIL(COUNT(*)/12.0) FROM shop
-    WHERE cate_no BETWEEN #{cate_no_num} AND #{cate_no_num}+8 
+    WHERE cate_no BETWEEN #{sub_cate_no_num} AND #{sub_cate_no_num}+8 
 	</select>
   
-  
-  
+  	<!-- 카테고리 -->
+  	<select id="shopCategoryData" resultType="CategoryVO" >
+  	select cate_no,cate_name
+  	from category
+  	where mod(cate_no,10)=0
+  	</select>
+  	
 	
 	<!-- 샵디테일, 장바구니 -->
 	<select id="shopDetailData" resultType="com.sist.vo.ShopVO" parameterType="int">

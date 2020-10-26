@@ -56,15 +56,32 @@ public class ShopDAO {
 		}
 		return list;
 	}
+	
+	public static List<ShopVO> shop_listListData()
+	   {
+		   SqlSession session=ssf.openSession();
+		   List<ShopVO> list=session.selectList("shop_listListData");
+		   session.close();// 반환
+		   return list;
+	   }
+	
+		public static List<CategoryVO> shopCategoryData()
+	   {
+		   SqlSession session=ssf.openSession();
+		   List<CategoryVO> list=session.selectList("shopCategoryData");
+		   session.close();// 반환
+		   return list;
+	   }
+	
 
 	// 총페이지 구하기
-	public static int shopTotalPage(int cate_no_num) {
+	public static int shopTotalPage(int sub_cate_no_num) {
 		int total = 0;
 		SqlSession session = null;
 		try {
 			// 연결
 			session = ssf.openSession();
-			total = session.selectOne("shopTotalPage",cate_no_num);
+			total = session.selectOne("shopTotalPage",sub_cate_no_num);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
