@@ -56,6 +56,13 @@
 			       </td>
 			     </tr>
 			     
+			     <tr>
+			       <th class="danger text-right" width=30%>아이디</th>
+			       <td width=85%>
+			         $(vo.)
+			       </td>
+			     </tr>
+			     
 	  			<tr>
 			       <th class="danger text-right" width=30%>카테고리</th>
 			       <td width=85%>
@@ -98,7 +105,7 @@
 			     <tr>
 			       <th class="danger text-right" width=30%>도전 가능 인원</th>
 			       <td width=70%>
-			       	 <input type="text" class="form-control" id="limit" name="limit" placeholder="제한 인원수를 작성하세요">
+			       	 <input type="text" class="form-control" id="limit" name="limit" placeholder="제한 인원수를 작성하세요" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
 			       </td>
 			     </tr>
 			     

@@ -23,17 +23,14 @@
 	
 	<!-- 챌린지 목록 전체 및 카테고리별 페이지 수  -->
 	<select id="challengeCateTotalPage" resultType="int" parameterType="String">
-	<choose>
-		<when test="cate==null">
+		<if test="cate==null">
 			SELECT CEIL(COUNT(*)/20.0) FROM challenge
-		</when>
-		<otherwise>
+		</if>
+		<if test="cate!=null">
 			SELECT CEIL(COUNT(*)/20.0) FROM challenge
 			WHERE cate=#{cate}
-		</otherwise>
-	  </choose>	
+		</if>
 	</select>
-	
 	<!-- 챌린지 도전 추가하기 -->
 	<insert id="challengeInsert" parameterType="ChallengeVO">
  		INSERT INTO challenge VALUES(

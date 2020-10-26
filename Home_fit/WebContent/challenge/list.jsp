@@ -41,6 +41,12 @@
 				</div>
 			</div>
     </div>
+    
+    <p align="center">
+				<a href="../member/logout2.do" class="button button-postComment button--active" >로그아웃</a>
+				<a href="../member/login2.do" class="button button-postComment button--active" >로그인</a>
+			</p>
+    
 	</section>
 	<!-- ================ end banner area ================= -->
 	
@@ -202,33 +208,81 @@
 						<ul class="pagination">
 							<!-- 이전 -->
 							<c:if test="${cupage>BLOCK }">
-								<li class="page-item"><a href="../challenge_room/list.do?page=${startPage-1 }" class="page-link"
+							
+							
+							<c:if test="$(cate==null)">
+							<li class="page-item"><a href="../challenge_room/list.do?page=${startPage-1 }" class="page-link"
 									aria-label="Previous"> <span aria-hidden="true"> <span
 											class="lnr lnr-chevron-left"></span>
 									</span>
 								</a></li>
 							</c:if>
+							
+							<c:if test="$(cate!=null)">
+								<li class="page-item"><a href="../challenge_room/list.do?cate=${cate }&page=${startPage-1 }" class="page-link"
+									aria-label="Previous"> <span aria-hidden="true"> <span
+											class="lnr lnr-chevron-left"></span>
+									</span>
+								</a></li>
+							</c:if>
+							
+							
+							</c:if>
 							<!-- 이전 end -->
 							<c:forEach var="i" begin="${startPage }" end="${endPage }">
 							  <c:if test="${i==curpage }">
+							  
+							  
+							  <c:if test="$(cate==null)">
 								<li class="page-item active">
 									<a href="../challenge_room/list.do?page=${i }" class="page-link">${i }</a>
 								</li>
+								</c:if>
+								
+								<c:if test="$(cate!=null)">
+								<li class="page-item active">
+									<a href="../challenge_room/list.do?cate=${cate }&page=${i }" class="page-link">${i }</a>
+								</li>
+								</c:if>
+							
 							  </c:if>
 							  <c:if test="${i!=curpage }">
+							  
+							  
+							  
+							  <c:if test="$(cate==null)">
 								<li class="page-item">
 									<a href="../challenge_room/list.do?page=${i }" class="page-link">${i }</a>
 								</li>
+								</c:if>
+								
+								<c:if test="$(cate!=null)">
+								<li class="page-item">
+									<a href="../challenge_room/list.do?cate=${cate }&page=${i }" class="page-link">${i }</a>
+								</li>
+								</c:if>
+								
 							  </c:if>
 							</c:forEach>
 							
 							<!-- 다음 -->
 							<c:if test="${endpage<totalpage }">
+							
+							<c:if test="$(cate==null)">
 								<li class="page-item"><a href="../challenge_room/list.do?page=${endPage+1 }" class="page-link"
 									aria-label="Next"> <span aria-hidden="true"> <span
 											class="lnr lnr-chevron-right"></span>
 									</span>
 								</a></li>
+							</c:if>
+							<c:if test="$(cate!=null)">
+								<li class="page-item"><a href="../challenge_room/list.do?cate=${cate }&page=${endPage+1 }" class="page-link"
+									aria-label="Next"> <span aria-hidden="true"> <span
+											class="lnr lnr-chevron-right"></span>
+									</span>
+								</a></li>
+							</c:if>
+							
 							</c:if>
 							<!-- 다음 end -->
 						</ul>
