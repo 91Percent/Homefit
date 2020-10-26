@@ -17,6 +17,7 @@
 	<typeAlias type="com.sist.vo.ShopVO" alias="ShopVO"/>
 	<typeAlias type="com.sist.vo.ExVO" alias="ExVO"/>
 	<typeAlias type="com.sist.vo.MemberVO" alias="MemberVO"/>
+	<typeAlias type="com.sist.vo.CategoryVO" alias="CategoryVO"/>
 	<typeAlias type="com.sist.vo.Challenge_ParticipationVO" alias="Challenge_ParticipationVO"/>
   </typeAliases>
   <environments default="development"><!-- 개발 환경을 만든다 -->
