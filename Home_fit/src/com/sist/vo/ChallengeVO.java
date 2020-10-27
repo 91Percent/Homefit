@@ -27,9 +27,16 @@ public class ChallengeVO {
 	private Date end_day;
 	private String db_end_day;
 	private Date regdate;
-	private int period;
+	private long period;
 	
 	
+
+	public long getPeriod() {
+		return period;
+	}
+	public void setPeriod(long period) {
+		this.period = period;
+	}
 	public String getCate() {
 		return cate;
 	}

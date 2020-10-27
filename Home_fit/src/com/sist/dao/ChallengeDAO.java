@@ -26,6 +26,7 @@ public class ChallengeDAO {
 	public static void challengeInsert(ChallengeVO vo)
 	{
 		SqlSession session=null;
+
 		try
 		{
 			session=ssf.openSession(true);
@@ -42,19 +43,35 @@ public class ChallengeDAO {
 		}
 	}
 	
-	 // 그룹 리더가 방 만들면 참가자로 추가하기
-	public static void leaderGroupIn(String id_leader)
-	{
-		SqlSession session=null;
-		try {
-			session=ssf.openSession(true);
-			session.insert("Challenge_participation", id_leader);
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-	}
+	// 방 만들자마자 도전참가자 목록에 추가시키기
+	/*
+		<insert id="Challenge_participation"
+			parameterType="Challenge_ParticipationVO">
+			INSERT INTO challenge_participation VALUES(
+			#{challenge_no},
+			#{challenge_id}
+			)
+		</insert>
+	 */
 	
+
+	//<insert id="Challenge_participation" parameterType="ChallengeVO">
+		// 방 참가 하기
+//		public static void Challenge_participation(Challenge_ParticipationVO vo)
+//		{
+//			SqlSession session=null;
+//			try {
+//				session=ssf.openSession(true);
+//				session.insert("Challenge_participation",vo);
+//				
+//			}catch (Exception e) {
+//				e.printStackTrace();
+//			}finally {
+//				if(session!=null)
+//					session.close();
+//			}
+//			
+//		}
 	
 
 	

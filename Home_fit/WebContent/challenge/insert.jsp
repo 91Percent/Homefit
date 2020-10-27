@@ -22,6 +22,35 @@
   <link rel="stylesheet" href="vendors/nouislider/nouislider.min.css">
 
   <link rel="stylesheet" href="css/style.css">
+  
+  <!-- 
+    <tr>
+			       <th class="danger text-right" width=30%>도전 시작일</th>
+			       <td width=70%>
+			         <input type=date name=start_day class="input-sm" min=<fmt:formatDate value="${toDay}" pattern="yyyy-MM-dd" /> required>
+			   
+			       </td>
+			     </tr>
+			     
+			     <tr>
+			       <th class="danger text-right" width=30%>도전 종료일</th>
+			       <td width=70%>
+			         <input type=date name=end_day class="input-sm" min=start_day required>
+			       </td>
+			     </tr>
+ -->
+<script type="text/javascript">
+function getPeriod()
+{
+	var start_day=document.getElemetById("start_day").value;
+	var end_day=document.getElemetById("end_day").value;
+	var dif= end_day - start_day + 1;
+	var period=parseInt(dif/24*60*60*1000);
+}
+
+</script>  
+  
+  
 </head>
 <body>
 
@@ -59,7 +88,7 @@
 			     <tr>
 			       <th class="danger text-right" width=30%>아이디</th>
 			       <td width=85%>
-			         
+			         ${sessionScope.id }
 			       </td>
 			     </tr>
 			     
@@ -91,7 +120,7 @@
 			     <tr>
 			       <th class="danger text-right" width=30%>도전 시작일</th>
 			       <td width=70%>
-			         <input type=date name=start_day class="input-sm" min=<fmt:formatDate value="${toDay}" pattern="yyyy-MM-dd" /> required>
+			         <input type=date name=start_day class="input-sm" id="start_day" min=<fmt:formatDate value="${toDay}" pattern="yyyy-MM-dd" /> required>
 			         <!-- <span class="validity"></span> -->
 			       </td>
 			     </tr>
@@ -99,7 +128,7 @@
 			     <tr>
 			       <th class="danger text-right" width=30%>도전 종료일</th>
 			       <td width=70%>
-			         <input type=date name=end_day class="input-sm" min=start_day required>
+			         <input type=date name=end_day class="input-sm" id="end_day" min=start_day required>
 			       </td>
 			     </tr>
 			     <tr>
