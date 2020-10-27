@@ -18,18 +18,17 @@
 <link rel="stylesheet" href="../template/css/custom.css">
 </head>
 <body>
-	
 	<!--  header  -->
 	<jsp:include page="../main/header.jsp"></jsp:include>
-	
+	  
 	<!--  container -->
-	<div class="container-fluid">	
+	<div class="container-fluid">
 	  	<jsp:include page="${main_jsp }" />
 	</div>
-	
+	  
 	<!--  footer  -->
 	<jsp:include page="../main/footer.jsp"></jsp:include>
-	
+	 	
 	<!-- jquery / js -->
 	<script src="../template/vendors/jquery/jquery-3.2.1.min.js"></script>
 	<script src="../template/vendors/bootstrap/bootstrap.bundle.min.js"></script>

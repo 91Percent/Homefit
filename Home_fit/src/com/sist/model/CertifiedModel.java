@@ -438,25 +438,7 @@ public class CertifiedModel {
 		return "redirect:../challenge/list.do";
 	}
 
-	// 로그아웃 버튼 임시로 구현함. 2020-10-23
-	@RequestMapping("member/logout.do")
-	public String member_logout(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		System.out.println("세션 로그아웃전!" + session.getAttribute("id"));
-		session.invalidate();
-//	   	   request.setAttribute("main_jsp","../challenge/Challenge.jsp");
-		return "redirect:../challenge/Challenge.do";
-	}
 
-	@RequestMapping("member/login.do")
-	public String member_login(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		session.setAttribute("id", "seunggu");
-		System.out.println("아이디 출력되나?" + session.getAttribute("id"));
-//		   request.setAttribute("main_jsp","../challenge/Challenge.jsp");
-		return "redirect:../challenge/Challenge.do";
-	}
-	
 	// 로그아웃 버튼 임시로 구현함. 2020-10-23
 		@RequestMapping("member/logout2.do")
 		public String member_logout2(HttpServletRequest request) {

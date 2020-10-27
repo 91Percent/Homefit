@@ -42,9 +42,5 @@
 	           </div>
 	    	</c:forEach>
     	</div>
-    		<p align="center">
-				<a href="../member/logout.do" class="button button-postComment button--active" >로그아웃</a>
-				<a href="../member/login.do" class="button button-postComment button--active" >로그인</a>
-			</p>
 </body>
 </html>
