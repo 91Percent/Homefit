@@ -23,7 +23,7 @@
 				return;
 			}
 
-			$('#logFrm').submit();
+			$('#logFrm').submit(); 
 		});
 	});
 </script>
