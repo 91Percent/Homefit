@@ -26,7 +26,11 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
-
+$(function(){
+	$('.input-sm').click(function(){
+		let src=$(this).attr("")		
+	})
+)}
 </script>
 </head>
 <body>
@@ -62,7 +66,6 @@
 			       </td>
 			     </tr>
 	  			<tr>
-	  			
 			       <th class="danger text-right" width=30%>카테고리</th>
 			       <td width=85%> 현재 방의 카테고리 : ${vo.cate }
 			         <select NAME=cate SIZE=1 class="country_select">
@@ -74,12 +77,20 @@
 			     </tr>
 	  			<tr>
 					<%-- <a href="../challenge/download.jsp?poster=${vo.poster}">${vo.poster }</a> --%>
-			       <th class="danger text-right" width=30%>대표 사진</th>
-			       <td width=70%>
-			         <input type=file name=poster size=20 class="input-sm"> 
+			       <th class="danger text-right" width=30% >대표 사진</th>
+			       <td width=70% >
+			         <input type=file name=poster size=20 class="input-sm" > 
 			       </td>
 			     </tr>
 			     
+			  	<tr>
+			  		<th>
+			  			 <input type=button value="수정 사진 미리보기 " >
+			  		</th>
+					<td>
+						<img class="room_poster" src="/Home_fit/challenge_poster/${vo.poster }">
+					</td>
+			  	</tr>
 			     <tr>
 			       <th class="danger text-right" width=30%>방 제목</th>
 			       <td width=70%>
