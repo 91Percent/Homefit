@@ -8,9 +8,11 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
+let check;
+let lev;
 $(function(){
 	$('.pixel-radio').click(function(){
-		var check = $(this).attr("value");
+		check = $(this).attr("value");
 	 $.ajax({
 		 type:'post',
 		 url:'../ex/content.do?cate_no='+check,
@@ -20,7 +22,31 @@ $(function(){
 		 }
 	 });
 });
+	$('.radio').click(function(){
+		 lev = $(this).attr("value");
+	 $.ajax({
+		 type:'post',
+		 url:'../ex/content.do?home_level='+lev+"&cate_no="+check,
+		 success:function(result)
+		 {
+			 $('.category-list').html(result);
+		 }
+	 });
 });
+	$('.option').click(function(){
+		var sel = $(this).attr("data-value");
+		console.log(sel);
+	 $.ajax({
+		 type:'post',
+		 url:'../ex/content.do?cate_no='+sel,
+		 success:function(result)
+		 {
+			 $('.category-list').html(result);
+		 }
+	 });
+});
+
+	});
 </script>
 <link href="http://fonts.googleapis.com/earlyaccess/nanumpenscript.css" rel="stylesheet">
 <style>
@@ -58,9 +84,9 @@ font-family: 'Nanum Pen Script',cursive;
               <li class="common-filter">
                 <form action="#">
                  <ul>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="weight" name="brand"value="1"><label for="weight">근력 운동</label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="yoga" name="brand" value="2"><label for="yoga">요가</label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="pila" name="brand" value="3"><label for="pila">필라테스</label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="weight" name="ex" value="1"><label for="weight">근력 운동</label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="yoga" name="ex" value="2"><label for="yoga">요가</label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="pila" name="ex" value="3"><label for="pila">필라테스</label></li>
                   </ul>
 
                 </form>
@@ -73,9 +99,9 @@ font-family: 'Nanum Pen Script',cursive;
               <div class="head">난이도</div>
               <form action="#">
                 <ul>
-                  <li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand"><label for="beginner">초급</label></li>
-                  <li class="filter-list"><input class="pixel-radio" type="radio" id="asus" name="brand"><label for="intermediate">중급</label></li>
-                  <li class="filter-list"><input class="pixel-radio" type="radio" id="gionee" name="brand"><label for="gionee">고급</label></li>
+                  <li class="filter-list"><input class="radio" type="radio" id="beginner" name="ex" value="1" ><label for="초급">초급</label></li>
+                  <li class="filter-list"><input class="radio" type="radio" id="middle" name="ex" value="2" ><label for="중급">중급</label></li>
+                  <li class="filter-list"><input class="radio" type="radio" id="high" name="ex" value="3"><label for="고급">고급</label></li>
                 </ul>
               </form>
             </div>
@@ -85,13 +111,21 @@ font-family: 'Nanum Pen Script',cursive;
         </div>
         <div class="col-xl-9 col-lg-8 col-md-7">
           <!-- Start Filter Bar -->
-          <div class="filter-bar d-flex flex-wrap align-items-center">
+           <div class="filter-bar d-flex flex-wrap align-items-center">
             <div class="sorting">
-              <select name=ex onchange="sor">
-                <option value="1">근력</option>
-                <option value="2">요가</option>
-                <option value="3">필라테스</option>
+              <select name="ex_sor" id="ex_sor">
+                <option class="option1" value="1" >근력</option>
+                <option class="option1" value="2">요가</option>
+                <option class="option1" value="3">필라테스</option>
               </select>
+              <div class="nice-select" tabindex="0">
+				<span class="current">선택</span>
+				<ul class="list">
+				<li data-value="1" class="option">근력</li>
+				<li data-value="2" class="option">요가</li>
+				<li data-value="3" class="option">필라테스</li>
+				</ul>
+				</div>
             </div>
             <div>
               <div class="input-group filter-bar-search">
@@ -110,7 +144,7 @@ font-family: 'Nanum Pen Script',cursive;
               <div class="col-md-6 col-lg-4">
                 <div class="card text-center card-product">
                   <div class="card-product__img">
-                    <img class="card-img" src="${vo.poster }" alt="">
+                    <img class="card-img" src="https://${vo.poster }" alt="">
                     <ul class="card-product__imgOverlay">
                       <li><button onclick="location.href='detail.do?home_no=${vo.home_no }'"><i class="ti-search"></i></button></li>
                       <li><button><i class="ti-heart"></i></button></li>
