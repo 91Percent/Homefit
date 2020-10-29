@@ -14,52 +14,32 @@
 /* 	function page(v){
 	   location.href="../shop/shop.do?cate_no="+v;   
 	} */
+	
+let cate;
 $(function(){
 	
-		$('.filter-list').click(function(){
-			var cate_no=$(this).attr("data-value");
+		$('.pixel-radio').click(function(){
+			
+			let cate_no=$(this).attr("value");
+			cate=cate_no;
+			
+// 			alert(cate);
+			
 			$.ajax({
 				type:'post',
-				url:'../shop/shop_list.do?cate_no='+cate_no,
+				url:'../shop/shop_list.do?cate_no='+cate,
 	 			data:{"cate_no":cate_no},
 				success:function(result)
 				{
 					$('#shop_list').html(result);
 				} 
 			})
-		});
+		})
 		
-		$('.filter-list').click(function(){
-			var cate_no=$(this).attr("data-value");
-			$.ajax({
-				type:'post',
-				url:'../shop/shop_list.do?cate_no='+cate_no,
-	 			data:{"cate_no":cate_no},
-				success:function(result)
-				{
-					$('#shop_list').html(result);
-				} 
-			})
-		});
+		$('.pixel-radio').eq(${cate_no-1}).trigger("click");
 		
-		/* $.ajax({
-			 type:'post',
-			 url:'../shop/shop_radio.do',
-			 success:function(result)
-			 {
-				 $('#shop_radio_info').html(result);
-			 }
-		 });
-		 */
-		$.ajax({
-			 type:'post',
-			 url:'../shop/shop_list.do',
-			 success:function(result)
-			 {
-				 $('#shop_list').html(result);
-			 }
-		 });
 		
+
 		
 		
 });
@@ -100,17 +80,16 @@ $(function(){
                   <ul>
                   	<c:forEach var="vo" items="${clist }" varStatus="status">	
 						<li class="filter-list" data-value="${vo.cate_no }">
-						<input class="pixel-radio" type="radio" name="cate_no" value="${vo.cate_no }" ><label for="cate1">${vo.cate_name }<span> (3600)</span></label>
+						<input class="pixel-radio" type="radio" name="cate_no" value="${vo.cate_no }" id="${vo.cate_no }"><label for="${vo.cate_no }">${vo.cate_name }<span> (3600)</span></label>
 						</li>
 					</c:forEach>                                 
                   </ul>
                 </form>
               </li>
             </ul>
-          </div>
-			
-					
+          </div>					
         </div>
+        
         <div class="col-xl-9 col-lg-8 col-md-7">
           <!-- Start Filter Bar -->
           <div class="filter-bar d-flex flex-wrap align-items-center">
@@ -142,7 +121,10 @@ $(function(){
           <section class="lattest-product-area pb-40 category-list">
             <div class="row">           
             <div id="shop_list"></div>            
-            </div>
+            </div>      
+            
+            
+            
           </section>
           <!-- End Best Seller -->
         </div>
@@ -152,35 +134,7 @@ $(function(){
 	<!-- ================ category section end ================= -->		  
 
 
-    
-    <!-- 페이지 바 -->
-	<nav class="blog-pagination justify-content-center d-flex">
-		<ul class="pagination">
-			<c:if test="${curpage>BLOCK }">
-				<li class="page-item">
-					<a href="../shop/shop.do?cate_no=${cate_no }&page=${startPage-1 }" class="page-link" aria-label="Previous">&lt;</a>
-				</li>
-			</c:if>
-			<c:forEach var="i" begin="${startPage }" end="${endPage }">
-				<c:if test="${i==curpage }">
-					<li class="active">
-						<a href="../shop/shop.do?cate_no=${cate_no }&page=${i} " class="page-link">${i }</a>
-					</li>
-				</c:if>
-				<c:if test="${i!=curpage }">
-					<li class="page-item">
-						<a href="../shop/shop.do?cate_no=${cate_no }&page=${i} " class="page-link">${i }</a>
-					</li>
-				</c:if>
-			</c:forEach>
-			<c:if test="${endPage<totalpage }">
-				<li class="page-item">
-					<a href="../shop/shop.do?cate_no=${cate_no }&page=${endPage+1 }" class="page-link" aria-label="Next">&gt;</a>
-				</li>
-			</c:if>
-			</ul>
-		</nav>
-
+	
 
    
 </body>

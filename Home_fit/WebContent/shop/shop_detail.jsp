@@ -101,6 +101,9 @@
 			</ul>
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">					
+					<c:forTokens items="${vo.content }" delims="|" var="item">
+					
+					</c:forTokens>
 					<p>${vo.content }</p>
 				</div>
 				<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
