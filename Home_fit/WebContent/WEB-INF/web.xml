@@ -11,7 +11,10 @@
   	</init-param>
   	<init-param>
   		<param-name>path</param-name>
-  		<!-- 해니 경로 -->
+<!-- <<<<<<< Updated upstream -->
+<!--   		해니 경로 -->
+<!-- ======= -->
+<!-- >>>>>>> Stashed changes -->
 <!--   		<param-value>/Users/haeni/Documents/jsp-project/Homefit/Home_fit/src</param-value> -->
   		<param-value>C:\Users\Homefit\Home_fit\src</param-value>
   	</init-param>

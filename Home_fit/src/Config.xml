@@ -19,6 +19,8 @@
 	<typeAlias type="com.sist.vo.MemberVO" alias="MemberVO"/>
 	<typeAlias type="com.sist.vo.CategoryVO" alias="CategoryVO"/>
 	<typeAlias type="com.sist.vo.Challenge_ParticipationVO" alias="Challenge_ParticipationVO"/>
+	<typeAlias type="com.sist.vo.NewsVO" alias="NewsVO"/>
+	
   </typeAliases>
   <environments default="development"><!-- 개발 환경을 만든다 -->
     <environment id="development">
@@ -38,5 +40,6 @@
     <mapper resource="com/sist/mapper/shop-mapper.xml"/>
     <mapper resource="com/sist/mapper/Ex-mapper.xml"/>
      <mapper resource="com/sist/mapper/member-mapper.xml"/>
+     <mapper resource="com/sist/mapper/News-mapper.xml"/>
   </mappers>
 </configuration>
