@@ -8,9 +8,12 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
+let check;
+let lev;
 $(function(){
 	$('.pixel-radio').click(function(){
-		var check = $(this).attr("value");
+		check = $(this).attr("value");
+		console.log(check);
 	 $.ajax({
 		 type:'post',
 		 url:'../ex/content.do?cate_no='+check,
@@ -20,7 +23,31 @@ $(function(){
 		 }
 	 });
 });
+	$('.radio').click(function(){
+		 lev = $(this).attr("value");
+	 $.ajax({
+		 type:'post',
+		 url:'../ex/level.do?home_level='+lev+"&cate_no="+check,
+		 success:function(result)
+		 {
+			 $('.category-list').html(result);
+		 }
+	 });
 });
+	$('.option').click(function(){
+		var sel = $(this).attr("data-value");
+		console.log(sel);
+	 $.ajax({
+		 type:'post',
+		 url:'../ex/content.do?cate_no='+sel,
+		 success:function(result)
+		 {
+			 $('.category-list').html(result);
+		 }
+	 });
+});
+$('#weight').trigger("click");
+})
 </script>
 <link href="http://fonts.googleapis.com/earlyaccess/nanumpenscript.css" rel="stylesheet">
 <style>
@@ -71,7 +98,7 @@ font-family: 'Nanum Pen Script',cursive;
               <li class="common-filter">
                 <form action="#">
                    <ul>
-                   <li class="filter-list"><input class="pixel-radio" type="radio" id="weight" name="ex" value="1" checked="checked"><label for="weight">근력 운동</label></li>
+                   <li class="filter-list"><input class="pixel-radio" type="radio" id="weight" name="ex" value="1" ><label for="weight">근력 운동</label></li>
                     <li class="filter-list"><input class="pixel-radio" type="radio" id="yoga" name="ex" value="2"><label for="yoga">요가</label></li>
                     <li class="filter-list"><input class="pixel-radio" type="radio" id="pila" name="ex" value="3" ><label for="pila">필라테스</label></li>
                   </ul>
@@ -84,10 +111,10 @@ font-family: 'Nanum Pen Script',cursive;
             <div class="common-filter">
               <div class="head">난이도</div>
               <form action="#">
-                <ul>
-                  <li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand"><label for="beginner">초급</label></li>
-                  <li class="filter-list"><input class="pixel-radio" type="radio" id="asus" name="brand"><label for="intermediate">중급</label></li>
-                  <li class="filter-list"><input class="pixel-radio" type="radio" id="gionee" name="brand"><label for="gionee">고급</label></li>
+               <ul>
+                  <li class="filter-list"><input class="radio" type="radio" id="beginner" name="brand" value="1"><label for="초급">초급</label></li>
+                  <li class="filter-list"><input class="radio" type="radio" id="middle" name="brand" value="2"><label for="중급">중급</label></li>
+                  <li class="filter-list"><input class="radio" type="radio" id="high" name="brand" value="3"><label for="고급">고급</label></li>
                 </ul>
               </form>
             </div>
@@ -99,13 +126,19 @@ font-family: 'Nanum Pen Script',cursive;
           <!-- Start Filter Bar -->
           <div class="filter-bar d-flex flex-wrap align-items-center">
             <div class="sorting">
-              <select>
-                <option value="1">근력</option>
-                <option value="1">기동성</option>
-                <option value="1">유연성</option>
-                <option value="1">밸런스</option>
-                <option value="1">호흡</option>
+              <select name="ex_sor" id="ex_sor">
+                <option class="option1" value="1" >근력</option>
+                <option class="option1" value="2">요가</option>
+                <option class="option1" value="3">필라테스</option>
               </select>
+              <div class="nice-select" tabindex="0">
+				<span class="current">근력</span>
+				<ul class="list">
+				<li data-value="1" class="option selected">근력</li>
+				<li data-value="2" class="option">요가</li>
+				<li data-value="3" class="option">필라테스</li>
+				</ul>
+				</div>
             </div>
             <div>
               <div class="input-group filter-bar-search">
@@ -119,58 +152,58 @@ font-family: 'Nanum Pen Script',cursive;
           <!-- End Filter Bar -->
           <!-- Start Best Seller -->
           <section class="lattest-product-area pb-40 category-list row1">
-            <div class="row">
-            <c:forEach var="vo" items="${list }">
-              <div class="col-md-6 col-lg-4">
-                <div class="card text-center card-product">
-                  <div class="card-product__img">
-                    <img class="card-img" src="${vo.poster }" alt="">
-                    <ul class="card-product__imgOverlay">
-                      <li><button onclick="location.href='detail.do?home_no=${vo.home_no }'"><i class="ti-search"></i></button></li>
-                      <li><button><i class="ti-heart"></i></button></li>
-                    </ul>
-                  </div>
-                  <div class="card-body">
-                    <p>weight</p>
-                    <a href="detail.do?home_no=${vo.home_no }"><p>${vo.subject }</p></a>
-                  </div>
-                </div>
-              </div>
-              </c:forEach>
-              </div>
- 		   <!-- 페이지 바 -->
-                        <nav class="blog-pagination justify-content-center d-flex">
-                          <ul class="pagination">
-                          <c:if test="${curpage>BLOCK }">
-                              <li class="page-item">
-                                  <a href="../ex/weigth.do?page=${startPage-1 }&cate_no=1" class="page-link" aria-label="Previous">
-                                    &lt;
-                                  </a>
-                              </li>
-                              </c:if>
-                              <c:forEach var="i" begin="${startPage }" end="${endPage }">
-                              <c:if test="${i==curpage }">
-                              <li class="active">
-                                  <a href="../ex/weight.do?page=${i}&cate_no=1 " class="page-link">${i }</a>
-                              </li>
-                              </c:if>
-                              <c:if test="${i!=curpage }">
-                              	<li class="page-item">
-                                  <a href="../ex/weight.do?page=${i}&cate_no=1 " class="page-link">${i }</a>
-                              </li>
-                              </c:if>
-                              </c:forEach>
-                              <c:if test="${endPage<totalpage }">
-                              <li class="page-item">
-                                  <a href="../ex/weight.do?page=${endPage+1 }&cate_no=1" class="page-link" aria-label="Next">
-                                      &gt;
-                                  </a>
-                              </li>
-                            </c:if>
-                          </ul>
-                      </nav>
-                  </div>
-              </div>
+<!--             <div class="row"> -->
+<%--             <c:forEach var="vo" items="${list }"> --%>
+<!--               <div class="col-md-6 col-lg-4"> -->
+<!--                 <div class="card text-center card-product"> -->
+<!--                   <div class="card-product__img"> -->
+<%--                     <img class="card-img" src="https://${vo.poster }" alt=""> --%>
+<!--                     <ul class="card-product__imgOverlay"> -->
+<%--                       <li><button onclick="location.href='detail.do?home_no=${vo.home_no }'"><i class="ti-search"></i></button></li> --%>
+<!--                       <li><button><i class="ti-heart"></i></button></li> -->
+<!--                     </ul> -->
+<!--                   </div> -->
+<!--                   <div class="card-body"> -->
+<!--                     <p>weight</p> -->
+<%--                     <a href="detail.do?home_no=${vo.home_no }"><p>${vo.subject }</p></a> --%>
+<!--                   </div> -->
+<!--                 </div> -->
+<!--               </div> -->
+<%--               </c:forEach> --%>
+<!--               </div> -->
+<!--  		   페이지 바 -->
+<!--                         <nav class="blog-pagination justify-content-center d-flex"> -->
+<!--                           <ul class="pagination"> -->
+<%--                           <c:if test="${curpage>BLOCK }"> --%>
+<!--                               <li class="page-item"> -->
+<%--                                   <a href="../ex/weigth.do?page=${startPage-1 }&cate_no=1" class="page-link" aria-label="Previous"> --%>
+<!--                                     &lt; -->
+<!--                                   </a> -->
+<!--                               </li> -->
+<%--                               </c:if> --%>
+<%--                               <c:forEach var="i" begin="${startPage }" end="${endPage }"> --%>
+<%--                               <c:if test="${i==curpage }"> --%>
+<!--                               <li class="active"> -->
+<%--                                   <a href="../ex/weight.do?page=${i}&cate_no=1 " class="page-link">${i }</a> --%>
+<!--                               </li> -->
+<%--                               </c:if> --%>
+<%--                               <c:if test="${i!=curpage }"> --%>
+<!--                               	<li class="page-item"> -->
+<%--                                   <a href="../ex/weight.do?page=${i}&cate_no=1 " class="page-link">${i }</a> --%>
+<!--                               </li> -->
+<%--                               </c:if> --%>
+<%--                               </c:forEach> --%>
+<%--                               <c:if test="${endPage<totalpage }"> --%>
+<!--                               <li class="page-item"> -->
+<%--                                   <a href="../ex/weight.do?page=${endPage+1 }&cate_no=1" class="page-link" aria-label="Next"> --%>
+<!--                                       &gt; -->
+<!--                                   </a> -->
+<!--                               </li> -->
+<%--                             </c:if> --%>
+<!--                           </ul> -->
+<!--                       </nav> -->
+<!--                   </div> -->
+<!--               </div> -->
           </section>
           <!-- End Best Seller -->
         </div>

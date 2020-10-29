@@ -94,4 +94,19 @@ public class ExDAO {
 		session.close();
 		return vo;
 	}
+	public static List<ExVO> exLevelData(Map map)
+	{
+		SqlSession session=ssf.openSession();
+		//System.out.println("DAO에서 받은 map의 home_level: "+map.get("home_level"));
+		List<ExVO> list=session.selectList("exLevelData",map);
+		session.close();
+		return list;
+	}
+	public static int exLevelTotalPage(Map map)
+	{
+		SqlSession session=ssf.openSession();
+		int total=session.selectOne("exLevelTotalPage",map);
+		session.close();
+		return total;
+	}
 }

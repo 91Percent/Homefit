@@ -6,17 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-
 <script type="text/javascript">
 $(function(){
 	$('.page-item').click(function(){
-		var content_cate = check;
+		let content_cate = check;
+		let level=lev;
 		console.log(content_cate);
 		var page = $(this).attr("page");
 	 $.ajax({
 		 type:'post',
-		 url:'../ex/content.do?cate_no='+content_cate+'&page='+page,
+		 url:'../ex/level.do?cate_no='+content_cate+'&page='+page+'&home_level='+lev,
 		 success:function(result)
 		 {
 			 $('.category-list').html(result);
@@ -28,7 +27,7 @@ $(function(){
 
 </head>
 <body>
-            <div class="row">
+        <div class="row">
             <c:forEach var="vo" items="${list }">
               <div class="col-md-6 col-lg-4">
                 <div class="card text-center card-product">
@@ -41,14 +40,14 @@ $(function(){
                   </div>
                   <div class="card-body">
                   <p>
-                  <c:if test="${vo.home_no<365 }">
-                   weight
+                  <c:if test="${vo.home_level eq '초급' }">
+                   	초급
                   </c:if>
-                   <c:if test="${vo.home_no<550 && vo.home_no>365}">
-                   yoga
+                   <c:if test="${vo.home_level eq '중급'}">
+                    	중급
                   </c:if>
-                   <c:if test="${vo.home_no>550 }">
-                   pilates
+                   <c:if test="${vo.home_level eq '고급' }">
+                   	고급
                   </c:if>
                   </p>
                     <a href="detail.do?home_no=${vo.home_no }"><p>${vo.subject }</p></a>
@@ -60,7 +59,7 @@ $(function(){
               <nav class="blog-pagination justify-content-center d-flex">
                           <ul class="pagination">
                           <c:if test="${curpage>BLOCK }">
-                              <li class="page-item">
+                              <li class="page-item" page=${startPage-1 }>
                                   <a class="page-link" aria-label="Previous">
                                     &lt;
                                   </a>
@@ -79,7 +78,7 @@ $(function(){
                               </c:if>
                               </c:forEach>
                               <c:if test="${endPage<totalpage }">
-                              <li class="page-item">
+                              <li class="page-item" page=${endPage+1 }>
                                   <a class="page-link" aria-label="Next">
                                       &gt;
                                   </a>
@@ -89,8 +88,6 @@ $(function(){
                       </nav>      
                       </div>
               </div>  
-                      
-                         
-             
+     
 </body>
 </html>
