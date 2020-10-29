@@ -10,6 +10,7 @@ public class ComponentScan {
 		try 
 		{
 			path=path+"\\"+pack.replace(".","\\");
+//			해니경
 //			path=path+"/"+pack.replace(".","/");
 			File dir = new File(path);
 			File[] files = dir.listFiles();
