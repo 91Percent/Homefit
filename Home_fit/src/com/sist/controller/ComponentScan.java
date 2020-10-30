@@ -10,7 +10,10 @@ public class ComponentScan {
 		try 
 		{
 			path=path+"\\"+pack.replace(".","\\");
-//			해니경
+//<<<<<<< Updated upstream
+////			해니경
+//=======
+//>>>>>>> Stashed changes
 //			path=path+"/"+pack.replace(".","/");
 			File dir = new File(path);
 			File[] files = dir.listFiles();

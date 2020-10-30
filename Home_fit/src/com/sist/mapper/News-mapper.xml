@@ -5,7 +5,7 @@
 	SELECT no,title,poster,TO_CHAR(news_date,'YYYY-MM-DD'),content,author,num
 	FROM (SELECT no,title,poster,news_date,content,author,rownum as num
 	FROM (SELECT no,title,poster,news_date,content,author
-	FROM ht_news))
+	FROM ht_news ORDER BY poster DESC))
 	WHERE num BETWEEN #{start} AND #{end}
 </select>
  <select id="newsTotalPage" resultType="int">
