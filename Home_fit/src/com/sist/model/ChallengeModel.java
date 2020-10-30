@@ -20,11 +20,70 @@ import com.sist.vo.ChallengeVO;
 import com.sist.vo.Challenge_ParticipationVO;
 
 public class ChallengeModel {
+		
 	
-	/////// 해니누나!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-	@RequestMapping("challenge/list.do")
-	public String challengeListData(HttpServletRequest request) {
+	
+	
+	
+// 검색 필터 적용한 리스트	
+//	@RequestMapping("challenge/list.do")
+//	public String challengeFilterList(HttpServletRequest request) {
+//		String period=request.getParameter("period");
+//		String page = request.getParameter("page");
+//		String cate = request.getParameter("cate");
+//		System.out.println(cate);
+//
+//		if(period == null)
+//			period="null";
+//		
+//		if (cate == null)
+//			cate = "1";
+//
+//		if (page == null)
+//			page = "1";
+//		int curpage = Integer.parseInt(page);
+//		int rowSize = 20;
+//		int start = rowSize * (curpage - 1) + 1;
+//		int end = rowSize * curpage;
+//
+//		Map map = new HashMap();
+//		map.put("start", start);
+//		map.put("end", end);
+//		map.put("cate", cate);
+//		map.put("period",period);
+//		List<ChallengeVO> list = ChallengeDAO.challengeFilterList(map);
+//
+//		int totalpage = ChallengeDAO.challengeCateTotalPage(cate);
+//
+//		int BLOCK = 5;
+//		int startPage = ((curpage - 1) / BLOCK * BLOCK) + 1;
+//		int endPage = ((curpage - 1) / BLOCK * BLOCK) + BLOCK;
+//
+//		for (ChallengeVO vo : list) {
+//			String str = vo.getTitle();
+//			if (str.length() > 20) {
+//				str = str.substring(0, 20);
+//				str += "...";
+//			}
+//			vo.setTitle(str);
+//		}
+//
+//		if (endPage > totalpage)
+//			endPage = totalpage;
+//		
+//		request.setAttribute("list", list);
+//		request.setAttribute("curpage", curpage);
+//		request.setAttribute("totalpage", totalpage);
+//		request.setAttribute("BLOCK", BLOCK);
+//		request.setAttribute("startPage", startPage);
+//		request.setAttribute("endPage", endPage);
+//		request.setAttribute("main_jsp", "../challenge/list.jsp");
+//		return "../main/main.jsp";
+//
+//	}
+	
+	@RequestMapping("challenge/sublist.do")
+	public String test(HttpServletRequest request) {
 		String page = request.getParameter("page");
 		String cate = request.getParameter("cate");
 		System.out.println(cate);
@@ -69,12 +128,18 @@ public class ChallengeModel {
 		request.setAttribute("BLOCK", BLOCK);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
+		System.out.println("호출");
+		return "../challenge/sublist.jsp";
+
+	}
+	
+	@RequestMapping("challenge/list.do")
+	public String challengeListData(HttpServletRequest request) {
+		
 		request.setAttribute("main_jsp", "../challenge/list.jsp");
 		return "../main/main.jsp";
 
 	}
-	
-	
 	
 	@RequestMapping("challenge/insert.do")
 	public String Challenge_room_Certified(HttpServletRequest request) {
@@ -129,9 +194,6 @@ public class ChallengeModel {
 			System.out.println("period오류");
 		}
 		
-		
-		
-
 		System.out.println("방만들때 사용하는 아이디:" + id_leader);
 		// 받은 데이터들을 DAO => DAO에서 오라클에 INSERT
 		ChallengeVO vo = new ChallengeVO();
@@ -165,6 +227,7 @@ public class ChallengeModel {
 		pVO.setChallenge_no(challenge_no);
 		pVO.setChallenge_id(id_leader);
 
+		// 방장도 참가자 목록에 추가하기
 		Challenge_CertifiedDAO.Challenge_participation(pVO);
 		
 		System.out.println("challenge_no:"+pVO.getChallenge_no());
@@ -175,23 +238,6 @@ public class ChallengeModel {
 		return "redirect:../challenge/list.do";
 	}
 	
-	// 로그아웃 버튼 임시로 구현함. 2020-10-23
-		@RequestMapping("member/logout2.do")
-		public String member_logout2(HttpServletRequest request) {
-			HttpSession session = request.getSession();
-			System.out.println("세션 로그아웃전!" + session.getAttribute("id"));
-			session.invalidate();
-//			   	   request.setAttribute("main_jsp","../challenge/Challenge.jsp");
-			return "redirect:../challenge/list.do";
-		}
 
-		@RequestMapping("member/login2.do")
-		public String member_login2(HttpServletRequest request) {
-			HttpSession session = request.getSession();
-			session.setAttribute("id", "haeni");
-			System.out.println("아이디 출력되나?" + session.getAttribute("id"));
-//				   request.setAttribute("main_jsp","../challenge/Challenge.jsp");
-			return "redirect:../challenge/list.do";
-		}
 
 }

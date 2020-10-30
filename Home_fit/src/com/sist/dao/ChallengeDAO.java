@@ -19,7 +19,81 @@ public class ChallengeDAO {
 		ssf=CreateSqlSessionFactory.getSsf();
 	}
 	
+	
+	// <!--도전 period 구하기 -->
+	public static int challengePeriodCount(int challenge_no)
+	{
+		int period=0;
+		SqlSession session= null;
+		try {
+			session=ssf.openSession();
+			period=session.selectOne("challengePeriodCount", challenge_no);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return period;
+	}
 
+
+	// <!-- 도전 참여자 수 구하기 --> participantCount
+	public static int participantCount(int challenge_no)
+	{
+		int participantCount=0;
+		SqlSession session= null;
+		try {
+			session=ssf.openSession();
+			participantCount=session.selectOne("participantCount", challenge_no);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return participantCount;
+	}
+
+
+	// 필터조건 적용한 도전 리스트 test
+	public static List<ChallengeVO> challengeFilterList(Map map)
+	{
+		List<ChallengeVO> list=new ArrayList<ChallengeVO>();
+		SqlSession session=null;
+		try
+		{
+			session=ssf.openSession();
+			list=session.selectList("challengeFilterList",map);
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			if(session!=null)
+				session.close();
+		}
+		return list;
+	}
+	
+	// 검색 필터 적용한 총 목록 test
+	public static int challengFilterTotalPage(Map map)
+	{
+		int total=0;
+		SqlSession session=null;
+		try
+		{
+			session=ssf.openSession();
+			total=session.selectOne("challengFilterTotalPage",map);
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			if(session!=null)
+				session.close();
+		}
+		return total;
+	}
+	
+	
+	
 	
 	//<!-- 새 도전 만들기 -->
 	//<insert id="challengeInsert" parameterType="ChallengeVO">

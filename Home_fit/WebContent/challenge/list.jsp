@@ -23,12 +23,43 @@
 	margin-bottom: 20px;
 }
 </style>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
+let condition = $(":input:radio[name=challcate]:checked").val();
 
- </script>
+// 카테고리 선택 사항을 [키=name] , [값=id]
+// 선택사항[] = {키+=키 , 값+=값}
 
+$(function () {
+	$('.pixel-radio').click(function(){
+		cate=$(this).val();
+		$.ajax({
+			type:'post',
+			url:'../challenge/sublist.do',
+			data: condition,conditon
+			success:function(result)
+			{
+				$('.sublist').html(result);
+			}
+		});
+	});
+	
+	// 라디오버튼 클릭 안했을땐가?
+	$(function(){
+		$.ajax({
+			type:'post',
+			url:'../challenge/sublist.do',
+			success:function(result)
+			{
+				$('.sublist').html(result);
+			}
+			
+		});
+	});
+});
+
+</script>
 </head>
-
 <body>
 	<!-- ================ start banner area ================= -->
 	<section class="blog-banner-area" id="category">
@@ -45,17 +76,6 @@
 				</div>
 			</div>
 		</div>
-
-		<p align="center">
-			<a href="../member/logout2.do" id=logout
-				class="button button-postComment button--active">로그아웃</a> <a
-				href="../member/login2.do" id=login
-				class="button button-postComment button--active">로그인</a>
-		</p>
-		<c:if test="${sessionScope.id }!=null">
-		${sessionScope.id }님이 로그인 되었습니다.
-		</c:if>
-
 	</section>
 	<!-- ================ end banner area ================= -->
 
@@ -67,20 +87,23 @@
 				<!-- start : 상세 페이지 왼쪽 -->
 				<div class="col-xl-3 col-lg-4 col-md-5">
 					<div class="sidebar-categories">
-						<div class="head">운동 종류</div>
+						<div class="head">Challenge Category</div>
 						<ul class="main-categories">
 							<li class="common-filter">
 								<form action="#">
 									<ul>
 										<li class="filter-list"><input class="pixel-radio"
-											type="radio" id="weight" name="ex" value="1"
-											checked="checked"><label for="weight">근력 운동</label></li>
+											type="radio" id="challcateall" name="challcate" value="all"
+											checked="checked"><label for="challex">전체 선택</label></li>
 										<li class="filter-list"><input class="pixel-radio"
-											type="radio" id="yoga" name="ex" value="2"><label
-											for="yoga">요가</label></li>
+											type="radio" id="challex" name="challcate" value="exercise"><label 
+											for="challex">운동 도전</label></li>
 										<li class="filter-list"><input class="pixel-radio"
-											type="radio" id="pila" name="ex" value="3"><label
-											for="pila">필라테스</label></li>
+											type="radio" id="challfood" name="challcate" value="food"><label
+											for="challfood">식단 도전</label></li>
+										<li class="filter-list"><input class="pixel-radio"
+											type="radio" id="challetc" name="challcate" value="etc"><label
+											for="challetc">기타</label></li>
 									</ul>
 								</form>
 							</li>
@@ -93,52 +116,49 @@
 							<form action="#">
 								<ul>
 									<li class="filter-list"><input class="pixel-radio"
-										type="radio" id="apple" name="brand"> <label
-										for="apple">1~10명<span>(29)</span>
+										type="radio" id="challpartcount" name="challpartcount" checked="checked" value="periodall"> <label
+										for="allperiod">전체<span>(29)</span>
+									<li class="filter-list"><input class="pixel-radio"
+										type="radio" id="challpartcount" name="challpartcount" value="periodxs"> <label
+										for="periodxs">1~10명<span>(29)</span>
 									</label></li>
 									<li class="filter-list"><input class="pixel-radio"
-										type="radio" id="apple" name="brand"> <label
-										for="apple">11~20명<span>(29)</span>
+										type="radio" id="challpartcount" name="challpartcount" value="periods"> <label
+										for="periods">11~50명<span>(29)</span>
 									</label></li>
 									<li class="filter-list"><input class="pixel-radio"
-										type="radio" id="apple" name="brand"> <label
-										for="apple">21~30명<span>(29)</span>
+										type="radio" id="challpartcount" name="challpartcount" value="periodm"> <label
+										for="periodm">51~100명<span>(29)</span>
+									</label></li>
+									<li class="filter-list"><input class="pixel-radio"
+										type="radio" id="challpartcount" name="challpartcount" value="periodl"> <label
+										for="periodl">100명 이상<span>(29)</span>
 									</label></li>
 								</ul>
 							</form>
 						</div>
 						<div class="common-filter">
-							<div class="head">Participants</div>
+							<div class="head">Period</div>
 							<form action="#">
 								<ul>
 									<li class="filter-list"><input class="pixel-radio"
 										type="radio" id="apple" name="brand"> <label
-										for="apple">1~10명<span>(29)</span>
+										for="apple">10일 미만<span>(29)</span>
 									</label></li>
 									<li class="filter-list"><input class="pixel-radio"
 										type="radio" id="apple" name="brand"> <label
-										for="apple">11~20명<span>(29)</span>
+										for="apple">30일 미만<span>(29)</span>
 									</label></li>
 									<li class="filter-list"><input class="pixel-radio"
 										type="radio" id="apple" name="brand"> <label
-										for="apple">21~30명<span>(29)</span>
+										for="apple">100일 미만<span>(29)</span>
+									</label></li>
+									<li class="filter-list"><input class="pixel-radio"
+										type="radio" id="apple" name="brand"> <label
+										for="apple">100일 이상<span>(29)</span>
 									</label></li>
 								</ul>
 							</form>
-						</div>
-						<div class="common-filter">
-							<div class="head">Price</div>
-							<div class="price-range-area">
-								<div id="price-range"></div>
-								<div class="value-wrapper d-flex">
-									<div class="price">Price:</div>
-									<span>$</span>
-									<div id="lower-value"></div>
-									<div class="to">to</div>
-									<span>$</span>
-									<div id="upper-value"></div>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -197,99 +217,13 @@
 
 					<!-- start : 도전방목록list-->
 					<section class="lattest-product-area pb-40 category-list">
-						<div class="row">
-							<c:forEach var="vo" items="${list }">
-								<div class="col-lg-4 col-md-6 mb-4">
-									<div class="card h-100">
-										<!-- 승구야 여기 poster경로 바꿔~! -->
-										<a
-											href="../challenge/Certified_detail.do?challenge_no=${vo.challenge_no }"><img
-											class="card-img-top"
-											src="/Home_fit/challenge_poster/${vo.poster }" width=300px,
-											height=150px> <%-- <a href="../challenge_room/detail.do"><img class="card-img-top" src="/Home_fit2/challenge_poster/${vo.poster }" width=300px, height=150px> --%>
-										</a>
-										<div class="card-body">
-											<h4 class="card-title">
-												<a
-													href="../challenge/Certified_detail.do?challenge_no=${vo.challenge_no }">${vo.title }</a>
-											</h4>
-											<h5 class="challenge_room_count">${vo.challenge_no }명/${vo.limit }명</h5>
-											<p class="card-text">
-												<fmt:formatDate value="${vo.start_day }"
-													pattern="yyyy.MM.dd" />
-												~
-												<fmt:formatDate value="${vo.end_day }" pattern="yyyy.MM.dd" />
-												(${vo.period })
-											</p>
-										</div>
-										<div class="card-footer">
-											<small class="text-muted">리더: ${vo.id_leader }</small> <a
-												href="..challenge_room/group_in/.jsp"
-												class="btn btn-sm btn-danger">참여하기</a>
-											<!-- <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small> -->
-										</div>
-										<!-- <div style="padding:5px 0px"> -->
-										<!-- </div> -->
-									</div>
-								</div>
-							</c:forEach>
+						<div class="sublist">
+							
+								<!-- ======================== 도전 목록 출력 위치 ============================= -->
 						</div>
 					</section>
 					<!-- end : 도전방목록list-->
-					
-					<!-- ////////////// pagination start /////////////////////// -->
-						<nav class="blog-pagination justify-content-center d-flex">
-							<ul class="pagination">
-								<!-- 이전 -->
-								<c:if test="${cupage>BLOCK }">
-									<c:if test="$(cate==null)">
-										<li class="page-item"><a
-											href="../challenge/list.do?cate=${cate}&page=${startPage-1 }"
-											class="page-link" aria-label="Previous"> <span
-												aria-hidden="true"> <span class="lnr lnr-chevron-left"></span>
-											</span>
-										</a></li>
-									</c:if>
-									<c:if test="$(cate!=null)">
-										<li class="page-item"><a
-											href="../challenge/list.do?cate=${cate }&page=${startPage-1 }"
-											class="page-link" aria-label="Previous"> <span
-												aria-hidden="true"> <span class="lnr lnr-chevron-left"></span>
-											</span>
-										</a></li>
-									</c:if>
-								</c:if>
-								<!-- 이전 end -->
-								<c:forEach var="i" begin="${startPage }" end="${endPage }">
-									<c:if test="${i==curpage }">
-	
-											<li class="page-item active"><a
-												href="../challenge/list.do?cate=${cate }&page=${i }"
-												class="page-link">${i }</a></li>
-									</c:if>
-									<c:if test="${i!=curpage }">
-											<li class="page-item"><a
-												href="../challenge/list.do?cate=${cate }&page=${i }"
-												class="page-link">${i }</a></li>
-									</c:if>
-								</c:forEach>
-								<!-- 다음 -->
-								<c:if test="${endpage<totalpage }">
-	
-										<li class="page-item"><a
-											href="../challenge_room/list.do?cate=${cate }&page=${endPage+1 }"
-											class="page-link" aria-label="Next"> <span
-												aria-hidden="true"> <span
-													class="lnr lnr-chevron-right"></span>
-											</span>
-										</a></li>
-	
-								</c:if>
-								<!-- 다음 end -->
-							</ul>
-						</nav>
-					<!-- ////////////// pagination end /////////////////////// --> 
-					
+				
 					<!-- ////////////// pagination start /////////////////////// -->
 						<nav class="blog-pagination justify-content-center d-flex">
 							<ul class="pagination">
