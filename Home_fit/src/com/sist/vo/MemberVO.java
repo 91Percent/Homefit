@@ -1,23 +1,23 @@
 package com.sist.vo;
+
 import java.util.*;
-/* 
- * @author 이보미
- * 
- */
+
 public class MemberVO {
-	private String id;
-	private String pwd;
-	private String name;
-	private String email;
-	private String gender;
-	private Date birthday;
-	private String phone;
-	private String address;
-	private int hit;
-	private String home_level;
-	private String admin;
-	private String msg; // db에 없음
-	
+    private String id;
+    private String pwd;
+    private String name;
+    private String email;
+    private String gender;
+    private String birthday;
+    private String tel;
+    private String post;
+    private String addr1;
+    private String addr2;
+    private int hit;
+    private String home_level;
+    private String admin;
+    private String msg; // db none
+    
 	public String getId() {
 		return id;
 	}
@@ -48,23 +48,35 @@ public class MemberVO {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public Date getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
-	public void setBirthday(Date birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
-	public String getPhone() {
-		return phone;
+	public String getTel() {
+		return tel;
 	}
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
-	public String getAddress() {
-		return address;
+	public String getPost() {
+		return post;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setPost(String post) {
+		this.post = post;
+	}
+	public String getAddr1() {
+		return addr1;
+	}
+	public void setAddr1(String addr1) {
+		this.addr1 = addr1;
+	}
+	public String getAddr2() {
+		return addr2;
+	}
+	public void setAddr2(String addr2) {
+		this.addr2 = addr2;
 	}
 	public int getHit() {
 		return hit;
@@ -89,5 +101,6 @@ public class MemberVO {
 	}
 	public void setMsg(String msg) {
 		this.msg = msg;
-	}
+	} 	
+	   
 }

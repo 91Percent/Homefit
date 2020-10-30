@@ -54,14 +54,13 @@
 	                </ul>
 				</li>
 				<li class="nav-item submenu dropdown">
-	                  <a href="../challenge/Challenge.do" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+	                <a href="../challenge/Challenge.do" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 	                  aria-expanded="false">함께도전해요</a>
 	                <ul class="dropdown-menu">
-	                <li class="nav-item"><a class="nav-link" href="../challenge/list.do">도전목록</a></li>
+	                <li class="nav-item"><a class="nav-link" href="../challenge_room/list.do">전체</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="../challenge/Challenge.do">식단챌린지</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="#">도전랭킹</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="#">마이도전</a></li>
-
+	                  <li class="nav-item"><a class="nav-link" href="register.html">운동챌린지</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="tracking-order.html">기타</a></li>
 	                </ul>
 	             </li>
 	              <li class="nav-item submenu dropdown">
@@ -69,7 +68,7 @@
 	                  aria-expanded="false">꿀팁</a>
 	                <ul class="dropdown-menu">
 	                  <li class="nav-item"><a class="nav-link" href="login.html">칼로리</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="../news/news.do">뉴스</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="register.html">뉴스</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="tracking-order.html">게시판</a></li>
 	                </ul>
 	              </li>
@@ -79,7 +78,7 @@
 					<c:if test="${sessionScope.id==null }">
 	           			<li class="nav-item"><button><a class="#" href="../member/login.do">로그인</a></button></li>
 	              	 	<li class="nav-item">/</li>
-	              		<li class="nav-item"><button><a class="#" href="">회원가입</a></button></li>
+	              		<li class="nav-item"><button><a class="#" href="../member/join.do">회원가입</a></button></li>
 	              		<li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">1</span></button> </li>
 	          		</c:if>
 	          		<c:if test="${sessionScope.id!=null }">
