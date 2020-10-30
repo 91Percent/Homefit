@@ -35,8 +35,7 @@ $(function () {
 		cate=$(this).val();
 		$.ajax({
 			type:'post',
-			url:'../challenge/sublist.do',
-			data: condition,conditon
+			url:'../challenge/sublist.do?cate='+condition,
 			success:function(result)
 			{
 				$('.sublist').html(result);
