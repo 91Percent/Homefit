@@ -9,15 +9,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="../template/vendors/owl-carousel/owl.carousel.min.css">
  <script type="text/javascript">
-  $(document).ready(function(){
-      var owl = $('.owl-custom');
-      owl.owlCarousel({
-          items: 4, // 아이템수
-          loop: false,       // 루프
-          dots: false,      // 닷츠
-          rewind: false // 반복    
-      });    
-  });
+
   </script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,9 +98,10 @@
 													 		on boot camp when you can get the MCSE study materials yourself at a fraction of the camp
 													 		price. However, who has the willpower to actually sit through a self-imposed MCSE training.
 													</div>
+													
+													<strong><h5>인증  현재 참여율은 ${percent} %입니다.</h5></strong>
 													<c:forEach var="Certifiedvo" items="${Certifiedvo }">
-													<h4>인증</h4>
-													<div class="owl-carousel owl-theme owl-custom" id="bestSellerCarousel">
+													<div class="owl-carousel owl-theme" id="bestSellerCarousel">
 												          <div class="card text-center card-product">
 												            <div class="card-product__img">
 <%-- 												            	<img src="/Home_fit/challenge_poster/${Certifiedvo.poster}" alt=""> --%>
@@ -121,6 +114,7 @@
 												            </div>
 												            <div class="card-body">
 												              <p>Accessories</p>
+
 												             <p href="single-product.html" class="card-product__title">아이디: ${Certifiedvo.challenge_id}</p>
 												              <p class="product__price">등록일: ${Certifiedvo.certified_date }</p>
 												            </div>
@@ -140,9 +134,7 @@
 <%-- <%-- 																		  ${Certifiedvo.challenge_id } --%> 
 <!-- <!-- 																	</p> --> 
 <!-- <!-- 															</div> --> 
-																   
 <!-- 															<div class="col-lg-12 mt-4"> -->
-																  	
 <!-- 															</div> -->
 <!-- 													</div>		   -->
 													</c:forEach>  
@@ -152,15 +144,25 @@
 																the camp price. However, who has the willpower.
 													</p>
 													<p align="center">
+													
+													<!-- 
+														Certifieid_count는 사용자가 인증한 횟수다 ! 테스트를위해서 일단은 주석 처리!!!!!!!
+													
+													 -->
+<%-- 													<c:if test="${certifeid_count==0 }">	 --%>
 													<c:if test="${count==1 || count==3}">
 														<a href="../challenge/Certified.do?challenge_no=${ vo.challenge_no}" class="button button-postComment button--active" >인증하기</a>
-													</c:if>													
+													</c:if>								
+<%-- 													</c:if>					 --%>
+<%-- 													<c:if test="${certifeid_count>=1}"> --%>
+<!-- 														<span class="btn btn-la btn-danger" >오늘은  이미 인증 하셨습니다.</span> -->
+<%-- 													</c:if> --%>
 													</p>
 											</div>
 									</div>
 									<div class="navigation-area">
 											<div class="row">
-													<div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+													<div class="col-lg-6 col-md-6 col-12 nav-left flex-row ㄴ justify-content-start align-items-center">
 															<div class="thumb">
 																	<a href="#">
 																			<img class="img-fluid" src="img/blog/prev.jpg" alt="">
@@ -346,70 +348,93 @@
 															</span>
 													</div>
 													<!-- /input-group -->
-													<div class="br"></div>
+													<p>
+													
+													<strong><h4 align="center">참여 인증 랭킹</h4></strong>
 											</aside>
 											<aside class="single_sidebar_widget author_widget">
-													<img class="author_img rounded-circle" src="img/blog/author.png" alt="">
-													<h4>Charlie Barber</h4>
-													<p>Senior blog writer</p>
-													<div class="social_icon">
-                              <a href="#">
-                                  <i class="fab fa-facebook-f"></i>
-                              </a>
-                              <a href="#">
-                                  <i class="fab fa-twitter"></i>
-                              </a>
-                              <a href="#">
-                                  <i class="fab fa-github"></i>
-                              </a>
-                              <a href="#">
-                                <i class="fab fa-behance"></i>
-                              </a>
-                          </div>
-													<p>Boot camps have its supporters andit sdetractors. Some people do not understand why you should
-															have to spend money on boot camp when you can get. Boot camps have itssuppor ters andits
-															detractors.
-													</p>
+							<table>
+									<td>
+										<table cellpadding="10">
+								         	<tr>
+								         		<td>
+		 	          							<img src="../challenge/rank_1.png" width=80 height=40>
+		 	          							</td>
+		 	          						</tr>
+		 	          						<tr>
+		 	          							<td>
+		 	          							<img src="../challenge/rank_2.png" width=80 height=40>
+		 	          							</td>
+		 	          						</tr>
+		 	          						<tr>
+		 	          							<td>
+		 	          							<img src="../challenge/rank_3.png" width=80 height=40>
+		 	          							</td>
+		 	          						</tr>
+										</table>
+									</td>
+									<td>		
+										<table cellpadding="10">
+											<td>
+				             					<c:forEach var="vo" items="${rank_list}">
+												<tr>
+													<td>
+											       ${vo.challenge_id } (횟수 :${vo.certified_no})
+											       	<td>
+										 		</tr>
+				             					</c:forEach>
+				             					<c:if test="${rank_list.size()<3}">
+				             						<tr>
+				             						<c:forEach var="i" begin="${rank_list.size()}" end="2">
+				             							<td>
+															순위없음
+				             							</td>
+				             						</c:forEach>
+				             						</tr>
+				             					</c:if>
+				             				<td>
+								 		</table>	
+			             			</td>
+							 	</table>
+<!-- 													<h4>Charlie Barber</h4> -->
+<!-- 													<p>Senior blog writer</p> -->
+<!-- 													<div class="social_icon"> -->
+<!--                               <a href="#"> -->
+<!--                                   <i class="fab fa-facebook-f"></i> -->
+<!--                               </a> -->
+<!--                               <a href="#"> -->
+<!--                                   <i class="fab fa-twitter"></i> -->
+<!--                               </a> -        ->
+<!--                               <a href="#"> -->
+<!--                                   <i class="fab fa-github"></i> -->
+<!--                               </a> -->
+<!--                               <a href="#"> -->
+<!--                                 <i class="fab fa-behance"></i> -->
+<!--                               </a> -->
+<!--                           </div> -->
+<!-- 													<p>Boot camps have its supporters andit sdetractors. Some people do not understand why you should -->
+<!-- 															have to spend money on boot camp when you can get. Boot camps have itssuppor ters andits -->
+<!-- 															detractors. -->
+<!-- 													</p> -->
 													<div class="br"></div>
 											</aside>
 											<aside class="single_sidebar_widget popular_post_widget">
 													<h3 class="widget_title">Popular Posts</h3>
+											<!-- 방 참여 중인 사람 보여주려는 부분 -->	
+												<li class="breadcrumb-item active" aria-current="page">현재 참여중인 인원</li>
+												<p>
+										<div style="overflow-y:auto;height:200px">		
+											<c:forEach var="people_list" items="${ people_list}">											
 													<div class="media post_item">
-															<img src="img/blog/popular-post/post1.jpg" alt="post">
 															<div class="media-body">
 																	<a href="blog-details.html">
-																			<h3>Space The Final Frontier</h3>
+																			<h3 >${people_list.challenge_id }</h3>
 																	</a>
 																	<p>02 Hours ago</p>
 															</div>
 													</div>
-													<div class="media post_item">
-															<img src="img/blog/popular-post/post2.jpg" alt="post">
-															<div class="media-body">
-																	<a href="blog-details.html">
-																			<h3>The Amazing Hubble</h3>
-																	</a>
-																	<p>02 Hours ago</p>
-															</div>
-													</div>
-													<div class="media post_item">
-															<img src="img/blog/popular-post/post3.jpg" alt="post">
-															<div class="media-body">
-																	<a href="blog-details.html">
-																			<h3>Astronomy Or Astrology</h3>
-																	</a>
-																	<p>03 Hours ago</p>
-															</div>
-													</div>
-													<div class="media post_item">
-															<img src="img/blog/popular-post/post4.jpg" alt="post">
-															<div class="media-body">
-																	<a href="blog-details.html">
-																			<h3>Asteroids telescope</h3>
-																	</a>
-																	<p>01 Hours ago</p>
-															</div>
-													</div>
+												</c:forEach>	
+										</div>
 													<div class="br"></div>
 											</aside>
 											<aside class="single_sidebar_widget ads_widget">
@@ -495,6 +520,17 @@
 											<c:if test="${count==3 && compare>=0}">
 												<p align="center">
 													<a href="" class="btn btn-sm btn-danger">도전 수정 불가</a>
+													<h4 align="center">도전이 이미 시작되었습니다.</h4>
+												</p>
+											</c:if>
+											<c:if test="${count==3 && compare<0}">
+												<p align="center">
+													<a href="../challenge/challenge_room_delete.do?challenge_no=${vo.challenge_no }&poster=${vo.poster}" class="button button-postComment button--active">도전 삭제하기</a>
+												</p>
+											</c:if>
+											<c:if test="${count==3 && compare>=0}">
+												<p align="center">
+													<a href="" class="btn btn-sm btn-danger">도전 삭제 불가</a>
 													<h4 align="center">도전이 이미 시작되었습니다.</h4>
 												</p>
 											</c:if>

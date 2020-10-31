@@ -4,6 +4,8 @@ package com.sist.dao;
 import java.io.Reader;
 import java.util.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -153,6 +155,109 @@ public class Challenge_CertifiedDAO {
 		}
 		
 	}
+	/*
+	 <!-- 3가지 모두 방 에 삭제되는 부분  -->
+		<!-- 방 삭제 -->
+		<delete id="Challenge_room_delete" parameterType="int">
+			DELETE challenge 
+			WHERE challenge_no=#{challenge_no} 
+		</delete>
+		
+		<!-- 방에  해당하는 인증 삭제  -->
+		<delete id="Challenge_room_certified_delete" parameterType="int">
+			DELETE challenge_certified 
+			WHERE challenge_no=#{challenge_no} 
+		</delete>
+		
+		<!-- 방에 참가하는 인원 삭제 -->
+		<delete id="Challenge_room_participation_delete" parameterType="int">
+			DELETE challenge_participation 
+			WHERE challenge_no=#{challenge_no} 
+		</delete>
+		<!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ --> 
+	 */
+	//방삭제-> 인증,참가인원 방 삭제하는 순서
+	public static void Challenge_room_delete(int no)
+	{
+		SqlSession session=null;
+		try {
+			System.out.println("no은 "+no);
+			session=ssf.openSession();
+			session.delete("Challenge_room_certified_delete",no);			
+			session.delete("Challenge_room_participation_delete",no);
+			session.delete("Challenge_room_delete",no);
+			
+			session.commit();
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+	}
 	
-
+	//방에 참여하고 있는 인원 검색하기.
+	/*
+	 <select id="challenge_people" resultType="Challenge_ParticipationVO" parameterType="int">
+	SELECT challenge_id FROM challenge_participation
+	WHERE challenge_no=#{challenge_no};
+	</select>
+	 */
+	public static List<Challenge_ParticipationVO> challenge_people(int no)
+	{
+		SqlSession session=null;
+		List<Challenge_ParticipationVO> list = new ArrayList<Challenge_ParticipationVO>();
+		try {
+			session=ssf.openSession();
+			list = session.selectList("challenge_people",no);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return list;
+	}
+	
+	/*
+	 * 참가자가 오늘 인증을 했는지 안했는지 확인
+	 * <select id="certified_check" parameterType="challengeVO">
+	 */
+	public static int certified_check(Challenge_CertifiedVO vo) 
+	{
+		int count=0;
+		SqlSession session = null;
+		try {
+			session=ssf.openSession();
+			count=session.selectOne("certified_check",vo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return count;
+	}
+	
+	/*
+	 	<!-- 챌린지 방 인증 랭킹 (아이디 받아오는거)-->
+		<select id="certified_ranking" parameterType="int" resultType="Challenge_CertifiedVO">
+	 */
+	public static List<Challenge_CertifiedVO> certified_ranking(int no)
+	{
+		SqlSession session = null;
+		List<Challenge_CertifiedVO> list = new ArrayList<Challenge_CertifiedVO>();
+		try {
+			session=ssf.openSession();
+			list = session.selectList("certified_ranking",no);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		
+		return list;
+	}
 }

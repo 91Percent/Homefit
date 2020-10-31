@@ -25,14 +25,14 @@
 	<div class="container-fluid">
 	  	<jsp:include page="${main_jsp }" />
 	</div>
-	  
+
 	<!--  footer  -->
 	<jsp:include page="../main/footer.jsp"></jsp:include>
-	 	
+	 		
 	<!-- jquery / js -->
 	<script src="../template/vendors/jquery/jquery-3.2.1.min.js"></script>
 	<script src="../template/vendors/bootstrap/bootstrap.bundle.min.js"></script>
-	<script src="../template/vendors/skrollr.min.js"></script>
+	<script src="../template/vendors/skrxollr.min.js"></script>
 	<script src="../template/vendors/owl-carousel/owl.carousel.min.js"></script>
 	<script src="../template/vendors/nice-select/jquery.nice-select.min.js"></script>
 	<script src="../template/vendors/jquery.ajaxchimp.min.js"></script>

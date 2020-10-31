@@ -70,11 +70,11 @@ public class CertifiedModel {
 		if (challenge_id == null) {
 			challenge_id = "null";
 		}
-
+		
 		// 챌린지 디테일 가져오는 부분
 		ChallengeVO vo = Challenge_CertifiedDAO.ChallengeDetailData(Integer.parseInt(challenge_no));
 		// ==================
-
+		
 		// 챌린지 시작날짜와 '오늘' 을 비교해서 수정이 가능한지 불가능한지 나타내는 부분
 		Date saveDate = new Date();
 		long tempTime = saveDate.getTime();
@@ -98,19 +98,54 @@ public class CertifiedModel {
 		System.out.println("챌린지 방 번호 " + challenge_no);
 		int count = Challenge_CertifiedDAO.Challnege_paticipation_check(parti_vo);
 		// =========================
-
+		
 		// 유저가 방장인지 아닌지 검사하는 부분
 		if (challenge_id.equals(vo.getId_leader()))
 			count = 3;
 		// =======================
 
+		// 해당 유저가 오늘 인증 했는지 안했는지 확인하는 부분 
+		Challenge_CertifiedVO certi_vo = new Challenge_CertifiedVO();
+		certi_vo.setChallenge_id(challenge_id);
+		certi_vo.setChallenge_no(Integer.parseInt(challenge_no));
+		certi_vo.setDb_Certified_date(today);
+		// ================================
+		
+		// 인증 횟수 
+		int certifeid_count = Challenge_CertifiedDAO.certified_check(certi_vo);
+		System.out.println("사용자가 했던 인증횟수는?"+certifeid_count);
+		// =================================
+		
+		
+		//현재 방에 참여중인 인원의 id가져오는 부분
+		List<Challenge_ParticipationVO> people_list = Challenge_CertifiedDAO.challenge_people(Integer.parseInt(challenge_no));
+		//=======================================
+		
+		//현재 방에 인증 Rank 순위 가져오기 (certified_no 에   인증 횟수로 받아왔음  일단은)
+		List<Challenge_CertifiedVO> rank_list = Challenge_CertifiedDAO.certified_ranking(Integer.parseInt(challenge_no));
+		System.out.println("rank_list.size()== "+rank_list.size());
+		//=================================
+		
+		//도전한 백분률 구하는 부분 
+		int temp=(int)vo.getPeriod();
+		System.out.println("temp ="+temp);
+		int test= certifeid_count*temp;
+		System.out.println("test값 ="+test);
+		double percent = (double)certifeid_count/(double)temp*100.0;
+		System.out.println("참여율 ="+percent+"%");
+		//=============================
+		
 		System.out.println("로그인이 1이면 되어있는거야! " + count);
-
-		request.setAttribute("compare", compare);
-		request.setAttribute("count", count);
-		request.setAttribute("vo", vo);
-		request.setAttribute("Certifiedvo", list);
-		request.setAttribute("main_jsp", "../challenge/Certified_detail.jsp");
+		
+		request.setAttribute("percent",percent);
+		request.setAttribute("rank_list",rank_list);
+		request.setAttribute("people_list",people_list);
+		request.setAttribute("certifeid_count",certifeid_count);
+		request.setAttribute("compare",compare);
+		request.setAttribute("count",count);
+		request.setAttribute("vo",vo);
+		request.setAttribute("Certifiedvo",list);
+		request.setAttribute("main_jsp","../challenge/Certified_detail.jsp");
 		return "../main/main.jsp";
 	}
 
@@ -126,7 +161,8 @@ public class CertifiedModel {
 
 	@RequestMapping("challenge/Certified_ok.do")
 	public String Certified_ok(HttpServletRequest request) throws IOException {
-		System.out.println("??");
+		
+		HttpSession session = request.getSession();
 		String filename = "";
 		try {
 			request.setCharacterEncoding("utf-8");// 한글 디코딩
@@ -168,16 +204,12 @@ public class CertifiedModel {
 		}
 		vo.setCertified_check("Y");
 		vo.setChallenge_no(Integer.parseInt(challenge_no));
-		vo.setChallenge_id("ji");
+		vo.setChallenge_id((String)session.getAttribute("id"));
 		// DAO를 호출한 다음에 INSERT요청 => 저장하는 SQL (databoard-mapper.xml)
 		Challenge_CertifiedDAO.Challenge_CertifiedUpload(vo); // 추가
 
 		return "redirect:../challenge/Challenge.do";
 	}
-
-	
-	
-	
 	// 방 참가하기
 	@RequestMapping("challenge/participation.do")
 	public String participation(HttpServletRequest request) {
@@ -288,7 +320,7 @@ public class CertifiedModel {
 		{
 			vo.setPoster(filename);
 		}
-
+		
 		System.out.println("========Model 업데이트 끝나는 부분 ========");
 
 		// 파일 수정한거 데이터 넘기는 부분
@@ -301,7 +333,43 @@ public class CertifiedModel {
 		return "redirect:../challenge/list.do";
 	}
 
-	/////// 해니누나!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//방 삭제하는 부분
+	@RequestMapping("challenge/challenge_room_delete.do")
+	public String challenge_room_delte(HttpServletRequest request)
+	{
+		System.out.println("===challenge/challenge_room_delete.do 호출===");
+		
+		// 방 데이터 삭제하는 부분==================
+		String challenge_no = request.getParameter("challenge_no");
+		Challenge_CertifiedDAO.Challenge_room_delete(Integer.parseInt(challenge_no));
+		// =================================
+		
+		
+		//방 삭제시 파일 삭제하는 부분==========================================
+		String before_poster=request.getParameter("poster");
+		String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\challenge_poster";
+		String enctype = "UTF-8"; // 한글파일명을 사용 여부
+		int size = 1024 * 1024 * 100;// 파일의 최대크기
+		
+		path = path+"\\"+before_poster;
+		File file = new File(path);
+		if(file.exists())
+		{
+			if(file.delete())
+			{
+				System.out.println(before_poster+"의 파일 삭제!");
+			}
+			else
+				System.out.println(before_poster+"의 파일 삭제 실패!");
+		}else
+			System.out.println("파일이 존재하지 않습니다.");
+		//============================================================
+		
+		
+		
+		System.out.println("===challenge/challenge_room_delete.do 끝===");
+		return "redirect:../challenge/list.do";
+	}
 
 	@RequestMapping("challenge/list.do")
 	public String challengeListData(HttpServletRequest request) {
@@ -352,23 +420,6 @@ public class CertifiedModel {
 		return "../main/main.jsp";
 
 	}
-
-	@RequestMapping("challenge/Certified_detail.do")
-	public String challengDetailData(HttpServletRequest request) {
-
-		String challenge_no = request.getParameter("challenge_no");
-
-		ChallengeVO vo = Challenge_CertifiedDAO.ChallengeDetailData(Integer.parseInt(challenge_no));
-		List<Challenge_CertifiedVO> list = Challenge_CertifiedDAO.CertifiedData(Integer.parseInt(challenge_no));
-
-		request.setAttribute("vo", vo);
-		request.setAttribute("Certifiedvo", list);
-		request.setAttribute("main_jsp", "../challenge/Certified_detail.jsp");
-		return "../main/main.jsp";
-	}
-
-
-
 	// 로그아웃 버튼 임시로 구현함. 2020-10-23
 		@RequestMapping("member/logout2.do")
 		public String member_logout2(HttpServletRequest request) {

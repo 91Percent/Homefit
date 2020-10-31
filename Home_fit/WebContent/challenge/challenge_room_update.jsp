@@ -27,10 +27,93 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
 $(function(){
-	$('.input-sm').click(function(){
-		let src=$(this).attr("")		
+	$('#gogo').click(function(){
+		let before_limit=$('#limit').attr("value"); //기존 방 설정 limit
+		let limit=$('#limit').val(); //입력받은 limit
+		if(limit<before_limit)
+		{
+			$('#limit').focus();
+			$('#limit_text').text('*도전가능인원은 현재 참여하고 있는인원보다 많아야합니다*')
+		}
+		else
+		{
+			$('#frm').submit();
+		}
 	})
-)}
+});
+
+// $(function(){
+// 	$('#gogo').click(function(){
+// 		let id=$('#id').val();
+// 		if(id.trim()=="")
+// 		{
+// 			$('#id').focus();
+// 			return;
+// 		}
+		
+// 		// 비밀번호
+// 		let pwd=$('#pwd').val();
+// 		if(pwd.trim()=="")
+// 		{
+// 			$('#pwd').focus();
+// 			return;
+// 		}
+		
+// 		let pwd1=$('#pwd1').val();
+// 		if(pwd1.trim()=="")
+// 		{
+// 			$('#pwd1').focus();
+// 			return;
+// 		}
+		
+// 		if(pwd!==pwd1)
+// 		{
+// 			alert("비밀번호를 다시 입력하세요!!");
+// 			$('#pwd1').val("");
+// 			$('#pwd1').focus();
+// 			return;
+// 		}
+		
+// 		let name=$('#name').val();
+// 		if(name.trim()=="")
+// 		{
+// 			$('#name').focus();
+// 			return;
+// 		}
+		
+// 		let birthday=$('#birthday').val();
+// 		if(birthday.trim()=="")
+// 		{
+// 			$('#birthday').focus();
+// 			return;
+// 		}
+		
+// 		let post=$('#post').val();
+// 		if(post.trim()=="")
+// 		{
+// 			$('#post').focus();
+// 			return;
+// 		}
+		
+// 		let addr1=$('#addr1').val();
+// 		if(addr1.trim()=="")
+// 		{
+// 			$('#addr1').focus();
+// 			return;
+// 		}
+		
+// 		let content=$('#content').val();
+// 		if(content.trim()=="")
+// 		{
+// 			$('#content').focus();
+// 			return;
+// 		}
+		
+// 		// 데이어 전송 
+// 		$('#joinfrm').submit();
+// 	});
+// });
+</script>
 </script>
 </head>
 <body>
@@ -55,7 +138,7 @@ $(function(){
   <!--================Checkout Area =================-->
   <section class="checkout_area section-margin--small">
     <div class="container">
-  		  <form method="post" action="../challenge_room/update_ok.do" enctype="multipart/form-data">
+  		  <form method="post" action="../challenge_room/update_ok.do" enctype="multipart/form-data" id="frm">
   		<div class="billing_details">
             <div class="row">
 	  		<table class="table table-hover">
@@ -79,16 +162,13 @@ $(function(){
 					<%-- <a href="../challenge/download.jsp?poster=${vo.poster}">${vo.poster }</a> --%>
 			       <th class="danger text-right" width=30% >대표 사진</th>
 			       <td width=70% >
-			         <input type=file name=poster size=20 class="input-sm" > 
+			         <input type=file name=poster size=20 class="input-sm" id="photopreview" > 
 			       </td>
 			     </tr>
-			     
 			  	<tr>
-			  		<th>
-			  			 <input type=button value="수정 사진 미리보기 " >
-			  		</th>
-					<td>
-						<img class="room_poster" src="/Home_fit/challenge_poster/${vo.poster }">
+			  		<th class="danger text-right" width=30% >현재 방 대표 사진<p  style="color:gray;">파일 명 : ${vo.poster}</p></th>
+					<td class="here">
+					 	<img src="/Home_fit/challenge_poster/${vo.poster}" width=300 height=200>
 					</td>
 			  	</tr>
 			     <tr>
@@ -99,7 +179,7 @@ $(function(){
 			         <input type="hidden" value="${vo.poster }" name=before_poster>
 			       </td>
 			     </tr>
-			     
+ 
 			     <tr>
 			       <th class="danger text-right" width=30%>도전 시작일</th>
 			       <td width=70%> 
@@ -115,24 +195,25 @@ $(function(){
 			         <input type=date name=end_day class="input-sm" min=start_day required>
 			       </td>
 			     </tr>
-
+					
 			     <tr>
-			       <th class="danger text-right" width=30%>도전 가능 인원</th>
+			       <th class="danger text-right" width=30% >도전 가능 인원</th>
 			       <td width=70%>
-			       	 <input type="text" class="form-control" id="limit" name="limit" value="${vo.limit }">
+			       	 <input type="text" class="form-control" id="limit" name="limit" value="${vo.limit }" >
+			       	 <p id="limit_text" style="color:red;"></p>
 			       </td>
 			     </tr>
 
 			     <tr>
 			       <th class="danger text-right" width=30%>도전소개글</th>
 			       <td width=70%>
-			       		<textarea class="form-control" name="content" id="content" rows="10" value="${vo.content }"></textarea>
+			       		<textarea class="form-control" name="content" id="content" rows="10">${vo.content }</textarea>
 			       </td>
 			     </tr>
 
 			     <tr>
 			       <td colspan="2" class="text-center">
-			         <input type=submit value="도전 수정하기" class="btn btn-sm btn-primary">
+			         <input type=button value="도전 수정하기" class="btn btn-sm btn-primary" id="gogo">
 			         <input type=button value="취소하기" class="btn btn-sm btn-primary" onclick="javascript:history.back()">
 			       </td>
 			     </tr>

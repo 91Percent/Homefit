@@ -34,8 +34,8 @@ public class ChallengeVO {
 	public long getPeriod() {
 		return period;
 	}
-	public void setPeriod(long period) {
-		this.period = period;
+	public void setPeriod(long difDays) {
+		this.period = difDays;
 	}
 	public String getCate() {
 		return cate;

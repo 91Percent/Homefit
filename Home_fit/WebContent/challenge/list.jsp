@@ -25,17 +25,16 @@
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
-let condition = $(":input:radio[name=challcate]:checked").val();
-
 // 카테고리 선택 사항을 [키=name] , [값=id]
 // 선택사항[] = {키+=키 , 값+=값}
-
+let cate = $(":input:radio[name=challcate]:checked").val();
 $(function () {
 	$('.pixel-radio').click(function(){
+		console.log('cate:'+cate)		
 		cate=$(this).val();
 		$.ajax({
 			type:'post',
-			url:'../challenge/sublist.do?cate='+condition,
+			url:'../challenge/sublist.do?cate='+cate,
 			success:function(result)
 			{
 				$('.sublist').html(result);
