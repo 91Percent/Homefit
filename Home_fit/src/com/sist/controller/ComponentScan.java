@@ -10,6 +10,7 @@ public class ComponentScan {
 		try 
 		{
 			path=path+"\\"+pack.replace(".","\\");
+//해니
 //			path=path+"/"+pack.replace(".","/");
 			File dir = new File(path);
 			File[] files = dir.listFiles();
@@ -32,6 +33,7 @@ public class ComponentScan {
 		ComponentScan cs = new ComponentScan();
 		String pack= "com.sist.model";
 		String path="C:\\webDev\\webStudy\\OnLineStudy18_MVCFinal\\src";
+//해니
 //		String path="/Users/haeni/Documents/jsp-project/Homefit/Home_fit/src/";
 		cs.fileConfig(pack, path);
 	}
