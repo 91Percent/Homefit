@@ -39,7 +39,7 @@
 								</c:if> 
 							</a>
 						</h4>
-						<h5 class="challenge_room_count"> ${vo.participantCount }명/${vo.limit }명 (${vo.participantionCheck })</h5>
+						<h5 class="challenge_room_count"> <%-- ${vo.participantCount }명 --%>/${vo.limit }명 (${vo.participantionCheck })</h5>
 						<p class="card-text">
 							<fmt:formatDate value="${vo.start_day }" pattern="yyyy.MM.dd" />
 							~
