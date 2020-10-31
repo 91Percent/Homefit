@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <!-- 오라클을 연결하기 위한 환경설정 : 한개만 사용  -->
+  <!-- properties 파일 읽기 -->
+  <!-- MyBatis,Spring : 기본 디폴트 폴더가 src -->
+  <properties resource="db.properties"/>
+  <typeAliases>
+    <!-- VO를 등록 -->
+    <typeAlias type="com.sist.vo.Challenge_CertifiedVO" alias="Challenge_CertifiedVO"/>
+    <typeAlias type="com.sist.vo.ChallengeVO" alias="ChallengeVO"/>   
+    <typeAlias type="com.sist.vo.ScheduleVO" alias="ScheduleVO"/>
+    <typeAlias type="com.sist.vo.tutor_VO" alias="tutor_VO"/>
+    <typeAlias type="com.sist.vo.tutorReviewVO" alias="tutorReviewVO"/>
+	<typeAlias type="com.sist.vo.ShopVO" alias="ShopVO"/>
+	<typeAlias type="com.sist.vo.ExVO" alias="ExVO"/>
+	<typeAlias type="com.sist.vo.MemberVO" alias="MemberVO"/>
+	<typeAlias type="com.sist.vo.CategoryVO" alias="CategoryVO"/>
+	<typeAlias type="com.sist.vo.Challenge_ParticipationVO" alias="Challenge_ParticipationVO"/>
+  </typeAliases>
+  <environments default="development"><!-- 개발 환경을 만든다 -->
+    <environment id="development">
+	
+       <transactionManager type="JDBC"/>
+       <dataSource type="POOLED">
+           <property name="driver" value="${driver}"/>
+           <property name="url" value="${url}"/>
+           <property name="username" value="${username}"/>
+           <property name="password" value="${password}"/>
+       </dataSource>
+    </environment>
+  </environments>
+  <mappers>
+    <mapper resource="com/sist/mapper/Challenge-mapper.xml"/>
+    <mapper resource="com/sist/mapper/coach-mapper.xml"/>
+    <mapper resource="com/sist/mapper/shop-mapper.xml"/>
+    <mapper resource="com/sist/mapper/Ex-mapper.xml"/>
+     <mapper resource="com/sist/mapper/member-mapper.xml"/>
+  </mappers>
+</configuration>
