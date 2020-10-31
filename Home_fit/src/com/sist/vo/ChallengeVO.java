@@ -1,6 +1,8 @@
 
 package com.sist.vo;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.*;;
 /*
  * 
@@ -26,11 +28,30 @@ public class ChallengeVO {
 	private String id_leader;
 	private Date end_day;
 	private String db_end_day;
-	private Date regdate;
 	private long period;
+	private String regdate;
+	private int participantionCheck; // 로그인한 id가 방에 참여중인지 확인하는 용도
+	private int participantCount; // 방마다 참가자 수 구하는 용도
 	
 	
-
+	public int getParticipantCount() {
+		return participantCount;
+	}
+	public void setParticipantCount(int participantCount) {
+		this.participantCount = participantCount;
+	}
+	public int getParticipantionCheck() {
+		return participantionCheck;
+	}
+	public void setParticipantionCheck(int participantionCheck) {
+		this.participantionCheck = participantionCheck;
+	}
+	public String getRegdate() {
+		return regdate;
+	}
+	public void setRegdate(String regdate) {
+		this.regdate = regdate;
+	}
 	public long getPeriod() {
 		return period;
 	}
@@ -77,7 +98,12 @@ public class ChallengeVO {
 		return poster;
 	}
 	public void setPoster(String poster) {
-		this.poster = poster;
+		try {
+			this.poster =  URLEncoder.encode(poster,"euc-kr");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public String getContent() {
 		return content;
@@ -97,12 +123,7 @@ public class ChallengeVO {
 	public void setEnd_day(Date end_day) {
 		this.end_day = end_day;
 	}
-	public Date getRegdate() {
-		return regdate;
-	}
-	public void setRegdate(Date regdate) {
-		this.regdate = regdate;
-	}
+	
 	public String getDb_end_day() {
 		return db_end_day;
 	}

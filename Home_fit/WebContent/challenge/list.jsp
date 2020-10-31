@@ -3,7 +3,7 @@
 	pageEncoding="UTF-8" import="com.sist.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<jsp:useBean id="toDay" class="java.util.Date" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -199,12 +199,10 @@ $(function () {
 					<div class=challengebtn>
 						<button type="button"
 							class="button button-subscribe mr-auto mb-1 totalchall"
-							onclick="location.href='../challenge/insert.do' ">전체 도전
-							목록</button>
+							onclick="location.href='../challenge/insert.do' ">전체 도전 목록</button>
 						<c:if test="${sessionScope.id!=null }">
 							<button type="button" class="button button-subscribe mr-auto mb-1"
-								onclick="location.href='../challenge/insert.do' ">참여 중인
-								도전</button>
+								onclick="location.href='../challenge/insert.do' ">참여 중인 도전</button>
 							<button type="button"
 								class="button button-subscribe mr-auto mb-1 challinsert"
 								onclick="location.href='../challenge/insert.do' ">도전만들기
