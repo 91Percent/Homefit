@@ -37,4 +37,15 @@
 	SELECT CEIL(COUNT(*)/12.0) FROM hometraining
 	WHERE home_level=#{home_level} AND cate_no=#{cate_no}
 </select>
+<select id="searchData" resultType="ExVO" parameterType="hashmap">
+	SELECT home_no,poster,subject,home_level,num
+	FROM (SELECT home_no,poster,subject,home_level,rownum as num 
+	FROM (SELECT home_no,poster,subject,home_level
+	FROM hometraining WHERE subject LIKE '%'||#{subject}||'%'))
+	WHERE num BETWEEN #{start} AND #{end}
+</select>
+<select id="searchTotalPage" resultType="int" parameterType="hashmap">
+	SELECT CEIL(COUNT(*)/12.0) FROM hometraining
+   WHERE subject LIKE '%'||#{subject}||'%'
+</select>
 </mapper>
