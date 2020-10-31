@@ -54,4 +54,11 @@
 	GROUP BY(challenge_id) 
 	ORDER BY count(challenge_id) DESC
 </select>
+
+<!-- 방 강퇴하는 부분 -->
+<delete id="participation_kick_out" parameterType="Challenge_ParticipationVO">
+	DELETE FROM challenge_participation 
+	WHERE challenge_no=#{challenge_no} 
+	AND challenge_id=#{challenge_id}
+</delete>
 </mapper>

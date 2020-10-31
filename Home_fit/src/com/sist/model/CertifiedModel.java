@@ -420,25 +420,20 @@ public class CertifiedModel {
 		return "../main/main.jsp";
 
 	}
-	// 로그아웃 버튼 임시로 구현함. 2020-10-23
-		@RequestMapping("member/logout2.do")
-		public String member_logout2(HttpServletRequest request) {
-			HttpSession session = request.getSession();
-			System.out.println("세션 로그아웃전!" + session.getAttribute("id"));
-			session.invalidate();
-//		   	   request.setAttribute("main_jsp","../challenge/Challenge.jsp");
-			return "redirect:../challenge/list.do";
+		@RequestMapping("challenge/kick_out.do")
+		public String challenge_kick_out(HttpServletRequest request)
+		{
+			String challenge_no = request.getParameter("challenge_no");
+			String challenge_id = request.getParameter("challenge_id");	
+			
+			//방장이 방에서  인원 강퇴하는 부분======
+			Challenge_ParticipationVO vo = new Challenge_ParticipationVO();
+			vo.setChallenge_id(challenge_id);
+			vo.setChallenge_no(Integer.parseInt(challenge_no));
+			Challenge_CertifiedDAO.participation_kick_out(vo);
+			//===========================
+			
+			return "redirect:../challenge/Certified_detail.do?challenge_no="+challenge_no;
 		}
-
-		@RequestMapping("member/login2.do")
-		public String member_login2(HttpServletRequest request) {
-			HttpSession session = request.getSession();
-			session.setAttribute("id", "seunggu");
-			System.out.println("아이디 출력되나?" + session.getAttribute("id"));
-//			   request.setAttribute("main_jsp","../challenge/Challenge.jsp");
-			return "redirect:../challenge/list.do";
-		}
-	
-	
 
 }
