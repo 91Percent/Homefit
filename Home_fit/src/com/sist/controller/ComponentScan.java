@@ -9,8 +9,8 @@ public class ComponentScan {
 		
 		try 
 		{
-			path=path+"\\"+pack.replace(".","\\");
-//			path=path+"/"+pack.replace(".","/");
+//			path=path+"\\"+pack.replace(".","\\");
+			path=path+"/"+pack.replace(".","/");
 			File dir = new File(path);
 			File[] files = dir.listFiles();
 			for(File f:files)
@@ -31,8 +31,8 @@ public class ComponentScan {
 	public static void main(String[] args) {
 		ComponentScan cs = new ComponentScan();
 		String pack= "com.sist.model";
-		String path="C:\\webDev\\webStudy\\OnLineStudy18_MVCFinal\\src";
-//		String path="/Users/haeni/Documents/jsp-project/Homefit/Home_fit/src/";
+//		String path="C:\\webDev\\webStudy\\OnLineStudy18_MVCFinal\\src";
+		String path="/Users/haeni/Documents/jsp-project/Homefit/Home_fit/src/";
 		cs.fileConfig(pack, path);
 	}
 }

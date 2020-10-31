@@ -91,6 +91,7 @@ public class ChallengeModel {
 		if (cate == null)
 			cate = null;
 
+		// 페이징 처리
 		if (page == null)
 			page = "1";
 		int curpage = Integer.parseInt(page);
@@ -98,11 +99,14 @@ public class ChallengeModel {
 		int start = rowSize * (curpage - 1) + 1;
 		int end = rowSize * curpage;
 
+		// 쿼리문장실행한 결과값 받기
 		Map map = new HashMap();
 		map.put("start", start);
 		map.put("end", end);
 		map.put("cate", cate);
 		List<ChallengeVO> list = ChallengeDAO.challengeCateListData(map);
+	    
+		//string text = URLDecoder.decode(text, "UTF-8") ;
 
 		int totalpage = ChallengeDAO.challengeCateTotalPage(cate);
 
@@ -122,6 +126,12 @@ public class ChallengeModel {
 		if (endPage > totalpage)
 			endPage = totalpage;
 		
+		// String id_leader = (String) session.getAttribute("id");
+
+		HttpSession session=request.getSession();
+		String id = (String) session.getAttribute("id");
+		
+		request.setAttribute("id", id);
 		request.setAttribute("list", list);
 		request.setAttribute("curpage", curpage);
 		request.setAttribute("totalpage", totalpage);
@@ -157,8 +167,8 @@ public class ChallengeModel {
 			e.printStackTrace();
 		} // 한글 디코딩
 
-//		String path = "/Users/haeni/Documents/jsp-project/Homefit/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Home_fit/challenge_poster";
-		String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\challenge_poster";
+		String path = "/Users/haeni/Documents/jsp-project/Homefit/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Home_fit/challenge_poster";
+//		String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\challenge_poster";
 		String enctype = "UTF-8"; // 한글파일명을 사용 여부
 		int size = 1024 * 1024 * 100;// 파일의 최대크기
 
@@ -194,7 +204,6 @@ public class ChallengeModel {
 			System.out.println("period오류");
 		}
 		
-		System.out.println("방만들때 사용하는 아이디:" + id_leader);
 		// 받은 데이터들을 DAO => DAO에서 오라클에 INSERT
 		ChallengeVO vo = new ChallengeVO();
 		vo.setTitle(title);
@@ -212,7 +221,7 @@ public class ChallengeModel {
 
 		if (filename == null)// 파일을 올리지 않을 경우
 		{
-			vo.setPoster("");
+			vo.setPoster("ChallengeDefault.jpg");
 		} else// 파일 올릴 경우
 		{
 			vo.setPoster(filename);
