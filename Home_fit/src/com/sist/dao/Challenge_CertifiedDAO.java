@@ -260,4 +260,27 @@ public class Challenge_CertifiedDAO {
 		
 		return list;
 	}
+
+	
+	/*
+		<!-- 방 강퇴하는 부분 -->
+		<delete id="participation_kick_out" parameterType="Challenge_ParticipationVO">
+			DELETE FROM challenge_participation 
+			WHERE challenge_no=#{challenge_no} 
+			AND challenge_id=#{challenge_id}
+		</delete>
+	 */
+	public static void participation_kick_out(Challenge_ParticipationVO vo)
+	{
+		SqlSession session =null;
+		try {
+			session=ssf.openSession(true);
+			session.delete("participation_kick_out",vo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+	}
 }

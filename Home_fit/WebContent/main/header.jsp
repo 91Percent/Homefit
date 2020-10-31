@@ -23,14 +23,7 @@
 	          <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 	            <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
 	              <li class="nav-item submenu dropdown">
-	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-	                  aria-expanded="false">홈트레이닝</a>
-	                   <ul class="dropdown-menu">
-	                  <li class="nav-item"><a class="nav-link" href="../ex/total.do">홈트레이닝</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="../ex/weight.do?cate_no=1">근력</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="../ex/yoga.do?cate_no=2">요가</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="../ex/pila.do?cate_no=3">필라</a></li>
-	                </ul>
+	                 <a href="../ex/total.do" class="nav-link dropdown-toggle">홈트</a>
 	              </li>
 	              <li class="nav-item submenu dropdown">
 	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"

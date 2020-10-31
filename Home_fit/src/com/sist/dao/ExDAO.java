@@ -109,4 +109,18 @@ public class ExDAO {
 		session.close();
 		return total;
 	}
+	public static List<ExVO> searchData(Map map)
+	{
+		SqlSession session=ssf.openSession();
+		List<ExVO> list=session.selectList("searchData",map);
+		session.close();
+		return list;
+	}
+ public static int searchTotalPage(Map map)
+ {
+	 SqlSession session=ssf.openSession();
+		int total=session.selectOne("searchTotalPage",map);
+		session.close();
+		return total;
+ }
 }
