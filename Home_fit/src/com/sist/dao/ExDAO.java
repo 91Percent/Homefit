@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.sist.vo.ExVO;
+import com.sist.vo.FavoritesVO;
 
 public class ExDAO {
 	private static SqlSessionFactory ssf;
@@ -122,5 +123,32 @@ public class ExDAO {
 		int total=session.selectOne("searchTotalPage",map);
 		session.close();
 		return total;
+ }
+ public static void favInsert(FavoritesVO vo)
+ {
+	 SqlSession session=ssf.openSession(true);
+	 session.update("favInsert",vo);
+	 session.close();
+ }
+ public static List<FavoritesVO> favListData(String id)
+ {
+	 SqlSession session=ssf.openSession();
+	 List<FavoritesVO> list=session.selectList("favListData",id);
+	 session.close();
+	 return list;
+ }
+ public static int favCount(FavoritesVO vo)
+ {
+	 SqlSession session=ssf.openSession();
+	 int count=session.selectOne("favCount",vo);
+	 session.close();
+	 return count;
+ }
+ public static List<ExVO> mypageListData(String id)
+ {
+	 SqlSession session=ssf.openSession();
+	 List<ExVO> list=session.selectList("mypageListData",id);
+	 session.close();
+	 return list;
  }
 }

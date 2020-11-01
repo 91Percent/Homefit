@@ -48,6 +48,13 @@
                   <h5>필요한 도구 : ${vo.equipment }</h5>
                   <p>팁 : ${vo.tip }</p>
                   </div>
+                  
+				</div>
+				<div class="card_area d-flex align-items-center">
+					<c:if test="${count==0 }">
+					<a class="icon_btn" href="../ex/ex_favorite.do?home_no=${vo.home_no }"><i class="ti-heart"></i></a>
+					</c:if>
+				</div>
                </div>
             </div>
          </div>
