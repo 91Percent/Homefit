@@ -27,7 +27,7 @@ $(function(){
 
 </head>
 <body>
-        <div class="row">
+        <div class="row row2">
             <c:forEach var="vo" items="${list }">
               <div class="col-md-6 col-lg-4">
                 <div class="card text-center card-product">

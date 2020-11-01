@@ -20,37 +20,125 @@ import com.sist.vo.ChallengeVO;
 import com.sist.vo.Challenge_ParticipationVO;
 
 public class ChallengeModel {
+		
 	
-	/////// 해니누나!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+	
+	
+	
+// 검색 필터 적용한 리스트	
+//	@RequestMapping("challenge/list.do")
+//	public String challengeFilterList(HttpServletRequest request) {
+//		String period=request.getParameter("period");
+//		String page = request.getParameter("page");
+//		String cate = request.getParameter("cate");
+//		System.out.println(cate);
+//
+//		if(period == null)
+//			period="null";
+//		
+//		if (cate == null)
+//			cate = "1";
+//
+//		if (page == null)
+//			page = "1";
+//		int curpage = Integer.parseInt(page);
+//		int rowSize = 20;
+//		int start = rowSize * (curpage - 1) + 1;
+//		int end = rowSize * curpage;
+//
+//		Map map = new HashMap();
+//		map.put("start", start);
+//		map.put("end", end);
+//		map.put("cate", cate);
+//		map.put("period",period);
+//		List<ChallengeVO> list = ChallengeDAO.challengeFilterList(map);
+//
+//		int totalpage = ChallengeDAO.challengeCateTotalPage(cate);
+//
+//		int BLOCK = 5;
+//		int startPage = ((curpage - 1) / BLOCK * BLOCK) + 1;
+//		int endPage = ((curpage - 1) / BLOCK * BLOCK) + BLOCK;
+//
+//		for (ChallengeVO vo : list) {
+//			String str = vo.getTitle();
+//			if (str.length() > 20) {
+//				str = str.substring(0, 20);
+//				str += "...";
+//			}
+//			vo.setTitle(str);
+//		}
+//
+//		if (endPage > totalpage)
+//			endPage = totalpage;
+//		
+//		request.setAttribute("list", list);
+//		request.setAttribute("curpage", curpage);
+//		request.setAttribute("totalpage", totalpage);
+//		request.setAttribute("BLOCK", BLOCK);
+//		request.setAttribute("startPage", startPage);
+//		request.setAttribute("endPage", endPage);
+//		request.setAttribute("main_jsp", "../challenge/list.jsp");
+//		return "../main/main.jsp";
+//
+//	}
+	
+	// 도전 목록: list
 	@RequestMapping("challenge/list.do")
 	public String challengeListData(HttpServletRequest request) {
-		String page = request.getParameter("page");
+		
+		request.setAttribute("main_jsp", "../challenge/list.jsp");
+		return "../main/main.jsp";
+
+	}	
+	
+	
+	// 도전 목록: sublist
+	@RequestMapping("challenge/sublist.do")
+	public String test(HttpServletRequest request) {
+		try {
+			request.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} 
+		// 카테고리 정보 받기
 		String cate = request.getParameter("cate");
 		System.out.println(cate);
 
 		if (cate == null)
 			cate = null;
 
+		// 페이징 처리
+		String page = request.getParameter("page");
 		if (page == null)
 			page = "1";
 		int curpage = Integer.parseInt(page);
-		int rowSize = 20;
+		int rowSize = 12;
 		int start = rowSize * (curpage - 1) + 1;
 		int end = rowSize * curpage;
-
-		Map map = new HashMap();
-		map.put("start", start);
-		map.put("end", end);
-		map.put("cate", cate);
-		List<ChallengeVO> list = ChallengeDAO.challengeCateListData(map);
 
 		int totalpage = ChallengeDAO.challengeCateTotalPage(cate);
 
 		int BLOCK = 5;
 		int startPage = ((curpage - 1) / BLOCK * BLOCK) + 1;
 		int endPage = ((curpage - 1) / BLOCK * BLOCK) + BLOCK;
-
+		
+		if (endPage > totalpage)
+			endPage = totalpage;
+		
+		// 리스트 데이터 결과값 받기
+		Map map = new HashMap();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("cate", cate);
+		List<ChallengeVO> list = ChallengeDAO.challengeCateListData(map);
+	 
+		
+		
+		// 아이디 받기
+		HttpSession session=request.getSession();
+		String id = (String) session.getAttribute("id");
+		
+		
 		for (ChallengeVO vo : list) {
 			String str = vo.getTitle();
 			if (str.length() > 20) {
@@ -58,23 +146,45 @@ public class ChallengeModel {
 				str += "...";
 			}
 			vo.setTitle(str);
-		}
+			
+			int no=vo.getChallenge_no();
+			
+			// 참여중인지 확인하기
+			Challenge_ParticipationVO pVO=new Challenge_ParticipationVO();
+			pVO.setChallenge_id(id);
+			pVO.setChallenge_no(no);
+			int ptCheck = Challenge_CertifiedDAO.Challnege_paticipation_check(pVO);
+			vo.setParticipantionCheck(ptCheck);
 
-		if (endPage > totalpage)
-			endPage = totalpage;
+			// 방의 총 인원 수 구하기
+			int total=ChallengeDAO.totalPaticipantCount(pVO.getChallenge_no());
+			vo.setParticipantCount(total);
+			System.out.println(vo.getParticipantCount());
+
+		}	
+
 		
+		
+		
+		// 게시날짜와 비교할 오늘날짜 받기
+		Date date=new Date();
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		String today=sdf.format(date);
+		
+		
+		
+		
+		request.setAttribute("today", today);
+		request.setAttribute("id", id);
 		request.setAttribute("list", list);
 		request.setAttribute("curpage", curpage);
 		request.setAttribute("totalpage", totalpage);
 		request.setAttribute("BLOCK", BLOCK);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
-		request.setAttribute("main_jsp", "../challenge/list.jsp");
-		return "../main/main.jsp";
+		return "../challenge/sublist.jsp";
 
 	}
-	
-	
 	
 	@RequestMapping("challenge/insert.do")
 	public String Challenge_room_Certified(HttpServletRequest request) {
@@ -92,8 +202,8 @@ public class ChallengeModel {
 			e.printStackTrace();
 		} // 한글 디코딩
 
-		String path = "/Users/haeni/Documents/jsp-project/Homefit/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Home_fit/challenge_poster";
-//		String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\challenge_poster";
+//		String path = "/Users/haeni/Documents/jsp-project/Homefit/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Home_fit/challenge_poster";
+		String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\challenge_poster";
 		String enctype = "UTF-8"; // 한글파일명을 사용 여부
 		int size = 1024 * 1024 * 100;// 파일의 최대크기
 
@@ -129,10 +239,6 @@ public class ChallengeModel {
 			System.out.println("period오류");
 		}
 		
-		
-		
-
-		System.out.println("방만들때 사용하는 아이디:" + id_leader);
 		// 받은 데이터들을 DAO => DAO에서 오라클에 INSERT
 		ChallengeVO vo = new ChallengeVO();
 		vo.setTitle(title);
@@ -150,7 +256,7 @@ public class ChallengeModel {
 
 		if (filename == null)// 파일을 올리지 않을 경우
 		{
-			vo.setPoster("");
+			vo.setPoster("ChallengeDefault.jpg");
 		} else// 파일 올릴 경우
 		{
 			vo.setPoster(filename);
@@ -165,6 +271,7 @@ public class ChallengeModel {
 		pVO.setChallenge_no(challenge_no);
 		pVO.setChallenge_id(id_leader);
 
+		// 방장도 참가자 목록에 추가하기
 		Challenge_CertifiedDAO.Challenge_participation(pVO);
 		
 		System.out.println("challenge_no:"+pVO.getChallenge_no());
@@ -175,23 +282,6 @@ public class ChallengeModel {
 		return "redirect:../challenge/list.do";
 	}
 	
-	// 로그아웃 버튼 임시로 구현함. 2020-10-23
-		@RequestMapping("member/logout2.do")
-		public String member_logout2(HttpServletRequest request) {
-			HttpSession session = request.getSession();
-			System.out.println("세션 로그아웃전!" + session.getAttribute("id"));
-			session.invalidate();
-//			   	   request.setAttribute("main_jsp","../challenge/Challenge.jsp");
-			return "redirect:../challenge/list.do";
-		}
 
-		@RequestMapping("member/login2.do")
-		public String member_login2(HttpServletRequest request) {
-			HttpSession session = request.getSession();
-			session.setAttribute("id", "haeni");
-			System.out.println("아이디 출력되나?" + session.getAttribute("id"));
-//				   request.setAttribute("main_jsp","../challenge/Challenge.jsp");
-			return "redirect:../challenge/list.do";
-		}
 
 }

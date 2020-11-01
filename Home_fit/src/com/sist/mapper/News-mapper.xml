@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.News-mapper">
+<select id="newsListData" resultType="NewsVO" parameterType="hashmap">
+	SELECT no,title,poster,TO_CHAR(news_date,'YYYY-MM-DD'),content,author,num
+	FROM (SELECT no,title,poster,news_date,content,author,rownum as num
+	FROM (SELECT no,title,poster,news_date,content,author
+	FROM ht_news ORDER BY poster DESC))
+	WHERE num BETWEEN #{start} AND #{end}
+</select>
+ <select id="newsTotalPage" resultType="int">
+    SELECT CEIL(COUNT(*)/10.0) FROM ht_news
+  </select>
+<select id="newsDetailData" resultType="NewsVO" parameterType="int">
+	SELECT * FROM ht_news
+	WHERE no=#{no}
+</select>
+</mapper>
+
+

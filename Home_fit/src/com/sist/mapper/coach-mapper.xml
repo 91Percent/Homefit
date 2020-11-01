@@ -27,11 +27,23 @@
 	</insert>
 
 	<!-- 코치정보 -->
+<<<<<<< HEAD
 	<select id="coachListData" resultType="tutor_VO" parameterType="hashmap">
 		SELECT
 		coach_no,coach_name,coach_detail,coach_poster,poster,subject,content,price,review_avg,num
 		FROM (SELECT coach_no,coach_name,coach_detail,coach_poster,poster,subject,content,price,review_avg,rownum as num
 		FROM (SELECT coach_no,coach_name,coach_detail,coach_poster,poster,subject,content,price,review_avg
+=======
+	<select id="coachListData" resultType="tutor_VO"
+		parameterType="hashmap">
+		SELECT
+		coach_no,coach_name,coach_detail,coach_poster,poster,subject,content,price,review_avg,num
+		FROM (SELECT
+		coach_no,coach_name,coach_detail,coach_poster,poster,subject,content,price,review_avg,rownum
+		as num
+		FROM (SELECT
+		coach_no,coach_name,coach_detail,coach_poster,poster,subject,content,price,review_avg
+>>>>>>> branch 'master' of https://github.com/91Percent/Homefit.git
 		FROM coach_info WHERE cate_no=#{cateno}))
 		WHERE num BETWEEN #{start} AND #{end}
 	</select>
@@ -41,6 +53,7 @@
 
 
 	<!-- 코치스케쥴데이터 -->
+<<<<<<< HEAD
 	<select id="scheduleData" resultType="ScheduleVO" parameterType="ScheduleVO">
 		SELECT * FROM coach_schedule
 		WHERE coach_no=#{coach_no}
@@ -57,8 +70,34 @@
    <select id="scheduleTotalPage" resultType="int">
       SELECT CEIL(COUNT(*)/10.0) FROM coach_schedule
    </select>
+=======
+	<select id="scheduleData" resultType="ScheduleVO"
+		parameterType="ScheduleVO">
+		SELECT * FROM coach_schedule
+		WHERE coach_no=#{coach_no}
+	</select>
+>>>>>>> branch 'master' of https://github.com/91Percent/Homefit.git
 
+<<<<<<< HEAD
 	<select id="coachDetailData" resultType="tutor_VO" parameterType="hashmap">
+=======
+	<!-- 코치스케쥴 -->
+	<select id="scheduleListData" resultType="ScheduleVO"
+		parameterType="hashmap">
+		SELECT coach_no,month,time,place,reserve_check,schedule_no,num
+		FROM (SELECT coach_no,month,time,place,reserve_check,schedule_no,rownum as
+		num
+		FROM (SELECT coach_no,month,time,place,reserve_check,schedule_no
+		FROM coach_schedule))
+		WHERE num BETWEEN #{start} AND #{end}
+	</select>
+	<select id="scheduleTotalPage" resultType="int">
+		SELECT CEIL(COUNT(*)/10.0) FROM coach_schedule
+	</select>
+
+	<select id="coachDetailData" resultType="tutor_VO"
+		parameterType="hashmap">
+>>>>>>> branch 'master' of https://github.com/91Percent/Homefit.git
 		SELECT * FROM coach_info
 		WHERE coach_no=#{coach_no}
 	</select>

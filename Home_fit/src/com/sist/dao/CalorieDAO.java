@@ -38,8 +38,6 @@ public class CalorieDAO {
 		   List<CalorieVO> list=new ArrayList<CalorieVO>();
 		 
 		   SqlSession session=null;
-		   System.out.println("dfasdfkasdfhaeghlasdfj출력출력출력출력출력출력출력출력출력출력출력출력출력출력");
-		  
 		   try
 		   {
 			   

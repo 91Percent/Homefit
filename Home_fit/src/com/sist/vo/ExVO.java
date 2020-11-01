@@ -26,6 +26,7 @@ public class ExVO {
 	private String step_content;
 	private String step_image;
 	private String tip;
+	private FavoritesVO fvo=new FavoritesVO();
 	public int getCate_no() {
 		return cate_no;
 	}

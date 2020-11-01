@@ -5,7 +5,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>홈핏</title>
+<style type="text/css">
+.login_custom {
+	padding-top: 42px;
+    padding-bottom: 22px;
+}
+.login_custom h3 {
+    margin-bottom: 30px;
+    font-size: 25px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+}
+@media ( min-width : 1100px) {
+	.section-margin {
+		margin: 110px 0
+	}
+}
+</style>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
 	$(function() {
@@ -17,7 +34,6 @@
 			}
 
 			let pwd = $('#log_pwd').val();
-
 			if (pwd.trim() == "") {
 				$('#log_pwd').focus();
 				return;
@@ -36,43 +52,35 @@
 	<section class="login_box_area section-margin">
 		<div class="container">
 			<div class="row">
+				<div class="col-lg-3"></div>
 				<div class="col-lg-6">
-					<div class="login_box_img">
-						<div class="hover">
-							<h4>New to our website?</h4>
-							<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
-							<a class="button button-account" href="register.html">Create an Account</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-lg-6">
-					<div class="login_form_inner">
-						<h3>Log in to enter</h3>
+					<div class="login_form_inner login_custom">
+						<h3>LOGIN</h3>
 						<c:if test="${sessionScope.id==null }">
 							<!--  login form  -->
 							<form method="post" class="row login_form" action="../member/login_ok.do" id="logFrm" >
 								<div class="col-md-12 form-group">
-									<input type="text" class="form-control" id="log_id" name="id" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+									<input type="text" class="form-control" id="log_id" name="id" placeholder="아이디" maxlength='10' onfocus="this.placeholder = ''" onblur="this.placeholder = '아이디'">
 								</div>
 								<div class="col-md-12 form-group">
-									<input type="text" class="form-control" id="log_pwd" name="pwd" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+									<input type="password" class="form-control" id="log_pwd" name="pwd" maxlength='8' placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
 								</div>
 								<div class="col-md-12 form-group">
 									<div class="creat_account">
 										<input type="checkbox" id="f-option2" name="selector">
-										<label for="f-option2">Keep me logged in</label>
+										<label for="f-option2">로그인 상태 유지</label>
 									</div>
 								</div>
 								<div class="col-md-12 form-group">
-									<button type="submit" value="submit" class="button button-login w-100" id="logBtn">Log In</button>
-									<a href="#">Forgot Password?</a>
+									<button type="submit" value="submit" class="button button-login w-100" id="logBtn">로그인</button>
+									<!-- <a href="#">Forgot Password?</a> -->
 								</div>
 							</form>
 							<!--  login form  -->
 						</c:if>
 					</div>
 				</div>
+				<div class="col-lg-3"></div>
 			</div>
 		</div>
 	</section> 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mapper.Ex-mapper">
+<!-- 리스트데이터 -->
 <select id="exListData" resultType="ExVO" parameterType="hashmap">
 	SELECT home_no,poster,subject,home_level,num
 	FROM (SELECT home_no,poster,subject,home_level,rownum as num 
@@ -8,10 +9,12 @@
 	FROM hometraining WHERE cate_no=#{cate_no} ORDER BY cate_no DESC))
 	WHERE num BETWEEN #{start} AND #{end}
 </select>
+<!-- 카테고리 토탈페이지 -->
 <select id="exTotalPage" resultType="int" parameterType="int">
 	SELECT CEIL(COUNT(*)/12.0) FROM hometraining
 	WHERE cate_no=#{cate_no}
 </select>
+<!-- 카테고리 토탈 데이터 -->
 <select id="exTotalData" resultType="ExVO" parameterType="hashmap">
 	SELECT home_no,poster,subject,home_level,num
 	FROM (SELECT home_no,poster,subject,home_level,rownum as num
@@ -19,13 +22,16 @@
 	FROM hometraining ORDER BY cate_no))
 	WHERE num BETWEEN #{start} AND #{end}
 </select>
+<!-- 전체 토탈 페이지(카테X) -->
 <select id="exTotalPage2" resultType="int" parameterType="int">
 	SELECT CEIL(COUNT(*)/12.0) FROM hometraining
 </select>
+  <!-- 디테일 데이터 -->
   <select id="exDetailData" resultType="ExVO" parameterType="int">
    SELECT * FROM hometraining
    WHERE home_no=#{home_no}
   </select>
+ <!-- 상중하 레벨 데이터 -->
   <select id="exLevelData" resultType="ExVO" parameterType="hashmap">
   SELECT home_no,poster,subject,home_level,num
 	FROM (SELECT home_no,poster,subject,home_level,rownum as num 
@@ -33,8 +39,55 @@
 	FROM hometraining WHERE home_level=#{home_level} AND cate_no=#{cate_no} ORDER BY home_level DESC))
 	WHERE num BETWEEN #{start} AND #{end}
 	</select>
+ <!-- 레벨 토탈 페이지 -->
   <select id="exLevelTotalPage" resultType="int" parameterType="hashmap">
 	SELECT CEIL(COUNT(*)/12.0) FROM hometraining
 	WHERE home_level=#{home_level} AND cate_no=#{cate_no}
+</select>
+<!-- 검색데이터 -->
+<select id="searchData" resultType="ExVO" parameterType="hashmap">
+	SELECT home_no,poster,subject,home_level,num
+	FROM (SELECT home_no,poster,subject,home_level,rownum as num 
+	FROM (SELECT home_no,poster,subject,home_level
+	FROM hometraining WHERE subject LIKE '%'||#{subject}||'%'))
+	WHERE num BETWEEN #{start} AND #{end}
+</select>
+<!-- 검색 토탈 페이지 -->
+<select id="searchTotalPage" resultType="int" parameterType="hashmap">
+	SELECT CEIL(COUNT(*)/12.0) FROM hometraining
+   WHERE subject LIKE '%'||#{subject}||'%'
+</select>
+<!-- 찜 목록 저장 -->
+<insert id="favInsert" parameterType="FavoritesVO">
+	INSERT INTO favorites VALUES(
+	#{id},#{home_no},(SELECT NVL(MAX(no)+1,1) FROM favorites)
+	)
+</insert>
+<!-- 찜 목록 -->
+<select id="favListData" resultType="FavoritesVO" parameterType="String">
+	SELECT * FROM favorites
+	WHERE id=#{id}
+	ORDER BY no DESC
+</select>
+<!-- 찜리스트 -->
+<select id="favCount" resultType="int" parameterType="favoritesVO">
+ 	SELECT COUNT(*) FROM favorites
+ 	WHERE id=#{id} AND home_no=#{home_no}
+</select>
+
+<resultMap type="ExVO" id="favoriteList">
+ <result property="home_no" column="home_no"/>
+ <result property="subject" column="subject"/>
+ <result property="home_level" column="home_level"/>
+ <result property="focus" column="focus"/>
+ <result property="poster" column="poster"/>
+ <result property="fvo.id" column="id"/>
+ <result property="fvo.no" column="no"/>
+</resultMap>
+<select id="mypageListData" resultMap="favoriteList" parameterType="string">
+	SELECT no,id,subject,poster,home_level,focus,hometraining.home_no
+	FROM favorites,hometraining
+	WHERE favorites.home_no=hometraining.home_no
+	ORDER BY no DESC
 </select>
 </mapper>

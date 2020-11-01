@@ -1,3 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sist.mapper.certified-mapper"></mapper>
+<mapper namespace="com.sist.mapper.certified-mapper">
+
+<select id="challenge_people" resultType="Challenge_ParticipationVO" parameterType="int">
+	SELECT challenge_id FROM challenge_participation
+	WHERE challenge_no=#{challenge_no}
+</select>
+
+<delete id="Challenge_room_delete" parameterType="ChallengeVO">
+	DELETE challenge
+	WHERE challenge_no=#{challenge_no}
+</delete>
+
+<delete id="Challenge_room_certified_delete" parameterType="int">
+	DELETE challenge_certified
+	WHERE challenge_no=#{challenge_no}
+</delete>
+<!-- 방에 참가하는 인원 삭제 -->
+<delete id="Challenge_room_participation_delete" parameterType="int">
+	DELETE challenge_participation
+	WHERE challenge_no=#{challenge_no}
+</delete>
+
+<!-- 방 업데이트 하는 부분 -->	
+<update id="Challenge_room_update" parameterType="ChallengeVO">
+	UPDATE challenge SET
+	cate=#{cate},
+	start_day=#{db_start_day},
+	title=#{title},
+	limit=#{limit},	
+	poster=#{poster},
+	content=#{content},
+	id_leader=#{id_leader},
+	start_day=#{db_start_day},
+	end_day=#{db_end_day}
+	WHERE challenge_no=#{challenge_no}
+</update>
+
+<!-- 챌린지 인증을 오늘 했는지 검사 -->
+<select id="certified_check" parameterType="Challenge_CertifiedVO" resultType="int">
+		SELECT count(*) FROM challenge_certified
+		WHERE challenge_id=#{challenge_id}
+		AND challenge_no=#{challenge_no}
+		AND TO_CHAR(certified_date,'YYYY-MM-DD')=#{db_Certified_date}
+</select>
+
+
+<!-- 챌린지 방 인증 랭킹-->
+<select id="certified_ranking" parameterType="int" resultType="Challenge_CertifiedVO">
+	SELECT challenge_id,count(*) as certified_no
+	FROM challenge_certified
+	WHERE challenge_no=#{challenge_no}
+	GROUP BY(challenge_id) 
+	ORDER BY count(challenge_id) DESC
+</select>
+
+<!-- 방 강퇴하는 부분 -->
+<delete id="participation_kick_out" parameterType="Challenge_ParticipationVO">
+	DELETE FROM challenge_participation 
+	WHERE challenge_no=#{challenge_no} 
+	AND challenge_id=#{challenge_id}
+</delete>
+
+<!-- 댓글 올리기  -->
+  <insert id="replyInsert" parameterType="ReplyVO">
+    <!-- 적용할 수 없다(한번) -->
+    <selectKey keyProperty="review_no" resultType="int" order="BEFORE">
+      SELECT NVL(MAX(review_no)+1,1) as review_no FROM review_table
+    </selectKey>
+    INSERT INTO review_table(review_no,no,id,name,content,cate_no,regdate,group_id) VALUES(
+      #{review_no},
+      #{no},
+      #{id},
+      #{name},
+      #{content},
+      #{cate_no},
+      SYSDATE,
+      (SELECT NVL(MAX(group_id)+1,1) FROM review_table)
+    ) 
+    </insert>
+    
+ <!-- 댓글 가져오기 -->  
+    <select id="challenge_replyListData" resultType="ReplyVO" parameterType="ReplyVO">
+    SELECT review_no,no,id,name,content,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday, group_tab 
+    FROM review_table
+    WHERE no=#{no} AND cate_no=#{cate_no}
+  </select>
+</mapper>

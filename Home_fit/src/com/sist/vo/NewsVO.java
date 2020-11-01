@@ -1,12 +1,19 @@
 package com.sist.vo;
-
+import java.util.*;
 public class NewsVO {
 
+	private int no;
 	private String title;
 	private String poster;
 	private String news_date;
 	private String content;
 	private String author;
+	public int getNo() {
+		return no;
+	}
+	public void setNo(int no) {
+		this.no = no;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -19,7 +26,6 @@ public class NewsVO {
 	public void setPoster(String poster) {
 		this.poster = poster;
 	}
-
 	
 	public String getNews_date() {
 		return news_date;
@@ -39,5 +45,6 @@ public class NewsVO {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
+	
 	
 }

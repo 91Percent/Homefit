@@ -9,18 +9,23 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
-//cate_no,shop_no,title,poster,subtitle,price,content,delivery_fee,hit,num
-// $(function(){
+$(function(){
+	$('.page-item').click(function(){
+		console.log(cate);
+		var page_cate=cate;
+		var page=$(this).attr("page");
+		
+		$.ajax({			
+			type:'post',
+			url:'../shop/shop_list.do?page='+page+'&cate_no='+page_cate,
+			success:function(result){
+				$('#shop_list').html(result);
+			}
+		})
+	})
 	
-// 	$.ajax({
-// 		 type:'post',
-// 		 url:'../shop/shop_list.do',
-// 		 success:function(result)
-// 		 {
-// 			 $('#list').html(result);
-// 		 }
-// 	 });
-// });
+	
+});
 
 </script>
 </head>
@@ -50,6 +55,37 @@
 	              </div>
 	    </c:forEach> 
 	</div>
+	
+	
+	
+	
+	<nav class="blog-pagination justify-content-center d-flex">
+		<ul class="pagination">
+			<c:if test="${curpage>BLOCK }">
+				<li class="page-item" page="${starPage-1} }">
+					<a class="page-link" aria-label="Previous">&lt;</a>
+				</li>
+			</c:if>
+			<c:forEach var="i" begin="${startPage }" end="${endPage }">
+				<c:if test="${i==curpage }">
+					<li class="page-item active" page="${i }">
+						<a class="page-link">${i }</a>
+					</li>
+				</c:if>
+				<c:if test="${i!=curpage }">
+					<li class="page-item" page="${i }">
+						<a class="page-link">${i }</a>
+					</li>
+				</c:if>
+			</c:forEach>
+			<c:if test="${endPage<totalpage }">
+				<li class="page-item" page="${endPage+1 }">
+					<a class="page-link" aria-label="Next">&gt;</a>
+				</li>
+			</c:if>
+			</ul>
+		</nav>
+	
 
 </body>
 </html>

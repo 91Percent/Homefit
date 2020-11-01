@@ -10,6 +10,7 @@
 <script type="text/javascript">
 let check;
 let lev;
+let k;
 $(function(){
 	$('.pixel-radio').click(function(){
 		check = $(this).attr("value");
@@ -26,7 +27,7 @@ $(function(){
 		 lev = $(this).attr("value");
 	 $.ajax({
 		 type:'post',
-		 url:'../ex/content.do?home_level='+lev+"&cate_no="+check,
+		 url:'../ex/level.do?home_level='+lev+"&cate_no="+check,
 		 success:function(result)
 		 {
 			 $('.category-list').html(result);
@@ -45,18 +46,31 @@ $(function(){
 		 }
 	 });
 });
+	$('#kkk').click(function(){
+		 k=$('#keyword').val();
+		$.ajax({
+			 type:'post',
+			 url:'../ex/search.do?subject='+k,
+			 success:function(result)
+			 {
+				 $('.category-list').html(result);
+			 }
+		 });
+		
+// 		let temp=$('#test11 .card-body>a>p:contains("'+k+'")');
+// 		$(temp).parent().parent.show();
+	})
+})
 
-	});
+	
+// 	$('#keyword').keyup(function(){
+// 	let k=$('#keyword').val();// 검색어 입력한 값을 읽어 온다 
+// 	$('#movie-table > tbody > tr').hide();
+// 	let temp=$('#movie-table > tbody > tr> td:nth-child(2n+2):contains("'+k+'")');
+// 	$(temp).parent().show();
+// 	// temp ==> td
+
 </script>
-<link href="http://fonts.googleapis.com/earlyaccess/nanumpenscript.css" rel="stylesheet">
-<style>
-.row1{
-font-family: 'Nanum Pen Script',cursive;
-}
-.p{
-font-family: 'Nanum Pen Script',cursive;
-}
-</style>
 </head>
 <body>
 <section class="blog-banner-area row1" id="category">
@@ -112,41 +126,41 @@ font-family: 'Nanum Pen Script',cursive;
         <div class="col-xl-9 col-lg-8 col-md-7">
           <!-- Start Filter Bar -->
            <div class="filter-bar d-flex flex-wrap align-items-center">
-            <div class="sorting">
-              <select name="ex_sor" id="ex_sor">
-                <option class="option1" value="1" >근력</option>
-                <option class="option1" value="2">요가</option>
-                <option class="option1" value="3">필라테스</option>
-              </select>
-              <div class="nice-select" tabindex="0">
-				<span class="current">선택</span>
-				<ul class="list">
-				<li data-value="1" class="option">근력</li>
-				<li data-value="2" class="option">요가</li>
-				<li data-value="3" class="option">필라테스</li>
-				</ul>
-				</div>
-            </div>
+<!--             <div class="sorting"> -->
+<!--               <select name="ex_sor" id="ex_sor"> -->
+<!--                 <option class="option1" value="1" >근력</option> -->
+<!--                 <option class="option1" value="2">요가</option> -->
+<!--                 <option class="option1" value="3">필라테스</option> -->
+<!--               </select> -->
+<!--               <div class="nice-select" tabindex="0"> -->
+<!-- 				<span class="current">선택</span> -->
+<!-- 				<ul class="list"> -->
+<!-- 				<li data-value="1" class="option">근력</li> -->
+<!-- 				<li data-value="2" class="option">요가</li> -->
+<!-- 				<li data-value="3" class="option">필라테스</li> -->
+<!-- 				</ul> -->
+<!-- 				</div> -->
+<!--             </div> -->
             <div>
               <div class="input-group filter-bar-search">
-                <input type="text" placeholder="Search">
+                <input type="text" id="keyword" name="keyword" placeholder="Search">
                 <div class="input-group-append">
-                  <button type="button"><i class="ti-search"></i></button>
+                  <button type="button" id="kkk"><i class="ti-search"></i></button>
                 </div>
               </div>
             </div>
           </div>
           <!-- End Filter Bar -->
           <!-- Start Best Seller -->
-          <section class="lattest-product-area pb-40 category-list row1">
- 			<div class="row">
+          <section class="lattest-product-area pb-40 category-list row1" id="test11">
+ 			<div class="row row2">
             <c:forEach var="vo" items="${list }">
               <div class="col-md-6 col-lg-4">
                 <div class="card text-center card-product">
                   <div class="card-product__img">
-                    <img class="card-img" src="https://${vo.poster }" alt="">
+                    <img class="card-img" src="${vo.poster }" alt="">
                     <ul class="card-product__imgOverlay">
-                      <li><button onclick="location.href='detail.do?home_no=${vo.home_no }'"><i class="ti-search"></i></button></li>
+                      <li><button onclick="location.href='ex_detail.do?home_no=${vo.home_no }'"><i class="ti-search"></i></button></li>
                       <li><button><i class="ti-heart"></i></button></li>
                     </ul>
                   </div>
@@ -160,34 +174,34 @@ font-family: 'Nanum Pen Script',cursive;
           
               <!-- 페이지 바 -->
                       <nav class="blog-pagination justify-content-center d-flex">
-                          <ul class="pagination">
-                          <c:if test="${curpage>BLOCK }">
-                              <li class="page-item">
-                                  <a href="../ex/total.do?page=${startPage-1 }" class="page-link" aria-label="Previous">
-                                    &lt;
-                                  </a>
-                              </li>
-                              </c:if>
-                              <c:forEach var="i" begin="${startPage }" end="${endPage }">
-                              <c:if test="${i==curpage }">
-                              <li class="active">
-                                  <a href="../ex/total.do?page=${i} " class="page-link">${i }</a>
-                              </li>
-                              </c:if>
-                              <c:if test="${i!=curpage }">
-                              	<li class="page-item">
-                                  <a href="../ex/total.do?page=${i} " class="page-link">${i }</a>
-                              </li>
-                              </c:if>
-                              </c:forEach>
-                              <c:if test="${endPage<totalpage }">
-                              <li class="page-item">
-                                  <a href="../ex/total.do?page=${endPage+1 }" class="page-link" aria-label="Next">
-                                      &gt;
-                                  </a>
-                              </li>
-                            </c:if>
-                          </ul>
+<!--                           <ul class="pagination"> -->
+<%--                           <c:if test="${curpage>BLOCK }"> --%>
+<!--                               <li class="page-item"> -->
+<%--                                   <a href="../ex/total.do?page=${startPage-1 }" class="page-link" aria-label="Previous"> --%>
+<!--                                     &lt; -->
+<!--                                   </a> -->
+<!--                               </li> -->
+<%--                               </c:if> --%>
+<%--                               <c:forEach var="i" begin="${startPage }" end="${endPage }"> --%>
+<%--                               <c:if test="${i==curpage }"> --%>
+<!--                               <li class="active"> -->
+<%--                                   <a href="../ex/total.do?page=${i} " class="page-link">${i }</a> --%>
+<!--                               </li> -->
+<%--                               </c:if> --%>
+<%--                               <c:if test="${i!=curpage }"> --%>
+<!--                               	<li class="page-item"> -->
+<%--                                   <a href="../ex/total.do?page=${i} " class="page-link">${i }</a> --%>
+<!--                               </li> -->
+<%--                               </c:if> --%>
+<%--                               </c:forEach> --%>
+<%--                               <c:if test="${endPage<totalpage }"> --%>
+<!--                               <li class="page-item"> -->
+<%--                                   <a href="../ex/total.do?page=${endPage+1 }" class="page-link" aria-label="Next"> --%>
+<!--                                       &gt; -->
+<!--                                   </a> -->
+<!--                               </li> -->
+<%--                             </c:if> --%>
+<!--                           </ul> -->
                       </nav>
               
  	          </section> 
