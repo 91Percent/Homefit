@@ -50,7 +50,8 @@
 	                  aria-expanded="false">코치</a>
 	                <ul class="dropdown-menu">
 	                  <li class="nav-item"><a class="nav-link" href="../coach/coachlist.do">코치소개</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="single-blog.html">Q&N</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="../coachreserve/reserve.do">코치스케쥴예약</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="../coach/qna.do">Q&N</a></li>
 	                </ul>
 				</li>
 				<li class="nav-item submenu dropdown">

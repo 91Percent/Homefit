@@ -32,7 +32,7 @@ public class ComponentScan {
 		ComponentScan cs = new ComponentScan();
 		String pack= "com.sist.model";
 //		String path="C:\\webDev\\webStudy\\OnLineStudy18_MVCFinal\\src";
-		String path="/Users/haeni/Documents/jsp-project/Homefit/Home_fit/src/";
+		String path="C:\\Users\\Homefit\\Home_fit\\src";
 		cs.fileConfig(pack, path);
 	}
 }

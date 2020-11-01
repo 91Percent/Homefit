@@ -42,7 +42,7 @@ $(function(){
     	          $('.list_info').html(result);
     	       }
     	    });
-    	});
+    });
 });     
 </script>
 </head>
@@ -106,7 +106,7 @@ $(function(){
             </div>
             <div>
               <div class="input-group filter-bar-search">
-                <input type="text" placeholder="Search">
+                <input type=text id="Keyword" placeholder="Search">
                 <div class="input-group-append">
                   <button type="button"><i class="ti-search"></i></button>
                 </div>

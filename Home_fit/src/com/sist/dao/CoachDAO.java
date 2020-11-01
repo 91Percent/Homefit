@@ -165,4 +165,65 @@ public class CoachDAO {
 	 	  return list;
 	   }
 	   
-}
+
+	   public static void replyInsert(ReplyVO vo)
+	   {
+		   SqlSession session=ssf.openSession(true);// commit(X)
+		   // commit() ==> DML
+		   session.insert("replyInsert",vo);
+		   session.close();
+	   }
+	   
+	   public static List<ReplyVO> replyListData(int bno)
+	   {
+		   SqlSession session=ssf.openSession();
+		   List<ReplyVO> list=session.selectList("replyListData",bno);
+		   session.close();
+		   return list;
+	   }
+	   
+	   // 예약 (코치목록)
+	   public static List<tutor_VO> coachReserveData()
+	   {
+		   SqlSession session=ssf.openSession();
+		   List<tutor_VO> list=session.selectList("coachReserveData");
+		   session.close();
+		   return list;
+	   }
+	   // 예약 (스케쥴 목록)
+	   public static List<ScheduleVO> scheduleListData2(int coach_no)
+	   {
+		   SqlSession session=null;
+		   List<ScheduleVO> list = new ArrayList<ScheduleVO>();
+		   try {
+			   session=ssf.openSession();
+			   list=session.selectList("scheduleReserveData",coach_no);
+		   }catch (Exception e) {
+			   e.printStackTrace();
+		   }finally {
+			if(session!=null)
+				session.close();
+		}
+		   return list;
+	   } 
+	   
+	   // 코치 Q&A 목록
+	   public static List<CoachQnaVO> coachQnaList()
+	   {
+		   SqlSession session=ssf.openSession();
+		   List<CoachQnaVO> list=session.selectList("coachQnaList");
+		   session.close();
+		   return list;
+	   }
+	   
+	   
+	   
+	   
+	}
+	   
+	   
+	   
+	   
+	   
+	   
+	   
