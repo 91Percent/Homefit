@@ -36,17 +36,17 @@ public class ChallengeDAO {
 
 
 	// <!-- 도전 참여자 수 구하기 --> participantCount
-	public static int participantCount(int challenge_no)
+	public static int totalPaticipantCount(int challenge_no)
 	{
-		int participantCount=0;
+		int total=0;
 		SqlSession session= null;
 		try {
 			session=ssf.openSession();
-			participantCount=session.selectOne("participantCount", challenge_no);
+			total=session.selectOne("totalPaticipantCount", challenge_no);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		return participantCount;
+		return total;
 	}
 
 

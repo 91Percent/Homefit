@@ -10,25 +10,36 @@
 	padding-top: 42px;
 	padding-bottom: 22px;
 }
-
 .join_custom h3 {
 	margin-bottom: 30px;
 	font-size: 25px;
 	font-family: "Roboto", sans-serif;
 	font-weight: 500;
 }
-
 #join_btn {
 	border: none;
 }
-
 .join_btn2 {
-	margin-top: 20px;
+	margin-top: 28px;
 }
-
+.join_info span {
+    font-weight: 600;
+    float: left;
+    padding: 16px 0 10px 9px;
+}
+.ex_box {
+	padding-left: 9px;
+	text-align: left;
+}
+.ex_check {
+	margin: 4px 0 2px;
+}
+.ex_check label {
+	margin: 4px 13px 11px 2px;
+}
 @media ( min-width : 1100px) {
 	.section-margin {
-		margin: 110px 0
+		margin: 100px 0
 	}
 }
 </style>
@@ -70,7 +81,7 @@
 			}
 
 			if (pwd !== pwd1) {
-				alert("비밀번호를 다시 입력하세요.");
+				alert("비밀번호를 다시 입력하세요");
 				$('#pwd1').val("");
 				$('#pwd1').focus();
 				return;
@@ -117,85 +128,67 @@
 						<form method=post class="row login_form"
 							action="../member/join_ok.do" name="joinFrm" id="joinFrm">
 							<div class="col-md-9 form-group">
-								<input type="text" class="form-control" id="id" name="id"
-									placeholder="아이디" onfocus="this.placeholder = ''"
-									onblur="this.placeholder = '아이디'">
+								<input type="text" class="form-control" id="id" name="id" placeholder="아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '아이디'">
 							</div>
 							<div class="col-md-3 form-group join_check">
-								<input type=button value="중복체크" class="btn btn-default btn-sm"
-									id="join_btn" onclick="idcheck()">
+								<input type=button value="중복체크" class="btn btn-default btn-sm" id="join_btn" onclick="idcheck()">
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="pwd" name="pwd"
-									placeholder="비밀번호" onfocus="this.placeholder = ''"
-									onblur="this.placeholder = '비밀번호'">
+								<input type="password" class="form-control" id="pwd" name="pwd" placeholder="비밀번호" maxlength='8' onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="pwd1" name="pwd1"
-									placeholder="비밀번호 재확인" onfocus="this.placeholder = ''"
-									onblur="this.placeholder = '비밀번호 재확인'">
+								<input type="password" class="form-control" id="pwd1" name="pwd1" placeholder="비밀번호 재확인" maxlength='8' "this.placeholder = ''" onblur="this.placeholder = '비밀번호 재확인'">
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="name"
-									placeholder="이름" onfocus="this.placeholder = ''"
-									onblur="this.placeholder = '이름'">
+								<input type="text" class="form-control" id="name" name="name" placeholder="이름" maxlength='10' onfocus="this.placeholder = ''" onblur="this.placeholder = '이름'">
 							</div>
 							<div class="col-md-4 form-group">
-								<input type="text" class="form-control" id="birthday"
-									name="bday1" placeholder="년도" onfocus="this.placeholder = ''"
-									onblur="this.placeholder = '년도'">
+								<input type="text" class="form-control" id="birthday" name="bday1" placeholder="년도" maxlength='4' onfocus="this.placeholder = ''" onblur="this.placeholder = '년도'">
 							</div>
 							<div class="col-md-4 form-group">
-								<input type="text" class="form-control" id="birthday"
-									name="bday2" placeholder="월" onfocus="this.placeholder = ''"
-									onblur="this.placeholder = '월'">
+								<input type="text" class="form-control" id="birthday" name="bday2" placeholder="월"  maxlength='2' onfocus="this.placeholder = ''" onblur="this.placeholder = '월'">
 							</div>
 							<div class="col-md-4 form-group">
-								<input type="text" class="form-control" id="birthday"
-									name="bday3" placeholder="일" onfocus="this.placeholder = ''"
-									onblur="this.placeholder = '일'">
+								<input type="text" class="form-control" id="birthday" name="bday3" placeholder="일"  maxlength='2' onfocus="this.placeholder = ''" onblur="this.placeholder = '일'">
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="gender"
-									name="gender" placeholder="성별" onfocus="this.placeholder = ''"
-									onblur="this.placeholder = '성별'">
+								<input type="text" class="form-control" id="gender" name="gender" placeholder="성별" onfocus="this.placeholder = ''" onblur="this.placeholder = '성별'">
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="tel" name="tel"
-									placeholder="휴대전화" onfocus="this.placeholder = ''"
-									onblur="this.placeholder = '휴대전화'">
+								<input type="text" class="form-control" id="tel" name="tel" placeholder="휴대전화"  maxlength='11' onfocus="this.placeholder = ''" onblur="this.placeholder = '휴대전화'">
 							</div>
 							<div class="col-md-9 form-group">
-								<input type="text" class="form-control" id="post" name="post"
-									placeholder="우편번호" onfocus="this.placeholder = ''"
-									onblur="this.placeholder = '우편번호'">
+								<input type="text" class="form-control" id="post" name="post" placeholder="우편번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '우편번호'">
 							</div>
 							<div class="col-md-3 form-group">
-								<input type=button value="우편번호" class="btn btn-sm btn-default"
-									id="join_btn" onclick="postfind()">
+								<input type=button value="우편번호" class="btn btn-sm btn-default" id="join_btn" onclick="postfind()">
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="addr1" name="addr1"
-									placeholder="주소" onfocus="this.placeholder = ''"
-									onblur="this.placeholder = '주소'">
+								<input type="text" class="form-control" id="addr1" name="addr1" placeholder="주소" onfocus="this.placeholder = ''" onblur="this.placeholder = '주소'">
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="addr2" name="addr2"
-									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = '상세주소'">
+								<input type="text" class="form-control" id="addr2" name="addr2" onfocus="this.placeholder = ''" onblur="this.placeholder = '상세주소'">
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="email" name="email"
-									placeholder="이메일" onfocus="this.placeholder = ''"
-									onblur="this.placeholder = '이메일'">
+								<input type="text" class="form-control" id="email" name="email" placeholder="이메일" onfocus="this.placeholder = ''" onblur="this.placeholder = '이메일'">
 							</div>
-
-							<!-- 	<div class="col-md-12 form-group">
-								<div class="creat_account">
-									<input type="checkbox" id="f-option2" name="selector">
-									<label for="f-option2">Keep me logged in</label>
-								</div>
-							</div> -->
+							
+							<div class="col-md-12 join_info"><span>추가정보</span></div>
+							
+							<div class="ex_box">
+								<div class="col-md-12">평소 관심있는 운동은 ?</div>
+								<div class="ex_check col-md-12">
+									<label class="radio-inline"><input type="radio" name="my_exercise" value="근력운동"> 근력운동</label>
+									<label class="radio-inline"><input type="radio" name="my_exercise" value="요가"> 요가</label>
+									<label class="radio-inline"><input type="radio" name="my_exercise" value="필라테스"> 필라테스</label>
+								</div> 
+								<div class="col-md-12">당신의 운동 수준은 ?</div>
+								<div class="ex_check col-md-12">
+									<label class="radio-inline"><input type="radio" name="my_level" value="초급"> 초급</label>
+									<label class="radio-inline"><input type="radio" name="my_level" value="중급"> 중급</label>
+									<label class="radio-inline"><input type="radio" name="my_level" value="고급"> 고급</label>
+								</div>	
+							</div>
 							<div class="col-md-12 form-group">
 								<button type="submit" value="submit"
 									class="button button-login w-100 join_btn2">가입하기</button>

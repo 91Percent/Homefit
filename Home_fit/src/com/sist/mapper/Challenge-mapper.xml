@@ -6,24 +6,20 @@
 		SELECT period FROM challenge
 		WHERE challenge_no=#{challenge_no}
 	</select>
-
-
 	<!-- 도전 참여자 수 구하기 -->
-	<select id="participantCount">
-		SELECT COUNT(*) FROM challenge_participantion
+	<select id="totalPaticipantCount" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM challenge_participation
 		WHERE challenge_no=${challenge_no}
 	</select>
-
-
 	<!-- 챌린지 list -->
 	<select id="challengeCateListData" resultType="ChallengeVO" parameterType="hashmap">
 		<if test="cate==null">
-			SELECT period, Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit, num
+			SELECT TO_CHAR(regdate,'yyyy-MM-dd') as regdate,period, Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit, num
 			FROM (SELECT
-			period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit,rownum
+			regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit,rownum
 			as num
 			FROM (SELECT
-			period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit
+			regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit
 			FROM
 			challenge ORDER BY start_day DESC))
 			WHERE num BETWEEN #{start} AND
@@ -67,8 +63,6 @@
 			WHERE num
 			BETWEEN #{start} AND #{end}
 	</select>
-	
-
 	<!-- 챌린지 필터 적용한  총페이지 수 -->
 	<select id="challengFilterTotalPage" resultType="int" parameterType="map">
 			SELECT CEIL(COUNT(*)/20.0) FROM challenge
@@ -81,9 +75,6 @@
 			</if>
 		</trim>
 	</select>
-
-
-
 	<!-- 챌린지 목록 전체 및 카테고리별 페이지 수 -->
 	<select id="challengeCateTotalPage" resultType="int"
 		parameterType="String">
@@ -116,11 +107,8 @@
 			SELECT challenge_no_seq.currval challenge_no FROM dual
 		</selectKey>
 	</insert>
-<!-- 	insert하자마자 max값 받아오고 > 참가자 목록에 추가 됨 -->
 	
-
-
-
+<!-- 	insert하자마자 max값 받아오고 > 참가자 목록에 추가 됨 -->
 	<select id="ChallengeListData" resultType="ChallengeVO"
 		parameterType="hashmap">
 		SELECT Challenge_no,cate,TO_CHAR(START_DAY,'YYYY-MM-DD') as
@@ -132,8 +120,6 @@
 		FROM Challenge ORDER BY challenge_no DESC))
 		WHERE num BETWEEN #{start} AND #{end}
 	</select>
-
-
 	<!-- Detail 데이터 가져오는 부분 -->
 	<select id="ChanllenDetailData" resultType="ChallengeVO"
 		parameterType="int">
@@ -166,6 +152,7 @@
 		#{challenge_id}
 		)
 	</insert>
+	
 	<!-- 방에 참여중인지 확인하는 부분 -->
 	<select id="Challnege_paticipation_check"
 		parameterType="Challenge_ParticipationVO" resultType="int">

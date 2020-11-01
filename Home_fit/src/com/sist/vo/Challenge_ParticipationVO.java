@@ -13,6 +13,7 @@ public class Challenge_ParticipationVO {
 	private int challenge_no;
 	private String challenge_id;
 	private Date regdate;
+	
 	public int getChallenge_no() {
 		return challenge_no;
 	}
