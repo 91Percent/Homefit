@@ -16,7 +16,7 @@ package com.sist.vo;
 	depth           NUMBER,
 	CONSTRAINT PK_review_table PRIMARY KEY (review_no)
  */
-public class replyVO {
+public class ReplyVO {
 	private int review_no;
 	private int no;
 	private int cate_no;
@@ -28,7 +28,16 @@ public class replyVO {
 	private int group_tab;
 	private int root;
 	private int depth;
+	private String dbday;
 	
+	
+	
+	public String getDbday() {
+		return dbday;
+	}
+	public void setDbday(String dbday) {
+		this.dbday = dbday;
+	}
 	public int getReview_no() {
 		return review_no;
 	}

@@ -61,4 +61,29 @@
 	WHERE challenge_no=#{challenge_no} 
 	AND challenge_id=#{challenge_id}
 </delete>
+
+<!-- 댓글 올리기  -->
+  <insert id="replyInsert" parameterType="ReplyVO">
+    <!-- 적용할 수 없다(한번) -->
+    <selectKey keyProperty="review_no" resultType="int" order="BEFORE">
+      SELECT NVL(MAX(review_no)+1,1) as review_no FROM review_table
+    </selectKey>
+    INSERT INTO review_table(review_no,no,id,name,content,cate_no,regdate,group_id) VALUES(
+      #{review_no},
+      #{no},
+      #{id},
+      #{name},
+      #{content},
+      #{cate_no},
+      SYSDATE,
+      (SELECT NVL(MAX(group_id)+1,1) FROM review_table)
+    ) 
+    </insert>
+    
+ <!-- 댓글 가져오기 -->  
+    <select id="challenge_replyListData" resultType="ReplyVO" parameterType="ReplyVO">
+    SELECT review_no,no,id,name,content,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday, group_tab 
+    FROM review_table
+    WHERE no=#{no} AND cate_no=#{cate_no}
+  </select>
 </mapper>

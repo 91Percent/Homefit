@@ -71,9 +71,11 @@ public class CertifiedModel {
 			challenge_id = "null";
 		}
 		
+		
 		// 챌린지 디테일 가져오는 부분
 		ChallengeVO vo = Challenge_CertifiedDAO.ChallengeDetailData(Integer.parseInt(challenge_no));
 		// ==================
+		
 		
 		// 챌린지 시작날짜와 '오늘' 을 비교해서 수정이 가능한지 불가능한지 나타내는 부분
 		Date saveDate = new Date();
@@ -86,10 +88,12 @@ public class CertifiedModel {
 		System.out.println("날짜 비교 값?" + compare);
 		// ====================================================
 
+		
 		// 챌린지 방에 해당하는 인증 리스트 가져오는 부분
 		List<Challenge_CertifiedVO> list = Challenge_CertifiedDAO.CertifiedData(Integer.parseInt(challenge_no));
 		// =============================
 
+		
 		// 방에 유저가 있는지 없는지 검색하는 부분
 		Challenge_ParticipationVO parti_vo = new Challenge_ParticipationVO();
 		parti_vo.setChallenge_id(challenge_id);
@@ -99,11 +103,13 @@ public class CertifiedModel {
 		int count = Challenge_CertifiedDAO.Challnege_paticipation_check(parti_vo);
 		// =========================
 		
+		
 		// 유저가 방장인지 아닌지 검사하는 부분
 		if (challenge_id.equals(vo.getId_leader()))
 			count = 3;
 		// =======================
 
+		
 		// 해당 유저가 오늘 인증 했는지 안했는지 확인하는 부분 
 		Challenge_CertifiedVO certi_vo = new Challenge_CertifiedVO();
 		certi_vo.setChallenge_id(challenge_id);
@@ -111,7 +117,8 @@ public class CertifiedModel {
 		certi_vo.setDb_Certified_date(today);
 		// ================================
 		
-		// 인증 횟수 
+		
+		// 인증 횟수 ==========================
 		int certifeid_count = Challenge_CertifiedDAO.certified_check(certi_vo);
 		System.out.println("사용자가 했던 인증횟수는?"+certifeid_count);
 		// =================================
@@ -135,8 +142,18 @@ public class CertifiedModel {
 		System.out.println("참여율 ="+percent+"%");
 		//=============================
 		
+		// 현재 방에 있는 댓글 가져오기 
+		ReplyVO Reply_vo = new ReplyVO();
+		Reply_vo.setCate_no(9);
+		Reply_vo.setNo(Integer.parseInt(challenge_no));
+		List<ReplyVO> Reply_list = Challenge_CertifiedDAO.challeng_reply(Reply_vo);
+		System.out.println("댓글 갯수"+Reply_list.size());
+		//=============================
+		
+		
 		System.out.println("로그인이 1이면 되어있는거야! " + count);
 		
+		request.setAttribute("Reply_list",Reply_list);
 		request.setAttribute("percent",percent);
 		request.setAttribute("rank_list",rank_list);
 		request.setAttribute("people_list",people_list);
@@ -409,7 +426,7 @@ public class CertifiedModel {
 
 		if (endPage > totalpage)
 			endPage = totalpage;
-
+			
 		request.setAttribute("list", list);
 		request.setAttribute("curpage", curpage);
 		request.setAttribute("totalpage", totalpage);
@@ -418,11 +435,11 @@ public class CertifiedModel {
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("main_jsp", "../challenge/list.jsp");
 		return "../main/main.jsp";
-
-	}
+			
+	}		
 		@RequestMapping("challenge/kick_out.do")
 		public String challenge_kick_out(HttpServletRequest request)
-		{
+		{	
 			String challenge_no = request.getParameter("challenge_no");
 			String challenge_id = request.getParameter("challenge_id");	
 			
@@ -434,6 +451,33 @@ public class CertifiedModel {
 			//===========================
 			
 			return "redirect:../challenge/Certified_detail.do?challenge_no="+challenge_no;
+		}	
+			
+		@RequestMapping("challenge/reply_insert.do")
+		public String challenge_reply_insert(HttpServletRequest request)
+		{	
+			   try
+			   {
+				   request.setCharacterEncoding("UTF-8");
+				   
+			   }catch(Exception ex) {}
+			   String challenge_no = request.getParameter("challenge_no");
+			   String content=request.getParameter("content");
+			   System.out.println("challenge_no잘나오나?"+challenge_no);
+			   System.out.println("내용잘나오고?"+content);
+			   HttpSession session=request.getSession();
+			   String id=(String)session.getAttribute("id");
+			   String name=(String)session.getAttribute("name");
+			   // VO에 담아서 => DAO
+			   ReplyVO vo=new ReplyVO();
+			   vo.setNo(Integer.parseInt(challenge_no));
+			   vo.setId(id);
+			   vo.setContent(content);
+			   vo.setName(name);
+			   vo.setCate_no(9); //챌린지 카테고리는 9번입니다.
+			   // DAO연결 
+			   Challenge_CertifiedDAO.challenge_reply_insert(vo);
+//			   BoardDAO.replyInsert(vo);
+			return "redirect:../challenge/Certified_detail.do?challenge_no="+challenge_no;
 		}
-
 }

@@ -283,4 +283,60 @@ public class Challenge_CertifiedDAO {
 				session.close();
 		}
 	}
+	/*
+	 <!-- 댓글 올리기  -->
+	  <insert id="replyInsert" parameterType="ReplyVO">
+	    <!-- 적용할 수 없다(한번) -->
+	    <selectKey keyProperty="no" resultType="int" order="BEFORE">
+	      SELECT NVL(MAX(no)+1,1) as no FROM review_table
+	    </selectKey>
+	    INSERT INTO review_table(no,review_no,id,name,content,group_id) VALUES(
+	      #{no},
+	      #{review_no},
+	      #{id},
+	      #{name},
+	      #{content},
+	      (SELECT NVL(MAX(group_id)+1,1) FROM review_table)
+	    ) 
+	    </insert>
+	 */
+	public static void challenge_reply_insert(ReplyVO vo)
+	{
+		SqlSession session=null;
+		try {
+			session=ssf.openSession(true);
+			session.update("replyInsert",vo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+	}
+	
+	/*
+	  <!-- 댓글 가져오기 -->  
+	    <select id="challenge_replyListData" resultType="ReplyVO" parameterType="int">
+	    SELECT review_no,no,id,name,content,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday,
+	    group_tab FROM review_table
+	    WHERE no=#{no}
+	  	</select>
+	 */
+	public static List<ReplyVO> challeng_reply(ReplyVO vo)
+	{
+		List<ReplyVO> list = new ArrayList<ReplyVO>();
+		SqlSession session =null ;
+		try {
+			session=ssf.openSession();
+			list=session.selectList("challenge_replyListData",vo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		
+		return list;
+	}
+	
 }
