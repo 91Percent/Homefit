@@ -13,8 +13,8 @@ public class MemberVO {
     private String post;
     private String addr1;
     private String addr2;
-    private int hit;
-    private String home_level;
+    private String my_exercise;
+    private String my_level;
     private String admin;
     private String msg; // db none
     
@@ -78,17 +78,17 @@ public class MemberVO {
 	public void setAddr2(String addr2) {
 		this.addr2 = addr2;
 	}
-	public int getHit() {
-		return hit;
+	public String getMy_exercise() {
+		return my_exercise;
 	}
-	public void setHit(int hit) {
-		this.hit = hit;
+	public void setMy_exercise(String my_exercise) {
+		this.my_exercise = my_exercise;
 	}
-	public String getHome_level() {
-		return home_level;
+	public String getMy_level() {
+		return my_level;
 	}
-	public void setHome_level(String home_level) {
-		this.home_level = home_level;
+	public void setMy_level(String my_level) {
+		this.my_level = my_level;
 	}
 	public String getAdmin() {
 		return admin;
@@ -101,6 +101,6 @@ public class MemberVO {
 	}
 	public void setMsg(String msg) {
 		this.msg = msg;
-	} 	
-	   
+	}
+	
 }

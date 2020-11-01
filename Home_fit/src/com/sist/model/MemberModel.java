@@ -61,7 +61,6 @@ public class MemberModel {
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		String gender = request.getParameter("gender");
-		String birthday = request.getParameter("birthday");
 		String bday1 = request.getParameter("bday1");
 		String bday2 = request.getParameter("bday2");
 		String bday3 = request.getParameter("bday3");
@@ -69,8 +68,8 @@ public class MemberModel {
 		String post = request.getParameter("post");
 		String addr1 = request.getParameter("addr1");
 		String addr2 = request.getParameter("addr2");
-		
-
+		String my_exercise = request.getParameter("my_exercise");
+		String my_level = request.getParameter("my_level");
 
 		MemberVO vo = new MemberVO();
 		vo.setId(id);
@@ -83,11 +82,13 @@ public class MemberModel {
 		vo.setPost(post);
 		vo.setAddr1(addr1);
 		vo.setAddr2(addr2);
+		vo.setMy_exercise(my_exercise);
+		vo.setMy_level(my_level);
 		
 		
 		MemberDAO.memberInsert(vo);
 
-		return "../member/join_ok.jsp";
+		return "redirect:../main/main.do";
 	}
 
 	// 아이디 체크

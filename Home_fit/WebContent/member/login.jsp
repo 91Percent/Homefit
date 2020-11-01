@@ -34,7 +34,6 @@
 			}
 
 			let pwd = $('#log_pwd').val();
-
 			if (pwd.trim() == "") {
 				$('#log_pwd').focus();
 				return;
@@ -61,10 +60,10 @@
 							<!--  login form  -->
 							<form method="post" class="row login_form" action="../member/login_ok.do" id="logFrm" >
 								<div class="col-md-12 form-group">
-									<input type="text" class="form-control" id="log_id" name="id" placeholder="아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+									<input type="text" class="form-control" id="log_id" name="id" placeholder="아이디" maxlength='10' onfocus="this.placeholder = ''" onblur="this.placeholder = '아이디'">
 								</div>
 								<div class="col-md-12 form-group">
-									<input type="text" class="form-control" id="log_pwd" name="pwd" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+									<input type="password" class="form-control" id="log_pwd" name="pwd" maxlength='8' placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
 								</div>
 								<div class="col-md-12 form-group">
 									<div class="creat_account">
