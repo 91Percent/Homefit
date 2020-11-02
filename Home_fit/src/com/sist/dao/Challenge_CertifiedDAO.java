@@ -110,7 +110,15 @@ public class Challenge_CertifiedDAO {
 		int count =0;
 		try {
 			session=ssf.openSession();
-			count=session.selectOne("Challnege_paticipation_check",vo);
+			if(vo.getChallenge_id()!=null)
+			{
+				count=session.selectOne("Challnege_paticipation_check",vo);
+			}
+			else 
+			{
+				count=0;
+			}
+			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {

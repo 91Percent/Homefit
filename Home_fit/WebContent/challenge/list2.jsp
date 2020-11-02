@@ -27,14 +27,15 @@
 <script type="text/javascript">
 // 카테고리 선택 사항을 [키=name] , [값=id]
 // 선택사항[] = {키+=키 , 값+=값}
-let cate ="";
+let cate = $(":input:radio[name=challcate]:checked").val();
 $(function () {
 	$('.pixel-radio').click(function(){
-		cate = $(":input:radio[name=challcate]:checked").val();
 		console.log('cate:'+cate)		
+		cate=$(this).val();
 		$.ajax({
 			type:'post',
-			url:'../challenge/sublist.do?cate='+cate,
+			url:'../challenge/sublist2.do'
+			data:{cate:cate}
 			success:function(result)
 			{
 				$('.sublist').html(result);
@@ -46,7 +47,7 @@ $(function () {
 	$(function(){
 		$.ajax({
 			type:'post',
-			url:'../challenge/sublist.do',
+			url:'../challenge/sublist2.do',
 			success:function(result)
 			{
 				$('.sublist').html(result);
@@ -92,7 +93,7 @@ $(function () {
 									<ul>
 										<li class="filter-list"><input class="pixel-radio"
 											type="radio" id="challcateall" name="challcate" value="all"
-											checked="checked"><label for="all">전체 선택</label></li>
+											checked="checked"><label for="challex">전체 선택</label></li>
 										<li class="filter-list"><input class="pixel-radio"
 											type="radio" id="challex" name="challcate" value="exercise"><label 
 											for="challex">운동 도전</label></li>
