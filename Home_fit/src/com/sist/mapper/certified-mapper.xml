@@ -86,4 +86,11 @@
     FROM review_table
     WHERE no=#{no} AND cate_no=#{cate_no}
   </select>
+  
+  <!-- 인증 사진 가져오는 부분 -->
+<select id="Challenge_CertifiedData" resultType="Challenge_CertifiedVO" parameterType="int">
+		SELECT challenge_no,poster,TO_CHAR(certified_date,'YYYY-MM-DD') as db_Certified_date,certified_check,certified_no,challenge_id  
+		FROM Challenge_Certified
+		WHERE Challenge_no = #{no}
+</select>
 </mapper>

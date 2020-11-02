@@ -106,7 +106,7 @@ public class ChallengeDAO {
 	public static void challengeInsert(ChallengeVO vo)
 	{
 		SqlSession session=null;
-
+		System.out.println("잘된건가 모르겟네"+vo.getPoster());
 		try
 		{
 			session=ssf.openSession(true);

@@ -164,7 +164,6 @@ $(function () {
 
 				<!-- start : 상세 페이지 오른쪽 -->
 				<div class="col-xl-9 col-lg-8 col-md-7">
-
 					<!-- Start Filter Bar -->
 					<div class="filter-bar d-flex flex-wrap align-items-center">
 						<div class="sorting">

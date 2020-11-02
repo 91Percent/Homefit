@@ -98,12 +98,7 @@ public class ChallengeVO {
 		return poster;
 	}
 	public void setPoster(String poster) {
-		try {
-			this.poster =  URLEncoder.encode(poster,"euc-kr");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		this.poster = poster;
 	}
 	public String getContent() {
 		return content;
