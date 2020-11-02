@@ -115,6 +115,7 @@
              </td>
              <td width=75%>
                <span id="coach_place"></span>
+             	<span id="schedule_no"></span>
              </td>
            </tr>
            <tr>
@@ -143,12 +144,13 @@
            </tr>
            <tr style="display:none" id="okbtn">
               <td colspan="2" class="text-center">
-                <form method="post" action="../reserve/reserve_ok.do">
+                <form method="post" action="../coachreserve/reserve_ok.do">
                   <input type=hidden name="cno" id="cno">
-                  <input type=hidden name="place" id="place">
-                  <input type=hidden name="month" id="month">
-                  <input type=hidden name="time" id="time">
-                  <input type=hidden name="price" id="price">
+<!--                   <input type=hidden name="place" id="place"> -->
+                  <input type=hidden name="sno" id="sno">
+<!--                   <input type=hidden name="month" id="month"> -->
+<!--                   <input type=hidden name="time" id="time"> -->
+<!--                   <input type=hidden name="price" id="price"> -->
                   <input type=submit value="예매하기"
                            class="btn btn-lg btn-primary">
                 </form>
@@ -164,6 +166,7 @@
              <td>
                <div id="price_info" style="overflow-y:auto;height:400px"></div>
              </td>
+           
            </tr>
          </table>
        </td>

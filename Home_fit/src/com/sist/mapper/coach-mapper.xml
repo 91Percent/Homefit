@@ -82,6 +82,37 @@
       WHERE num BETWEEN #{start} AND #{end}
    </select> 
    
-   
+   <!-- 코치예약추가 -->
+   <insert id="coachreserveInsert">
+   	<selectKey keyProperty="reserve_no" resultType="int" order="BEFORE">
+   		SELECT NVL(MAX(reserve_no)+1,1) as reserve_no FROM coach_reserve 
+   	</selectKey>
+   		INSERT INTO coach_reserve VALUES(
+   			#{coach_no},
+   			#{schedule_no},
+   			#{id},
+   			#{reserve_no}
+   		)
+   </insert>
+   	<resultMap type="com.sist.vo.Coach_ReserveVO" id="coachreserveList">
+   		   <result property="coach_no" column="coach_no"/>
+		   <result property="schedule_no" column="schedule_no"/>
+		   <result property="id" column="id"/>
+		   <result property="reserve_no" column="reserve_no"/>	
+   	</resultMap>
+   	
+   	<!-- 코치 예약 가능여부 -->
+   	<update id="coachreserveOK" parameterType="hashmap">
+   		UPDATE coach_schedule SET
+   		reserve_check='n'
+   		WHERE coach_no=#{coach_no} AND schedule_no=#{schedule_no}
+   	</update>
+   	
+   	<!-- 마이페이지 예약목록  -->
+   	<select id="coachReserveList" resultType="com.sist.vo.Coach_ReserveVO" parameterType="String">
+   		SELECT * FROM coach_reserve
+   		WHERE id=#{id}
+   	</select>
+   	
    
 </mapper>

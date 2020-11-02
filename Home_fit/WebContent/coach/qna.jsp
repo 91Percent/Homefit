@@ -1,83 +1,76 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-<script type="text/javascript">
-$(function(){
-	 $.ajax({
-		 type:'post',
-		 url:'../coach/qna.do',
-		 success:function(result)
-		 {
-			 $('#coach_info').html(result);
-		 }
-	 })
-});
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Aroma Shop - Home</title>
+	<link rel="icon" href="img/Fevicon.png" type="image/png">
+  <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="vendors/themify-icons/themify-icons.css">
+  <link rel="stylesheet" href="vendors/nice-select/nice-select.css">
+  <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css">
+  <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
+
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<div class="row">
-   <table class="table">
-     <tr>
-       <td width=20% height=500>
-         <h5>코치리스트</h5>
-         <table class="table">
-           <tr>
-             <td>
-               <div id="coach_info" style="overflow-y:auto;height:400px"></div>
-             </td>
-           </tr>
-         </table>
-       </td>
-       <td>
-       	<h3 class="text-center">자유게시판</h3>
-		    <table class="table">
-		      <tr>
-		        <td class="text-left">
-		          <a href="../coach/boardinsert.do" class="btn btn-sm btn-danger">새글</a>
-		        </td>
-		      </tr>
-		    </table>
-		    <table class="table table-striped">
-		      <tr class="warning">
-		        <th class="text-center" width=10%>번호</th>
-		        <th class="text-center" width=45%>제목</th>
-		        <th class="text-center" width=15%>이름</th>
-		        <th class="text-center" width=20%>작성일</th>
-		        <th class="text-center" width=10%>조회수</th>
-		      </tr> 
-		      <c:forEach var="vo" items="${list }">
-		        <tr>
-			        <td class="text-center btd" width=10%>${vo.coach_qna_no }</td>
-			        <td class="text-left btd" width=45%>
-			         <a href="../coach/boarddetail.do?no=${vo.coach_no }">${vo.subject }</a>
-			        <c:if test="${today==vo.regdate }">
-			          <font color=red><sup>new</sup></font>
-			        </c:if>
-			        </td>
-			        <td class="text-center btd" width=15%>${vo.writer }</td>
-			        <td class="text-center btd" width=20%>${vo.regdate }</td>
-			        <td class="text-center btd" width=10%>${vo.hit }</td>
-		      </tr> 
-		      </c:forEach>
-		    </table>
-		    <table class="table">
-		      <tr>
-		        <td class="text-left"></td>
-		        <td class="text-right">
-		          <a href="#" class="btn btn-sm btn-primary">이전</a>
-		            ${curpage } page / ${totalpage } pages
-		          <a href="#" class="btn btn-sm btn-primary">다음</a>
-		        </td>
-		      </tr>
-		    </table>
-       </td>
-       </tr>
-       </table>
-       </div>
+<section class="section-margin calc-60px">
+      <div class="container">
+        <div class="section-intro pb-60px">
+          <h2>코치리스트</h2>
+        </div>
+        <div class="owl-carousel owl-theme" id="bestSellerCarousel">
+          <div class="card text-center card-product">
+        	<c:forEach var="vo" items="${list }">
+            <div class="card-product__img">
+              <img class="img-fluid" src="${vo.coach_poster }" alt="">
+              <ul class="card-product__imgOverlay">
+                <li><button><i class="ti-search"></i></button></li>
+                <li><button><i class="ti-shopping-cart"></i></button></li>
+                <li><button><i class="ti-heart"></i></button></li>
+              </ul>
+            </div>
+            <div class="card-body">
+              <h4 class="card-product__title"><a href="single-product.html">${vo.coach_name }</a></h4>
+              <p class="card-product__price">${vo.coach_no }</p>
+            </div>
+            </c:forEach>
+          </div>
+         </div> 
+           <section class="section-margin calc-60px"> 
+           
+           
+      <div class="container">
+        <div class="section-intro pb-60px">
+          <h2>함께 따라하는 <span class="section-intro__style">동작</span></h2>
+        </div>
+        <div class="owl-carousel owl-theme" id="bestSellerCarousel">
+          <div class="card text-center card-product">
+            <div class="card-product__img">
+              <img class="img-fluid" src="https://${a }" alt="">
+            </div>
+            <div class="card-body">
+              <h4 class="card-product__title">${c }</h4>
+              <p class="card-product__price">${p}</p>
+            </div>
+          </div>
+        
+          </div>
+        </div>
+        </section>
+
+
+
+         <div class="owl-nav">
+         	 <button type="button" role="presentation" class="owl-prev"><i class="ti-arrow-left"></i></button>
+         	 <button type="button" role="presentation" class="owl-next"><i class="ti-arrow-right"></i></button>
+         </div>
+		</div>
+    </section>
 </body>
 </html>

@@ -216,7 +216,30 @@ public class CoachDAO {
 		   return list;
 	   }
 	   
+	   // 코치예약 추가
+	   public static void coachreserveInsert(Coach_ReserveVO vo)
+	   {
+		   SqlSession session=ssf.openSession(true);
+		   session.insert("coachreserveInsert", vo);
+		   session.close();
+	   }
 	   
+	   // 코치예약체크변경
+	   public static void coachreserveCheck(Map map)
+	   {
+		   SqlSession session=ssf.openSession(true);
+		   session.update("coachreserveOK", map);
+		   session.close();
+	   }
+	   
+	   // 예약페이지 => 마이페이지 출력
+	   public static List<Coach_ReserveVO> coachreserveList(String id)
+	   {
+		   SqlSession session=ssf.openSession();
+		   List<Coach_ReserveVO> list=session.selectList("coachReserveList",id);
+		   session.close();
+		   return list;
+	   }
 	   
 	   
 	}

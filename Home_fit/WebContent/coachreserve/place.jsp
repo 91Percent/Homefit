@@ -17,8 +17,10 @@ $(function(){
 	$('.place').click(function(){
 	   let no=$(this).attr("data-value");
 	   let place=$(this).attr("data-name");
+	   let sno=$(this).attr("data-name2");
 	   $('#coach_place').text(place);
 	   $('#place').val(place);
+	   $('#sno').val(sno);
 	   $.ajax({
 		   type:'post',
 		   data:{"cno":no},
@@ -34,8 +36,8 @@ $(function(){
 <body>
   <table class="table table-striped">
     <c:forEach var="vo" items="${list }">
-      <tr class="place" data-value="${vo.coach_no }" data-name="${vo.place }">
-       <td style="font-size:8pt">${vo.place }</td>
+      <tr class="place" data-value="${vo.coach_no }" data-name="${vo.place }" data-name2="${vo.schedule_no }" >
+       <td style="font-size:8pt">${vo.place }(${vo.schedule_no })</td>
       </tr>
     </c:forEach>
   </table>

@@ -10,6 +10,8 @@ import com.sist.vo.*;
 import com.sist.dao.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import com.sist.controller.RequestMapping;
 
 public class CoachModel {
@@ -167,15 +169,80 @@ public class CoachModel {
 		 request.setAttribute("list", list);
 		 return "../coachreserve/price.jsp";
 	 }
+	 // 예약페이지 코치예약번호
+	 
+	 
+	 
+	 
+	 // 예약하기
+	 @RequestMapping("coachreserve/reserve_ok.do")
+	 public String coachreserve_ok(HttpServletRequest request)
+	 {
+		 System.out.println("호출");
+		 try
+		 {
+			 request.setCharacterEncoding("UTF-8");
+		 }catch(Exception ex) {}
+		 
+		 String Coach_no=request.getParameter("cno");
+		 String Schedule_no=request.getParameter("sno");
+		 System.out.println("cno="+Coach_no);
+		 System.out.println("sno="+Schedule_no);
+		 
+		 //String place=request.getParameter("place");
+		 //String month=request.getParameter("month");
+		 //String time=request.getParameter("time");
+		 //String price=request.getParameter("price");
+		 
+		 HttpSession session=request.getSession();
+		 String id=(String)session.getAttribute("id");
+		 
+		 Coach_ReserveVO vo=new Coach_ReserveVO();
+		 vo.setId(id);
+		 vo.setCoach_no(Integer.parseInt(Coach_no));
+		 vo.setSchedule_no(Integer.parseInt(Schedule_no));
+		 
+		 CoachDAO.coachreserveInsert(vo);
+		 
+		 Map map=new HashMap();
+		 map.put("coach_no",Coach_no );
+		 map.put("schedule_no",Schedule_no);
+		 CoachDAO.coachreserveCheck(map);
+		 return "redirect:../coachreserve/mypage.do";
+	 }
+	 
+	 @RequestMapping("coachreserve/mypage.do")
+	 public String reserve_mypage(HttpServletRequest request)
+	 {
+
+		 HttpSession session=request.getSession();
+		 String id=(String)session.getAttribute("id");
+		 
+		 List<Coach_ReserveVO> list=CoachDAO.coachreserveList(id);
+		 request.setAttribute("list", list);
+		 System.out.println("사이즈는 !?!"+list.size());
+		 request.setAttribute("main_jsp","../coachreserve/mypage.jsp");
+		 return "../main/main.jsp";
+	 }
+	 
+	 
+	 
+	 
 	 /////////////////////////////////////////////////////////////////////////////
+	 // Q&A
 	 
 	 @RequestMapping("coach/qna.do")
 	 public String coach_qna(HttpServletRequest request)
 	 {
-		 List<CoachQnaVO> list=CoachDAO.coachQnaList();
+		 List<tutor_VO> list=CoachDAO.coachReserveData();
 		 request.setAttribute("list", list);
+		 
+		 //List<CoachQnaVO> list=CoachDAO.coachQnaList();
+		 //request.setAttribute("list", list);
 		 return "../coach/qna.jsp";
 	 }
+	 
+	 //////////////////////////////////////////////////////////////////////
 	 
 	 
 }

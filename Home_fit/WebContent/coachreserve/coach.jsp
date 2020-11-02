@@ -28,6 +28,7 @@
 		   let poster=$(this).attr("data-poster");
 		   $('#coach_poster').attr("src",poster);
 		   $('#coach_name').text(name);
+		   $('#cno').val(no);
 		   $.ajax({
 			   type:'post',
 			   data:{"cno":no},
