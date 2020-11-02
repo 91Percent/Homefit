@@ -71,7 +71,7 @@
 	<select id="challengFilterTotalPage" resultType="int" parameterType="hashmap">
 			SELECT CEIL(COUNT(*)/20.0) FROM challenge
 			<trim prefix="WHERE" prefixOverrides="AND|OR">
-			<if test="cate != null">
+			<if test="cate != null"> 
 				cate=#{cate}
 			</if>		
 			<if test="period !=null">
@@ -80,12 +80,11 @@
 		</trim>
 	</select>
 	<!-- 챌린지 목록 전체 및 카테고리별 페이지 수 -->
-	<select id="challengeCateTotalPage" resultType="int"
-		parameterType="hashmap">
-		<if test='cate==null || cate==""'>
+	<select id="challengeCateTotalPage" resultType="int" parameterType="String">
+		<if test="value==null || value==''">
 			SELECT CEIL(COUNT(*)/20.0) FROM challenge
 		</if>
-		<if test="cate!=null">
+		<if test="value!=null">
 			SELECT CEIL(COUNT(*)/20.0) FROM challenge
 			WHERE
 			cate=#{cate}

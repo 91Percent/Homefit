@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<<<<<<< HEAD
 	<main class="site-main">
 		<!--================ Hero banner start =================-->
 		<section class="hero-banner">
@@ -60,7 +59,6 @@
 			</div>
 		</section>
 		<!--================ Hero Carousel end =================-->
-=======
 	<main class="site-main">   
     <!--================ Hero banner start =================-->
     <section class="hero-banner">
@@ -111,7 +109,6 @@
       </div>
     </section>
     <!--================ Hero Carousel end =================-->
->>>>>>> branch 'master' of https://github.com/91Percent/Homefit.git
 
     <!-- ================ trending product section start ================= -->  
     <section class="section-margin calc-60px">
