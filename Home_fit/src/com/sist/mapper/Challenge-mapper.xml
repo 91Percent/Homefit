@@ -68,7 +68,7 @@
 			BETWEEN #{start} AND #{end}
 	</select>
 	<!-- 챌린지 필터 적용한  총페이지 수 -->
-	<select id="challengFilterTotalPage" resultType="int" parameterType="map">
+	<select id="challengFilterTotalPage" resultType="int" parameterType="hashmap">
 			SELECT CEIL(COUNT(*)/20.0) FROM challenge
 			<trim prefix="WHERE" prefixOverrides="AND|OR">
 			<if test="cate != null">
@@ -81,7 +81,7 @@
 	</select>
 	<!-- 챌린지 목록 전체 및 카테고리별 페이지 수 -->
 	<select id="challengeCateTotalPage" resultType="int"
-		parameterType="String">
+		parameterType="hashmap">
 		<if test='cate==null || cate==""'>
 			SELECT CEIL(COUNT(*)/20.0) FROM challenge
 		</if>

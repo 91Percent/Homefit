@@ -143,6 +143,7 @@ public class ChallengeModel {
 	// 도전 목록: sublist
 	@RequestMapping("challenge/sublist.do")
 	public String subListData(HttpServletRequest request) {
+		System.out.println("sublist 호출 했음");
 		try {
 			request.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
@@ -150,7 +151,7 @@ public class ChallengeModel {
 		} 
 		// 카테고리 정보 받기
 		String cate = request.getParameter("cate");
-		
+		System.out.println("cate!!!!!!!!!!!!!!!!"+cate);
 		// 페이징 처리
 		String page = request.getParameter("page");
 		if (page == null)
