@@ -1,63 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="TrainingTutor.coach-mapper">
-	<insert id="ScheduleInsert" parameterType="ScheduleVO">
-		INSERT INTO coach_schedule VALUES(
-		#{coach_no},
-		#{month},
-		#{time},
-		#{place},
-		#{reserve_check},
-		#{schedule_no}
-		)
-	</insert>
-	<insert id="CoachInsert" parameterType="tutor_VO">
-		Insert INTO coach_info VALUES(
-		#{cate_no},
-		#{coach_no},
-		#{coach_name},
-		#{coach_detail},
-		#{coach_poster},
-		#{poster},
-		#{subject},
-		#{content},
-		#{price},
-		#{review_avg}
-		)
-	</insert>
+   <insert id="ScheduleInsert" parameterType="ScheduleVO">
+      INSERT INTO coach_schedule VALUES(
+      #{coach_no},
+      #{month},
+      #{time},
+      #{place},
+      #{reserve_check},
+      #{schedule_no}
+      )
+   </insert>
+   <insert id="CoachInsert" parameterType="tutor_VO">
+      Insert INTO coach_info VALUES(
+      #{cate_no},
+      #{coach_no},
+      #{coach_name},
+      #{coach_detail},
+      #{coach_poster},
+      #{poster},
+      #{subject},
+      #{content},
+      #{price},
+      #{review_avg}
+      )
+   </insert>
 
-	<!-- 코치정보 -->
-<<<<<<< HEAD
-	<select id="coachListData" resultType="tutor_VO" parameterType="hashmap">
-		SELECT
-		coach_no,coach_name,coach_detail,coach_poster,poster,subject,content,price,review_avg,num
-		FROM (SELECT coach_no,coach_name,coach_detail,coach_poster,poster,subject,content,price,review_avg,rownum as num
-		FROM (SELECT coach_no,coach_name,coach_detail,coach_poster,poster,subject,content,price,review_avg
-=======
-	<select id="coachListData" resultType="tutor_VO"
-		parameterType="hashmap">
-		SELECT
-		coach_no,coach_name,coach_detail,coach_poster,poster,subject,content,price,review_avg,num
-		FROM (SELECT
-		coach_no,coach_name,coach_detail,coach_poster,poster,subject,content,price,review_avg,rownum
-		as num
-		FROM (SELECT
-		coach_no,coach_name,coach_detail,coach_poster,poster,subject,content,price,review_avg
->>>>>>> branch 'master' of https://github.com/91Percent/Homefit.git
-		FROM coach_info WHERE cate_no=#{cateno}))
-		WHERE num BETWEEN #{start} AND #{end}
-	</select>
-	<select id="coachTotalPage" resultType="int">
-		SELECT CEIL(COUNT(*)/10.0) FROM coach_info
-	</select>
+   <!-- 코치정보 -->
+   <select id="coachListData" resultType="tutor_VO" parameterType="hashmap">
+      SELECT
+      coach_no,coach_name,coach_detail,coach_poster,poster,subject,content,price,review_avg,num
+      FROM (SELECT coach_no,coach_name,coach_detail,coach_poster,poster,subject,content,price,review_avg,rownum as num
+      FROM (SELECT coach_no,coach_name,coach_detail,coach_poster,poster,subject,content,price,review_avg
+      FROM coach_info WHERE cate_no=#{cateno}))
+      WHERE num BETWEEN #{start} AND #{end}
+   </select>
+   <select id="coachTotalPage" resultType="int">
+      SELECT CEIL(COUNT(*)/10.0) FROM coach_info
+   </select>
 
 
-	<!-- 코치스케쥴데이터 -->
-<<<<<<< HEAD
-	<select id="scheduleData" resultType="ScheduleVO" parameterType="ScheduleVO">
-		SELECT * FROM coach_schedule
-		WHERE coach_no=#{coach_no}
-	</select>
+   <!-- 코치스케쥴데이터 -->
+   <select id="scheduleData" resultType="ScheduleVO" parameterType="ScheduleVO">
+      SELECT * FROM coach_schedule
+      WHERE coach_no=#{coach_no}
+   </select>
 
    <!-- 코치스케쥴 -->
    <select id="scheduleListData" resultType="ScheduleVO" parameterType="hashmap">
@@ -70,57 +57,31 @@
    <select id="scheduleTotalPage" resultType="int">
       SELECT CEIL(COUNT(*)/10.0) FROM coach_schedule
    </select>
-=======
-	<select id="scheduleData" resultType="ScheduleVO"
-		parameterType="ScheduleVO">
-		SELECT * FROM coach_schedule
-		WHERE coach_no=#{coach_no}
-	</select>
->>>>>>> branch 'master' of https://github.com/91Percent/Homefit.git
 
-<<<<<<< HEAD
-	<select id="coachDetailData" resultType="tutor_VO" parameterType="hashmap">
-=======
-	<!-- 코치스케쥴 -->
-	<select id="scheduleListData" resultType="ScheduleVO"
-		parameterType="hashmap">
-		SELECT coach_no,month,time,place,reserve_check,schedule_no,num
-		FROM (SELECT coach_no,month,time,place,reserve_check,schedule_no,rownum as
-		num
-		FROM (SELECT coach_no,month,time,place,reserve_check,schedule_no
-		FROM coach_schedule))
-		WHERE num BETWEEN #{start} AND #{end}
-	</select>
-	<select id="scheduleTotalPage" resultType="int">
-		SELECT CEIL(COUNT(*)/10.0) FROM coach_schedule
-	</select>
+   <select id="coachDetailData" resultType="tutor_VO" parameterType="hashmap">
+      SELECT * FROM coach_info
+      WHERE coach_no=#{coach_no}
+   </select>
 
-	<select id="coachDetailData" resultType="tutor_VO"
-		parameterType="hashmap">
->>>>>>> branch 'master' of https://github.com/91Percent/Homefit.git
-		SELECT * FROM coach_info
-		WHERE coach_no=#{coach_no}
-	</select>
-
-	<!-- 예약페이지 코치정보 -->
-	<select id="coachReserveData" resultType="tutor_VO">
-		SELECT coach_no,coach_name,coach_poster,price FROM coach_info
-	</select>
-	<!-- 예약페이지 코치스케쥴목록 -->
-	<select id="scheduleReserveData" resultType="ScheduleVO" parameterType="int">
-		SELECT * FROM coach_schedule 
-		WHERE coach_no=#{coach_no}
-	</select>
-	
-	<!-- Q&A게시판목록 -->
-	<select id="qnaListData" resultType="CoachQnaVO" parameterType="hashmap">
-		SELECT coach_no,coach_qna_no,writer,subject,content,hit,pwd,regdate,num
-		FROM (SELECT coach_no,coach_qna_no,writer,subject,content,hit,pwd,regdate,rownum as num
-		FROM coach_no,coach_qna_no,writer,subject,content,hit,pwd,regdate
-		FROM coach_qna))
-		WHERE num BETWEEN #{start} AND #{end}
-	</select> 
-	
-	
-	
+   <!-- 예약페이지 코치정보 -->
+   <select id="coachReserveData" resultType="tutor_VO">
+      SELECT coach_no,coach_name,coach_poster,price FROM coach_info
+   </select>
+   <!-- 예약페이지 코치스케쥴목록 -->
+   <select id="scheduleReserveData" resultType="ScheduleVO" parameterType="int">
+      SELECT * FROM coach_schedule 
+      WHERE coach_no=#{coach_no}
+   </select>
+   
+   <!-- Q&A게시판목록 -->
+   <select id="qnaListData" resultType="CoachQnaVO" parameterType="hashmap">
+      SELECT coach_no,coach_qna_no,writer,subject,content,hit,pwd,regdate,num
+      FROM (SELECT coach_no,coach_qna_no,writer,subject,content,hit,pwd,regdate,rownum as num
+      FROM coach_no,coach_qna_no,writer,subject,content,hit,pwd,regdate
+      FROM coach_qna))
+      WHERE num BETWEEN #{start} AND #{end}
+   </select> 
+   
+   
+   
 </mapper>
