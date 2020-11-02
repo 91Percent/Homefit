@@ -6,24 +6,14 @@
   	<servlet-class>com.sist.controller.DispatcherServlet</servlet-class>
   	<init-param>
   		<param-name>contextConfigLocation</param-name>
-<<<<<<< HEAD
+<!--   		<param-value>/Users/haeni/Downloads/Homefit - 복사본 2/Home_fit/WebContent/WEB-INF/app.xml</param-value> -->
   		<param-value>C:\Users\Homefit\Home_fit\WebContent\WEB-INF\app.xml</param-value>
-<!--   		<param-value>C:\Users\Homefit\Home_fit\WebContent\WEB-INF\app.xml</param-value> -->
-=======
-<!--   		<param-value>/Users/haeni/Documents/jsp-project/Homefit/Home_fit/WebContent/WEB-INF/app.xml</param-value> -->
-  		<param-value>C:\Users\Homefit\Home_fit\WebContent\WEB-INF\app.xml</param-value>
->>>>>>> branch 'master' of https://github.com/91Percent/Homefit.git
   	</init-param>
   	<init-param>
   		<param-name>path</param-name>
-<<<<<<< HEAD
-  		<param-value>C:\Users\Homefit\Home_fit\src</param-value>
-<!--   		<param-value>C:\Users\Homefit\Home_fit\src</param-value> -->
-=======
   		<!-- 해니 경로 -->
-<!--   		<param-value>/Users/haeni/Documents/jsp-project/Homefit/Home_fit/src</param-value> -->
+<!--   		<param-value>/Users/haeni/Downloads/Homefit - 복사본 2/Home_fit/src</param-value> -->
   		<param-value>C:\Users\Homefit\Home_fit\src</param-value>
->>>>>>> branch 'master' of https://github.com/91Percent/Homefit.git
   	</init-param>
   </servlet>
   	
