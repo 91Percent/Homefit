@@ -7,15 +7,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet"
-	href="../template/vendors/owl-carousel/owl.carousel.min.css">
-<script type="text/javascript">
-	
-</script>
+<link rel="stylesheet" href="../template/vendors/owl-carousel/owl.carousel.min.css">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="http://fonts.googleapis.com/earlyaccess/nanumpenscript.css"
-	rel="stylesheet">
+<link href="http://fonts.googleapis.com/earlyaccess/nanumpenscript.css" rel="stylesheet">
+<link rel="stylesheet" href="/lib/w3.css">
+<link rel='stylesheet' href='css/style.css'>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+<script>
+</script>
+<style>
+.seunggu{
+margin: 0px;
+padding: 0px;
+}
+</style>
 </head>
 <body>
 	<section
@@ -24,10 +30,10 @@
 			<div class="row">
 				<div class="col-lg-8 posts-list">
 					<div class="single-post row">
+					  <h3>함께 <span class="section-intro__style">도전 해요 </span></h3>	
 						<div class="col-lg-12">
 							<div class="feature-img">
-								<img class="img-fluid"
-									src="/Home_fit/challenge_poster/${vo.poster}" alt="">
+								<img class="img-fluid" src="/Home_fit/challenge_poster/${vo.poster}" alt="">
 							</div>
 						</div>
 						<div class="col-lg-3  col-md-3">
@@ -36,6 +42,7 @@
 									<a href="#">Food,</a> <a class="active" href="#">Technology,</a>
 									<a href="#">Politics,</a> <a href="#">Lifestyle</a>
 								</div>
+								
 								<ul class="blog_meta list">
 									<li><a href="#">방장: ${vo.id_leader } <i
 											class="lnr lnr-user"></i>
@@ -194,102 +201,40 @@
 													</table>
 												</div>
 											</div>
-											<div class="tab-pane fade" id="contact" role="tabpanel"
-												aria-labelledby="contact-tab">
-												<div class="row">
-													<div class="col-lg-6">
-														<div class="comment_list">
-															<div class="review_item">
-																<div class="media">
-																	<div class="d-flex">
-																		<img src="img/product/review-1.png" alt="">
-																	</div>
-																	<div class="media-body">
-																		<h4>Blake Ruiz</h4>
-																		<h5>12th Feb, 2018 at 05:56 pm</h5>
-																		<a class="reply_btn" href="#">Reply</a>
-																	</div>
-																</div>
-																<p>Lorem ipsum dolor sit amet, consectetur
-																	adipisicing elit, sed do eiusmod tempor incididunt ut
-																	labore et dolore magna aliqua. Ut enim ad minim veniam,
-																	quis nostrud exercitation ullamco laboris nisi ut
-																	aliquip ex ea commodo</p>
-															</div>
-															<div class="review_item reply">
-																<div class="media">
-																	<div class="d-flex">
-																		<img src="img/product/review-2.png" alt="">
-																	</div>
-																	<div class="media-body">
-																		<h4>Blake Ruiz</h4>
-																		<h5>12th Feb, 2018 at 05:56 pm</h5>
-																		<a class="reply_btn" href="#">Reply</a>
-																	</div>
-																</div>
-																<p>Lorem ipsum dolor sit amet, consectetur
-																	adipisicing elit, sed do eiusmod tempor incididunt ut
-																	labore et dolore magna aliqua. Ut enim ad minim veniam,
-																	quis nostrud exercitation ullamco laboris nisi ut
-																	aliquip ex ea commodo</p>
-															</div>
-															<div class="review_item">
-																<div class="media">
-																	<div class="d-flex">
-																		<img src="img/product/review-3.png" alt="">
-																	</div>
-																	<div class="media-body">
-																		<h4>Blake Ruiz</h4>
-																		<h5>12th Feb, 2018 at 05:56 pm</h5>
-																		<a class="reply_btn" href="#">Reply</a>
-																	</div>
-																</div>
-																<p>Lorem ipsum dolor sit amet, consectetur
-																	adipisicing elit, sed do eiusmod tempor incididunt ut
-																	labore et dolore magna aliqua. Ut enim ad minim veniam,
-																	quis nostrud exercitation ullamco laboris nisi ut
-																	aliquip ex ea commodo</p>
-															</div>
-														</div>
-													</div>
-													<div class="col-lg-6">
-														<div class="review_box">
-															<h4>Post a comment</h4>
-															<form class="row contact_form"
-																action="contact_process.php" method="post"
-																id="contactForm" novalidate="novalidate">
-																<div class="col-md-12">
-																	<div class="form-group">
-																		<input type="text" class="form-control" id="name"
-																			name="name" placeholder="Your Full name">
-																	</div>
-																</div>
-																<div class="col-md-12">
-																	<div class="form-group">
-																		<input type="email" class="form-control" id="email"
-																			name="email" placeholder="Email Address">
-																	</div>
-																</div>
-																<div class="col-md-12">
-																	<div class="form-group">
-																		<input type="text" class="form-control" id="number"
-																			name="number" placeholder="Phone Number">
-																	</div>
-																</div>
-																<div class="col-md-12">
-																	<div class="form-group">
-																		<textarea class="form-control" name="message"
-																			id="message" rows="1" placeholder="Message"></textarea>
-																	</div>
-																</div>
-																<div class="col-md-12 text-right">
-																	<button type="submit" value="submit"
-																		class="btn primary-btn">Submit Now</button>
-																</div>
-															</form>
-														</div>
-													</div>
-												</div>
+											<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+													<strong>인증  현재 참여율은 ${percent} %입니다.</strong>
+														        <div class="row">
+														        <c:forEach var="Certifiedvo" items="${Certifiedvo }">
+														          <div class="col-md-4 col-lg-4 mb-4 mb-lg-0 seunggu"  >
+														            <div class="card card-blog">
+														              <div class="card-blog__img">
+														                <img src="/Home_fit/challenge_poster/${Certifiedvo.poster}" alt="" width=200 height=200>
+														              </div>
+														              <div class="card-body">
+														                <ul class="card-blog__info">
+														                  <li><i class="ti-comments-smiley"></i>${Certifiedvo.challenge_id}</li>
+														                  <li>${Certifiedvo.db_Certified_date}</li>
+														                </ul>
+														              </div>
+														            </div>
+														          </div>
+														       </c:forEach>
+														       </div>
+													<p align="center">
+													
+													<!-- 
+														Certifieid_count는 사용자가 인증한 횟수다 ! 테스트를위해서 일단은 주석 처리!!!!!!!
+													
+													 -->
+<%-- 													<c:if test="${certifeid_count==0 }">	 --%>
+													<c:if test="${count==1 || count==3}">
+														<a href="../challenge/Certified.do?challenge_no=${ vo.challenge_no}" class="button button-postComment button--active" >인증하기</a>
+													</c:if>								
+<%-- 													</c:if>					 --%>
+<%-- 													<c:if test="${certifeid_count>=1}"> --%>
+<!-- 														<span class="btn btn-la btn-danger" >오늘은  이미 인증 하셨습니다.</span> -->
+<%-- 													</c:if> --%>
+													</p>
 											</div>
 											<div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
 												<div class="row">
@@ -302,9 +247,9 @@
 															</div>
 														</div>	
 														<div class="review_list">
+															<div class="review_item">
 															<c:forEach var="rvo" items="${Reply_list}">
 															<div style="height: auto; width: 100%; border-top:1px solid;">
-															<div class="review_item">
 																<div class="media">
 																	<div class="d-flex">
 																		<img src="img/product/review-2.png" alt="">
@@ -350,7 +295,7 @@
 <!-- 			   												String content=request.getParameter("content"); -->
 															<form action="../challenge/reply_insert.do" method="post" class="form-contact form-review mt-3">
 																<div class="form-group">
-																	<textarea class="form-control different-control w-200" name="content" id="textarea" cols="30" rows="5" placeholder="Enter Message"></textarea>
+																	<textarea class="form-control different-control w-200" name="content" id="textarea" cols="90" rows="5" placeholder="Enter Message"></textarea>
 																	<input type="hidden" value="${vo.challenge_no }" name="challenge_no">
 																</div>
 																<div class="form-group text-center text-md-right mt-3">
@@ -594,3 +539,4 @@
 	</section>
 </body>
 </html>	
+이게진짜

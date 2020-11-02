@@ -57,10 +57,10 @@ public class ShopDAO {
 		return list;
 	}
 	
-	public static List<ShopVO> shop_listListData()
+	public static ShopVO shopWishlistData(int shop_no)
 	   {
 		   SqlSession session=ssf.openSession();
-		   List<ShopVO> list=session.selectList("shop_listListData");
+		   ShopVO list=session.selectOne("shopWishlistData",shop_no);
 		   session.close();// 반환
 		   return list;
 	   }
@@ -125,5 +125,35 @@ public class ShopDAO {
 		}
 		return list;
 	}
+	
+	
+	
+	
+	// 장바구니
+	public static void wishlistInsert(WishlistVO wvo)
+	   {
+		   SqlSession session=ssf.openSession(true);
+		   session.insert("wishlistInsert",wvo);
+		   session.close();
+	   }
+	
+	public static List<WishlistVO> wishlistData(String id){
+		   SqlSession session=ssf.openSession();
+		   List<WishlistVO> list=session.selectList("wishlistData",id);
+		   session.close();// 반환
+		   return list;
+	   }
+	public static void wishlistDelete(int wishlist_no)
+	   {
+		   SqlSession session=ssf.openSession(true);
+		   session.delete("wishlistDelete", wishlist_no);
+		   session.close();
+	   }
+//	public static void wishlistOk(int wishlist_no)
+//	   {
+//		   SqlSession session=ssf.openSession(true);//autocommit
+//		   session.update("wishlistOk",wishlist_no);
+//		   session.close();
+//	   }
 
 }

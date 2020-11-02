@@ -68,10 +68,10 @@
 			BETWEEN #{start} AND #{end}
 	</select>
 	<!-- 챌린지 필터 적용한  총페이지 수 -->
-	<select id="challengFilterTotalPage" resultType="int" parameterType="map">
+	<select id="challengFilterTotalPage" resultType="int" parameterType="hashmap">
 			SELECT CEIL(COUNT(*)/20.0) FROM challenge
 			<trim prefix="WHERE" prefixOverrides="AND|OR">
-			<if test="cate != null">
+			<if test="cate != null"> 
 				cate=#{cate}
 			</if>		
 			<if test="period !=null">
@@ -80,12 +80,11 @@
 		</trim>
 	</select>
 	<!-- 챌린지 목록 전체 및 카테고리별 페이지 수 -->
-	<select id="challengeCateTotalPage" resultType="int"
-		parameterType="String">
-		<if test='cate==null || cate==""'>
+	<select id="challengeCateTotalPage" resultType="int" parameterType="String">
+		<if test="value==null || value==''">
 			SELECT CEIL(COUNT(*)/20.0) FROM challenge
 		</if>
-		<if test="cate!=null">
+		<if test="value!=null">
 			SELECT CEIL(COUNT(*)/20.0) FROM challenge
 			WHERE
 			cate=#{cate}
@@ -131,13 +130,6 @@
 		db_start_day,start_day,title,limit,poster,content,id_leader,end_day,regdate,period
 		FROM Challenge
 		WHERE Challenge_no = #{challenge_no}
-	</select>
-
-	<!-- 인증 사진 가져오는 부분 -->
-	<select id="Challenge_CertifiedData"
-		resultType="Challenge_CertifiedVO" parameterType="int">
-		SELECT * FROM Challenge_Certified
-		WHERE Challenge_no = #{no}
 	</select>
 
 	<!-- 인증 업로드 -->

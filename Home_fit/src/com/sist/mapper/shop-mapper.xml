@@ -43,10 +43,7 @@
     WHERE num BETWEEN #{start} AND #{end}
 	</select>
 	
-	<select id="shop_listListData" resultType="com.sist.vo.ShopVO">
-    SELECT cate_no,shop_no,title,poster,subtitle,price,content,delivery_fee,hit 
-    FROM shop
-	</select>
+
 	
 	
 	<!-- 
@@ -81,6 +78,11 @@
     WHERE title=#{title}
 	</select>
 	
+	<select id="shopWishlistData" resultType="com.sist.vo.ShopVO" parameterType="int">
+    SELECT cate_no,shop_no,title,poster,subtitle,price,content,delivery_fee,hit 
+    FROM shop
+    WHERE shop_no=#{shop_no}
+	</select>
 	
 	<!-- main페이지 Best상품 -->
 	
@@ -90,16 +92,71 @@
 	
 	
 	<!-- 장바구니 -->
+	<!--
+		WISHLIST_NO NOT NULL NUMBER        
+		SHOP_NO              NUMBER        
+		ID          NOT NULL VARCHAR2(300) 
+		COUNT                NUMBER        
+		ISWISH               VARCHAR2(200) 
+	 -->
+  <insert id="wishlistInsert" parameterType="com.sist.vo.WishlistVO">
+    <selectKey keyProperty="wishlist_no" resultType="int" order="BEFORE">
+      SELECT NVL(MAX(wishlist_no)+1,1) as wishlist_no FROM wishlist
+    </selectKey>
+    INSERT INTO wishlist values(#{wishlist_no}, #{shop_no}, #{id},1,'n')
+  </insert>	
 	
-	
-	
-	
-	
-	
-	
-	
+	<!-- 
+	insert into wishlist select 1,shop_no,'khb9812',1,'n' from shop where shop_no=1;
+	 -->
+	<resultMap type="WishlistVO" id="wishlist_List">
+	<result property="wishlist_no" column="wishlist_no"/>
+	<result property="id" column="id"/>
+	<result property="count" column="count"/>
+	<result property="iswish" column="iswish"/>
+	<result property="svo.title" column="title"/>
+	<result property="svo.poster" column="poster"/>
+	<result property="svo.price" column="price"/>
+	</resultMap>
+	<select id="wishlistData" resultMap="wishlist_List" parameterType="String">
+  	select wishlist_no,wishlist.shop_no,id,count,iswish,title,poster,price
+  	from wishlist,shop
+  	where wishlist.shop_no=shop.shop_no
+  	and id=#{id}
+  	order by wishlist_no asc
+  	</select>
+  	
+  	<delete id="wishlistDelete" parameterType="int">
+    DELETE FROM wishlist
+    WHERE wishlist_no=#{wishlist_no}
+ 	</delete>
+ 	
+ 	<update id="wishlistOk" parameterType="int">
+    UPDATE wishlist SET
+    iswish='y'
+    WHERE wishlist_no=#{wishlist_no}
+ 	</update>
+
+  	<!-- 찜 저장  -->
+  <insert id="favoritelistInsert" parameterType="com.sist.vo.FavoritelistVO">
+    INSERT INTO favoritelist VALUES(
+      (SELECT NVL(MAX(FAVORITE_NO)+1,1) FROM favoritelist),#{SHOP_NO},#{id}
+    )
+  </insert>
+  <!-- 데이터 읽기(찜 목록) -->
+  <select id="favoritelistData" parameterType="String" resultType="com.sist.vo.FavoritelistVO">
+    SELECT * FROM favoritelist
+    WHERE id=#{id}
+    ORDER BY FAVORITE_NO DESC
+  </select>
+  <!-- 찜여부 확인 -->
+  <select id="favoritelistCount" parameterType="com.sist.vo.FavoritelistVO" resultType="int">
+    SELECT COUNT(*) FROM favoritelist
+    WHERE id=#{id} AND SHOP_NO=#{SHOP_NO}
+  </select>
+  <!-- 찜 취소시에 처리  -->
+  <delete id="favoritelistDelete" parameterType="int">
+    DELETE FROM favoritelist
+    WHERE FAVORITE_NO=#{FAVORITE_NO}
+  </delete>
 </mapper>
-
-
-
-

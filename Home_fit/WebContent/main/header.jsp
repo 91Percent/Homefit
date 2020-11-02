@@ -73,13 +73,12 @@
 	           			<li class="nav-item"><button><a class="#" href="../member/login.do">로그인</a></button></li>
 	              	 	<li class="nav-item">/</li>
 	              		<li class="nav-item"><button><a class="#" href="../member/join.do">회원가입</a></button></li>
-	              		<li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">1</span></button> </li>
 	          		</c:if>
 	          		<c:if test="${sessionScope.id!=null }">
 	          			<li class="nav-item"> ${sessionScope.name } 님</li>
 	          			<li class="nav-item">/</li>
 	           			<li class="nav-item"><button><a class="#" href="../member/logout.do">로그아웃</a></button></li>
-	              		<li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">1</span></button> </li>
+	              		<li class="nav-item"><button><a href="../shop/wishlist.do"><i class="ti-shopping-cart"></i><span class="nav-shop__circle">1</span></button></a></li>
 	          		</c:if>
 	            </ul>
 	          </div>

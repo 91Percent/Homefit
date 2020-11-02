@@ -30,6 +30,9 @@ public class ChallengeDAO {
 			period=session.selectOne("challengePeriodCount", challenge_no);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+		}finally {
+			if(session!=null)
+				session.close();
 		}
 		return period;
 	}
@@ -45,6 +48,9 @@ public class ChallengeDAO {
 			total=session.selectOne("totalPaticipantCount", challenge_no);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+		} finally {
+			if(session!=null)
+				session.close();
 		}
 		return total;
 	}
@@ -100,7 +106,7 @@ public class ChallengeDAO {
 	public static void challengeInsert(ChallengeVO vo)
 	{
 		SqlSession session=null;
-
+		System.out.println("잘된건가 모르겟네"+vo.getPoster());
 		try
 		{
 			session=ssf.openSession(true);

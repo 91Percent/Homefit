@@ -59,7 +59,6 @@
 			</div>
 		</section>
 		<!--================ Hero Carousel end =================-->
-=======
 	<main class="site-main">   
     <!--================ Hero banner start =================-->
     <section class="hero-banner">
@@ -498,10 +497,8 @@
               <div style="position: absolute; left: -5000px;">
                 <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
               </div>
-
             </form>
           </div>
-          
         </div>
       </div>
     </section>

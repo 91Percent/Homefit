@@ -141,6 +141,9 @@ public class CertifiedModel {
 		System.out.println("test값 ="+test);
 		double percent = (double)certifeid_count/(double)temp*100.0;
 		System.out.println("참여율 ="+percent+"%");
+		String str = String.format("%.1f", percent);
+		System.out.println(Double.parseDouble(str));
+		
 		//=============================
 		
 		// 현재 방에 있는 댓글 가져오기 
@@ -155,7 +158,7 @@ public class CertifiedModel {
 		System.out.println("로그인이 1이면 되어있는거야! " + count);
 		
 		request.setAttribute("Reply_list",Reply_list);
-		request.setAttribute("percent",percent);
+		request.setAttribute("percent",str);
 		request.setAttribute("rank_list",rank_list);
 		request.setAttribute("people_list",people_list);
 		request.setAttribute("certifeid_count",certifeid_count);
@@ -181,12 +184,12 @@ public class CertifiedModel {
 	public String Certified_ok(HttpServletRequest request) throws IOException {
 		
 		HttpSession session = request.getSession();
-		String filename = "";
 		try {
 			request.setCharacterEncoding("utf-8");// 한글 디코딩
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		String filename = "";
 
 //	    String path="C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\"+challenge_no; // 파일이 업로드가 되면 어디에 저장 폴더 
 		String enctype = "UTF-8"; // 한글파일명을 사용 여부

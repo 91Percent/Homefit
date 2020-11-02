@@ -94,8 +94,8 @@
 
 							<tr>
 								<th class="danger text-right" width=30%>대표 사진</th>
-								<td width=70%><input type=file name=poster size=20
-									class="input-sm" accept="image/*" title="사진 파일만 업로드 가능합니다.">
+								<td width=70%><input type=file name=upload size=20
+									class="input-sm" title="사진 파일만 업로드 가능합니다.">
 								</td>
 							</tr>
 

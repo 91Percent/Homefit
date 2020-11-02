@@ -2,13 +2,35 @@
     pageEncoding="UTF-8" import="com.sist.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<jsp:useBean id="model" class="com.sist.model.ShopModel"/>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+	
+	$('.button primary-btn').click(function(){
+		let shop_no=$(this).attr("data-value");
+		let poster=$(this).attr("data-poster");
+		let title=$(this).attr("data-title");
+		let price=$(this).attr("data-price");
+		$('#shop_no').val(shop_no);
+		$.ajax({
+			type:'post',
+			url:'../shop/wishlist_list.do',
+			data:{"shop_no":shop_no},
+			data:{"poster":poster},
+			data:{"title":title},
+			data:{"price":price}
+		})
+	})
+	
+	
+});
+
+</script>
 </head>
 <body>
 	<!-- ================ start banner area ================= -->	
@@ -51,8 +73,8 @@
 						<h3>${vo.title }</h3>
 						<h2>${vo.price }</h2>
 						<ul class="list">
-							<li><a class="active" href="#"><span>Category</span> : ${vo.cate_no }</a></li>
-							<li><a href="#"><span>배송비</span> : ${vo.delivery_fee }</a></li>
+							<li><a class="active" href="#"></a></li>
+							<li><a href="#"><span>배송비</span>:${vo.delivery_fee }</a></li>
 						</ul>
 						<p>${vo.subtitle }</p>
 						<div class="product_count">
@@ -62,12 +84,26 @@
 							<input type="text" name="qty" id="sst" size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
 							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
                class="reduced items-count" type="button"><i class="ti-angle-right"></i></button>
-							<a class="button primary-btn" href="#">Add to Cart</a>               
+               
+			               <form method="post" action="../shop/shop_detail_ok.do">
+			                  
+<!-- 			                  <input type=submit value="Add to Cart" class="button primary-btn"> -->
+<a class="button primary-btn" href="../shop/shop_detail_ok.do?shop_no=${vo.shop_no }" data-value="${vo.shop_no }" data-poster="${vo.poster }" data-title="${vo.title}" data-price="${vo.price }">
+			                  <input type=hidden name="shop_no" id="shop_no">Add to Cart</a>
+			                  			                  
+			                </form>
+							               
 						</div>
 						<div class="card_area d-flex align-items-center">
-							<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
-							<a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
+							<a class="icon_btn" href="#"><i class="ti-heart"></i></a>
 						</div>
+						<!-- 
+						<ul class="card-product__imgOverlay">
+		                      <li><button><i class="ti-search"></i></button></li>
+		                      <li><button><i class="ti-shopping-cart"></i></button></li>
+		                      <li><button><i class="ti-heart"></i></button></li>
+		                </ul>
+						 -->
 					</div>
 				</div>
 			</div>
@@ -100,11 +136,10 @@
 				</li>
 			</ul>
 			<div class="tab-content" id="myTabContent">
-				<div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">					
-					<c:forTokens items="${vo.content }" delims="|" var="item">
-					
+				<div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">			
+        			<c:forTokens var="p" items="${vo.content }" delims="|"  varStatus="status" > 
+        				<img src="${p }">
 					</c:forTokens>
-					<p>${vo.content }</p>
 				</div>
 				<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 					<div class="table-responsive">

@@ -143,6 +143,7 @@ public class ChallengeModel {
 	// 도전 목록: sublist
 	@RequestMapping("challenge/sublist.do")
 	public String subListData(HttpServletRequest request) {
+		System.out.println("sublist 호출 했음");
 		try {
 			request.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
@@ -150,7 +151,7 @@ public class ChallengeModel {
 		} 
 		// 카테고리 정보 받기
 		String cate = request.getParameter("cate");
-		
+		System.out.println("cate!!!!!!!!!!!!!!!!"+cate);
 		// 페이징 처리
 		String page = request.getParameter("page");
 		if (page == null)
@@ -238,26 +239,21 @@ public class ChallengeModel {
 
 	// 새로운 도전방 만들기
 	@RequestMapping("challenge/insert_ok.do")
-	public String challengeInsert_Ok(HttpServletRequest request) {
+	public String challengeInsert_Ok(HttpServletRequest request) throws IOException {
 		HttpSession session = request.getSession();
 		try {
-			request.setCharacterEncoding("utf-8");
-		} catch (UnsupportedEncodingException e) {
+			request.setCharacterEncoding("utf-8");// 한글 디코딩
+		} catch (IOException e) {
 			e.printStackTrace();
-		} // 한글 디코딩
-
+		}
+		String filename="";
 //		String path = "/Users/haeni/Documents/jsp-project/Homefit/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Home_fit/challenge_poster";
 		String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\challenge_poster";
 		String enctype = "UTF-8"; // 한글파일명을 사용 여부
 		int size = 1024 * 1024 * 100;// 파일의 최대크기
 
 		// MultipartRequest : 사용자가 보내준 데이터를 받는다 (request=>파일을 받을 수 없다 , 일반데이터만 받는다)
-		MultipartRequest mr = null;
-		try {
-			mr = new MultipartRequest(request, path, size, enctype, new DefaultFileRenamePolicy());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		MultipartRequest mr = new MultipartRequest(request, path, size, enctype, new DefaultFileRenamePolicy());
 
 		String title = mr.getParameter("title"); // 업로드시에만 사용
 		String limit = mr.getParameter("limit");
@@ -296,14 +292,15 @@ public class ChallengeModel {
 		vo.setDb_end_day(end_day);
 		vo.setPeriod(difDays);
 
-		String filename = mr.getFilesystemName("poster");
-
+		filename = mr.getFilesystemName("upload");
+		System.out.println("파일네임은 이거임듕"+filename);
 		if (filename == null)// 파일을 올리지 않을 경우
 		{
 			vo.setPoster("ChallengeDefault.jpg");
 		} else// 파일 올릴 경우
 		{
 			vo.setPoster(filename);
+			System.out.println("파일네임은 이거임듕222"+filename);
 		}
 
 		ChallengeDAO.challengeInsert(vo); // 추가
