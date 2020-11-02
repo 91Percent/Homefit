@@ -36,7 +36,7 @@ $(function(){
 			})
 		})
 		
-		$('.pixel-radio').eq(${cate_no-1}).trigger("click");
+		$('.pixel-radio').eq(${cate_no-1}).trigger("click")
 		
 		
 
@@ -80,7 +80,7 @@ $(function(){
                   <ul>
                   	<c:forEach var="vo" items="${clist }" varStatus="status">	
 						<li class="filter-list" data-value="${vo.cate_no }">
-						<input class="pixel-radio" type="radio" name="cate_no" value="${vo.cate_no }" id="${vo.cate_no }"><label for="${vo.cate_no }">${vo.cate_name }<span> (3600)</span></label>
+						<input class="pixel-radio" type="radio" name="cate_no" value="${vo.cate_no }" id="${vo.cate_no }"><label for="${vo.cate_no }">${vo.cate_name }<span></span></label>
 						</li>
 					</c:forEach>                                 
                   </ul>

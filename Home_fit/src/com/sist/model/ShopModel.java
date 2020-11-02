@@ -5,6 +5,7 @@ import com.sist.vo.*;
 
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * @author 김한비
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 
 public class ShopModel {
+	
+	//샵 메인
 	
 	@RequestMapping("shop/shop.do")
 	public String shopListData(HttpServletRequest request){
@@ -194,13 +197,35 @@ public class ShopModel {
 	  public String shopDetailData(HttpServletRequest request) {
 	  
 	  String shop_no=request.getParameter("shop_no"); 
-	  ShopVO vo=ShopDAO.shopDetailData(Integer.parseInt(shop_no));
-	  
-	  request.setAttribute("vo", vo);	  
+	  ShopVO vo=ShopDAO.shopDetailData(Integer.parseInt(shop_no));  
+	  request.setAttribute("vo", vo);	
 	  
 	  request.setAttribute("main_jsp", "../shop/shop_detail.jsp"); 
 	  return "../main/main.jsp"; 
 	  }
+	  
+	  
+	  @RequestMapping("shop/shop_detail_ok.do")
+	  public String shop_detail_ok(HttpServletRequest request){
+		  String shop_no=request.getParameter("shop_no"); 
+		  ShopVO vo=ShopDAO.shopDetailData(Integer.parseInt(shop_no));  
+		  request.setAttribute("vo", vo);	
+		  
+		  HttpSession session=request.getSession();
+		  String id=(String)session.getAttribute("id");
+		  
+		  WishlistVO wvo=new WishlistVO();
+		  wvo.setId(id);
+		  wvo.setShop_no(Integer.parseInt(shop_no));
+		  ShopDAO.wishlistInsert(wvo);
+		  
+		  System.out.println("(shop_detail_ok)shop_no:"+shop_no);
+		  System.out.println("(shop_detail_ok)id:"+id);	  
+		  
+		  
+		  return "../shop/shop_detail_ok.jsp";
+	  }
+	  
 	 
 	
 	
@@ -284,4 +309,64 @@ public class ShopModel {
 	}
 	
 	
+	
+	
+	// 장바구니
+	
+	@RequestMapping("shop/wishlist.do")
+	public String shop_main(HttpServletRequest request) {
+		System.out.println("wishlist.do 호출");
+		
+		request.setAttribute("main_jsp","../shop/wishlist.jsp");
+		return "../main/main.jsp";
+	}
+	@RequestMapping("shop/wishlist_list.do")
+	public String shop_wishlist_list(HttpServletRequest request) {
+		System.out.println("wishlist_list 호출");
+//		String shop_no=request.getParameter("shop_no"); 
+//		System.out.println("(wishlist)shop_no"+shop_no);
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		System.out.println("(wishlist_list)id:"+id);
+		List<WishlistVO> list=ShopDAO.wishlistData(id);
+		System.out.println("list사이즈"+list.size());
+		request.setAttribute("list",list);
+		return "../shop/wishlist_list.jsp";
+	}
+	
+	@RequestMapping("shop/wishlist_cancel.do")
+	public String shop_wishlist_cancel(HttpServletRequest request)
+	{
+		System.out.println("wishlist_cancel");
+		String wishlist_no=request.getParameter("wishlist_no");
+		ShopDAO.wishlistDelete(Integer.parseInt(wishlist_no));
+		return "redirect:../shop/wishlist_list.do";
+	}
+	
+//	@RequestMapping("shop/wishlist_ok.do")
+//	  public String wishlist_check_ok(HttpServletRequest request)
+//	  {
+//		  // 예약번호 
+//		  String wishlist_no=request.getParameter("wishlist_no");
+//		  // UPDATE
+//		  ShopDAO.wishlistOk(Integer.parseInt(wishlist_no));
+//		  return "redirect:../shop/wishlist_list.do";// 원상복귀
+//	  }
+//	
+//	@RequestMapping("shop/wishlist_all_ok.do")
+//	  public String wishlist_all_ok(HttpServletRequest request)
+//	  {
+//		  // 데이터 받기 
+//		  String[] nos=request.getParameterValues("cb");
+//		  for(String n:nos)
+//		  {
+//			  ShopDAO.wishlistOk(Integer.parseInt(n));
+//		  }
+//		  return "redirect:../shop/wishlist_list.do";
+//	  }
 }
+
+
+
+
+

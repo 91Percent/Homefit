@@ -14,13 +14,21 @@ $(function(){
 		console.log(cate);
 		var page_cate=cate;
 		var page=$(this).attr("page");
-		
 		$.ajax({			
 			type:'post',
 			url:'../shop/shop_list.do?page='+page+'&cate_no='+page_cate,
 			success:function(result){
 				$('#shop_list').html(result);
 			}
+		})
+	})
+	$('.btn btn-lg').click(function(){
+		let shop_no=$(this).attr("data-value");
+		$('#shop_no').val(shop_no);
+		$.ajax({
+			type:'post',
+			url:'../shop/shop_detail.do',
+			data:{"shop_no":shop_no}
 		})
 	})
 	
@@ -36,7 +44,7 @@ $(function(){
 	                <div class="card text-center card-product">
 	                	<div class="shoplist">
 		                  <div class="card-product__img">
-		                    <a href="../shop/shop_detail.do?shop_no=${vo.shop_no }" class="btn btn-lg">
+		                    <a href="../shop/shop_detail.do?shop_no=${vo.shop_no }" class="btn btn-lg" data-value="${shop_no}" >
 								<img src="${vo.poster }" alt="Lights" style="width:70%">
 							</a>
 		                    <ul class="card-product__imgOverlay">
@@ -46,7 +54,7 @@ $(function(){
 		                    </ul>
 		                  </div>
 		                  <div class="card-body">
-		                    <a href="../shop/shop_detail.do?shop_no=${vo.shop_no }" class="btn btn-lg">${vo.title }</a>
+		                    <a href="../shop/shop_detail.do?shop_no=${vo.shop_no }" class="btn btn-lg" data-value="${shop_no}" >${vo.title }</a>
 		                    ${vo.cate_no }
 		                    <p class="card-product__price">${vo.price }</p>
 		                  </div>

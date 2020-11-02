@@ -25,6 +25,9 @@
 	<typeAlias type="com.sist.vo.NewsVO" alias="NewsVO"/>
 	<typeAlias type="com.sist.vo.ReplyVO" alias="ReplyVO"/>
 	<typeAlias type="com.sist.vo.FavoritesVO" alias="FavoritesVO"/>
+	<typeAlias type="com.sist.vo.WishlistVO" alias="WishlistVO"/>
+	<typeAlias type="com.sist.vo.FavoritelistVO" alias="FavoritelistVO"/>
+	<typeAlias type="com.sist.vo.PurchaseVO" alias="PurchaseVO"/>
 	
 
   </typeAliases>
