@@ -85,9 +85,15 @@
  <result property="fvo.no" column="no"/>
 </resultMap>
 <select id="mypageListData" resultMap="favoriteList" parameterType="string">
-	SELECT no,id,subject,poster,home_level,focus,hometraining.home_no
+	SELECT no,id,subject,poster,home_level,focus,favorites.home_no
 	FROM favorites,hometraining
 	WHERE favorites.home_no=hometraining.home_no
+	and id=#{id}
 	ORDER BY no DESC
 </select>
+
+<delete id="favDelete" parameterType="int">
+	DELETE FROM favorites
+	WHERE home_no=#{home_no}
+</delete>
 </mapper>

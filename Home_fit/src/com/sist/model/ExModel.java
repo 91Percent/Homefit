@@ -187,6 +187,7 @@ public class ExModel {
 		HttpSession session=request.getSession();
 		String id=(String)session.getAttribute("id");
 		System.out.println(id);
+		if(id!=null) {
 		FavoritesVO fvo=new FavoritesVO();
 		fvo.setId(id);
 		System.out.println(id);
@@ -195,9 +196,9 @@ public class ExModel {
 		
 		int count=ExDAO.favCount(fvo);
 		System.out.println("count"+count);
-		
-		request.setAttribute("main_jsp", "../ex/ex_detail.jsp");
 		request.setAttribute("count", count);
+		}
+		request.setAttribute("main_jsp", "../ex/ex_detail.jsp");
 		request.setAttribute("vo", vo);
 		return "../main/main.jsp";
 	}
@@ -382,6 +383,8 @@ public class ExModel {
 		
 		HttpSession session=request.getSession();
 		String id=(String)session.getAttribute("id");
+		System.out.println("mypage:"+id);
+		
 		List<ExVO> list=ExDAO.mypageListData(id);
 		request.setAttribute("list", list);
 		
@@ -406,5 +409,39 @@ public class ExModel {
 		ExDAO.favInsert(vo);
 		return "redirect:../ex/ex_detail.do?home_no="+home_no;
 	}
+	@RequestMapping("ex/ex_cancel.do")
+	public String ex_cancel(HttpServletRequest request)
+	{
+		System.out.println("호출!!");
+		String home_no=request.getParameter("home_no");
+		System.out.println("home_no"+home_no);
+		ExDAO.favDelete(Integer.parseInt(home_no));
+//		request.setAttribute("home_no", home_no);
+		String[] can=request.getParameterValues("chk");
+		for(String c:can)
+		{
+			ExDAO.favDelete(Integer.parseInt(home_no));
+		}
+		
+		return "redirect:../ex/ex_mypage.do";
+	}
+	@RequestMapping("ex/ex_all_ok.do")
+	public String ex_ex_all(HttpServletRequest request)
+	{
+		System.out.println("ex/ex_all_ok 호출했음");
+		  String[] nos=request.getParameterValues("chk");
+		  System.out.println("nos 사이즈는?"+nos.length);
+		  for(String n:nos)
+		  {
+			  System.out.println("hi?");
+			  //전체 삭제하는부분
+			  System.out.println("n값은?"+n);
+			  ExDAO.favDelete(Integer.parseInt(n));
+		  }
+		
+		
+		return "redirect:../ex/ex_mypage.do";
+	}
 
+	
 }

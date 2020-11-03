@@ -151,4 +151,10 @@ public class ExDAO {
 	 session.close();
 	 return list;
  }
+ public static void favDelete(int home_no)
+ {
+	 SqlSession session=ssf.openSession(true);
+	 session.delete("favDelete",home_no);
+	 session.close();
+ }
 }

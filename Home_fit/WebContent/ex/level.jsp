@@ -34,7 +34,7 @@ $(function(){
                   <div class="card-product__img">
                     <img class="card-img" src="${vo.poster }" alt="">
                     <ul class="card-product__imgOverlay">
-                      <li><button onclick="location.href='detail.do?home_no=${vo.home_no }'"><i class="ti-search"></i></button></li>
+                      <li><button onclick="location.href='ex_detail.do?home_no=${vo.home_no }'"><i class="ti-search"></i></button></li>
                       <li><button><i class="ti-heart"></i></button></li>
                     </ul>
                   </div>
@@ -50,7 +50,7 @@ $(function(){
                    	고급
                   </c:if>
                   </p>
-                    <a href="detail.do?home_no=${vo.home_no }"><p>${vo.subject }</p></a>
+                    <a href="ex_detail.do?home_no=${vo.home_no }"><p>${vo.subject }</p></a>
                   </div>
                 </div>
               </div>

@@ -12,8 +12,10 @@ let check;
 let lev;
 let k;
 $(function(){
+	$('.sidebar-filter').hide(); // display 속성을 none 으로 바꾼다. 
 	$('.pixel-radio').click(function(){
 		check = $(this).attr("value");
+		$('.sidebar-filter').show();
 	 $.ajax({
 		 type:'post',
 		 url:'../ex/content.do?cate_no='+check,
@@ -46,7 +48,7 @@ $(function(){
 		 }
 	 });
 });
-	$('#kkk').click(function(){
+	$('#keyword').keyup(function(key){
 		 k=$('#keyword').val();
 		$.ajax({
 			 type:'post',
@@ -56,11 +58,30 @@ $(function(){
 				 $('.category-list').html(result);
 			 }
 		 });
+	});
+});
+	
+		
+// 		$(document).ready(function() {
+// 		      $("#검색창의 ID").keyup(function(key) {
+// 		         let keyword=$('#검색창의 ID').val();
+// 		         console.log(keyword);
+		               
+// 		         $.ajax({
+// 		               type:'post',
+// 		               url:'../game/search.do',
+// 		               data: {key:keyword},
+// 		               success:function(result)
+// 		               {
+// 		                       $('#tagin').html(result);
+// 		                  }
+// 		                });
+// 		            });
+// 		         });
 		
 // 		let temp=$('#test11 .card-body>a>p:contains("'+k+'")');
 // 		$(temp).parent().parent.show();
-	})
-})
+
 
 	
 // 	$('#keyword').keyup(function(){
@@ -165,7 +186,7 @@ $(function(){
                     </ul>
                   </div>
                   <div class="card-body">
-                    <a href="detail.do?home_no=${vo.home_no }"><p>${vo.subject }</p></a>
+                    <a href="ex_detail.do?home_no=${vo.home_no }"><p>${vo.subject }</p></a>
                   </div>
                 </div>
               </div>
@@ -174,34 +195,34 @@ $(function(){
           
               <!-- 페이지 바 -->
                       <nav class="blog-pagination justify-content-center d-flex">
-<!--                           <ul class="pagination"> -->
-<%--                           <c:if test="${curpage>BLOCK }"> --%>
-<!--                               <li class="page-item"> -->
-<%--                                   <a href="../ex/total.do?page=${startPage-1 }" class="page-link" aria-label="Previous"> --%>
-<!--                                     &lt; -->
-<!--                                   </a> -->
-<!--                               </li> -->
-<%--                               </c:if> --%>
-<%--                               <c:forEach var="i" begin="${startPage }" end="${endPage }"> --%>
-<%--                               <c:if test="${i==curpage }"> --%>
-<!--                               <li class="active"> -->
-<%--                                   <a href="../ex/total.do?page=${i} " class="page-link">${i }</a> --%>
-<!--                               </li> -->
-<%--                               </c:if> --%>
-<%--                               <c:if test="${i!=curpage }"> --%>
-<!--                               	<li class="page-item"> -->
-<%--                                   <a href="../ex/total.do?page=${i} " class="page-link">${i }</a> --%>
-<!--                               </li> -->
-<%--                               </c:if> --%>
-<%--                               </c:forEach> --%>
-<%--                               <c:if test="${endPage<totalpage }"> --%>
-<!--                               <li class="page-item"> -->
-<%--                                   <a href="../ex/total.do?page=${endPage+1 }" class="page-link" aria-label="Next"> --%>
-<!--                                       &gt; -->
-<!--                                   </a> -->
-<!--                               </li> -->
-<%--                             </c:if> --%>
-<!--                           </ul> -->
+                          <ul class="pagination">
+                          <c:if test="${curpage>BLOCK }">
+                              <li class="page-item">
+                                  <a href="../ex/total.do?page=${startPage-1 }" class="page-link" aria-label="Previous">
+                                    &lt;
+                                  </a>
+                              </li>
+                              </c:if>
+                              <c:forEach var="i" begin="${startPage }" end="${endPage }">
+                              <c:if test="${i==curpage }">
+                              <li class="active">
+                                  <a href="../ex/total.do?page=${i} " class="page-link">${i }</a>
+                              </li>
+                              </c:if>
+                              <c:if test="${i!=curpage }">
+                              	<li class="page-item">
+                                  <a href="../ex/total.do?page=${i} " class="page-link">${i }</a>
+                              </li>
+                              </c:if>
+                              </c:forEach>
+                              <c:if test="${endPage<totalpage }">
+                              <li class="page-item">
+                                  <a href="../ex/total.do?page=${endPage+1 }" class="page-link" aria-label="Next">
+                                      &gt;
+                                  </a>
+                              </li>
+                            </c:if>
+                          </ul>
                       </nav>
               
  	          </section> 

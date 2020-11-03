@@ -48,7 +48,7 @@
                   <h5>필요한 도구 : ${vo.equipment }</h5>
                   <p>팁 : ${vo.tip }</p>
                   </div>
-                  
+					</div>
 				</div>
 				<div class="card_area d-flex align-items-center">
 					<c:if test="${count==0 }">
@@ -128,7 +128,7 @@
 <!--       </div> -->
 <!--     </section> -->
 
-<!-- <!-- 이미지 무한 루프 --> 
+<!--  <!-- 이미지 무한 루프 -->  
 <!--       <section class="section-margin calc-60px"> -->
 <!--       <div class="container"> -->
 <!--         <div class="section-intro pb-60px"> -->
@@ -167,6 +167,7 @@
                               <th scope="col"></th>
                           </tr>
                       </thead>
+                     
                        <c:forTokens var="c" items="${vo.step_no }" delims="|" varStatus="status" >
         <c:forTokens var="p" items="${vo.step_content }" delims="|"  begin="${status.index }" end="${status.index }"> 
         <c:forTokens var="a" items="${vo.step_image }" delims="|"  begin="${status.index }" end="${status.index }">

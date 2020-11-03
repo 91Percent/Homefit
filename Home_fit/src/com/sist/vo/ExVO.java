@@ -27,6 +27,13 @@ public class ExVO {
 	private String step_image;
 	private String tip;
 	private FavoritesVO fvo=new FavoritesVO();
+	
+	public FavoritesVO getFvo() {
+		return fvo;
+	}
+	public void setFvo(FavoritesVO fvo) {
+		this.fvo = fvo;
+	}
 	public int getCate_no() {
 		return cate_no;
 	}
