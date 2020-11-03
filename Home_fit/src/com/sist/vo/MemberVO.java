@@ -17,7 +17,13 @@ public class MemberVO {
     private String my_level;
     private String admin;
     private String msg; // db none
-    
+    private ExVO evo = new ExVO();
+	public ExVO getEvo() {
+		return evo;
+	}
+	public void setEvo(ExVO evo) {
+		this.evo = evo;
+	}
 	public String getId() {
 		return id;
 	}

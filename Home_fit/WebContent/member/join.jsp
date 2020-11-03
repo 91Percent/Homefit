@@ -178,9 +178,9 @@
 							<div class="ex_box">
 								<div class="col-md-12">평소 관심있는 운동은 ?</div>
 								<div class="ex_check col-md-12">
-									<label class="radio-inline"><input type="radio" name="my_exercise" value="근력운동"> 근력운동</label>
-									<label class="radio-inline"><input type="radio" name="my_exercise" value="요가"> 요가</label>
-									<label class="radio-inline"><input type="radio" name="my_exercise" value="필라테스"> 필라테스</label>
+									<label class="radio-inline"><input type="radio" name="my_exercise" value="1"> 근력운동</label>
+									<label class="radio-inline"><input type="radio" name="my_exercise" value="2"> 요가</label>
+									<label class="radio-inline"><input type="radio" name="my_exercise" value="3"> 필라테스</label>
 								</div> 
 								<div class="col-md-12">당신의 운동 수준은 ?</div>
 								<div class="ex_check col-md-12">

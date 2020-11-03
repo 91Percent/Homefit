@@ -1,5 +1,7 @@
 package com.sist.dao;
 import java.nio.channels.SeekableByteChannel;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import com.sist.vo.MemberVO;
@@ -43,7 +45,24 @@ public class MemberDAO {
 				vo.setMsg("NOPWD");
 			}
 		}
-		session.close();
+
 		return vo;
+	}
+	public static List<MemberVO> memberRcList1(String id)
+	{
+		SqlSession session = ssf.openSession();
+		List<MemberVO> list1 = session.selectList("memberRcList1",id);
+		session.close();
+		
+		return list1;
+	}
+	
+	public static List<MemberVO> memberRcList2(String id)
+	{
+		SqlSession session = ssf.openSession();
+		List<MemberVO> list2 = session.selectList("memberRcList2",id);
+		session.close();
+		
+		return list2;
 	}
 }

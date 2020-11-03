@@ -39,12 +39,12 @@
 						<div class="single-footer-widget instafeed">
 							<h4 class="footer_title">Gallery</h4>
 							<ul class="list instafeed d-flex flex-wrap">
-								<li><img src="../template/img/gallery/r1.jpg" alt=""></li>
-								<li><img src="../template/img/gallery/r2.jpg" alt=""></li>
-								<li><img src="../template/img/gallery/r3.jpg" alt=""></li>
-								<li><img src="../template/img/gallery/r5.jpg" alt=""></li>
-								<li><img src="../template/img/gallery/r7.jpg" alt=""></li>
-								<li><img src="../template/img/gallery/r8.jpg" alt=""></li>
+								<li><img src="../theme/img/gallery/r1.jpg" alt=""></li>
+								<li><img src="../theme/img/gallery/r2.jpg" alt=""></li>
+								<li><img src="../theme/img/gallery/r3.jpg" alt=""></li>
+								<li><img src="../theme/img/gallery/r5.jpg" alt=""></li>
+								<li><img src="../theme/img/gallery/r7.jpg" alt=""></li>
+								<li><img src="../theme/img/gallery/r8.jpg" alt=""></li>
 							</ul>
 						</div>
 					</div>
