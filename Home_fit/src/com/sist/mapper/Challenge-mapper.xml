@@ -68,13 +68,9 @@
 	<select id="challengeCateListData" resultType="ChallengeVO" parameterType="hashmap">
 		<if test='cate==null || cate==""'>
 			SELECT TO_CHAR(regdate,'yyyy-MM-dd') as regdate,period, Challenge_no,cate,TO_CHAR(start_day,'yyyy-MM-dd') as db_start_day,TO_CHAR(end_day,'yyyy-MM-dd') as db_end_day,poster,title,id_leader,limit, num
-			FROM (SELECT
-			regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit,rownum
-			as num
-			FROM (SELECT
-			regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit
-			FROM
-			challenge ORDER BY ${sorting} DESC))
+			FROM (SELECT regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit,rownum as num
+			FROM (SELECT regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit
+			FROM challenge ORDER BY ${sorting} DESC))
 			WHERE num BETWEEN #{start} AND #{end}
 		</if>
 		<if test="cate!=null">
@@ -168,14 +164,6 @@
 		poster,content,id_leader
 		FROM Challenge ORDER BY challenge_no DESC))
 		WHERE num BETWEEN #{start} AND #{end}
-	</select>
-	<!-- Detail 데이터 가져오는 부분 -->
-	<select id="ChanllenDetailData" resultType="ChallengeVO"
-		parameterType="int">
-		SELECT challenge_no,cate,TO_CHAR(start_day,'YYYY-MM-DD') as
-		db_start_day,start_day,title,limit,poster,content,id_leader,end_day,regdate,period
-		FROM Challenge
-		WHERE Challenge_no = #{challenge_no}
 	</select>
 
 	<!-- 인증 업로드 -->

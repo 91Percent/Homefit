@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -76,8 +77,8 @@ public class CertifiedModel {
 		// 챌린지 디테일 가져오는 부분
 		ChallengeVO vo = Challenge_CertifiedDAO.ChallengeDetailData(Integer.parseInt(challenge_no));
 		// ==================
-		
-		
+		String end_day=vo.getDb_end_day();
+		System.out.println("end day는?"+end_day);
 		// 챌린지 시작날짜와 '오늘' 을 비교해서 수정이 가능한지 불가능한지 나타내는 부분
 		Date saveDate = new Date();
 		long tempTime = saveDate.getTime();
@@ -88,7 +89,20 @@ public class CertifiedModel {
 		System.out.println("날짜 출력하려나 ?" + today);
 		System.out.println("날짜 비교 값?" + compare);
 		// ====================================================
-
+		
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyyMMdd");
+		String onl = sdf.format(currentTime);
+		long diffDay=0;
+		System.out.println("오늘은?"+onl);
+		try {
+			Date challenge_today= sdf.parse(onl);
+			Date challenge_start=sdf.parse(sdf.format(vo.getStart_day()));
+		
+			diffDay = (challenge_today.getTime() - challenge_start.getTime()) / (24*60*60*1000);
+            System.out.println(diffDay+"일");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		
 		// 챌린지 방에 해당하는 인증 리스트 가져오는 부분
 		List<Challenge_CertifiedVO> list = Challenge_CertifiedDAO.CertifiedData(Integer.parseInt(challenge_no));
@@ -135,16 +149,26 @@ public class CertifiedModel {
 		//=================================
 		
 		//도전한 백분률 구하는 부분 
-		int temp=(int)vo.getPeriod();
-		System.out.println("temp ="+temp);
-		int test= certifeid_count*temp;
+		int Period=(int)vo.getPeriod();
+		System.out.println("temp ="+Period);
+		int test= certifeid_count*Period;
 		System.out.println("test값 ="+test);
-		double percent = (double)certifeid_count/(double)temp*100.0;
+		double percent = (double)certifeid_count/(double)Period*100.0;
 		System.out.println("참여율 ="+percent+"%");
 		String str = String.format("%.1f", percent);
 		System.out.println(Double.parseDouble(str));
-		
 		//=============================
+		
+		// 현재 진행률 구하는 부분============
+		String room_percent_str="";
+		if(diffDay>0)
+		{
+		 double room_percent =	(double)diffDay/(double)Period*100.0;
+		 room_percent_str = String.format("%.1f", room_percent);
+		}
+		System.out.println("두구두구"+Double.parseDouble(room_percent_str));
+		// ===========================
+		
 		
 		// 현재 방에 있는 댓글 가져오기 
 		ReplyVO Reply_vo = new ReplyVO();
@@ -154,9 +178,10 @@ public class CertifiedModel {
 		System.out.println("댓글 갯수"+Reply_list.size());
 		//=============================
 		
-		
 		System.out.println("로그인이 1이면 되어있는거야! " + count);
-		
+		request.setAttribute("room_percent_str",room_percent_str);
+		request.setAttribute("diffDay", diffDay);
+		request.setAttribute("Period", Period);
 		request.setAttribute("Reply_list",Reply_list);
 		request.setAttribute("percent",str);
 		request.setAttribute("rank_list",rank_list);

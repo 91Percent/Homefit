@@ -151,7 +151,7 @@
 	depth      NUMBER       ,
    	-->
    <select id="coachQnaList" resultType="CoachQnaVO" parameterType="int">
-   	SELECT coach_no,coach_qna_no,subject,content,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,id,name,form,hit,group_id,group_tab,
+   	SELECT coach_no,coach_qna_no,subject,content,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,id,name,form,hit,group_id,group_tab
    	FROM coach_qna 
    	WHERE coach_no=#{coach_no}
    	ORDER BY group_id asc,group_tab asc

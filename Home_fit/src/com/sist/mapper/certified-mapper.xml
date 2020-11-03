@@ -93,4 +93,13 @@
 		FROM Challenge_Certified
 		WHERE Challenge_no = #{no}
 </select>
+
+	<!-- Detail 데이터 가져오는 부분 -->
+	<select id="ChanllenDetailData" resultType="ChallengeVO"
+		parameterType="int">
+		SELECT challenge_no,cate,TO_CHAR(start_day,'YYYY-MM-DD') as db_start_day,
+		TO_CHAR(end_day,'yyyyMMdd') as db_end_day,end_Day,start_day,title,limit,poster,content,id_leader,end_day,regdate,period
+		FROM Challenge
+		WHERE Challenge_no = #{challenge_no}
+	</select>
 </mapper>

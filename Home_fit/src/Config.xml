@@ -19,7 +19,17 @@
 	<typeAlias type="com.sist.vo.ExVO" alias="ExVO"/>
 	<typeAlias type="com.sist.vo.MemberVO" alias="MemberVO"/>
 	<typeAlias type="com.sist.vo.CategoryVO" alias="CategoryVO"/>
+	<typeAlias type="com.sist.vo.Challenge_ParticipationVO" alias="Challenge_ParticipationVO"/>
+	<typeAlias type="com.sist.vo.ReplyVO" alias="ReplyVO"/>
+	<typeAlias type="com.sist.vo.CoachQnaVO" alias="CoachQnaVO"/>
 	<typeAlias type="com.sist.vo.NewsVO" alias="NewsVO"/>
+	<typeAlias type="com.sist.vo.ReplyVO" alias="ReplyVO"/>
+	<typeAlias type="com.sist.vo.FavoritesVO" alias="FavoritesVO"/>
+	<typeAlias type="com.sist.vo.WishlistVO" alias="WishlistVO"/>
+	<typeAlias type="com.sist.vo.FavoritelistVO" alias="FavoritelistVO"/>
+	<typeAlias type="com.sist.vo.PurchaseVO" alias="PurchaseVO"/>
+	
+	
 	
   </typeAliases>
   <environments default="development"><!-- 개발 환경을 만든다 -->

@@ -10,13 +10,10 @@
 <link rel="stylesheet" href="../template/vendors/owl-carousel/owl.carousel.min.css">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="http://fonts.googleapis.com/earlyaccess/nanumpenscript.css" rel="stylesheet">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="/lib/w3.css">
 <link rel='stylesheet' href='css/style.css'>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
 <script>
 </script>
@@ -46,7 +43,7 @@ padding: 0px;
 									<a href="#">Food,</a> <a class="active" href="#">Technology,</a>
 									<a href="#">Politics,</a> <a href="#">Lifestyle</a>
 								</div>
-								
+																	
 								<ul class="blog_meta list">
 									<li><a href="#">방장: ${vo.id_leader } <i
 											class="lnr lnr-user"></i>
@@ -77,9 +74,8 @@ padding: 0px;
 							<h2>${vo.title }</h2>
 							<p class="excert">[도전 내용]</p>
 							<p>${vo.content }</p>
-							<p></p>
-							  <progress value='10' max='100' width="300" height="200"></progress>
 						</div>
+
 						<div class="col-lg-12">
 							<div class="quotes">
 								<section class="product_description_area">
@@ -90,7 +86,7 @@ padding: 0px;
 												aria-controls="home" aria-selected="true">방 정보</a></li>
 											<li class="nav-item"><a class="nav-link"
 												id="profile-tab" data-toggle="tab" href="#profile"
-												role="tab" aria-controls="profile" aria-selected="false">여기엔 뭐넣지</a>
+												role="tab" aria-controls="profile" aria-selected="false">내 정보</a>
 											</li>
 											<li class="nav-item"><a class="nav-link"
 												id="contact-tab" data-toggle="tab" href="#contact"
@@ -140,74 +136,91 @@ padding: 0px;
 														<tbody>
 															<tr>
 																<td>
-																	<h5>Width</h5>
+																	<h5>아이디 </h5>
 																</td>
 																<td>
-																	<h5>128mm</h5>
+																	<h5>${sessionScope.id }</h5>
 																</td>
 															</tr>
 															<tr>
 																<td>
-																	<h5>Height</h5>
+																	<h5>이름</h5>
 																</td>
 																<td>
-																	<h5>508mm</h5>
+																	<h5>${sessionScope.name}</h5>
 																</td>
 															</tr>
 															<tr>
 																<td>
-																	<h5>Depth</h5>
+																	<h5>내 참여율</h5>
 																</td>
 																<td>
-																	<h5>85mm</h5>
+																	<h5>${percent }%</h5>
 																</td>
 															</tr>
 															<tr>
 																<td>
-																	<h5>Weight</h5>
+																	<h5>인증 횟수</h5>
 																</td>
 																<td>
-																	<h5>52gm</h5>
+																	<h5>${certifeid_count } 번</h5>
 																</td>
 															</tr>
 															<tr>
 																<td>
-																	<h5>Quality checking</h5>
+																	<h5>인증 해야하는 횟수</h5>
 																</td>
 																<td>
-																	<h5>yes</h5>
+																	<h5>${Period } 번</h5>
 																</td>
 															</tr>
 															<tr>
-																<td>
-																	<h5>Freshness Duration</h5>
-																</td>
-																<td>
-																	<h5>03days</h5>
+																<td colspan="2">
+																	<h5>진행 상황</h5>
 																</td>
 															</tr>
 															<tr>
-																<td>
-																	<h5>When packeting</h5>
+																<tbody>
+																
+																<td colspan="4">
+																${sessionScope.name }님의 인증률 표시
+																<div class="w3-light-grey">
+																<div class="w3-container w3-blue w3-center" style="width:${percent}%" width=100>${percent}%</div>
+																</div><br>
 																</td>
-																<td>
-																	<h5>Without touch of hand</h5>
+																<td></td>
+																
+																<tr>
+																<td colspan="4">
+																과정 진행률 표시
+																<c:if test="${room_percent_str<0 || room_percent_str==null }">
+																
+																<td align="cetner">아직 도전이 시작 하지 않았습니다.</td>
+																</c:if>
+																<c:if test="${room_percent_str<0 }">
+																
+																<div class="w3-light-grey">
+																<div class="w3-container w3-red w3-center" style="width:${room_percent_str}%">${room_percent_str}</div>
+																</div><br>
+
+																</c:if>
 																</td>
+																<td></td>
+																</tr>
+																
+																</tbody>
 															</tr>
 															<tr>
 																<td>
-																	<h5>Each Box contains</h5>
-																</td>
-																<td>
-																	<h5>60pcs</h5>
+																	<h5>목표 인증까지 ${Period-certifeid_count} 남았습니다</h5>
 																</td>
 															</tr>
+														
 														</tbody>
 													</table>
 												</div>
 											</div>
 											<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-													<strong>인증  현재 참여율은 ${percent} %입니다.</strong>
 														        <div class="row">
 														        <c:forEach var="Certifiedvo" items="${Certifiedvo }">
 														          <div class="col-md-4 col-lg-4 mb-4 mb-lg-0 seunggu"  >
@@ -336,17 +349,13 @@ padding: 0px;
 					<div class="blog_right_sidebar">
 						<aside class="single_sidebar_widget search_widget">
 							<div class="input-group">
-								<input type="text" class="form-control"
-									placeholder="Search Posts"> <span
-									class="input-group-btn">
 									<button class="btn btn-default" type="button">
 										<i class="lnr lnr-magnifier"></i>
 									</button>
 								</span>
 							</div>
 							<!-- /input-group -->
-
-								<strong><h4 align="center">참여 인증 랭킹</h4></strong>
+						<strong><h4 align="center">참여 인증 랭킹</h4></strong>
 						</aside>
 						<aside class="single_sidebar_widget author_widget">
 							<table>

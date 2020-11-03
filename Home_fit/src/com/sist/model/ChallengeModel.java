@@ -283,6 +283,10 @@ public class ChallengeModel {
 		map.put("cate", cate);
 		map.put("sorting", sorting);
 		
+		System.out.println("start 는 ?!"+start);
+		System.out.println("end 는 ?!"+end);
+		System.out.println("cate 는 ?!"+cate);
+		System.out.println("sorting 는 ?!"+sorting);
 		List<ChallengeVO> list = ChallengeDAO.challengeCateListData(map);
 		
 		// 아이디 받기
