@@ -53,7 +53,7 @@ $(function(){
 			          <div id="wishlist_list"></div>            
 			          
 			          
-			          <button onclick="location.href='../shop/shop.do'" class="btn btn-sm btn-primary">목록</button>
+			          
 			          
               </div>
           </div>

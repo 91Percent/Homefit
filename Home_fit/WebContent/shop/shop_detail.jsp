@@ -9,26 +9,26 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
-$(function(){
+// $(function(){
 	
-	$('.button primary-btn').click(function(){
-		let shop_no=$(this).attr("data-value");
-		let poster=$(this).attr("data-poster");
-		let title=$(this).attr("data-title");
-		let price=$(this).attr("data-price");
-		$('#shop_no').val(shop_no);
-		$.ajax({
-			type:'post',
-			url:'../shop/wishlist_list.do',
-			data:{"shop_no":shop_no},
-			data:{"poster":poster},
-			data:{"title":title},
-			data:{"price":price}
-		})
-	})
+// 	$('.button primary-btn').click(function(){
+// 		let shop_no=$(this).attr("data-value");
+// 		let poster=$(this).attr("data-poster");
+// 		let title=$(this).attr("data-title");
+// 		let price=$(this).attr("data-price");
+// 		$('#shop_no').val(shop_no);
+// 		$.ajax({
+// 			type:'post',
+// 			url:'../shop/wishlist_list.do',
+// 			data:{"shop_no":shop_no},
+// 			data:{"poster":poster},
+// 			data:{"title":title},
+// 			data:{"price":price}
+// 		})
+// 	})
 	
 	
-});
+// });
 
 </script>
 </head>
@@ -82,16 +82,17 @@ $(function(){
               <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
 							 class="increase items-count" type="button"><i class="ti-angle-left"></i></button>
 							<input type="text" name="qty" id="sst" size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-               class="reduced items-count" type="button"><i class="ti-angle-right"></i></button>
+<!-- 							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" -->
+<!--                class="reduced items-count" type="button"><i class="ti-angle-right"></i></button> -->
                
-			               <form method="post" action="../shop/shop_detail_ok.do">
+<!-- 			               <form method="post" action="../shop/shop_detail_ok.do"> -->
 			                  
 <!-- 			                  <input type=submit value="Add to Cart" class="button primary-btn"> -->
 <a class="button primary-btn" href="../shop/shop_detail_ok.do?shop_no=${vo.shop_no }" data-value="${vo.shop_no }" data-poster="${vo.poster }" data-title="${vo.title}" data-price="${vo.price }">
-			                  <input type=hidden name="shop_no" id="shop_no">Add to Cart</a>
+<!-- 			                  <input type=hidden name="shop_no" id="shop_no"> -->
+			                  Add to Cart</a>
 			                  			                  
-			                </form>
+<!-- 			                </form> -->
 							               
 						</div>
 						<div class="card_area d-flex align-items-center">

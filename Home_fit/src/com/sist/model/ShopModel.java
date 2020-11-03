@@ -199,7 +199,7 @@ public class ShopModel {
 	  String shop_no=request.getParameter("shop_no"); 
 	  ShopVO vo=ShopDAO.shopDetailData(Integer.parseInt(shop_no));  
 	  request.setAttribute("vo", vo);	
-	  
+	  System.out.println("detail.do호출");
 	  request.setAttribute("main_jsp", "../shop/shop_detail.jsp"); 
 	  return "../main/main.jsp"; 
 	  }
@@ -207,6 +207,7 @@ public class ShopModel {
 	  
 	  @RequestMapping("shop/shop_detail_ok.do")
 	  public String shop_detail_ok(HttpServletRequest request){
+		  System.out.println("호출");
 		  String shop_no=request.getParameter("shop_no"); 
 		  ShopVO vo=ShopDAO.shopDetailData(Integer.parseInt(shop_no));  
 		  request.setAttribute("vo", vo);	
@@ -339,6 +340,7 @@ public class ShopModel {
 	{
 		System.out.println("wishlist_cancel");
 		String wishlist_no=request.getParameter("wishlist_no");
+		System.out.println("번호는 과연?"+wishlist_no);
 		ShopDAO.wishlistDelete(Integer.parseInt(wishlist_no));
 		return "redirect:../shop/wishlist_list.do";
 	}

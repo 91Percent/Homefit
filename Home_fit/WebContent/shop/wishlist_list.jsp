@@ -8,10 +8,15 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
+let alldelchk=[];
+let allpurchk=[];
+
 $(function(){
-	$('#wishdelete').click(function(){
+	$('.wishdelete').click(function(){
 		let wishlist_no=$(this).attr("data-value");
 		//$('#wishlist_no').val(wishlist_no);
+		console.log(wishlist_no);
+		console.log('나오겠지?');
 		$.ajax({
 			type:'post',
 			url:'../shop/wishlist_cancel.do',
@@ -22,12 +27,32 @@ $(function(){
 		})
 	})
 	
+	$('#check_all').click( function() {
+         $('.cb').prop( 'checked', this.checked );
+    });
 	
-	 $( '#check_all' ).click( function() {
-         $( '.cb' ).prop( 'checked', this.checked );
-       } );
-
-})
+	$('#listdelete').click(function(){
+		// 체크박스의 선택여부 확인 => radio
+		//checkbox의 name값이 cb이면서 체크되어 있는 함수를 each함수로 호출한다. 
+		$(".cb:checked").each(function() { 
+			alldelchk.push($(this).val());
+			});
+	});
+	
+// 	$('#listpurchase').click(function(){
+// 		// 체크박스의 선택여부 확인 => radio
+// 		let len=$('.cb:checked').length;
+// 		if(len==0)
+// 		{
+// 		   alert("승인할 대상을 선택하세요!!");
+// 		}
+// 		else
+// 		{
+// 			$('#frm').submit();//submit효과 => form태그의 action에등록 파일로 데이터 전송
+// 		}
+// 	});
+	
+});
 </script>
 </head>
 <body >
@@ -59,10 +84,12 @@ $(function(){
                               <td style="width:50%">
                                   <div class="media">
                                       <div class="d-flex" style="width:20%">
+                                      	<a href="../shop/shop_detail.do?shop_no=${vo.shop_no }">
                                           <img src="${vo.svo.poster }" style="width:90%">
+                                        </a>
                                       </div>
                                       <div class="media-body" style="width:70%">
-                                          <p>${vo.svo.title }</p>
+                                      	<a href="../shop/shop_detail.do?shop_no=${vo.shop_no }">${vo.svo.title }</a>
                                       </div>
                                   </div>
                               </td>
@@ -95,8 +122,8 @@ $(function(){
                                   <h5>합계</h5>
                               </td>
                               <td style="width:5%">
-                                 <c:if test="${vo.iswish=='n' }">                                 
-					              <button  class="btn btn-sm btn-primary" data-value="${vo.wishlist_no }" id="wishdelete">삭제</button>
+                                 <c:if test="${vo.iswish=='n' }">
+                                 	<button class="btn btn-sm btn-primary wishdelete" data-value="${vo.wishlist_no}" >삭제</button>
 					             </c:if>
                               </td>
                           </tr>
@@ -106,8 +133,9 @@ $(function(){
                       </tbody>
               </table>
               
-              
-              
+              <button class="btn btn-sm btn-danger" id="alldelete">삭제</button>
+              <button onclick="location.href='../shop/shop.do'" class="btn btn-sm btn-primary">목록</button>
+              <button class="btn btn-sm btn-success" id="allpurchase">구매하기</button>
              
               
 </body>

@@ -11,9 +11,6 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
-/* 	function page(v){
-	   location.href="../shop/shop.do?cate_no="+v;   
-	} */
 	
 let cate;
 $(function(){
@@ -42,7 +39,7 @@ $(function(){
 
 		
 		
-});
+})
 	
 </script>
 </head>
