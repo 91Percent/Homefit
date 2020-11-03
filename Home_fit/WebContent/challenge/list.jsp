@@ -72,7 +72,7 @@ $(function () {
 		$.ajax({
 			type:'post',
 			url:'../challenge/sublist.do',
-			data:{'cate':cate},
+			//data:{'cate':cate},
 			success:function(result)
 			{
 				$('.sublist').html(result);
@@ -154,7 +154,7 @@ $(function () {
 					<nav aria-label="breadcrumb" class="banner-breadcrumb">
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="#">함께 도전해요!</a></li>
-							<li class="breadcrumb-item active" aria-current="page">Total</li>
+							<li class="breadcrumb-item active" aria-current="page">Total Challenge List</li>
 						</ol>
 					</nav>
 				</div>

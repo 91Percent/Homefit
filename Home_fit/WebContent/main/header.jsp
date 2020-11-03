@@ -51,9 +51,9 @@
 	                <a href="../challenge/Challenge.do" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 	                  aria-expanded="false">함께도전해요</a>
 	                <ul class="dropdown-menu">
-	                <li class="nav-item"><a class="nav-link" href="../challenge/list.do">전체</a></li>
+	                <li class="nav-item"><a class="nav-link" href="../challenge/list.do">전체도전목록</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="../challenge/Challenge.do">식단챌린지</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="register.html">운동챌린지</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="../challenge/mychallenge.do">마이도전</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="tracking-order.html">기타</a></li>
 	                </ul>
 	             </li>
