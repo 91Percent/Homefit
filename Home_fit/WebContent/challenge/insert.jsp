@@ -23,23 +23,20 @@
 <link rel="stylesheet" href="vendors/nouislider/nouislider.min.css">
 
 <link rel="stylesheet" href="css/style.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
 
-<!-- 
-    <tr>
-			       <th class="danger text-right" width=30%>도전 시작일</th>
-			       <td width=70%>
-			         <input type=date name=start_day class="input-sm" min=<fmt:formatDate value="${toDay}" pattern="yyyy-MM-dd" /> required>
-			   
-			       </td>
-			     </tr>
-			     
-			     <tr>
-			       <th class="danger text-right" width=30%>도전 종료일</th>
-			       <td width=70%>
-			         <input type=date name=end_day class="input-sm" min=start_day required>
-			       </td>
-			     </tr>
- -->
+//달력 include
+$(function(){
+	$.ajax({
+		type:'post',
+		url:'../challenge/calendar.do',
+		success:function(result){
+			$('#calendar').html(result);
+		}
+	});
+})
+</script>
 
 
 </head>
@@ -107,20 +104,26 @@
 									<span> * 50자 이내로 입력하세요(<span id='title-length'>0</span>/50)</span>
 								</td>
 							</tr>
+							
+							<div id="calendar">
+<!-- 							<tr> -->
+<!-- 								<th class="danger text-right" width=30%>도전 시작일</th> -->
+<!-- <!-- 								<td width=70%><input type=date name=start_day --> 
+<!-- <!-- 									class="input-sm" id="start_day" --> 
+<%-- <%-- 									min=<fmt:formatDate value="${toDay}" pattern="yyyy-MM-dd" /> --%> 
+<!-- <!-- 									required> <span class="validity"></span></td> --> 
+<!-- 									<td id="calendar"><td> -->
 
-							<tr>
-								<th class="danger text-right" width=30%>도전 시작일</th>
-								<td width=70%><input type=date name=start_day
-									class="input-sm" id="start_day"
-									min=<fmt:formatDate value="${toDay}" pattern="yyyy-MM-dd" />
-									required> <!-- <span class="validity"></span> --></td>
-							</tr>
+<!-- 							</tr> -->
 
-							<tr>
-								<th class="danger text-right" width=30%>도전 종료일</th>
-								<td width=70%><input type=date name=end_day
-									class="input-sm" id="end_day" min=start_day required></td>
-							</tr>
+<!-- 							<tr> -->
+<!-- 								<th class="danger text-right" width=30%>도전 종료일</th> -->
+<!-- 																<td width=70%><input type=date name=end_day -->
+<!-- <!-- 									class="input-sm" id="end_day" min=start_day required></td> --> 
+<!-- 								<td id="calendar2"><td> -->
+<!-- 							</tr> -->
+							</div>
+							
 							<tr>
 								<th class="danger text-right" width=30%>도전 가능 인원</th>
 								<td width=70%><input type="number" class="form-control"

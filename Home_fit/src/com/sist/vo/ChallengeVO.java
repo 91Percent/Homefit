@@ -32,8 +32,29 @@ public class ChallengeVO {
 	private String regdate;
 	private int participantionCheck; // 로그인한 id가 방에 참여중인지 확인하는 용도
 	private int participantCount; // 방마다 참가자 수 구하는 용도
+	private String challengeState;
+	private String sorting; //  정렬순
+	private String keyword;
 	
 	
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+	public String getSorting() {
+		return sorting;
+	}
+	public void setSorting(String sorting) {
+		this.sorting = sorting;
+	}
+	public String getChallengeState() {
+		return challengeState;
+	}
+	public void setChallengeState(String challengeState) {
+		this.challengeState = challengeState;
+	}
 	public int getParticipantCount() {
 		return participantCount;
 	}

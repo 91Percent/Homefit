@@ -484,54 +484,5 @@ public class CertifiedModel {
 //			   BoardDAO.replyInsert(vo);
 			return "redirect:../challenge/Certified_detail.do?challenge_no="+challenge_no;
 		}
-		// 달력만들기
-		@RequestMapping("challenge/calendar.do")
-		public String challengeCalendar(HttpServletRequest request)
-		{
-			// 현재 년, 월 구하기
-			Calendar cal = Calendar.getInstance();
-			int year = cal.get(Calendar.YEAR);
-			int month = cal.get(Calendar.MONTH)+1; // Calendar.MONTH : 0~11
-			
-			// 두 번째 호출된 페이지에서 요청된 년도와 월을 저장하기
-			String paramYear=request.getParameter("year");
-			String paramMonth=request.getParameter("month");
-			
-			if(paramYear!=null) {
-				year = Integer.parseInt(paramYear);
-			}
-			if(paramMonth!=null) {
-				month = Integer.parseInt(paramMonth);
-			}
-			
-			if(month>12) {
-				month=1;
-				year++;
-			}
-			if(month<1) {
-				month=12;
-				year--;
-			}
-			
-			// 요청받은 년도와 월의 일자로 캘린더 셋팅
-			cal.set(year, month-1, 1);
-			
-			// 매월 1일의 요일 구하기 = 첫 주 빈공백의 갯수
-			int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
-			System.out.println(dayOfWeek);
-			
-			// 월의 최대 일수 구하기
-			int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-			System.out.println(lastDay);
-			
-			// 마지막 주 빈 공백의 갯수
-			System.out.println(7-(dayOfWeek+lastDay)%7);
-			
-			request.setAttribute("lastDay", lastDay);
-			request.setAttribute("dayOfWeek", dayOfWeek-1);
-			request.setAttribute("year", year);
-			request.setAttribute("month", month);
-			
-			return "../challenge/calendar.jsp";
-		}
+		
 }

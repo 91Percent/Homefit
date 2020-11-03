@@ -25,16 +25,94 @@
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
-// 카테고리 선택 사항을 [키=name] , [값=id]
-// 선택사항[] = {키+=키 , 값+=값}
 let cate ="";
+//let state="";
+//let sorting="";
+var page = $(this).attr("page");
 $(function () {
-	$('.pixel-radio').click(function(){
-		cate = $(":input:radio[name=challcate]:checked").val();
-		console.log('cate:'+cate)		
+
+	// 검색어 입력 시
+	$('#searchbtn').click(function() {
+		let keyword=$('#searchtext').val();
+		console.log(keyword);
+		if(keyword=="")
+			{
+			alert("검색어를 입력하세요");
+			return;
+			}
 		$.ajax({
 			type:'post',
-			url:'../challenge/sublist.do?cate='+cate,
+			url:'../challenge/search.do',
+			data:{'keyword':keyword},
+			success:function(result)
+			{
+				$('.sublist').html(result);
+			}
+		});
+	});
+
+	
+	// 정렬 순서 선택
+	$.ajax({
+			type:'post',
+			url:'../challenge/sublist.do',
+			data:{'sorting':'regdate'},
+			//data:{'page':page},
+ 			//data:{'state':state},
+			success:function(result)
+			{
+				$('.sublist').html(result);
+			}
+	});
+	
+	// 카테고리 선택 해제
+		$('#cate_init').click(function () {
+		
+		$('.a').prop('checked',false);
+		$.ajax({
+			type:'post',
+			url:'../challenge/sublist.do',
+			data:{'cate':cate},
+			success:function(result)
+			{
+				$('.sublist').html(result);
+			}
+			
+		});
+		
+	});
+	
+	// 도전 현황 선택 해제
+// 	$('#state_init').click(function () {
+		
+// 		$('.b').prop('checked',false);
+// 		$.ajax({
+// 			type:'post',
+// 			url:'../challenge/sublist.do',
+// 			data:{'cate':cate},
+// 			success:function(result)
+// 			{
+// 				$('.sublist').html(result);
+// 			}
+			
+// 		});
+		
+// 	});
+	
+	// 카테고리 클릭했을 떄
+	$('.pixel-radio').click(function(){
+		cate = $(":input:radio[name=challcate]:checked").val();	
+ 		state = $(":input:radio[name=challengeState]:checked").val();	
+
+ 		//console.log(state);
+		console.log(cate);
+
+		$.ajax({
+			type:'post',
+			url:'../challenge/sublist.do',
+			data:{'cate':cate},
+ 			//data:{'state':state},
+ 			//data:{'page':page},
 			success:function(result)
 			{
 				$('.sublist').html(result);
@@ -42,18 +120,26 @@ $(function () {
 		});
 	});
 	
-	// 라디오버튼 클릭 안했을땐가?
-	$(function(){
+//	정렬 기준 선택했을 때
+	$('#sorting').on('change',function(){
+		let sorting = $('#sorting option:selected').val();
+		if(sorting==null)
+			sorting="regdate";
+		console.log(sorting);
 		$.ajax({
 			type:'post',
 			url:'../challenge/sublist.do',
+			data:{'sorting':sorting},
+			//data:{'page':page},
+ 			//data:{'state':state},
 			success:function(result)
 			{
 				$('.sublist').html(result);
 			}
-			
 		});
-	});
+	})
+	
+
 });
 
 </script>
@@ -90,18 +176,17 @@ $(function () {
 							<li class="common-filter">
 								<form action="#">
 									<ul>
-										<li class="filter-list"><input class="pixel-radio"
-											type="radio" id="challcateall" name="challcate" value="all"
-											checked="checked"><label for="all">전체 선택</label></li>
-										<li class="filter-list"><input class="pixel-radio"
+										<li class="filter-list cate"><input class="pixel-radio a"
 											type="radio" id="challex" name="challcate" value="exercise"><label 
 											for="challex">운동 도전</label></li>
-										<li class="filter-list"><input class="pixel-radio"
+										<li class="filter-list cate"><input class="pixel-radio a"
 											type="radio" id="challfood" name="challcate" value="food"><label
 											for="challfood">식단 도전</label></li>
-										<li class="filter-list"><input class="pixel-radio"
+										<li class="filter-list cate"><input class="pixel-radio a"
 											type="radio" id="challetc" name="challcate" value="etc"><label
 											for="challetc">기타</label></li>
+										
+										<input type="button" class="btn btn-primary btn-xxs" id="cate_init" value="선택해제"></button>
 									</ul>
 								</form>
 							</li>
@@ -110,82 +195,50 @@ $(function () {
 					<div class="sidebar-filter">
 						<div class="top-filter-head">Challenge Filters</div>
 						<div class="common-filter">
-							<div class="head">Participants</div>
+							<div class="head">도전 현황</div>
 							<form action="#">
 								<ul>
-									<li class="filter-list"><input class="pixel-radio"
-										type="radio" id="challpartcount" name="challpartcount" checked="checked" value="periodall"> <label
-										for="allperiod">전체<span>(29)</span>
-									<li class="filter-list"><input class="pixel-radio"
-										type="radio" id="challpartcount" name="challpartcount" value="periodxs"> <label
-										for="periodxs">1~10명<span>(29)</span>
+									<li class="filter-list state"><input class="pixel-radio b"
+										type="radio" id="challengWaiting" name="challengeState" value="waiting"> <label
+										for="periodxs">도전 대기<span></span>
 									</label></li>
-									<li class="filter-list"><input class="pixel-radio"
-										type="radio" id="challpartcount" name="challpartcount" value="periods"> <label
-										for="periods">11~50명<span>(29)</span>
+									<li class="filter-list state"><input class="pixel-radio b"
+										type="radio" id="challengeIng" name="challengeState" value="ing"> <label
+										for="periods">진행중<span></span>
 									</label></li>
-									<li class="filter-list"><input class="pixel-radio"
-										type="radio" id="challpartcount" name="challpartcount" value="periodm"> <label
-										for="periodm">51~100명<span>(29)</span>
+									<li class="filter-list state"><input class="pixel-radio b"
+										type="radio" id="challengeEnd" name="challengeState" value="end"> <label
+										for="periodm">도전 종료<span></span>
 									</label></li>
-									<li class="filter-list"><input class="pixel-radio"
-										type="radio" id="challpartcount" name="challpartcount" value="periodl"> <label
-										for="periodl">100명 이상<span>(29)</span>
-									</label></li>
+									
+									<input type="button" class="btn btn-primary btn-xxs" id="state_init" value="선택해제"></button>
 								</ul>
 							</form>
 						</div>
-						<div class="common-filter">
-							<div class="head">Period</div>
-							<form action="#">
-								<ul>
-									<li class="filter-list"><input class="pixel-radio"
-										type="radio" id="apple" name="brand"> <label
-										for="apple">10일 미만<span>(29)</span>
-									</label></li>
-									<li class="filter-list"><input class="pixel-radio"
-										type="radio" id="apple" name="brand"> <label
-										for="apple">30일 미만<span>(29)</span>
-									</label></li>
-									<li class="filter-list"><input class="pixel-radio"
-										type="radio" id="apple" name="brand"> <label
-										for="apple">100일 미만<span>(29)</span>
-									</label></li>
-									<li class="filter-list"><input class="pixel-radio"
-										type="radio" id="apple" name="brand"> <label
-										for="apple">100일 이상<span>(29)</span>
-									</label></li>
-								</ul>
-							</form>
-						</div>
+			
 					</div>
 				</div>
 				<!-- end : 상세 페이지 왼쪽 -->
 
 				<!-- start : 상세 페이지 오른쪽 -->
 				<div class="col-xl-9 col-lg-8 col-md-7">
+
 					<!-- Start Filter Bar -->
 					<div class="filter-bar d-flex flex-wrap align-items-center">
 						<div class="sorting">
-							<select>
-								<option value="1">Default sorting</option>
-								<option value="1">Default sorting</option>
-								<option value="1">Default sorting</option>
+							<select id="sorting">
+								<option value="start_day">최신시작순</option>
+								<option value="regdate">최신등록순</option>
+								<option value="end_day">최신종료순</option>
 							</select>
 						</div>
-						<div class="sorting mr-auto">
-							<select>
-								<option value="1">Show 12</option>
-								<option value="1">Show 12</option>
-								<option value="1">Show 12</option>
-							</select>
-						</div>
+						
 
 						<div>
 							<div class="input-group filter-bar-search">
-								<input type="text" placeholder="Search">
+								<input type="text" placeholder="Search" id="searchtext">
 								<div class="input-group-append">
-									<button type="button">
+									<button type="button" id="searchbtn">
 										<i class="ti-search"></i>
 									</button>
 								</div>
@@ -221,55 +274,35 @@ $(function () {
 				
 					<!-- ////////////// pagination start /////////////////////// -->
 						<nav class="blog-pagination justify-content-center d-flex">
-							<ul class="pagination">
-								<!-- 이전 -->
-								<c:if test="${cupage>BLOCK }">
-									<c:if test="$(cate==null)">
-										<li class="page-item"><a
-											href="../challenge/list.do?page=${startPage-1 }"
-											class="page-link" aria-label="Previous"> <span
-												aria-hidden="true"> <span class="lnr lnr-chevron-left"></span>
-											</span>
-										</a></li>
-									</c:if>
-									<c:if test="$(cate!=null)">
-										<li class="page-item"><a
-											href="../challenge/list.do?page=${startPage-1 }"
-											class="page-link" aria-label="Previous"> <span
-												aria-hidden="true"> <span class="lnr lnr-chevron-left"></span>
-											</span>
-										</a></li>
-									</c:if>
-								</c:if>
-								<!-- 이전 end -->
-								<c:forEach var="i" begin="${startPage }" end="${endPage }">
-									<c:if test="${i==curpage }">
-	
-											<li class="page-item active"><a
-												href="../challenge/list.do?page=${i }"
-												class="page-link">${i }</a></li>
-									</c:if>
-									<c:if test="${i!=curpage }">
-											<li class="page-item"><a
-												href="../challenge/list.do?page=${i }"
-												class="page-link">${i }</a></li>
-									</c:if>
-								</c:forEach>
-								<!-- 다음 -->
-								<c:if test="${endpage<totalpage }">
-	
-										<li class="page-item"><a
-											href="../challenge/list.do?page=${endPage+1 }"
-											class="page-link" aria-label="Next"> <span
-												aria-hidden="true"> <span
-													class="lnr lnr-chevron-right"></span>
-											</span>
-										</a></li>
-	
-								</c:if>
-								<!-- 다음 end -->
-							</ul>
-						</nav>
+                          <ul class="pagination">
+                          <c:if test="${curpage>BLOCK }">
+                              <li class="page-item" page=${startPage-1 }>
+                                  <a class="page-link" aria-label="Previous">
+                                    &lt;
+                                  </a>
+                              </li>
+                              </c:if>
+                              <c:forEach var="i" begin="${startPage }" end="${endPage }">
+                              <c:if test="${i==curpage }">
+                              <li class="page-item active" page="${i}">
+                                  <a class="page-link">${i }</a>
+                              </li>
+                              </c:if>
+                              <c:if test="${i!=curpage }">
+                              	<li class="page-item" page="${i}">
+                                  <a class="page-link">${i }</a>
+                              </li>
+                              </c:if>
+                              </c:forEach>
+                              <c:if test="${endPage<totalpage }">
+                              <li class="page-item" page=${endPage+1 }>
+                                  <a class="page-link" aria-label="Next">
+                                      &gt;
+                                  </a>
+                              </li>
+                            </c:if>
+                          </ul>
+                      </nav>  
 					<!-- ////////////// pagination end /////////////////////// -->
 					
 

@@ -1,6 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mapper.Challenge-mapper.xml">
+<!-- 검색 결과 출력하기 -->
+<select id="challengeSearchData" parameterType="hashmap" resultType="ChallengeVO">
+	SELECT TO_CHAR(regdate,'yyyy-MM-dd') as regdate,period, Challenge_no,cate,TO_CHAR(start_day,'yyyy-MM-dd') as db_start_day,TO_CHAR(end_day,'yyyy-MM-dd') as db_end_day,poster,title,id_leader,limit, num
+	FROM (SELECT
+	regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit,rownum
+	as num
+	FROM (SELECT
+	regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit
+	FROM
+	challenge 
+	WHERE title LIKE '%'||#{keyword}||'%' 
+	OR content LIKE '%'||#{keyword}||'%' 
+	ORDER BY regdate DESC))
+	WHERE num BETWEEN #{start} AND #{end}
+</select>
+
+
+<!-- 검색 결과 총 페이지 수 -->
+<select id="challengeSearchTotalPage" parameterType="String" resultType="int">
+	SELECT CEIL(COUNT(*)/20.0) FROM challenge
+	WHERE title LIKE '%'||#{keyword}||'%' 
+	OR content LIKE '%'||#{keyword}||'%' 
+	ORDER BY regdate DESC)
+</select>
+
+<!-- 진행 상태별 list -->
+	<!-- 챌린지 카테고리별 list -->
+	<select id="challengeStateListData" resultType="ChallengeVO" parameterType="hashmap">
+			SELECT TO_CHAR(regdate,'yyyy-MM-dd') as regdate,period, Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit, num
+			FROM (SELECT
+			regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit,rownum
+			as num
+			FROM (SELECT
+			regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit
+			FROM
+			challenge ORDER BY start_day DESC))
+			WHERE num BETWEEN #{start} AND #{end}
+		<choose> 
+			<when test='state=="done"'>
+				AND TO_CHAR(SYSDATE,'yyyy-MM-dd') as today &lt; TO_CHAR(#{start_day},'yyyy-MM-dd') as db_start_day
+			</when>
+			<when test='state=="wait"'>
+				AND TO_CHAR(#{end_day},'yyyy-MM-dd') as db_end_day &lt; TO_CHAR(SYSDATE,'yyyy-MM-dd') as today
+			</when>
+			<otherwise>
+				AND #{end_day} &lt; SYSDATE
+			</otherwise>
+		</choose>
+	</select>
+
+
+
 	<!--도전 period 구하기 -->
 	<select id="challengePeriodCount" resultType="int" parameterType="int">
 		SELECT period FROM challenge
@@ -11,38 +63,32 @@
 		SELECT COUNT(*) FROM challenge_participation
 		WHERE challenge_no=#{challenge_no}
 	</select>
+	
 	<!-- 챌린지 list -->
 	<select id="challengeCateListData" resultType="ChallengeVO" parameterType="hashmap">
 		<if test='cate==null || cate==""'>
-			SELECT TO_CHAR(regdate,'yyyy-MM-dd') as regdate,period, Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit, num
+			SELECT TO_CHAR(regdate,'yyyy-MM-dd') as regdate,period, Challenge_no,cate,TO_CHAR(start_day,'yyyy-MM-dd') as db_start_day,TO_CHAR(end_day,'yyyy-MM-dd') as db_end_day,poster,title,id_leader,limit, num
 			FROM (SELECT
 			regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit,rownum
 			as num
 			FROM (SELECT
 			regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit
 			FROM
-			challenge ORDER BY start_day DESC))
-			WHERE num BETWEEN #{start} AND
-			#{end}
+			challenge ORDER BY ${sorting} DESC))
+			WHERE num BETWEEN #{start} AND #{end}
 		</if>
 		<if test="cate!=null">
-			SELECT
-			period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit, num
+			SELECT TO_CHAR(regdate,'yyyy-MM-dd') as regdate,period, Challenge_no,cate,TO_CHAR(start_day,'yyyy-MM-dd') as db_start_day,TO_CHAR(end_day,'yyyy-MM-dd') as db_end_day,poster,title,id_leader,limit, num
 			FROM (SELECT
-			period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit,rownum
+			regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit,rownum
 			as num
 			FROM (SELECT
-			period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit
+			regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit
 			FROM
-			challenge WHERE cate=#{cate} ORDER BY start_day DESC))
-			WHERE num
-			BETWEEN #{start} AND #{end}
+			challenge WHERE cate=#{cate} ORDER BY ${sorting} DESC))
+			WHERE num BETWEEN #{start} AND #{end}
 		</if>
-	</select>
-	
-	
-	<!-- -->
-	
+	</select>	
 	
 	<!-- 챌린지 리스트 검색 필터 넣어서 출력되는 list -->
 	<select id="challengeFilterListData" resultType="ChallengeVO" parameterType="hashmap">

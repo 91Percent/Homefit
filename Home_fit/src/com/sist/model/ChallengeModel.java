@@ -3,10 +3,12 @@ package com.sist.model;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,26 +28,132 @@ public class ChallengeModel {
 	
 	
 // 검색 필터 적용한 리스트
-	
 	// 도전 목록: list
-		@RequestMapping("challenge/list2.do")
-		public String listtest(HttpServletRequest request) {
+	
+	// 달력만들기
+		@RequestMapping("challenge/calendar.do")
+		public String challengeCalendar(HttpServletRequest request)
+		{
+			// 현재 년, 월 구하기
+			Calendar cal = Calendar.getInstance();
+			int year = cal.get(Calendar.YEAR);
+			int month = cal.get(Calendar.MONTH)+1; // Calendar.MONTH : 0~11
 			
-			request.setAttribute("main_jsp", "../challenge/list2.jsp");
-			return "../main/main.jsp";
-		}	
+			// 두 번째 호출된 페이지에서 요청된 년도와 월을 저장하기
+			String paramYear=request.getParameter("year");
+			String paramMonth=request.getParameter("month");
+			
+			if(paramYear!=null) {
+				year = Integer.parseInt(paramYear);
+			}
+			if(paramMonth!=null) {
+				month = Integer.parseInt(paramMonth);
+			}
+			
+			if(month>12) {
+				month=1;
+				year++;
+			}
+			if(month<1) {
+				month=12;
+				year--;
+			}
+			
+			// 요청받은 년도와 월의 일자로 캘린더 셋팅
+			cal.set(year, month-1, 1);
+			
+			// 매월 1일의 요일 구하기 = 첫 주 빈공백의 갯수
+			int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK)-1;
+			System.out.println(dayOfWeek);
+			
+			// 월의 최대 일수 구하기
+			int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+			System.out.println(lastDay);
+			
+			// 마지막 주 빈 공백의 갯수
+			System.out.println(7-(dayOfWeek+lastDay)%7);
+			
+			request.setAttribute("lastDay", lastDay);
+			request.setAttribute("dayOfWeek", dayOfWeek);
+			request.setAttribute("year", year);
+			request.setAttribute("month", month);
+			
+			return "../challenge/calendar.jsp";
+		}
+	
+//		// 달력만들기
+//				@RequestMapping("challenge/calendar2.do")
+//				public String challengeCalendar2(HttpServletRequest request)
+//				{
+//					// 현재 년, 월 구하기
+//					Calendar cal = Calendar.getInstance();
+//					int year = cal.get(Calendar.YEAR);
+//					int month = cal.get(Calendar.MONTH)+1; // Calendar.MONTH : 0~11
+//					
+//					// 두 번째 호출된 페이지에서 요청된 년도와 월을 저장하기
+//					String paramYear=request.getParameter("year");
+//					String paramMonth=request.getParameter("month");
+//					
+//					if(paramYear!=null) {
+//						year = Integer.parseInt(paramYear);
+//					}
+//					if(paramMonth!=null) {
+//						month = Integer.parseInt(paramMonth);
+//					}
+//					
+//					if(month>12) {
+//						month=1;
+//						year++;
+//					}
+//					if(month<1) {
+//						month=12;
+//						year--;
+//					}
+//					
+//					// 요청받은 년도와 월의 일자로 캘린더 셋팅
+//					cal.set(year, month-1, 1);
+//					
+//					// 매월 1일의 요일 구하기 = 첫 주 빈공백의 갯수
+//					int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK)-1;
+//					System.out.println(dayOfWeek);
+//					
+//					// 월의 최대 일수 구하기
+//					int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+//					System.out.println(lastDay);
+//					
+//					// 마지막 주 빈 공백의 갯수
+//					System.out.println(7-(dayOfWeek+lastDay)%7);
+//					
+//					request.setAttribute("lastDay", lastDay);
+//					request.setAttribute("dayOfWeek", dayOfWeek);
+//					request.setAttribute("year", year);
+//					request.setAttribute("month", month);
+//					
+//					return "../challenge/calendar2.jsp";
+//				}
+			
 	
 	
-	// 도전 목록: sublist
-	@RequestMapping("challenge/sublist2.do")
-	public String test(HttpServletRequest request) {
+	
+	@RequestMapping("challenge/list.do")
+	public String challengeListData(HttpServletRequest request) {
+		
+		request.setAttribute("main_jsp", "../challenge/list.jsp");
+		return "../main/main.jsp";
+
+	}	
+	
+	// 검색 결과 받기
+	@RequestMapping("challenge/search.do")
+	public String searchListData(HttpServletRequest request) {
+		 System.out.println("검색 호출 했음");
 		try {
 			request.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} 
-		// 카테고리 정보 받기
-		String cate = request.getParameter("cate");
+		// 검색 결과 받기
+		String keyword = request.getParameter("keyword");
 		
 		// 페이징 처리
 		String page = request.getParameter("page");
@@ -56,25 +164,22 @@ public class ChallengeModel {
 		int start = rowSize * (curpage - 1) + 1;
 		int end = rowSize * curpage;
 
+		int totalpage = ChallengeDAO.challengeSearchTotalPage(keyword);
 
 		int BLOCK = 5;
 		int startPage = ((curpage - 1) / BLOCK * BLOCK) + 1;
 		int endPage = ((curpage - 1) / BLOCK * BLOCK) + BLOCK;
 		
-		
+		if (endPage > totalpage)
+			endPage = totalpage;
 		
 		// 목록 리스트 데이터 결과값 받기
 		Map map = new HashMap();
 		map.put("start", start);
 		map.put("end", end);
-		map.put("cate", cate);
+		map.put("keyword", keyword);
 		
-		int totalpage = ChallengeDAO.challengFilterTotalPage(map);
-		
-		if (endPage > totalpage)
-			endPage = totalpage;
-
-		List<ChallengeVO> list = ChallengeDAO.challengeFilterList(map);
+		List<ChallengeVO> list = ChallengeDAO.challengeSearchData(map);
 		
 		// 아이디 받기
 		HttpSession session=request.getSession();
@@ -126,16 +231,7 @@ public class ChallengeModel {
 		request.setAttribute("BLOCK", BLOCK);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
-		return "../challenge/sublist2.jsp";
-
-	}
-	
-	// 도전 목록: list
-	@RequestMapping("challenge/list.do")
-	public String challengeListData(HttpServletRequest request) {
-		
-		request.setAttribute("main_jsp", "../challenge/list.jsp");
-		return "../main/main.jsp";
+		return "../challenge/search.jsp";
 
 	}	
 	
@@ -143,15 +239,25 @@ public class ChallengeModel {
 	// 도전 목록: sublist
 	@RequestMapping("challenge/sublist.do")
 	public String subListData(HttpServletRequest request) {
-		System.out.println("sublist 호출 했음");
+		// System.out.println("sublist 호출 했음");
 		try {
 			request.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} 
+		// 검색 결과 받기
+		String keyword = request.getParameter("keyword");
+		
+		// 정렬 sorting정보 받기
+		String sorting = request.getParameter("sorting");
+		System.out.println("sorting:"+sorting);
+		if (sorting == null || sorting.equals(""))
+			sorting = "regdate";
+		
 		// 카테고리 정보 받기
 		String cate = request.getParameter("cate");
-		System.out.println("cate!!!!!!!!!!!!!!!!"+cate);
+		//System.out.println("cate!!!!!!!!!!!!!!!!"+cate);
+		
 		// 페이징 처리
 		String page = request.getParameter("page");
 		if (page == null)
@@ -175,6 +281,8 @@ public class ChallengeModel {
 		map.put("start", start);
 		map.put("end", end);
 		map.put("cate", cate);
+		map.put("sorting", sorting);
+		
 		List<ChallengeVO> list = ChallengeDAO.challengeCateListData(map);
 		
 		// 아이디 받기
@@ -247,8 +355,8 @@ public class ChallengeModel {
 			e.printStackTrace();
 		}
 		String filename="";
-//		String path = "/Users/haeni/Documents/jsp-project/Homefit/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Home_fit/challenge_poster";
-		String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\challenge_poster";
+		String path = "/Users/haeni/Documents/jsp-project/Homefit/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Home_fit/challenge_poster";
+//		String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\challenge_poster";
 		String enctype = "UTF-8"; // 한글파일명을 사용 여부
 		int size = 1024 * 1024 * 100;// 파일의 최대크기
 
@@ -315,8 +423,10 @@ public class ChallengeModel {
 		// 방장도 참가자 목록에 추가하기
 		Challenge_CertifiedDAO.Challenge_participation(pVO);
 		
-		System.out.println("challenge_no:"+pVO.getChallenge_no());
-		System.out.println("challenge_id:"+pVO.getChallenge_id());
+		//System.out.println("challenge_no:"+pVO.getChallenge_no());
+		//System.out.println("challenge_id:"+pVO.getChallenge_id());
+		System.out.println(vo.getStart_day());
+		System.out.println(vo.getEnd_day());
 
 //		request.setAttribute("main_jsp", "../challenge/list.jsp");
 //		return "../main/main.jsp";
