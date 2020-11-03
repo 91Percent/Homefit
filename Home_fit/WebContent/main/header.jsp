@@ -63,7 +63,7 @@
 	                <ul class="dropdown-menu">
 	                  <li class="nav-item"><a class="nav-link" href="login.html">칼로리</a></li>
 	                  <li class="nav-item"><a class="nav-link" href="../news/news.do">뉴스</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="../ex/ex_mypage">게시판</a></li>
+	                  <li class="nav-item"><a class="nav-link" href="../ex/ex_mypage.do">게시판</a></li>
 	                </ul>
 	              </li>
 	            </ul>
