@@ -208,13 +208,13 @@ public class CoachDAO {
 	   } 
 	   
 	   // 코치 Q&A 목록
-	   public static List<CoachQnaVO> coachQnaList()
-	   {
-		   SqlSession session=ssf.openSession();
-		   List<CoachQnaVO> list=session.selectList("coachQnaList");
-		   session.close();
-		   return list;
-	   }
+//	   public static List<CoachQnaVO> coachQnaList()
+//	   {
+//		   SqlSession session=ssf.openSession();
+//		   List<CoachQnaVO> list=session.selectList("coachQnaList");
+//		   session.close();
+//		   return list;
+//	   }
 	   
 	   // 코치예약 추가
 	   public static void coachreserveInsert(Coach_ReserveVO vo)
@@ -241,7 +241,75 @@ public class CoachDAO {
 		   return list;
 	   }
 	   
+	   	//해당 코치 Qna 리스트 데이터 가져오는  부분
+	   public static List<CoachQnaVO> coachQnaList(int coach_no)
+	   {
+		   SqlSession session =null;
+		   List<CoachQnaVO> list = new ArrayList<CoachQnaVO>();
+		   try {
+			   session=ssf.openSession();
+			   list=session.selectList("coachQnaList",coach_no);
+		   }catch (Exception e) {
+			   e.printStackTrace();
+		   }finally {
+			   if(session!=null)
+				   session.close();
+		   }
+		   
+		   return list;
+	   }
 	   
+	   // 코치 Qna 글 삽입
+	   public static void CoachQnaInsert(CoachQnaVO vo)
+	   {
+		   SqlSession session=null;
+		   try {
+			   session=ssf.openSession(true);
+			   session.insert("CoachQnaInsert",vo);
+		   }catch (Exception e) {
+			   e.printStackTrace();
+		   }finally {
+			   if(session!=null)
+				   session.close();
+		   }
+	   }
+	   
+	// 코치 Qna 글 답변 삽입!
+	   public static void CoachQnaReply(CoachQnaVO vo)
+	   {
+		   SqlSession session=null;
+		   try {
+			   session=ssf.openSession(true);
+			   session.insert("CoachQnaReply",vo);
+		   }catch (Exception e) {
+			   e.printStackTrace();
+		   }finally {
+			   if(session!=null)
+				   session.close();
+		   }
+	   }
+	   
+	   
+	   //코치 qna 조회수 증가 + 디테일 가져오기
+	   public static CoachQnaVO coachQnaDetailData(Map map)
+	   {
+		   CoachQnaVO vo =new CoachQnaVO();
+		   SqlSession session=null;
+		   try {
+			   session=ssf.openSession();
+			   session.update("coachQnaHitIncrement",map);
+			   session.commit();
+			   
+			   vo = session.selectOne("coachQnaDetailData",map);
+			   
+		   }catch (Exception e) {
+			   e.printStackTrace();
+		   }finally {
+			   if(session!=null)
+				   session.close();
+		}
+		   return vo;
+	   }
 	}
 	   
 	   

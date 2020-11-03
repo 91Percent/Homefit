@@ -1,7 +1,10 @@
 package com.sist.model;
 
 
+import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +28,6 @@ public class CoachModel {
 		 request.setAttribute("main_jsp", "../coach/coachlist.jsp");
 		 return "../main/main.jsp";
 	}
-	
 	// 코치목록
 	 @RequestMapping("coach/listlist.do")
 	   public String Clist(HttpServletRequest request)
@@ -39,7 +41,6 @@ public class CoachModel {
 		   System.out.println("cateno 번호!"+cateno);
 		   if(cateno==null)
 			   cateno="71";
-		   
 		   
 		   // Map 
 		   // 현재 페이지 
@@ -57,17 +58,13 @@ public class CoachModel {
 		   List<tutor_VO> list=CoachDAO.coachListData(map);
 		   // 총페이지 
 		   int totalpage=CoachDAO.coachTotalpages();
-		   
 		   int BLOCK=5;
 		   int startPage=((curpage-1)/BLOCK*BLOCK)+1;
 		   int endPage=((curpage-1)/BLOCK*BLOCK)+BLOCK;
-		   
 		   if(endPage>totalpage)
 		   {
 			   endPage = totalpage;
 		   }
-		   
-		   
 		   // JSP에서 필요한 데이터를 보내기 시작 
 		   // request에 값을 채운다 
 		   request.setAttribute("list", list);
@@ -76,18 +73,17 @@ public class CoachModel {
 		   request.setAttribute("BLOCK", BLOCK);
 		   request.setAttribute("startPage", startPage);
 		   request.setAttribute("endPage", endPage);
-		   
 		// include 파일 지정
 		   return "../coach/listlist.jsp";    //넘겨줄때 listlist 로 이동해야함 .
-	   }
+	   }   	
 	 // 코치 상세페이지
 	 @RequestMapping("coach/info.do")
 	 public String coachDetailData(HttpServletRequest request)
-	 {
-		 
+	 {		
+		 	
 		 String coach_no=request.getParameter("coach_no");
-		 
-		 
+		 	
+		 	
 		 //코치 디테일 데이터 가져오는 부분
 		 tutor_VO vo=CoachDAO.coachDeatilData(Integer.parseInt(coach_no));
 		 //=====================
@@ -172,8 +168,6 @@ public class CoachModel {
 	 // 예약페이지 코치예약번호
 	 
 	 
-	 
-	 
 	 // 예약하기
 	 @RequestMapping("coachreserve/reserve_ok.do")
 	 public String coachreserve_ok(HttpServletRequest request)
@@ -191,7 +185,7 @@ public class CoachModel {
 		 
 		 //String place=request.getParameter("place");
 		 //String month=request.getParameter("month");
-		 //String time=request.getParameter("time");
+		 //String time=request.getParameter("time");	
 		 //String price=request.getParameter("price");
 		 
 		 HttpSession session=request.getSession();
@@ -226,8 +220,6 @@ public class CoachModel {
 	 }
 	 
 	 
-	 
-	 
 	 /////////////////////////////////////////////////////////////////////////////
 	 // Q&A
 	 
@@ -238,10 +230,140 @@ public class CoachModel {
 		 request.setAttribute("list", list);
 		 
 		 //List<CoachQnaVO> list=CoachDAO.coachQnaList();
-		 //request.setAttribute("list", list);
-		 return "../coach/qna.jsp";
+		 request.setAttribute("main_jsp","../coach/qna.jsp");
+		 return "../main/main.jsp";
 	 }
 	 
+	 @RequestMapping("coach/coach_qna.do")
+	 public String coach_qna_board(HttpServletRequest request)
+	 {
+		 String coach_no = request.getParameter("coach_no");
+		 System.out.println("코치번호"+coach_no);
+		 
+		 
+		//코치 디테일 데이터 가져오는 부분
+		 tutor_VO vo=CoachDAO.coachDeatilData(Integer.parseInt(coach_no));
+		 //=====================
+		 
+		 List<CoachQnaVO> list = CoachDAO.coachQnaList(Integer.parseInt(coach_no));
+		 System.out.println("코치 qna의 list사이즈"+list.size());
+		 
+		 Date date=new Date();
+		 SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		 String today=sdf.format(date);
+		   
+		 request.setAttribute("today", today);
+		 request.setAttribute("vo", vo);
+		 request.setAttribute("list", list);
+		 return "../coach/qna_sub.jsp";
+	 }
+
+	 @RequestMapping("coach/coach_qna_insert.do")
+	 public String coach_qna_insert(HttpServletRequest request)
+	 {
+		 String coach_no = request.getParameter("coach_no");
+		 
+		 
+		 request.setAttribute("coach_no", coach_no);
+		 return "../coach/qna_insert.jsp";
+	 }
+	 
+	 @RequestMapping("coach/coach_qna_insert_ok.do")
+	 public String coach_qna_insert_ok(HttpServletRequest request)
+	 {
+		 System.out.println("insert_ok 호출");
+		 try {
+				request.setCharacterEncoding("UTF-8");
+			 } catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			 }
+		String coach_no = request.getParameter("coach_no");
+		String subject = request.getParameter("subject");
+		String content = request.getParameter("content");
+		String form = request.getParameter("formlist");
+		
+		 HttpSession session=request.getSession();
+		 String id=(String)session.getAttribute("id");
+		 String name=(String)session.getAttribute("name");
+		 
+		 CoachQnaVO vo = new CoachQnaVO();
+		 
+		 vo.setCoach_no(Integer.parseInt(coach_no));
+		 vo.setSubject(subject);
+		 vo.setContent(content);
+		 vo.setForm(form);
+		 vo.setId(id);
+		 vo.setName(name);
+		
+		 CoachDAO.CoachQnaInsert(vo);
+		 
+		 return "redirect:../coach/qna.do";
+	 }
+	 
+	 @RequestMapping("coach/coach_qna_detail.do")
+	 public String coach_qna_detail(HttpServletRequest request)
+	 {
+		 
+		 String coach_qna_no=request.getParameter("coach_qna_no");
+		 String coach_no=request.getParameter("coach_no");
+		 
+		 System.out.println("코치번호"+coach_no);
+		 System.out.println("코치별 글 번호"+coach_qna_no);
+		 
+		 Map map = new HashMap();
+		 map.put("coach_qna_no",coach_qna_no);
+		 map.put("coach_no",coach_no);
+		 
+		   
+		 CoachQnaVO vo =CoachDAO.coachQnaDetailData(map);
+		 
+		 request.setAttribute("vo", vo);
+		 return "../coach/qna_detail.jsp";
+	 }
+	 
+	 
+	 // QnA 질문에 대한 코치 답변 
+	 @RequestMapping("coach/qna_reply_insert.do")
+	 public String qna_reply_insert(HttpServletRequest request)
+	 {
+		 System.out.println("코치 답변 qna_reply_insert 호출");
+		 try {
+				request.setCharacterEncoding("UTF-8");
+			 } catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			 }
+		 //여기서 필요한 데이터는 
+		 //해당 글번호,해당 글번호의  group_tab
+		 String coach_qna_no = request.getParameter("coach_qna_no");
+		 String group_tab = request.getParameter("group_tab");
+		 String coach_no = request.getParameter("coach_no");
+		 String content = request.getParameter("content");
+		 String group_id = request.getParameter("group_id");
+		 
+		 System.out.println("coach_qna_no "+coach_qna_no);
+		 System.out.println("group_tab "+group_tab);
+		 System.out.println("coach_no "+coach_no);
+		 System.out.println("content "+content);
+		 System.out.println("group_id "+group_id);
+		 
+		 //코치 이름 가져오는 부분
+		 tutor_VO detail_vo=CoachDAO.coachDeatilData(Integer.parseInt(coach_no));
+		 String name = detail_vo.getCoach_name();
+		 //==============
+		 
+		 CoachQnaVO vo = new CoachQnaVO();
+		 vo.setCoach_no(Integer.parseInt(coach_no));
+		 vo.setCoach_qna_no(Integer.parseInt(coach_qna_no));
+		 vo.setSubject("답글 내용");
+		 vo.setContent(content);
+		 vo.setId(name);
+		 vo.setName(name);
+		 vo.setGroup_tab(Integer.parseInt(group_tab)+1);
+		 vo.setGroup_id(Integer.parseInt(group_id));
+		 CoachDAO.CoachQnaReply(vo);
+		 
+		 return "redirect:../coach/qna.do";
+	 }
 	 //////////////////////////////////////////////////////////////////////
 	 
 	 

@@ -72,7 +72,27 @@
       SELECT * FROM coach_schedule 
       WHERE coach_no=#{coach_no}
    </select>
-   
+   <!-- 
+                         no  group_id   group_step  group_tab  root  depth
+        AAAAAA            1     1          0            0              3
+          =>OOOOOOO       8     1          1           1              0
+          =>KKKKKKK       7     1          2            1              0
+          =>BBBBBB        2     1          3            1              1
+          
+           =>CCCCCCC      3     1          4            2              1
+            =>FFFFFFF     5     1          5            3              0
+          
+        DDDDDD            4     2          0            0              1
+          => GGGGGGG      6     2          1            1              0
+          => KKKKKK       9     2          1            1
+          
+        no는 자동 증가값으로 생성된 순서대로 번호가 붙는다
+		group_id는 그룹을 나누기 위해 만든다
+		group_step : 그룹 답변 순서(답변 추가시 바꿔야한다.)
+		group_tab : 그룹에서 몇번째 밑에 있는지 나타낸다
+		root : 자기 바로위 조상의 no를 값으로 가진다. 조상이 없으면 0
+		depth : 자신 게시물 밑에 달릿 답글수 : depth가 0인 경우만 삭제가 가능하다
+    -->
    <!-- Q&A게시판목록 -->
    <select id="qnaListData" resultType="CoachQnaVO" parameterType="hashmap">
       SELECT coach_no,coach_qna_no,writer,subject,content,hit,pwd,regdate,num
@@ -114,5 +134,84 @@
    		WHERE id=#{id}
    	</select>
    	
+   	<!-- 코치별 qna 검색 
+   	
+   	
+   	coach_no     NUMBER        NOT NULL,
+	coach_qna_no NUMBER        NOT NULL,
+    id           VARCHAR2(500) NOT NULL,
+	subject      VARCHAR2(500) NOT NULL,
+	content      CLOB          NOT NULL,
+	hit          NUMBER       ,
+	regdate      DATE         ,
+    group_id   NUMBER       ,
+	group_step NUMBER       ,
+	group_tab  NUMBER       ,
+	root       NUMBER       ,
+	depth      NUMBER       ,
+   	-->
+   <select id="coachQnaList" resultType="CoachQnaVO" parameterType="int">
+   	SELECT coach_no,coach_qna_no,subject,content,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,id,name,form,hit,group_id,group_tab,
+   	FROM coach_qna 
+   	WHERE coach_no=#{coach_no}
+   	ORDER BY group_id asc,group_tab asc
+   </select>
    
+    <!-- 댓글 올리기  -->
+  <insert id="CoachQnaInsert" parameterType="CoachQnaVO">
+    <!-- 적용할 수 없다(한번) -->
+    <selectKey keyProperty="coach_qna_no" resultType="int" order="BEFORE">
+      SELECT NVL(MAX(coach_qna_no)+1,1) as coach_qna_no FROM coach_qna
+    </selectKey>
+    INSERT INTO coach_qna(coach_qna_no,coach_no,id,name,form,subject,content,regdate,group_id,hit,group_tab) VALUES(
+      #{coach_qna_no},
+      #{coach_no},
+      #{id},
+      #{name},
+      #{form},
+      #{subject},
+      #{content},
+      SYSDATE,
+      (SELECT NVL(MAX(group_id)+1,1) FROM coach_qna),
+      0,
+      0
+    )
+  </insert>
+  
+  <!-- 코치가 	qna 답변하는 내용 -->
+  <insert id="CoachQnaReply" parameterType="CoachQnaVO">
+    <!-- 적용할 수 없다(한번) -->
+    <selectKey keyProperty="coach_qna_no" resultType="int" order="BEFORE">
+      SELECT NVL(MAX(coach_qna_no)+1,1) as coach_qna_no FROM coach_qna
+    </selectKey>
+    INSERT INTO coach_qna(coach_qna_no,coach_no,id,name,subject,content,regdate,group_id,hit,group_tab) VALUES(
+      #{coach_qna_no},
+      #{coach_no},
+      #{id},
+      #{name},
+      #{subject},
+      #{content},
+      SYSDATE,
+      #{group_id},
+      0,
+      #{group_tab}
+    )
+  </insert>
+
+   <!-- 내용보기   조회수 증가-->
+  <update id="coachQnaHitIncrement" parameterType="hashmap">
+    UPDATE coach_qna SET
+    hit=hit+1
+    WHERE coach_no=#{coach_no} 
+    AND coach_qna_no=#{coach_qna_no}
+  </update>
+  
+   <!-- 내용보기   조회수 증가-->
+  <select id="coachQnaDetailData" parameterType="hashmap" resultType="CoachQnaVO">
+    SELECT coach_no,coach_qna_no,subject,content,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,id,name,form,hit,group_id
+    FROM coach_qna
+    WHERE coach_no=#{coach_no} 
+    AND coach_qna_no=#{coach_qna_no}
+  </select>
+  
 </mapper>

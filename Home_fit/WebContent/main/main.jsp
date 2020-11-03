@@ -40,4 +40,3 @@
 	  <script src="../theme/vendors/mail-script.js"></script>
 	  <script src="../theme/js/main.js"></script>
 </body>
-</html>
