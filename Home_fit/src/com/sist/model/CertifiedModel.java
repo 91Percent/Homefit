@@ -133,11 +133,19 @@ public class CertifiedModel {
 		// ================================
 		
 		
-		// 인증 횟수 ==========================
-		int certifeid_count = Challenge_CertifiedDAO.certified_check(certi_vo);
-		System.out.println("사용자가 했던 인증횟수는?"+certifeid_count);
+		// 오늘 인증 횟수 ==========================
+		int today_certified_count = Challenge_CertifiedDAO.certified_check(certi_vo);
+		System.out.println("오늘 사용자가 인증 했는지 안했는지"+today_certified_count);
 		// =================================
 		
+		
+		// 사용자 총 인증 횟수 ======================
+		Challenge_CertifiedVO certified_count_vo = new Challenge_CertifiedVO();
+		certified_count_vo.setChallenge_no(Integer.parseInt(challenge_no));
+		certified_count_vo.setChallenge_id(challenge_id);
+		int id_certified_count = Challenge_CertifiedDAO.certified_count(certified_count_vo);
+		System.out.println("사용자 총 인증 횟수는?"+id_certified_count);
+		// ==================================
 		
 		//현재 방에 참여중인 인원의 id가져오는 부분
 		List<Challenge_ParticipationVO> people_list = Challenge_CertifiedDAO.challenge_people(Integer.parseInt(challenge_no));
@@ -151,16 +159,16 @@ public class CertifiedModel {
 		//도전한 백분률 구하는 부분 
 		int Period=(int)vo.getPeriod();
 		System.out.println("temp ="+Period);
-		int test= certifeid_count*Period;
+		int test= today_certified_count*Period;
 		System.out.println("test값 ="+test);
-		double percent = (double)certifeid_count/(double)Period*100.0;
+		double percent = (double)today_certified_count/(double)Period*100.0;
 		System.out.println("참여율 ="+percent+"%");
 		String str = String.format("%.1f", percent);
 		System.out.println(Double.parseDouble(str));
 		//=============================
 		
 		// 현재 진행률 구하는 부분============
-		String room_percent_str="";
+		String room_percent_str="0";
 		if(diffDay>0)
 		{
 		 double room_percent =	(double)diffDay/(double)Period*100.0;
@@ -174,11 +182,12 @@ public class CertifiedModel {
 		ReplyVO Reply_vo = new ReplyVO();
 		Reply_vo.setCate_no(9);
 		Reply_vo.setNo(Integer.parseInt(challenge_no));
-		List<ReplyVO> Reply_list = Challenge_CertifiedDAO.challeng_reply(Reply_vo);
+		List<ReplyVO> Reply_list = Challenge_CertifiedDAO.challeng_reply(Reply_vo);	
 		System.out.println("댓글 갯수"+Reply_list.size());
 		//=============================
 		
 		System.out.println("로그인이 1이면 되어있는거야! " + count);
+		request.setAttribute("id_certified_count",id_certified_count);
 		request.setAttribute("room_percent_str",room_percent_str);
 		request.setAttribute("diffDay", diffDay);
 		request.setAttribute("Period", Period);
@@ -186,7 +195,7 @@ public class CertifiedModel {
 		request.setAttribute("percent",str);
 		request.setAttribute("rank_list",rank_list);
 		request.setAttribute("people_list",people_list);
-		request.setAttribute("certifeid_count",certifeid_count);
+		request.setAttribute("certifeid_count",today_certified_count);
 		request.setAttribute("compare",compare);
 		request.setAttribute("count",count);
 		request.setAttribute("vo",vo);
@@ -412,60 +421,9 @@ public class CertifiedModel {
 		//============================================================
 		
 		
-		
 		System.out.println("===challenge/challenge_room_delete.do 끝===");
 		return "redirect:../challenge/list.do";
 	}
-
-	@RequestMapping("challenge/list.do")
-	public String challengeListData(HttpServletRequest request) {
-		String page = request.getParameter("page");
-		String cate = request.getParameter("cate");
-		if(cate==null)
-			cate=null;
-		
-		if (page == null)
-			page = "1";
-		int curpage = Integer.parseInt(page);
-		int rowSize = 20;
-		int start = rowSize * (curpage - 1) + 1;
-		int end = rowSize * curpage;
-
-		Map map = new HashMap();
-		map.put("start", start);
-		map.put("end", end);
-		map.put("cate", cate);
-		System.out.println(cate);
-		List<ChallengeVO> list = ChallengeDAO.challengeCateListData(map);
-
-		int totalpage = ChallengeDAO.challengeCateTotalPage(cate);
-
-		int BLOCK = 5;
-		int startPage = ((curpage - 1) / BLOCK * BLOCK) + 1;
-		int endPage = ((curpage - 1) / BLOCK * BLOCK) + BLOCK;
-
-		for (ChallengeVO vo : list) {
-			String str = vo.getTitle();
-			if (str.length() > 20) {
-				str = str.substring(0, 20);
-				str += "...";
-			}
-			vo.setTitle(str);
-		}
-
-		if (endPage > totalpage)
-			endPage = totalpage;
-			
-		request.setAttribute("list", list);
-		request.setAttribute("curpage", curpage);
-		request.setAttribute("totalpage", totalpage);
-		request.setAttribute("BLOCK", BLOCK);
-		request.setAttribute("startPage", startPage);
-		request.setAttribute("endPage", endPage);
-		request.setAttribute("main_jsp", "../challenge/list.jsp");
-		return "../main/main.jsp";
-			
-	}		
 		@RequestMapping("challenge/kick_out.do")
 		public String challenge_kick_out(HttpServletRequest request)
 		{	

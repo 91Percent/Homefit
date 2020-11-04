@@ -44,7 +44,7 @@ public class ShopModel {
 	  if(sub_cate_no_num>4000) { 
 		  int c=(int)Math.floor(((sub_cate_no_num-401)%cnum)/10);
 		  sub_cate_no_num=400+c*10+1; 
-	  } 
+	  }
 	  System.out.println("(shop)cate_no: "+cate_no);
 	  System.out.println("(shop)cate_no_num: "+cate_no_num);
 	  System.out.println("(shop)sub_cate_no_num: "+sub_cate_no_num);

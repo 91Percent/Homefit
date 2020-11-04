@@ -163,7 +163,7 @@ padding: 0px;
 																	<h5>인증 횟수</h5>
 																</td>
 																<td>
-																	<h5>${certifeid_count } 번</h5>
+																	<h5>${id_certified_count } 번</h5>
 																</td>
 															</tr>
 															<tr>
@@ -193,11 +193,10 @@ padding: 0px;
 																<tr>
 																<td colspan="4">
 																과정 진행률 표시
-																<c:if test="${room_percent_str<0 || room_percent_str==null }">
-																
-																<td align="cetner">아직 도전이 시작 하지 않았습니다.</td>
+																<c:if test="${room_percent_str==0 || room_percent_str==null }">
+																<p align="center"> 아직 도전이 시작 되지 않았습니다.</p>
 																</c:if>
-																<c:if test="${room_percent_str<0 }">
+																<c:if test="${room_percent_str>0 }">
 																
 																<div class="w3-light-grey">
 																<div class="w3-container w3-red w3-center" style="width:${room_percent_str}%">${room_percent_str}</div>
@@ -212,7 +211,7 @@ padding: 0px;
 															</tr>
 															<tr>
 																<td>
-																	<h5>목표 인증까지 ${Period-certifeid_count} 남았습니다</h5>
+																	<h5>목표 인증까지 ${Period-id_certified_count} 번 남았습니다</h5>
 																</td>
 															</tr>
 														
@@ -377,7 +376,7 @@ padding: 0px;
 								</td>
 								<td>
 									<table cellpadding="10">
-										<td><c:forEach var="vo" items="${rank_list}">
+										<c:forEach var="vo" items="${rank_list}">
 												<tr>
 													<td>${vo.challenge_id } (횟수 :${vo.certified_no})
 													<td>
@@ -389,7 +388,6 @@ padding: 0px;
 													</c:forEach>
 												</tr>
 											</c:if>
-										<td>
 									</table>
 								</td>
 							</table>

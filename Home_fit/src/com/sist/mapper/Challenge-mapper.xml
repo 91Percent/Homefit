@@ -75,13 +75,9 @@
 		</if>
 		<if test="cate!=null">
 			SELECT TO_CHAR(regdate,'yyyy-MM-dd') as regdate,period, Challenge_no,cate,TO_CHAR(start_day,'yyyy-MM-dd') as db_start_day,TO_CHAR(end_day,'yyyy-MM-dd') as db_end_day,poster,title,id_leader,limit, num
-			FROM (SELECT
-			regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit,rownum
-			as num
-			FROM (SELECT
-			regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit
-			FROM
-			challenge WHERE cate=#{cate} ORDER BY ${sorting} DESC))
+			FROM (SELECT regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit,rownum as num
+			FROM (SELECT regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit
+			FROM challenge WHERE cate=#{cate} ORDER BY ${sorting} DESC))
 			WHERE num BETWEEN #{start} AND #{end}
 		</if>
 	</select>	

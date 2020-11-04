@@ -52,5 +52,25 @@
       FROM home_user,hometraining
       WHERE my_exercise=hometraining.cate_no
       and id=#{id}
-	</select>	
+	</select>
+	
+	
+	
+	<!-- 비회원로그인시 홈트 데이터 랜덤으로 가져오는 부분  -->
+	<select id="Non_members_Ex" resultType="ExVO" parameterType="int">
+		SELECT * FROM hometraining WHERE cate_no=#{cate_no}
+	</select>
+	
+	
+	<!-- 비회원로그인시 코치 데이터 랜덤으로 가져오는 부분  -->
+	<select id="Non_members_coach" resultType="tutor_VO" parameterType="int">
+		SELECT * FROM coach_info WHERE cate_no=#{cate_no}
+	</select>
+	
+	
+	<!-- 비회원로그인시 샵 데이터 랜덤으로 가져오는 부분  -->
+	<select id="Non_members_shop" resultType="ShopVO" parameterType="int">
+		select * from shop where cate_no like '%'||#{cate_no}||'%'
+	</select>
+	
 </mapper>

@@ -278,10 +278,10 @@ public class ChallengeModel {
 		
 		// 목록 리스트 데이터 결과값 받기
 		Map map = new HashMap();
-		map.put("start", start);
-		map.put("end", end);
-		map.put("cate", cate);
-		map.put("sorting", sorting);
+		map.put("start",start);
+		map.put("end",end);
+		map.put("cate",cate);
+		map.put("sorting",sorting);
 		
 		System.out.println("start 는 ?!"+start);
 		System.out.println("end 는 ?!"+end);

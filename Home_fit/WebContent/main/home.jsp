@@ -72,9 +72,15 @@
     <section class="section-margin calc-60px">
       <div class="container">
         <div class="section-intro pb-60px">
+        <c:if test="${sessionScope.id !=null }">
           <h2 class="main_title">나의 레벨에 맞는 운동은?</h2>
+        </c:if>
+        <c:if test="${sessionScope.id ==null }">
+          <h4 align="left">홈트샵-<span class="section-intro__style">[${shoptext}] 카테고리</span></h4>
+        </c:if>
         </div>
         <div class="row">
+        <c:if test="${sessionScope.id !=null }">
         <c:forEach items="${list2 }" var="vo" begin="0" end="3">
           <div class="col-md-6 col-lg-4 col-xl-3">
             <div class="card text-center card-product">
@@ -94,8 +100,30 @@
               </div>
             </div>
           </div>
-          </c:forEach>
-
+        </c:forEach>
+		</c:if>
+        <c:if test="${sessionScope.id ==null }">
+        <c:forEach items="${list2}" var="vo" begin="0" end="3">
+          <div class="col-md-6 col-lg-4 col-xl-3">
+            <div class="card text-center card-product">
+              <div class="card-product__img">
+              	<a href="../shop/shop_detail.do?shop_no=${vo.shop_no }">
+                	<img class="card-img" src="${vo.poster }" alt="">
+                </a>
+                <!-- 이미지 호버부분  
+                <ul class="card-product__imgOverlay">
+                  <li><button><i class="ti-search"></i></button></li>
+                  <li><button><i class="ti-shopping-cart"></i></button></li>
+                  <li><button><i class="ti-heart"></i></button></li>
+                </ul> -->
+              </div>
+              <div class="card-body">
+                <h4 class="card-product__title main_subtit"><a href="single-product.html">${vo.title}</a></h4>
+              </div>
+            </div>
+          </div>
+        </c:forEach>
+		</c:if>
         </div>
       </div>
     </section>
@@ -104,9 +132,15 @@
     <section class="section-margin calc-60px">
       <div class="container">
         <div class="section-intro pb-60px">
+                <c:if test="${sessionScope.id !=null }">
           <h2 class="main_title">내가 관심있는 운동은?</h2>
+        </c:if>
+        <c:if test="${sessionScope.id ==null }">
+          <h4 align="left">홈트-<span class="section-intro__style">[${extext}] 카테고리</span></h4>
+        </c:if>
         </div>
         <div class="row">
+        <c:if test="${sessionScope.id !=null }">
         <c:forEach items="${list1 }" var="vo" begin="0" end="3">
           <div class="col-md-6 col-lg-4 col-xl-3">
             <div class="card text-center card-product">
@@ -127,11 +161,37 @@
             </div>
           </div>
           </c:forEach>
+          </c:if>
+          
+        <c:if test="${sessionScope.id ==null }">
+        <c:forEach items="${list1}" var="vo" begin="0" end="3">
+          <div class="col-md-6 col-lg-4 col-xl-3">
+            <div class="card text-center card-product">
+              <div class="card-product__img">
+              	<a href="../ex_detail.do?home_no=${vo.home_no }">
+                	<img class="card-img" src="${vo.poster }" alt="">
+                </a>
+                <!-- 이미지 호버부분  
+                <ul class="card-product__imgOverlay">
+                  <li><button><i class="ti-search"></i></button></li>
+                  <li><button><i class="ti-shopping-cart"></i></button></li>
+                  <li><button><i class="ti-heart"></i></button></li>
+                </ul> -->
+              </div>
+              <div class="card-body">
+                <h4 class="card-product__title main_subtit"><a href="single-product.html">${vo.subject }</a></h4>
+              </div>
+            </div>
+          </div>
+        </c:forEach>
+		</c:if>
+		
         </div>
       </div>
     </section>
     
     <!-- 최근 방문한 샵  -->
+    <c:if test="${sessionScope.id !=null }">
     <div class="row" style="height: 500px; background-color: red">
     <h2>최근 방문한 샵</h2>
     <c:forEach var="vo" items="${cList }" varStatus="s">
@@ -146,6 +206,40 @@
      </div>
      </c:if>
     </c:forEach>
+    </c:if>
+
+     <section class="section-margin calc-60px">
+      <div class="container">
+        <div class="section-intro pb-60px">
+         <h4 align="left">코치-<span class="section-intro__style">[${coachtext }] 카테고리</span></h4>	
+        </div>
+        <div class="row">
+     <c:if test="${sessionScope.id ==null }">
+        <c:forEach items="${list3}" var="vo" begin="0" end="3">
+          <div class="col-md-6 col-lg-4 col-xl-3">
+            <div class="card text-center card-product">
+              <div class="card-product__img">
+              	<a href="../coach/info.do?coach_no=${vo.coach_no }">
+                	<img class="card-img" src="${vo.poster }" alt="">
+                </a>
+                <!-- 이미지 호버부분  
+                <ul class="card-product__imgOverlay">
+                  <li><button><i class="ti-search"></i></button></li>
+                  <li><button><i class="ti-shopping-cart"></i></button></li>
+                  <li><button><i class="ti-heart"></i></button></li>
+                </ul> -->
+              </div>
+              <div class="card-body">
+                <h4 class="card-product__title main_subtit"><a href="single-product.html">${vo.coach_name}</a></h4>
+              </div>
+            </div>
+          </div>
+        </c:forEach>
+		</c:if>
+				
+        </div>
+      </div>
+    </section>
   </div>
     
 

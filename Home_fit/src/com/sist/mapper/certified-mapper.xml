@@ -45,6 +45,11 @@
 		AND TO_CHAR(certified_date,'YYYY-MM-DD')=#{db_Certified_date}
 </select>
 
+<!-- 챌린지 인증 횟수를 가져오는 부분 -->
+<select id="certified_count" parameterType="Challenge_CertifiedVO" resultType="int">
+	SELECT count(*) FROM challenge_certified
+	WHERE challenge_id=#{challenge_id} AND challenge_no=#{challenge_no}
+</select>
 
 <!-- 챌린지 방 인증 랭킹-->
 <select id="certified_ranking" parameterType="int" resultType="Challenge_CertifiedVO">

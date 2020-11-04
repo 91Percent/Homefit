@@ -347,4 +347,27 @@ public class Challenge_CertifiedDAO {
 		return list;
 	}
 	
+//	<!-- 챌린지 인증 횟수를 가져오는 부분 -->
+//	<select id="certified_count" parameterType="challengeVO" resultType="int">
+//		SELECT count(*) FROM challenge_certified 
+//		WHERE challenge_id=#{challenge_id} AND challenge_no=#{challenge_no};
+//
+//	</select>
+	public static int certified_count(Challenge_CertifiedVO vo)
+	{
+		int count =0;
+		SqlSession session =null;
+		try {
+			session=ssf.openSession();
+			count=session.selectOne("certified_count",vo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		
+		return count;
+	}
+	
 }
