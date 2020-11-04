@@ -6,6 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+#sootag{
+margin-left: 0;  padding: 0;
+}
+#joinbom{
+margin: 0;  padding: 0;
+}
+</style>
 </head>
 <body>
 	<!--  header  -->
@@ -72,13 +80,14 @@
 					<c:if test="${sessionScope.id==null }">
 	           			<li class="nav-item"><button><a class="#" href="../member/login.do">로그인</a></button></li>
 	              	 	<li class="nav-item">/</li>
-	              		<li class="nav-item"><button><a class="#" href="../member/join.do">회원가입</a></button></li>
+	              		<li class="nav-item" id="joinbom"><button><a class="#" href="../member/join.do">회원가입</a></button></li>
 	          		</c:if>
 	          		<c:if test="${sessionScope.id!=null }">
 	          			<li class="nav-item"> ${sessionScope.name } 님</li>
 	          			<li class="nav-item">/</li>
 	           			<li class="nav-item"><button><a class="#" href="../member/logout.do">로그아웃</a></button></li>
 	              		<li class="nav-item"><button><a href="../shop/wishlist.do"><i class="ti-shopping-cart"></i><span class="nav-shop__circle">1</span></button></a></li>
+	          			<li class="nav-item" id="sootag"><button><a  href="../mypage/mytest.do"><img src="../main/user.png" width=20 height=20></a></button></li>
 	          		</c:if>
 	            </ul>
 	          </div>

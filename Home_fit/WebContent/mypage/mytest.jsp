@@ -81,39 +81,7 @@ function pgchange(){
 						<div class="col-lg-12">
 							<div class="blog_post">  
 								<div class="blog_details soo">
-									<input type="checkbox" name="all" class="check-all"><label>전체
-										선택</label> <input type="button" class="btn" id="allBtn" value="삭제" />
-									<form id="frm" method="post" action="../ex/ex_all_ok.do">
-										<table class="table">
-											<tr>
-												<th scope="col">Image</th>
-												<th scope="col">level</th>
-												<th scope="col"></th>
-											</tr>
-											<c:forEach var="vo" items="${list }">
-												<tbody>
-													<tr>
-														<td><input type="checkbox" value="${vo.home_no }"
-															class="chk" name="chk"> <img src="${vo.poster }"
-															alt="" width=120 height=80></td>
-														<td>
-															<div class="media">
-																<ul>
-																	<i class="ti-comments-smiley"></i>${vo.home_level }</ul>
-																<p>
-																	<a href="ex_detail.do?home_no=${vo.home_no}">&nbsp;${vo.subject }</a>
-																</p>
-															</div>
-														</td>
-														<td><input type="button" class="img_btn" id="allBtn"
-															value="삭제">
-															<form id="frm" method="post" action="../ex/ex_all_ok.do"></form>
-														</td>
-													</tr>
-												</tbody>
-											</c:forEach>
-										</table>
-									</form>
+									
 								</div>
 							</div>
 						</div>
