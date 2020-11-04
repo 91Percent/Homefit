@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="../theme/vendors/owl-carousel/owl.carousel.min.css">
 <link rel="stylesheet" href="../theme/css/style.css">
 <link rel="stylesheet" href="../theme/css/custom.css">
-</head>4
+</head>
 <body>
 	<!--  header  -->
 	<jsp:include page="../main/header.jsp"></jsp:include>

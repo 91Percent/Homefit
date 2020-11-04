@@ -8,10 +8,10 @@
 <title>Insert title here</title>
 <style>
 #sootag{
-margin-left: 0;  padding: 0;
+	margin: 0 0px 4px 13px;
 }
 #joinbom{
-margin: 0;  padding: 0;
+	margin: 0;  padding: 0;
 }
 </style>
 </head>
