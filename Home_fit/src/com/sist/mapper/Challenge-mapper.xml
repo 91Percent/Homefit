@@ -68,16 +68,24 @@
 	<select id="challengeCateListData" resultType="ChallengeVO" parameterType="hashmap">
 		<if test='cate==null || cate==""'>
 			SELECT TO_CHAR(regdate,'yyyy-MM-dd') as regdate,period, Challenge_no,cate,TO_CHAR(start_day,'yyyy-MM-dd') as db_start_day,TO_CHAR(end_day,'yyyy-MM-dd') as db_end_day,poster,title,id_leader,limit, num
-			FROM (SELECT regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit,rownum as num
-			FROM (SELECT regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit
-			FROM challenge ORDER BY ${sorting} DESC))
+			FROM (SELECT
+			regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit,rownum
+			as num
+			FROM (SELECT
+			regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit
+			FROM
+			challenge ORDER BY ${sorting} DESC))
 			WHERE num BETWEEN #{start} AND #{end}
 		</if>
 		<if test="cate!=null">
 			SELECT TO_CHAR(regdate,'yyyy-MM-dd') as regdate,period, Challenge_no,cate,TO_CHAR(start_day,'yyyy-MM-dd') as db_start_day,TO_CHAR(end_day,'yyyy-MM-dd') as db_end_day,poster,title,id_leader,limit, num
-			FROM (SELECT regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit,rownum as num
-			FROM (SELECT regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit
-			FROM challenge WHERE cate=#{cate} ORDER BY ${sorting} DESC))
+			FROM (SELECT
+			regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit,rownum
+			as num
+			FROM (SELECT
+			regdate,period,Challenge_no,cate,start_day,end_day,poster,title,id_leader,limit
+			FROM
+			challenge WHERE cate=#{cate} ORDER BY ${sorting} DESC))
 			WHERE num BETWEEN #{start} AND #{end}
 		</if>
 	</select>	
@@ -161,7 +169,7 @@
 		FROM Challenge ORDER BY challenge_no DESC))
 		WHERE num BETWEEN #{start} AND #{end}
 	</select>
-
+	
 	<!-- 인증 업로드 -->
 	<insert id="Challenge_CertifiedUpload"
 		parameterType="Challenge_CertifiedVO">
@@ -211,4 +219,32 @@
 		end_day=#{db_end_day}
 		WHERE challenge_no=#{challenge_no}
 	</update>
+	
+	
+	<!-- 인증있는지 없는지 확인하기 -->
+	<select id="myChallenge_Certified_check" resultType="int" parameterType="hashmap">
+		SELECT COUNT(*) FROM challenge_certified WHERE challenge_id=#{id} AND TO_CHAR(certified_date,'yyyy-MM-dd')=#{strday}
+	</select>
+	
+	
+	<!-- 마이페이지에 띄울 인증 정보 가져오는 부분 -->
+	<select id="myChallenge_CertifiedData" resultType="Challenge_CertifiedVO" parameterType="hashmap">
+		SELECT * FROM challenge_certified WHERE challenge_id=#{id} AND TO_CHAR(certified_date,'yyyy-MM-d')=#{strday}
+	</select>
+	
+ 
+	 
+	 <!-- 회원이 인증한 방에 대한 정보 가져오기 -->
+	 <select id="myChallenge_roomdetail" parameterType="hashmap" resultType="ChallengeVO">
+	 	SELECT *
+		FROM Challenge c
+		JOIN challenge_certified cc
+		ON c.challenge_no=cc.challenge_no
+		WHERE cc.challenge_id=#{challenge_id}
+		AND TO_CHAR(cc.certified_date,'yyyy-MM-dd')=#{my_selected_date};
+	 </select>
+	
+	
+	
+	
 </mapper>

@@ -19,6 +19,65 @@ public class ChallengeDAO {
 		ssf=CreateSqlSessionFactory.getSsf();
 	}
 	
+	//myChallenge_roomdetail
+	// <select id="myChallenge_roomdetail" parameterType="hashmap" resultType="ChallengeVO">
+	public static List<ChallengeVO> myChallenge_roomdetail(Map map)
+	{
+		List<ChallengeVO> list = new ArrayList<ChallengeVO>();
+		SqlSession session= null;
+		try {
+			session=ssf.openSession();
+			list=session.selectList("myChallenge_roomdetail", map);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return list;
+	}
+	
+	
+	// myChallenge_Certified_check
+	public static int myChallenge_Certified_check(Map map)
+	{
+		int count=0;
+		SqlSession session=null;
+		try
+		{
+			session=ssf.openSession();
+			count=session.selectOne("myChallenge_Certified_check",map);
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			if(session!=null)
+				session.close();
+		}
+		return count;
+	}
+	
+	
+	// myChallenge_CertifiedData
+	public static List<Challenge_CertifiedVO> myChallenge_CertifiedData(Map map)
+	{
+		List<Challenge_CertifiedVO> list = new ArrayList<Challenge_CertifiedVO>();
+		SqlSession session= null;
+		try {
+			session=ssf.openSession();
+			list=session.selectList("myChallenge_CertifiedData", map);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return list;
+	}
+	
+	
 	// challengeSearchTotalPage
 	public static int challengeSearchTotalPage(String keyword)
 	{

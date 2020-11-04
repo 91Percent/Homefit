@@ -9,7 +9,7 @@
 <head>
 
 <meta charset="utf-8">
-<title>Shop Homepage - Start Bootstrap Template</title>
+<title>Challenge List</title>
 <style type="text/css">
 .challenge_room_count {
 	font-size: 15px;
@@ -30,6 +30,8 @@ let cate ="";
 //let sorting="";
 var page = $(this).attr("page");
 $(function () {
+
+	
 	// 검색어 입력 시
 	$('#searchbtn').click(function() {
 		let keyword=$('#searchtext').val();
@@ -49,7 +51,9 @@ $(function () {
 			}
 		});
 	});
-	// 정렬 순서 선택
+
+	
+	// 아무것도선택 안했을 때
 	$.ajax({
 			type:'post',
 			url:'../challenge/sublist.do',
@@ -61,19 +65,24 @@ $(function () {
 				$('.sublist').html(result);
 			}
 	});
+	
 	// 카테고리 선택 해제
 		$('#cate_init').click(function () {
 		$('.a').prop('checked',false);
 		$.ajax({
 			type:'post',
 			url:'../challenge/sublist.do',
+			data:{'sorting':'regdate'},
 			//data:{'cate':cate},
 			success:function(result)
 			{
 				$('.sublist').html(result);
 			}
+			
 		});
+		
 	});
+	
 	// 도전 현황 선택 해제
 // 	$('#state_init').click(function () {
 		
@@ -90,6 +99,7 @@ $(function () {
 // 		});
 		
 // 	});
+	
 	// 카테고리 클릭했을 떄
 	$('.pixel-radio').click(function(){
 		cate = $(":input:radio[name=challcate]:checked").val();	
@@ -110,6 +120,7 @@ $(function () {
 			}
 		});
 	});
+	
 //	정렬 기준 선택했을 때
 	$('#sorting').on('change',function(){
 		let sorting = $('#sorting option:selected').val();
@@ -128,10 +139,13 @@ $(function () {
 			}
 		});
 	})
+	
+
 });
+
 </script>
-</head>	
-<body>	
+</head>
+<body>
 	<!-- ================ start banner area ================= -->
 	<section class="blog-banner-area" id="category">
 		<div class="container h-100">
@@ -149,19 +163,24 @@ $(function () {
 		</div>
 	</section>
 	<!-- ================ end banner area ================= -->
-		
+
 	<!-- ================ category section start ================= -->
 	<section class="section-margin--small mb-5">
 		<div class="container">
 			<div class="row">
+
 				<!-- start : 상세 페이지 왼쪽 -->
 				<div class="col-xl-3 col-lg-4 col-md-5">
 					<div class="sidebar-categories">
 						<div class="head">Challenge Category</div>
 						<ul class="main-categories">
+						
 							<li class="common-filter">
 								<form action="#">
+								
 									<ul>
+										
+										
 										<li class="filter-list cate"><input class="pixel-radio a"
 											type="radio" id="challex" name="challcate" value="exercise"><label 
 											for="challex">운동 도전</label></li>
@@ -170,52 +189,59 @@ $(function () {
 											for="challfood">식단 도전</label></li>
 										<li class="filter-list cate"><input class="pixel-radio a"
 											type="radio" id="challetc" name="challcate" value="etc"><label
-											for="challetc">기타</label></li>
+											for="challegecateclear">기타</label></li>
 										
-										<input type="button" class="btn btn-primary btn-xxs" id="cate_init" value="선택해제"></button>
+										
 									</ul>
 								</form>
 							</li>
+							<li class="challengecate">
+										<input type="button" class="btn btn-primary btn-sm" id="cate_init" value="선택해제">
+										</li>
 						</ul>
 					</div>
-					<div class="sidebar-filter">
-						<div class="top-filter-head">Challenge Filters</div>
-						<div class="common-filter">
-							<div class="head">도전 현황</div>
-							<form action="#">
-								<ul>
-									<li class="filter-list state"><input class="pixel-radio b"
-										type="radio" id="challengWaiting" name="challengeState" value="waiting"> <label
-										for="periodxs">도전 대기<span></span>
-									</label></li>
-									<li class="filter-list state"><input class="pixel-radio b"
-										type="radio" id="challengeIng" name="challengeState" value="ing"> <label
-										for="periods">진행중<span></span>
-									</label></li>
-									<li class="filter-list state"><input class="pixel-radio b"
-										type="radio" id="challengeEnd" name="challengeState" value="end"> <label
-										for="periodm">도전 종료<span></span>
-									</label></li>
-									<input type="button" class="btn btn-primary btn-xxs" id="state_init" value="선택해제"></button>
-								</ul>
-							</form>
-						</div>
-					</div>
+<!-- 					<div class="sidebar-filter"> -->
+<!-- 						<div class="top-filter-head">Challenge Filters</div> -->
+<!-- 						<div class="common-filter"> -->
+<!-- 							<div class="head">도전 현황</div> -->
+<!-- 							<form action="#"> -->
+<!-- 								<ul> -->
+<!-- 									<li class="filter-list state"><input class="pixel-radio b" -->
+<!-- 										type="radio" id="challengWaiting" name="challengeState" value="waiting"> <label -->
+<!-- 										for="periodxs">도전 대기<span></span> -->
+<!-- 									</label></li> -->
+<!-- 									<li class="filter-list state"><input class="pixel-radio b" -->
+<!-- 										type="radio" id="challengeIng" name="challengeState" value="ing"> <label -->
+<!-- 										for="periods">진행중<span></span> -->
+<!-- 									</label></li> -->
+<!-- 									<li class="filter-list state"><input class="pixel-radio b" -->
+<!-- 										type="radio" id="challengeEnd" name="challengeState" value="end"> <label -->
+<!-- 										for="periodm">도전 종료<span></span> -->
+<!-- 									</label></li> -->
+									
+<!-- 									<input type="button" class="btn btn-primary btn-xxs" id="state_init" value="선택해제"></button> -->
+<!-- 								</ul> -->
+<!-- 							</form> -->
+<!-- 						</div> -->
+			
+<!-- 					</div> -->
 				</div>
 				<!-- end : 상세 페이지 왼쪽 -->
+
 				<!-- start : 상세 페이지 오른쪽 -->
 				<div class="col-xl-9 col-lg-8 col-md-7">
-					
+
 					<!-- Start Filter Bar -->
 					<div class="filter-bar d-flex flex-wrap align-items-center">
 						<div class="sorting">
 							<select id="sorting">
-								<option value="start_day">최신시작순</option>
 								<option value="regdate">최신등록순</option>
+								<option value="start_day">최신시작순</option>
 								<option value="end_day">최신종료순</option>
 							</select>
 						</div>
 						
+
 						<div>
 							<div class="input-group filter-bar-search">
 								<input type="text" placeholder="Search" id="searchtext">
@@ -286,6 +312,8 @@ $(function () {
                           </ul>
                       </nav>  
 					<!-- ////////////// pagination end /////////////////////// -->
+					
+
 				</div>
 				<!-- end : 상세페이지 오른쪽 -->
 

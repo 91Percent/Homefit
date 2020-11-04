@@ -3,6 +3,7 @@ package com.sist.model;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -12,6 +13,7 @@ import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -19,16 +21,141 @@ import com.sist.controller.RequestMapping;
 import com.sist.dao.ChallengeDAO;
 import com.sist.dao.Challenge_CertifiedDAO;
 import com.sist.vo.ChallengeVO;
+import com.sist.vo.Challenge_CertifiedVO;
 import com.sist.vo.Challenge_ParticipationVO;
 
 public class ChallengeModel {
+	
+	// 마이 인증 목록
+	@RequestMapping("challenge/mychallenge.do")
+	public String myChallenge(HttpServletRequest request)
+	{
+		request.setAttribute("main_jsp", "../challenge/mychallenge.jsp");
+		return "../main/main.jsp";
+	}
+	 
+	// 마이 인증 목록 디테일
+	@RequestMapping("challenge/myProofDetail.do")
+	public String myProofDetail(HttpServletRequest request)
+	{
+		// 로그인 중인 아이디 받기
+		HttpSession session= request.getSession();
+		String id= (String) session.getAttribute("id");
 		
+		// 사용자가 클릭한 날짜 받기
+		String day= request.getParameter("day");
+		String year= request.getParameter("year");
+		String month= request.getParameter("month");
+		
+		if(month.length()<2)
+			month="0"+month;
+		if(day.length()<2)
+			day="0"+day;
+		
+		String date = year+"-"+month+"-"+day;
+		System.out.println(date);
+		
+		
+		
+		// 인증 테이블에서 세션 id값과 일지하는 정보 가져오기
+		List<Challenge_CertifiedVO> cfList = new ArrayList<Challenge_CertifiedVO>();
+		
+		Map map = new HashMap();
+		map.put("challenge_id", id);
+		map.put("my_selected_date", date);
+		System.out.println(date);
+		cfList = ChallengeDAO.myChallenge_CertifiedData(map);
+		
+		for(Challenge_CertifiedVO vo: cfList)
+		{
+			int i=1;
+			vo.setMylist_no(i++);
+		}
+		
+		List<ChallengeVO> myList= ChallengeDAO.myChallenge_roomdetail(map);
+		
+		return "../challenge/myProofDetail.jsp";
+	}
 	
 	
+	// 마이챌린지 달력만들기
+	@RequestMapping("challenge/certifiedcalendar.do")
+	public String certifiedcalendar(HttpServletRequest request)
+	{
+		// 현재 년, 월 구하기
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH)+1; // Calendar.MONTH : 0~11
+		
+		// 두 번째 호출된 페이지에서 요청된 년도와 월을 저장하기
+		String paramYear=request.getParameter("year");
+		String paramMonth=request.getParameter("month");
+		
+		if(paramYear!=null) {
+			year = Integer.parseInt(paramYear);
+		}
+		if(paramMonth!=null) {
+			month = Integer.parseInt(paramMonth);
+		}
+		
+		// 요청받은 년도와 월의 일자로 캘린더 셋팅
+		cal.set(year, month-1, 1);
+		
+		// 매월 1일의 요일 구하기 = 첫 주 빈공백의 갯수
+		int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK)-1;
+		//System.out.println(dayOfWeek);
+		
+		// 월의 최대 일수 구하기
+		int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+		//System.out.println(lastDay);
+		
+		HttpSession session=request.getSession();
+		String id=(String) session.getAttribute("id");
+		System.out.println(id);
+		
+		// 인증 있는 날짜 받을 배열
+		int[] arr=new int[31];
+		
+		String strday="";
+		// 달력마다 날짜에 데이터 있는지 확인하기
+		for(int i=0;i<31;i++)
+		{
+			strday= year+"-"+month+"-";
+			String day="";
+			// day에 0붙이기
+			if(i>=0 && i<=8)
+			{
+				day+="0"+(i+1);
+			}
+			else
+			{
+				day+=String.valueOf(i+1);
+			}
+			strday+=day;
+			
+			if(id!=null)
+			{
+				
+			Map map = new HashMap();
+			map.put("id", id);
+			map.put("strday", strday);
+			
+			int count = ChallengeDAO.myChallenge_Certified_check(map);
+			
+			arr[i]=count;
+			}
+		}
 	
-	
-// 검색 필터 적용한 리스트
-	// 도전 목록: list
+		request.setAttribute("strday", strday);
+		request.setAttribute("arr", arr);
+		request.setAttribute("lastDay", lastDay);
+		request.setAttribute("dayOfWeek", dayOfWeek);
+		request.setAttribute("year", year);
+		request.setAttribute("month", month);
+		
+		return "../challenge/certifiedcalendar.jsp";
+	}
+		
 	
 	// 달력만들기
 		@RequestMapping("challenge/calendar.do")
@@ -49,16 +176,7 @@ public class ChallengeModel {
 			if(paramMonth!=null) {
 				month = Integer.parseInt(paramMonth);
 			}
-			
-			if(month>12) {
-				month=1;
-				year++;
-			}
-			if(month<1) {
-				month=12;
-				year--;
-			}
-			
+		
 			// 요청받은 년도와 월의 일자로 캘린더 셋팅
 			cal.set(year, month-1, 1);
 			
@@ -68,10 +186,10 @@ public class ChallengeModel {
 			
 			// 월의 최대 일수 구하기
 			int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-			System.out.println(lastDay);
+			//System.out.println(lastDay);
 			
 			// 마지막 주 빈 공백의 갯수
-			System.out.println(7-(dayOfWeek+lastDay)%7);
+			//System.out.println(7-(dayOfWeek+lastDay)%7);
 			
 			request.setAttribute("lastDay", lastDay);
 			request.setAttribute("dayOfWeek", dayOfWeek);
@@ -80,60 +198,6 @@ public class ChallengeModel {
 			
 			return "../challenge/calendar.jsp";
 		}
-	
-//		// 달력만들기
-//				@RequestMapping("challenge/calendar2.do")
-//				public String challengeCalendar2(HttpServletRequest request)
-//				{
-//					// 현재 년, 월 구하기
-//					Calendar cal = Calendar.getInstance();
-//					int year = cal.get(Calendar.YEAR);
-//					int month = cal.get(Calendar.MONTH)+1; // Calendar.MONTH : 0~11
-//					
-//					// 두 번째 호출된 페이지에서 요청된 년도와 월을 저장하기
-//					String paramYear=request.getParameter("year");
-//					String paramMonth=request.getParameter("month");
-//					
-//					if(paramYear!=null) {
-//						year = Integer.parseInt(paramYear);
-//					}
-//					if(paramMonth!=null) {
-//						month = Integer.parseInt(paramMonth);
-//					}
-//					
-//					if(month>12) {
-//						month=1;
-//						year++;
-//					}
-//					if(month<1) {
-//						month=12;
-//						year--;
-//					}
-//					
-//					// 요청받은 년도와 월의 일자로 캘린더 셋팅
-//					cal.set(year, month-1, 1);
-//					
-//					// 매월 1일의 요일 구하기 = 첫 주 빈공백의 갯수
-//					int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK)-1;
-//					System.out.println(dayOfWeek);
-//					
-//					// 월의 최대 일수 구하기
-//					int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-//					System.out.println(lastDay);
-//					
-//					// 마지막 주 빈 공백의 갯수
-//					System.out.println(7-(dayOfWeek+lastDay)%7);
-//					
-//					request.setAttribute("lastDay", lastDay);
-//					request.setAttribute("dayOfWeek", dayOfWeek);
-//					request.setAttribute("year", year);
-//					request.setAttribute("month", month);
-//					
-//					return "../challenge/calendar2.jsp";
-//				}
-			
-	
-	
 	
 	@RequestMapping("challenge/list.do")
 	public String challengeListData(HttpServletRequest request) {
@@ -278,15 +342,11 @@ public class ChallengeModel {
 		
 		// 목록 리스트 데이터 결과값 받기
 		Map map = new HashMap();
-		map.put("start",start);
-		map.put("end",end);
-		map.put("cate",cate);
-		map.put("sorting",sorting);
+		map.put("start", start);
+		map.put("end", end);
+		map.put("cate", cate);
+		map.put("sorting", sorting);
 		
-		System.out.println("start 는 ?!"+start);
-		System.out.println("end 는 ?!"+end);
-		System.out.println("cate 는 ?!"+cate);
-		System.out.println("sorting 는 ?!"+sorting);
 		List<ChallengeVO> list = ChallengeDAO.challengeCateListData(map);
 		
 		// 아이디 받기

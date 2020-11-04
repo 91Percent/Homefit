@@ -89,7 +89,7 @@ $(function(){
 								<td width=70%>
 									<input type="text" class="form-control title"
 										id="title" name="title" placeholder="방제목을 입력하세요" maxlength="50"> 
-									<span> * 50자 이내로 입력하세요(<span id='title-length'>0</span>/50)</span>
+									<span> * 50자 이내로 입력하세요</span>
 								</td>
 							</tr>
 							<div class="row">
@@ -109,7 +109,7 @@ $(function(){
 							<tr>
 								<th class="danger text-right" width=30%>도전소개글</th>
 								<td width=70%><textarea class="form-control" name="content"
-										id="content" rows="10" placeholder="소개글을 입력하세요"></textarea></td>
+										id="challenge_content" rows="10" placeholder="소개글을 입력하세요"></textarea></td>
 							</tr>
 							<tr>
 								<td colspan="2" class="text-center"><input type=submit

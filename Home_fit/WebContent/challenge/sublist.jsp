@@ -35,6 +35,12 @@ margin-top: 15px;
 	$('.waiting').before('<img src="https://i.ibb.co/jftKvs8/waiting.png" class="overlay" />');
 	$('.chellenging').before('<img src="https://i.ibb.co/1Yc4tbw/ing.png" class="overlay" />');
 	$('.closing').before('<img src="https://i.ibb.co/yRcKdGY/closing.png" class="overlay" />');
+	$('.chexceed').click(function(){
+		alert("제한 인원을 초과하였습니다.");
+	})
+	$('.chexpired').click(function(){
+		alert("이미 종료된 도전입니다.");
+	})
 </script>
 </head>
 <body>
@@ -82,7 +88,12 @@ margin-top: 15px;
 						<c:choose>
 							<c:when test="${vo.db_end_day < today }">
 								<button type="button" id="notLogin"
-									class="btn btn-outline-dark btn-sm list-btn participantx">참여불가</button>
+									class="btn btn-outline-dark btn-sm list-btn participantx chexpired">참여불가</button>
+							</c:when>
+							
+							<c:when test="${vo.participantCount==vo.limit || vo.participantCount>vo.limit}">
+								<button type="button" id="notLogin"
+									class="btn btn-outline-dark btn-sm list-btn participantx chexceed">참여불가</button>
 							</c:when>
 							<c:otherwise>
 								<c:if test="${sessionScope.id ==null }">

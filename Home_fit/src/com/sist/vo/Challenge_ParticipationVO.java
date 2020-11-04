@@ -13,7 +13,15 @@ public class Challenge_ParticipationVO {
 	private int challenge_no;
 	private String challenge_id;
 	private Date regdate;
+	private int mychallenge_count;
+
 	
+	public int getMychallenge_count() {
+		return mychallenge_count;
+	}
+	public void setMychallenge_count(int mychallenge_count) {
+		this.mychallenge_count = mychallenge_count;
+	}
 	public int getChallenge_no() {
 		return challenge_no;
 	}

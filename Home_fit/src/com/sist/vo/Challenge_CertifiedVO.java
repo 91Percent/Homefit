@@ -22,6 +22,14 @@ public class Challenge_CertifiedVO {
 	private String db_Certified_date;
 	private String Certified_check;
 	private String challenge_id;
+	private int mylist_no; // 마이페이지 출력용 번호
+	
+	public int getMylist_no() {
+		return mylist_no;
+	}
+	public void setMylist_no(int mylist_no) {
+		this.mylist_no = mylist_no;
+	}
 	public int getChallenge_no() {
 		return challenge_no;
 	}

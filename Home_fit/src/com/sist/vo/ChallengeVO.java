@@ -34,9 +34,17 @@ public class ChallengeVO {
 	private int participantCount; // 방마다 참가자 수 구하는 용도
 	private String challengeState;
 	private String sorting; //  정렬순
-	private String keyword;
+	private String keyword; // 검색 키워드	
+	private Challenge_CertifiedVO ccVO= new Challenge_CertifiedVO();
 	
 	
+	
+	public Challenge_CertifiedVO getCcVO() {
+		return ccVO;
+	}
+	public void setCcVO(Challenge_CertifiedVO ccVO) {
+		this.ccVO = ccVO;
+	}
 	public String getKeyword() {
 		return keyword;
 	}
