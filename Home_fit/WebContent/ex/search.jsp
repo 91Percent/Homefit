@@ -25,6 +25,12 @@ $(function(){
 });
 });
 </script>
+<style>
+#sooborder {
+ border: 2px dashed ;
+ border-color:#ADD8E6;
+}
+</style>
 </head>
 <body>
             <div class="row row2">
@@ -32,7 +38,7 @@ $(function(){
               <div class="col-md-6 col-lg-4">
                 <div class="card text-center card-product">
                   <div class="card-product__img">
-                    <img class="card-img" src="${vo.poster }" alt="">
+                    <img class="card-img" src="${vo.poster }" alt="" id="soofilter">
                     <ul class="card-product__imgOverlay">
                       <li><button onclick="location.href='ex_detail.do?home_no=${vo.home_no }'"><i class="ti-search"></i></button></li>
                       <li><button><i class="ti-heart"></i></button></li>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,17 +8,13 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
-let check;
 function pgchange(){
-			console.log('클릭');
-			content_cate = check;
-			console.log('check'+check);
 			$.ajax({
 				type:'post',
-				 url:'../ex/content.do?cate_no='+content_cate+'&page=1',
+				 url:'../ex/ex_mypage.do',
 				 success:function(result)
 				 {
-					 $('.blog_details').html(result);
+					 $('.soo').html(result);
 				 }
 			});
 }
@@ -53,20 +50,23 @@ function pgchange(){
 							</h2>
 						</div>
 						<ul class="list cat-list">
-							<li><a href="#" class="d-flex justify-content-between">
+							<li><a class="d-flex justify-content-between" value="1">
+									<p>테스트 페이지</p>
+							</a></li>
+							<li><a class="d-flex justify-content-between">
 									<p>내 정보 수정</p>
 							</a></li>
-							<li><a href="#" class="d-flex justify-content-between">
+							<li><a class="d-flex justify-content-between">
 									<p>장바구니</p>
 							</a></li>
-							<li><a href="#" class="d-flex justify-content-between">
+							<li><a class="d-flex justify-content-between">
 									<p>코치 예약</p>
 							</a></li>
-							<li><a href="#" class="d-flex justify-content-between">
+							<li><a class="d-flex justify-content-between">
 									<p>참여중인 도전</p>
 							</a></li>
 							<li>
-							<a class="d-flex justify-content-between" style="cursor:pointer" onclick="pgchange();" id="soo">
+							<a class="d-flex justify-content-between" style="cursor:pointer" onclick="pgchange();">
 									홈트 즐겨찾기
 							</a>
 							</li>
@@ -79,8 +79,8 @@ function pgchange(){
 				<div class="blog_left_sidebar">
 					<article class="row blog_item">
 						<div class="col-lg-12">
-							<div class="blog_post">
-								<div class="blog_details">
+							<div class="blog_post">  
+								<div class="blog_details soo">
 									<input type="checkbox" name="all" class="check-all"><label>전체
 										선택</label> <input type="button" class="btn" id="allBtn" value="삭제" />
 									<form id="frm" method="post" action="../ex/ex_all_ok.do">

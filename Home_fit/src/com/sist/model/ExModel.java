@@ -387,10 +387,9 @@ public class ExModel {
 		
 		List<ExVO> list=ExDAO.mypageListData(id);
 		request.setAttribute("list", list);
+		System.out.println(list.size());
 		
-		
-		 request.setAttribute("main_jsp", "../ex/ex_mypage.jsp");
-		return "../main/main.jsp";
+		return "../ex/ex_mypage.jsp";
 	}
 	
 	@RequestMapping("ex/ex_favorite.do")
@@ -423,7 +422,8 @@ public class ExModel {
 			ExDAO.favDelete(Integer.parseInt(home_no));
 		}
 		
-		return "redirect:../ex/ex_mypage.do";
+		//return "redirect:../ex/ex_mypage.do";
+		return "redirect:../mypage/mytest.do";
 	}
 	@RequestMapping("ex/ex_all_ok.do")
 	public String ex_ex_all(HttpServletRequest request)
@@ -440,7 +440,25 @@ public class ExModel {
 		  }
 		
 		
-		return "redirect:../ex/ex_mypage.do";
+		//return "redirect:../ex/ex_mypage.do";
+		  return "redirect:../mypage/mytest.do";
+	}
+	@RequestMapping("mypage/mytest.do")
+	public String mypage(HttpServletRequest request)
+	{
+//		String test=(String) request.getAttribute("test");
+//		if(test==null)
+//			test="1";
+//		System.out.println(test);
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		System.out.println("id="+id);
+		List<ExVO> list=ExDAO.mypageListData(id);
+		
+	//	request.setAttribute("test", test);
+		request.setAttribute("list", list);
+		request.setAttribute("main_jsp", "../mypage/mytest.jsp");
+		return "../main/main.jsp";
 	}
 
 	

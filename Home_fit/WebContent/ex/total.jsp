@@ -92,9 +92,15 @@ $(function(){
 // 	// temp ==> td
 
 </script>
+<style>
+#sooborder {
+ border: 2px dashed ;
+ border-color:#ADD8E6;
+}
+</style>
 </head>
 <body>
-<section class="blog-banner-area row1" id="category">
+<section class="blog-banner-area row111" id="category">
 		<div class="container h-100">
 			<div class="blog-banner">
 				<div class="text-center">
@@ -146,7 +152,7 @@ $(function(){
         </div>
         <div class="col-xl-9 col-lg-8 col-md-7">
           <!-- Start Filter Bar -->
-           <div class="filter-bar d-flex flex-wrap align-items-center">
+           <div class="filter-bar d-flex flex-wrap align-items-center" id="soofilter">
 <!--             <div class="sorting"> -->
 <!--               <select name="ex_sor" id="ex_sor"> -->
 <!--                 <option class="option1" value="1" >근력</option> -->
@@ -176,17 +182,16 @@ $(function(){
           <section class="lattest-product-area pb-40 category-list row1" id="test11">
  			<div class="row row2">
             <c:forEach var="vo" items="${list }">
-              <div class="col-md-6 col-lg-4">
+              <div class="col-md-6 col-lg-4 ">
                 <div class="card text-center card-product">
                   <div class="card-product__img">
-                    <img class="card-img" src="${vo.poster }" alt="">
+                    <img class="card-img" src="${vo.poster }" alt="" id="sooborder">
                     <ul class="card-product__imgOverlay">
                       <li><button onclick="location.href='ex_detail.do?home_no=${vo.home_no }'"><i class="ti-search"></i></button></li>
-                      <li><button><i class="ti-heart"></i></button></li>
                     </ul>
                   </div>
                   <div class="card-body">
-                    <a href="ex_detail.do?home_no=${vo.home_no }"><p>${vo.subject }</p></a>
+                    <a href="ex_detail.do?home_no=${vo.home_no }"><p >${vo.subject }</p></a>
                   </div>
                 </div>
               </div>

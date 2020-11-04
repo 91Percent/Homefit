@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+
 <body>
    <!-- ================ start banner area ================= -->   
    <section class="blog-banner-area" id="blog">
@@ -39,21 +40,21 @@
                </div>
             </div>
             
-            <div class="col-lg-5 offset-lg-1">
-               <div class="s_product_text">
+            <div class="col-lg-5 offset-lg-1" >
+               <div class="s_product_text" >
                   <h2>${vo.subject}</h2>
                   <h4>${vo.home_level}</h4> 
                   <h5>사용 근육 : ${vo.muscle }</h5>
                   <h5>초점 : ${vo.focus }</h5>
                   <h5>필요한 도구 : ${vo.equipment }</h5>
-                  <p>팁 : ${vo.tip }</p>
+                  <p>팁: ${vo.tip }</p>
+                  	<c:if test="${count==0 }">
+					<div class="card_area d-flex align-items-center">
+                     <a class="icon_btn" href="../ex/ex_favorite.do?home_no=${vo.home_no }"><i class="ti-heart"></i></a>즐겨찾기 등록
+                  </div>
+                  </c:if>
                   </div>
 					</div>
-				</div>
-				<div class="card_area d-flex align-items-center">
-					<c:if test="${count==0 }">
-					<a class="icon_btn" href="../ex/ex_favorite.do?home_no=${vo.home_no }"><i class="ti-heart"></i></a>
-					</c:if>
 				</div>
                </div>
             </div>
@@ -179,7 +180,7 @@
                               <td>
                                   <div class="media">
                                       <div class="d-flex">
-                                          <img src="${a }" alt="">
+                                          <img src="${a }" alt="" width=250 height=300>
                                       </div>
                                       <div class="media-body">
                                           <p>${p }</p>
