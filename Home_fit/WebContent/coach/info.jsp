@@ -25,7 +25,6 @@
 	</section>
 	<!-- ================ end banner area ================= -->
 
-
   <!--================Single Product Area =================-->
 	<div class="product_image_area">
 		<div class="container">

@@ -6,11 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</style> -->
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
-
-// 시작일
+// 시작일  
 	$(function() {
 		$('.select_ok').hover(function() {
 			$(this).css("cursor", "pointer");
@@ -65,7 +63,6 @@
 			// 		})
 		})
 	});
-
 // 종료일
 $(function(){
 	$('.select_ok2').hover(function(){
@@ -97,8 +94,6 @@ $(function(){
 			}
 		})
 	});
-	
-	
 	$('.select_ok2').click(function(){
 		let year=$(this).attr("data-year");
 		let month=$(this).attr("data-month");
@@ -123,16 +118,14 @@ $(function(){
 </script>
 </head>
 <body>
-
-<tr>
-<td id="calendar">
+<div class="row">
 	<th class="danger text-right" width=30%>도전 시작일</th>
 	<h3 class="text-center">
 		<span id="selyear"></span>년도<span id="selmonth"></span>월<span
 			id="selday"></span>일
-	</h3>
+	</h3>		
 	<table class="table">
-		<tr>
+		<tr>	
 			<td colspan="7"><select name="year" id="year">
 					<c:forEach var="i" begin="2020" end="2030">
 						<option ${i==year?"selected":"" }>${i }</option>
@@ -142,10 +135,10 @@ $(function(){
 						<option ${i==month?"selected":"" }>${i }</option>
 					</c:forEach>
 			</select>월</td>
-		</tr>
+		</tr>	
 <!-- 	</table> -->
 <!-- 	<table id="calendar"> -->
-		<tr>
+		<tr>	
 			<c:if test="${dayOfWeek!=0}">
 				<c:forEach var="i" begin="1" end="${dayOfWeek }">
 					<td>&nbsp;</td>
@@ -162,12 +155,11 @@ $(function(){
 			<c:forEach var="i" begin="1" end="${7-(dayOfWeek+lastDay)%7 }">
 				<td>&nbsp;</td>
 			</c:forEach>
-		</c:if>
-	</table>
-	
+		</c:if> 
+	</table>	
 	<h3 class="text-center"><span id="selyear2"></span>년도<span id="selmonth2"></span>월<span id="selday2"></span>일 </h3>
 	<table class="table">
-		<tr>
+		<tr>	
 			<td colspan="7"><select name="year2" id="year2">
 					<c:forEach var="i" begin="2020" end="2030">
 						<option ${i==year?"selected":"" }>${i }</option>
@@ -177,8 +169,8 @@ $(function(){
 						<option ${i==month?"selected":"" }>${i }</option>
 					</c:forEach>
 			</select>월</td>
-		</tr>
-		<tr>
+		</tr>	
+		<tr>	
 			<c:if test="${dayOfWeek!=0}">
 				<c:forEach var="i" begin="1" end="${dayOfWeek }">
 					<td>&nbsp;</td>
@@ -196,52 +188,8 @@ $(function(){
 				<td>&nbsp;</td>
 			</c:forEach>
 		</c:if>
-
 	</table>
-<td>
-</tr>
+</div>
 <!------------------------------------------------종료일------------------------------------------>
-<tr>
-								<th class="danger text-right" width=30%>도전 종료일</th>	
-<td id="calendar2">
-
-h3 class="text-center"><span id="selyear2"></span>년도<span id="selmonth2"></span>월<span id="selday2"></span>일 </h3>
-	<table class="table">
-		<tr>
-			<td colspan="7"><select name="year2" id="year2">
-					<c:forEach var="i" begin="2020" end="2030">
-						<option ${i==year?"selected":"" }>${i }</option>
-					</c:forEach>
-			</select>년도&nbsp; <select name="month2" id="month2">
-					<c:forEach var="i" begin="1" end="12">
-						<option ${i==month?"selected":"" }>${i }</option>
-					</c:forEach>
-			</select>월</td>
-		</tr>
-		<tr>
-			<c:if test="${dayOfWeek!=0}">
-				<c:forEach var="i" begin="1" end="${dayOfWeek }">
-					<td>&nbsp;</td>
-				</c:forEach>
-			</c:if>
-			<c:forEach var="i" begin="1" end="${lastDay }" step="1"
-				varStatus="status">
-				<td><span class="select_ok2" data-year=${year } data-month="${month }"> ${status.count } </span></td>
-				<c:if test="${(dayOfWeek+status.count)%7==0 }">
-					</tr><tr>
-				</c:if>
-			</c:forEach>
-		<c:if test="${(7-(dayOfWeek+lastDay)%7)<7 }">
-			<c:forEach var="i" begin="1" end="${7-(dayOfWeek+lastDay)%7 }">
-				<td>&nbsp;</td>
-			</c:forEach>
-		</c:if>
-
-	</table>
-
-
-<td>
-							</tr>	
-	
 </body>
 </html>

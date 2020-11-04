@@ -35,7 +35,7 @@ $(function(){
                $('.qna_list').html(result);
             }
          })
-   });
+   	});
  }); 
 </script>
 </head>

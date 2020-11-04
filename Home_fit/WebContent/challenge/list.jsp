@@ -30,7 +30,6 @@ let cate ="";
 //let sorting="";
 var page = $(this).attr("page");
 $(function () {
-
 	// 검색어 입력 시
 	$('#searchbtn').click(function() {
 		let keyword=$('#searchtext').val();
@@ -50,8 +49,6 @@ $(function () {
 			}
 		});
 	});
-
-	
 	// 정렬 순서 선택
 	$.ajax({
 			type:'post',
@@ -64,10 +61,8 @@ $(function () {
 				$('.sublist').html(result);
 			}
 	});
-	
 	// 카테고리 선택 해제
 		$('#cate_init').click(function () {
-		
 		$('.a').prop('checked',false);
 		$.ajax({
 			type:'post',
@@ -77,11 +72,8 @@ $(function () {
 			{
 				$('.sublist').html(result);
 			}
-			
 		});
-		
 	});
-	
 	// 도전 현황 선택 해제
 // 	$('#state_init').click(function () {
 		
@@ -98,7 +90,6 @@ $(function () {
 // 		});
 		
 // 	});
-	
 	// 카테고리 클릭했을 떄
 	$('.pixel-radio').click(function(){
 		cate = $(":input:radio[name=challcate]:checked").val();	
@@ -119,7 +110,6 @@ $(function () {
 			}
 		});
 	});
-	
 //	정렬 기준 선택했을 때
 	$('#sorting').on('change',function(){
 		let sorting = $('#sorting option:selected').val();
@@ -138,13 +128,10 @@ $(function () {
 			}
 		});
 	})
-	
-
 });
-
 </script>
-</head>
-<body>
+</head>	
+<body>	
 	<!-- ================ start banner area ================= -->
 	<section class="blog-banner-area" id="category">
 		<div class="container h-100">
@@ -162,12 +149,11 @@ $(function () {
 		</div>
 	</section>
 	<!-- ================ end banner area ================= -->
-
+		
 	<!-- ================ category section start ================= -->
 	<section class="section-margin--small mb-5">
 		<div class="container">
 			<div class="row">
-
 				<!-- start : 상세 페이지 왼쪽 -->
 				<div class="col-xl-3 col-lg-4 col-md-5">
 					<div class="sidebar-categories">
@@ -210,19 +196,16 @@ $(function () {
 										type="radio" id="challengeEnd" name="challengeState" value="end"> <label
 										for="periodm">도전 종료<span></span>
 									</label></li>
-									
 									<input type="button" class="btn btn-primary btn-xxs" id="state_init" value="선택해제"></button>
 								</ul>
 							</form>
 						</div>
-			
 					</div>
 				</div>
 				<!-- end : 상세 페이지 왼쪽 -->
-
 				<!-- start : 상세 페이지 오른쪽 -->
 				<div class="col-xl-9 col-lg-8 col-md-7">
-
+					
 					<!-- Start Filter Bar -->
 					<div class="filter-bar d-flex flex-wrap align-items-center">
 						<div class="sorting">
@@ -233,7 +216,6 @@ $(function () {
 							</select>
 						</div>
 						
-
 						<div>
 							<div class="input-group filter-bar-search">
 								<input type="text" placeholder="Search" id="searchtext">
@@ -304,8 +286,6 @@ $(function () {
                           </ul>
                       </nav>  
 					<!-- ////////////// pagination end /////////////////////// -->
-					
-
 				</div>
 				<!-- end : 상세페이지 오른쪽 -->
 

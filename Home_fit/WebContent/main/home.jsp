@@ -211,6 +211,7 @@
      <section class="section-margin calc-60px">
       <div class="container">
         <div class="section-intro pb-60px">
+      <c:if test="${sessionScope.id ==null }"></c:if>
          <h4 align="left">코치-<span class="section-intro__style">[${coachtext }] 카테고리</span></h4>	
         </div>
         <div class="row">
