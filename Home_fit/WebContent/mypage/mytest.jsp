@@ -29,8 +29,8 @@ function pgchange(){
 					<h1>My page</h1>
 					<nav aria-label="breadcrumb" class="banner-breadcrumb">
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="#">제발</a></li>
-							<li class="breadcrumb-item active" aria-current="page">되라</li>
+							<li class="breadcrumb-item"><a href="#">어서와</a></li>
+							<li class="breadcrumb-item active" aria-current="page">마이 페이지는 처음이지?</li>
 						</ol>
 					</nav>
 				</div>

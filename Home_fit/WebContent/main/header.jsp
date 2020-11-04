@@ -65,14 +65,8 @@ margin: 0;  padding: 0;
 	                  <li class="nav-item"><a class="nav-link" href="tracking-order.html">기타</a></li>
 	                </ul>
 	             </li>
-	              <li class="nav-item submenu dropdown">
-	                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-	                  aria-expanded="false">꿀팁</a>
-	                <ul class="dropdown-menu">
-	                  <li class="nav-item"><a class="nav-link" href="login.html">칼로리</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="../news/news.do">뉴스</a></li>
-	                  <li class="nav-item"><a class="nav-link" href="../mypage/mytest.do">게시판</a></li>
-	                </ul>
+	                <li class="nav-item submenu dropdown">
+	                 <a href="../news/news.do" class="nav-link dropdown-toggle">홈트 뉴스</a>
 	              </li>
 	            </ul>
 	
