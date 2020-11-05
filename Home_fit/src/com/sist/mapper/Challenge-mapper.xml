@@ -206,19 +206,7 @@
 	</insert>
 
 
-	<!-- 방 업데이트 하는 부분 -->
-	<update id="Challenge_room_update" parameterType="ChallengeVO">
-		UPDATE challenge SET
-		cate=#{cate},
-		start_day=#{db_start_day},
-		title=#{title},
-		limit=#{limit},
-		poster=#{poster},
-		content=#{content},
-		id_leader=#{id_leader},
-		end_day=#{db_end_day}
-		WHERE challenge_no=#{challenge_no}
-	</update>
+
 	
 	
 	<!-- 인증있는지 없는지 확인하기 -->
@@ -229,13 +217,25 @@
 	
 	<!-- 마이페이지에 띄울 인증 정보 가져오는 부분 -->
 	<select id="myChallenge_CertifiedData" resultType="Challenge_CertifiedVO" parameterType="hashmap">
-		SELECT * FROM challenge_certified WHERE challenge_id=#{id} AND TO_CHAR(certified_date,'yyyy-MM-d')=#{strday}
+		SELECT * FROM challenge_certified WHERE challenge_id=#{id} 
+<!-- 		AND TO_CHAR(certified_date,'yyyy-MM-dd')=#{strday} -->
 	</select>
+	
+	
+	
+	 <!-- 회원이 인증한 방에 대한 정보 가져오기 -->
+	 <select id="myChallenge_roomdetail" parameterType="hashmap" resultType="ChallengeVO">
+	 	SELECT *
+		FROM Challenge c
+		JOIN challenge_certified cc
+		ON c.challenge_no=cc.challenge_no
+		WHERE cc.challenge_id=#{id}
+	 </select>
 	
  
 	 
 	 <!-- 회원이 인증한 방에 대한 정보 가져오기 -->
-	 <select id="myChallenge_roomdetail" parameterType="hashmap" resultType="ChallengeVO">
+	 <select id="myChallenge_roomdetail2" parameterType="hashmap" resultType="ChallengeVO">
 	 	SELECT *
 		FROM Challenge c
 		JOIN challenge_certified cc

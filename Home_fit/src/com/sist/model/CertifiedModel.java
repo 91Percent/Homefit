@@ -188,7 +188,7 @@ public class CertifiedModel {
 		
 		System.out.println("로그인이 1이면 되어있는거야! " + count);
 		request.setAttribute("id_certified_count",id_certified_count);
-		request.setAttribute("room_percent_str",room_percent_str);
+		request.setAttribute("room_percent_str",Double.parseDouble(room_percent_str));
 		request.setAttribute("diffDay", diffDay);
 		request.setAttribute("Period", Period);
 		request.setAttribute("Reply_list",Reply_list);

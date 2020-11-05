@@ -40,7 +40,11 @@ margin-top: 15px;
 	})
 	$('.chexpired').click(function(){
 		alert("이미 종료된 도전입니다.");
+	});
+	$('.chstand').click(function(){
+		alert("아직 시작되지 않은 도전입니다.");
 	})
+	
 </script>
 </head>
 <body>
@@ -86,6 +90,11 @@ margin-top: 15px;
 					<div class="card-footer">
 						<small class="text-muted">리더: ${vo.id_leader }</small>
 						<c:choose>
+							<c:when test="${vo.db_start_day > today }">
+								<button type="button" id="notLogin"
+									class="btn btn-outline-dark btn-sm list-btn participantx chstand">참여대기</button>
+							</c:when>
+						
 							<c:when test="${vo.db_end_day < today }">
 								<button type="button" id="notLogin"
 									class="btn btn-outline-dark btn-sm list-btn participantx chexpired">참여불가</button>
@@ -105,7 +114,7 @@ margin-top: 15px;
 									<!--  참여중이라면? count(*) = 1 -->
 									<c:if test="${vo.participantionCheck!=0 }">
 										<button type="button"
-											class="btn btn-outline-dark btn-sm list-btn"
+											class="btn btn-outline-dark btn-sm list-btn doproof"
 											onclick="location.href='../challenge/Certified.do?challenge_no=${vo.challenge_no}'">인증하기</button>
 									</c:if>
 									<c:if test="${vo.participantionCheck==0}">

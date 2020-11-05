@@ -300,7 +300,8 @@
 																               &nbsp;&nbsp;
 																             </c:forEach>
 																                             ☞
-																           </c:if> <!-- 																           <img src="../board/img.png"> 사용자 이미지 따로 받아서 출력하면 좋을거 같음-->
+																           </c:if> 
+																           																           <img src="../board/img.png"> 사용자 이미지 따로 받아서 출력하면 좋을거 같음
 																						&nbsp;${rvo.name }(${rvo.dbday })</td>
 																				</p>
 																				<p align="right">
@@ -365,7 +366,6 @@
 								
 
 								<c:if test="${count==3 && compare<0}">
-
 									<a href="../challenge/challenge_room_update.do?challenge_no=${vo.challenge_no }"
 										class="btn btn-basic2 btn-basic2">도전 수정하기</a>&nbsp;
 								</c:if>
@@ -396,10 +396,10 @@
 						<aside class="single_sidebar_widget author_widget">
 							<h3 class="widget_title">현재 참여중인 인원</h3>
 							<c:forEach var="vo" items="${rank_list}">
-								<table class="challengeRankIndex" cellpadding="10">
+								<table class="challengeRankIndex">
 									<c:if test=""></c:if>
 									<tr>
-										<td><img src="../challenge/rank1.png" width=40 height=40></td>
+										<td><img src="../challenge/`.png" width=40 height=40></td>
 										<td>${vo.challenge_id }(횟수:${vo.certified_no})
 										<td>
 									</tr>
