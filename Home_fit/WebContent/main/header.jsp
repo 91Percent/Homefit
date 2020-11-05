@@ -5,13 +5,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>홈핏</title>
 <style>
 #sootag{
 	margin: 0 0px 4px 13px;
 }
 #joinbom{
 	margin: 0;  padding: 0;
+}
+#logo_img {
+	width: 106px;
+    margin-bottom: 3px;
 }
 </style>
 </head>
@@ -21,7 +25,7 @@
 	    <div class="main_menu">
 	      <nav class="navbar navbar-expand-lg navbar-light">
 	        <div class="container">
-	          <a class="navbar-brand logo_h" href="../main/main.do">HOME FIT</a>
+	          <a class="navbar-brand logo_h" href="../main/main.do"><img src="../img/logo.png" id="logo_img"></a>
 	          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 	            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	          	<span class="icon-bar"></span>

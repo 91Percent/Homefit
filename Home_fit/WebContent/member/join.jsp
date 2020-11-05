@@ -42,6 +42,12 @@
 		margin: 100px 0
 	}
 }
+.nice-select {
+	width: 356px;
+}
+.list {
+	width: 356px;
+}
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript"
@@ -128,7 +134,7 @@
 						<form method=post class="row login_form"
 							action="../member/join_ok.do" name="joinFrm" id="joinFrm">
 							<div class="col-md-9 form-group">
-								<input type="text" class="form-control" id="id" name="id" placeholder="아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '아이디'">
+								<input type="text" class="form-control" readonly id="id" name="id" placeholder="아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '아이디'" style="background-color: #fff;">
 							</div>
 							<div class="col-md-3 form-group join_check">
 								<input type=button value="중복체크" class="btn btn-default btn-sm" id="join_btn" onclick="idcheck()">
@@ -142,23 +148,32 @@
 							<div class="col-md-12 form-group">
 								<input type="text" class="form-control" id="name" name="name" placeholder="이름" maxlength='10' onfocus="this.placeholder = ''" onblur="this.placeholder = '이름'">
 							</div>
+								
 							<div class="col-md-4 form-group">
 								<input type="text" class="form-control" id="birthday" name="bday1" placeholder="년도" maxlength='4' onfocus="this.placeholder = ''" onblur="this.placeholder = '년도'">
 							</div>
+							
 							<div class="col-md-4 form-group">
 								<input type="text" class="form-control" id="birthday" name="bday2" placeholder="월"  maxlength='2' onfocus="this.placeholder = ''" onblur="this.placeholder = '월'">
 							</div>
 							<div class="col-md-4 form-group">
 								<input type="text" class="form-control" id="birthday" name="bday3" placeholder="일"  maxlength='2' onfocus="this.placeholder = ''" onblur="this.placeholder = '일'">
 							</div>
-							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="gender" name="gender" placeholder="성별" onfocus="this.placeholder = ''" onblur="this.placeholder = '성별'">
-							</div>
+							
 							<div class="col-md-12 form-group">
 								<input type="text" class="form-control" id="tel" name="tel" placeholder="휴대전화"  maxlength='11' onfocus="this.placeholder = ''" onblur="this.placeholder = '휴대전화'">
 							</div>
+							<div class="col-md-12 form-group">
+								<select name="gender">
+								    <option value="">성별</option>
+								    <option value="남자">남자</option>
+								    <option value="여자">여자</option>
+							    	<option value="선택안함">선택안함</option>
+								</select>
+								<!-- <input type="text" class="form-control" id="gender" name="gender" placeholder="성별" onfocus="this.placeholder = ''" onblur="this.placeholder = '성별'"> -->
+							</div>
 							<div class="col-md-9 form-group">
-								<input type="text" class="form-control" id="post" name="post" placeholder="우편번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '우편번호'">
+								<input type="text" class="form-control" id="post" name="post" placeholder="우편번호" readonly onfocus="this.placeholder = ''" onblur="this.placeholder = '우편번호'" style="background-color: #fff;">
 							</div>
 							<div class="col-md-3 form-group">
 								<input type=button value="우편번호" class="btn btn-sm btn-default" id="join_btn" onclick="postfind()">
