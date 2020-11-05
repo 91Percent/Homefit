@@ -33,17 +33,13 @@ $(function(){
          <h5>예약페이지</h5>
          <table class="table">
    			<tr>
-   				<td>예약취소</td>
-   				<td>예약번호</td>
-   				<td>사용자 아이디</td>
-   				<td>코치이름</td>
-   				<td>코치번호</td>
-   				<td>스케쥴번호</td>
-   				<td>월별</td>
-   				<td>시간별</td>
-   				<td>장소</td>
+   				<th>예약취소</th>
+   				<th>예약번호</th>
+   				<th>사용자 아이디</th>
+   				<th>코치번호</th>
+   				<th>스케쥴번호</th>
    			</tr>
-   		<c:forEach var="vo" items="${list }" >
+   			<c:forEach var="vo" items="${list }" >
            <tr>
                <td>
 <%--                href="../coachreserve/mypage.delete.do?Schedule_no=${vo.schedule_no }" --%>
@@ -52,13 +48,9 @@ $(function(){
              <td>${vo.reserve_no }</td>
              <td>${vo.id }</td>
              <td>${vo.coach_no }</td>
-             <td>${tvo.coach_name }</td>
              <td>${vo.schedule_no }</td>
-             <td>${svo.month }</td>
-             <td>${svo.time }</td>
-             <td>${svo.place }</td>
            </tr>
-         </c:forEach>
+         	</c:forEach>
          </table>
          </td>
          </tr>

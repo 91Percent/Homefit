@@ -50,12 +50,12 @@
 </script>
 </head>
 <body>
-	<!-- ================ start banner area ================= -->	
+<!-- ================ start banner area ================= -->	
 	<section class="blog-banner-area" id="category">
 		<div class="container h-100">
 			<div class="blog-banner">
 				<div class="text-center">
-					<h1>코치예약</h1>
+					<h1>코치정보</h1>
 					<nav aria-label="breadcrumb" class="banner-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="#">G반</a></li>
@@ -72,17 +72,17 @@
   <div class="row">
    <table class="table">
      <tr>
-       <td width=20% height=500 rowspan="2">
+       <td width=20% rowspan="2">
          <h4 class="text-center">코치리스트</h4>
          <table class="table">
            <tr>
              <td>
-               <div id="coach_info" style="overflow-y:auto;height:500px"></div>
+               <div id="coach_info" style="overflow-y:auto;height:400px"></div>
              </td>
            </tr>
          </table>
        </td>
-       <td width=15% height=150>
+       <td width=15%>
          <table class="table">
           <h4 class="text-center">장소</h4>
            <tr>
@@ -92,7 +92,7 @@
            </tr>
          </table>
        </td>
-        <td width=15% height=150>
+        <td width=15%>
          <table class="table">
            <h4 class="text-center">월별</h4>
            <tr>
@@ -102,7 +102,7 @@
            </tr>
          </table>
        </td>
-        <td width=15% height=150>
+        <td width=15%>
          <table class="table">
            <h4 class="text-center">시간</h4>
            <tr>
@@ -112,7 +112,7 @@
            </tr>
          </table>
        </td>
-       <td width=35% height=500 rowspan="2">
+       <td width=35% rowspan="2">
          <table class="table">
            <h4 class="text-center">예약정보</h4>
            <tr>
@@ -124,7 +124,7 @@
              <td class="text-right" width=20%>
                          코치명:
              </td>
-             <td width=75%>
+             <td width=80%>
                <span id="coach_name"></span>
              </td>
            </tr>
@@ -132,7 +132,7 @@
              <td class="text-right" width=20%>
                          장소:
              </td>
-             <td width=75%>
+             <td width=80%>
                <span id="coach_place"></span>
              	<span id="schedule_no"></span>
              </td>
@@ -141,7 +141,7 @@
              <td class="text-right" width=20%>
                              월:
              </td>
-             <td width=75%>
+             <td width=80%>
                <span id="coach_month"></span>
              </td>
            </tr>
@@ -149,7 +149,7 @@
              <td class="text-right" width=20%>
                          시간:
              </td>
-             <td width=75%>
+             <td width=80%>
                <span id="coach_time"></span>
              </td>
            </tr>
@@ -157,7 +157,7 @@
              <td class="text-right" width=20%>
                          금액:
              </td>
-             <td width=75%>
+             <td width=80%>
                <span id="coach_price"></span>
              </td>
            </tr>
@@ -178,12 +178,12 @@
          </table>
        </td>
        <tr>
-       	<td height=350 colspan="3">
+       	<td width=45% colspan="3">
          <table class="table">
            <h4 class="text-center">금액</h4>
            <tr>
              <td>
-               <div id="price_info" style="overflow-y:auto;height:400px"></div>
+               <div id="price_info" style="overflow-y:auto;height:200px"></div>
              </td>
            
            </tr>

@@ -176,10 +176,10 @@ public class CoachDAO {
 //		   session.close();
 //	   }
 	   
-	   public static List<ReplyVO> replyListData(int bno)
+	   public static List<ReplyVO> replyListData(int no)
 	   {
 		   SqlSession session=ssf.openSession();
-		   List<ReplyVO> list=session.selectList("replyListData",bno);
+		   List<ReplyVO> list=session.selectList("replyListData",no);
 		   session.close();
 		   return list;
 	   }
@@ -252,6 +252,14 @@ public class CoachDAO {
 	   {
 		   SqlSession session=ssf.openSession(true);
 		   session.update("coachreserveOK", map);
+		   session.close();
+	   }
+	   
+	   // 코치예약 'y'로 변경
+	   public static void coachcancelOk(int no)
+	   {
+		   SqlSession session=ssf.openSession(true);
+		   session.update("coachcancelOK",no);
 		   session.close();
 	   }
 	   

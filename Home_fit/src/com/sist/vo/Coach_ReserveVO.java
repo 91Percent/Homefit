@@ -5,8 +5,8 @@ public class Coach_ReserveVO {
 	private int schedule_no;
 	private String id;
 	private int reserve_no;
-	private ScheduleVO sdv;
-	private tutor_VO tvo;
+	private ScheduleVO sdv=new ScheduleVO();
+	private tutor_VO tvo=new tutor_VO();
 	
 	
 	public tutor_VO getTvo() {

@@ -84,6 +84,9 @@ public class CoachModel {
 		 String coach_no=request.getParameter("coach_no");
 		 String content=request.getParameter("content");	
 		 
+		 String reserve_check=request.getParameter("reserve_check");
+		 
+		 
 		 //코치 디테일 데이터 가져오는 부분
 		 tutor_VO vo=CoachDAO.coachDeatilData(Integer.parseInt(coach_no));
 		 //=====================
@@ -95,6 +98,19 @@ public class CoachModel {
 		 ScheduleVO svo= new ScheduleVO();
 		 List<ScheduleVO> slist = new ArrayList<ScheduleVO>();
 		 svo.setCoach_no(Integer.parseInt(coach_no));
+		 
+		 
+		 
+		 
+		 svo.setReserve_check(reserve_check);
+		 if(reserve_check=="n")
+		 {
+			 svo.setReserve_check("예약불가"+reserve_check);
+			 System.out.println("예약불가:"+reserve_check);
+		 }
+		
+		 
+		 
 		 slist = CoachDAO.scheduleData(svo);		 
 		 System.out.println("사이즈 "+slist.size());
 		 //=================================
@@ -111,7 +127,6 @@ public class CoachModel {
 		 //1.매퍼 만들고 ( coach_no 에 해당하는 스케쥴 정보)
 		 //2.연결하는 부분 dao에서 데이터 받고
 		 //3. 여기서 호출 하면 !
-			request.setAttribute("content", coachReply_list);
 		 request.setAttribute("vo", vo);
 		 request.setAttribute("svo", svo);
 		 request.setAttribute("slist", slist);
@@ -193,6 +208,8 @@ public class CoachModel {
 		 
 		 String Coach_no=request.getParameter("coach_no");
 		 String Schedule_no=request.getParameter("schedule_no");
+		 
+		 
 		 System.out.println("cno="+Coach_no);
 		 System.out.println("sno="+Schedule_no);
 		 
@@ -206,6 +223,10 @@ public class CoachModel {
 		 HttpSession session=request.getSession();
 		 String id=(String)session.getAttribute("id");
 		
+		 
+		 
+			 
+		 
 		 
 		 
 		 Coach_ReserveVO vo=new Coach_ReserveVO();
@@ -239,6 +260,13 @@ public class CoachModel {
 		 String Schedule_no=request.getParameter("Schedule_no");
 		 System.out.println("스케쥴넘버:"+Schedule_no);
 		 CoachDAO.coachreserveDelete(Integer.parseInt(Schedule_no));
+		 
+		 
+		 // 코치 예상 상태 y로 변경
+//		 String reserve_check=request.getParameter("reserve_check");
+		 CoachDAO.coachcancelOk(Integer.parseInt(Schedule_no));
+		 
+		 
 		 
 		 HttpSession session=request.getSession();
 		 String id=(String)session.getAttribute("id");
@@ -415,10 +443,12 @@ public class CoachModel {
 		 {
 			 request.setCharacterEncoding("UTF-8");
 		 }catch(Exception ex) {}
+		 
 		 String coach_no=request.getParameter("coach_no");
+//		 String no=request.getParameter("no");
 		 String content=request.getParameter("content");
 		 String cate_no=request.getParameter("cate_no");
-		 System.out.println("잘나오나?"+coach_no);
+		 System.out.println("코치번호 잘 나와라?"+coach_no);
 		  System.out.println("내용잘나오고?"+content);
 		 HttpSession session=request.getSession();
 		 String id=(String)session.getAttribute("id");
@@ -428,13 +458,14 @@ public class CoachModel {
 		 ReplyVO rvo=new ReplyVO();
 		 rvo.setNo(Integer.parseInt(coach_no));
 		 rvo.setId(id);
-		 rvo.setContent(content);
 		 rvo.setName(name);
+		 rvo.setContent(content);
 		 rvo.setCate_no(Integer.parseInt(cate_no));
+		 
 		 
 		 CoachDAO.coach_reply_insert(rvo);
 		 
-		 return "redirect../coach/info.do?coach_no="+coach_no;
+		 return "redirect:../coach/info.do?coach_no="+coach_no;
 	 }
 	 
 	 
@@ -447,6 +478,8 @@ public class CoachModel {
 			 request.setCharacterEncoding("UTF-8");
 		 }catch(Exception ex) {}
 		 //String no=request.getParameter("no");
+		 
+		 
 		 String coach_no=request.getParameter("coach_no");
 		 String cate_no=request.getParameter("cate_no");
 		 String content=request.getParameter("content");
@@ -460,6 +493,7 @@ public class CoachModel {
 		 
 		 // DB
 		 ReplyVO vo=new ReplyVO();
+		
 		 vo.setCate_no(Integer.parseInt(cate_no));
 		 vo.setContent(content);
 		 
@@ -486,7 +520,12 @@ public class CoachModel {
 		 HttpSession session=request.getSession();
 		 String id=(String)session.getAttribute("id");
 		 
+		
+		 
 		 List<Coach_ReserveVO> list=CoachDAO.coachreserveList(id);
+		 
+		 
+		 
 		 System.out.println("사이즈는 !!"+list.size());
 		 request.setAttribute("list", list);
 		 

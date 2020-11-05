@@ -33,7 +33,7 @@
 				<div class="col-lg-6">
 					<div class="owl-carousel owl-theme s_Product_carousel">
 						<div class="single-prd-item">
-							<img class="img-fluid" src="${vo.poster }">
+						<img class="img" stlye="width:200px height:300px" src="${vo.poster }">
 						</div>
 						<!--<div class="single-prd-item">
 							<img class="img-fluid" src="${vo.coach_poster }">
@@ -49,16 +49,16 @@
 						<h3>${vo.coach_name }</h3>
 						<h3>${vo.subject }</h3>
 						<h3>${vo.price }</h3>
-						<!-- <div class="col-lg-6"> -->
+						<div class="col-lg-12">
 						<div class="review_box">
 						<h4>Add to Review</h4>
-						<form action="../coach/reply_insert.do" method="post" class="form-contact form-review mt-3">
+						<form action="../coach/reply_insert.do" method="post" class="form-contact form-review mt-1">
 						<div class="form-group">
 						<textarea class="form-control different-control w-200" name="content" id="textarea" cols="500" rows="5" placeholder="Enter Message"></textarea>
 						<input type="hidden" value="${vo.coach_no}" name="coach_no">
 						<input type="hidden" value="${vo.cate_no}" name="cate_no">
 						</div>
-						<div class="form-group text-center text-md-right mt-3">
+						<div class="form-group text-center text-md-right mt-1">
 						<button type="submit" class="button button--active button-review">리뷰남기기</button>
 						</div>
 						</form>
@@ -100,33 +100,44 @@
 					<p>${vo.content }</p>
 				</div>
 				<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-					<div class="row">
+					<div class="table-responsive">
 						<div>
-							<div>
-								<div class="review_item">
-									<table class="table">
-										<tr>
-											<td><h5>스케쥴번호</h5></td>
-											<td><h5>코치번호</h5></td>
-											<td><h5>월별</h5></td>
-											<td><h5>시간별</h5></td>
-											<td><h5>장소</h5></td>
+								<div class="container-fluid">
+									<table class="table-striped" style="width: 800px">
+										<c:forEach var="svo" items="${slist }">
+										<tr style="padding-right:15px">
+											<th><h5><center>예약</center></h5></th>
+											<th><h5><center>스케쥴</center></h5></th>
+											<th><h5><center>코치번호</center></h5></th>
+											<th><h5><center>월별</center></h5></th>
+											<th><h5><center>시간별</center></h5></th>
+											<th><h5><center>장소</center></h5></th>
 										</tr>
+												
+										
+										<tr>
+												
 											<form action="../coachreserve/reserve_ok.do">
-												<c:forEach var="svo" items="${slist }">
-										<tr>
-											<td><input type="checkbox" name="schedule_no" value="${svo.schedule_no}">&nbsp;${svo.schedule_no}</td>
-											<td><input type="hidden" name="coach_no" value="${svo.coach_no}">${svo.coach_no}</td>
-											<td>${svo.month}</td>
-											<td>${svo.time}</td>
-											<td>${svo.place}</td>
-										</tr>
-												</c:forEach>
-											<input type="submit" value="간편예약">
+											
+											<c:if test="${svo.reserve_check =='y'}">
+											<td><input type="submit" class="btn btn-sm btn-info" value="예약하기"><center></center></td>
+											</c:if>
+											<c:if test="${svo.reserve_check =='n'}">
+											<td><input type="button" class="btn btn-sm btn-danger" value="예약불가"><center></center></td>
+											</c:if>
+											
+											<td><input type="hidden" name="schedule_no" value="${svo.schedule_no}"><center>${svo.schedule_no}</center></td>
+											<td><input type="hidden" name="coach_no" value="${svo.coach_no}"><center>${svo.coach_no}</center></td>
+											<td><center>${svo.month}</center></td>
+											<td><center>${svo.time}</center></td>
+											<td><center>${svo.place}</center></td>
+											
+											
 											</form>
+										</tr>
+									</c:forEach>
 									</table>
 								</div>
-							</div>
 						</div>
 						
 					</div>
@@ -144,24 +155,28 @@
 														<div>
 															<table class="table">
 															<c:forEach var="vo" items="${coachReply_list}">
-															<div style="height: auto; width: 100%; border-top:1px solid;">
+															<div style="height: 10%; width: 80%; border-top:1px solid;">
 																<div class="media">
 																	<div class="d-flex">
 																		<img src="img/product/review-2.png" alt="">
 																	</div>
+																	
 																	<div class="media-body">
 																		<p align="right">
 																		<a class="text-left">
-																           <c:if test="${rvo.group_tab>0 }">
-																             <c:forEach var="i" begin="1" end="${rvo.group_tab }">
+																           <c:if test="${vo.group_tab>0 }">
+																             <c:forEach var="i" begin="1" end="${vo.group_tab }">
 																               &nbsp;&nbsp;
+																               
 																             </c:forEach>
-																                             ☞
+																            
 																           </c:if>
-																           &nbsp;${rvo.name }(${rvo.dbday })
+																           
+																            <p class="text" style="font-size:18px">${vo.content}</p>
 																          </a>
 																		</p>
 																		<p align="right">
+																           &nbsp;${vo.name }(${vo.dbday })
 																		<c:if test="${sessionScope.id!=rvo.id }">
 															             <a href="#" class="btn btn-xs btn-primary">수정</a>
 															             <a href="#" class="btn btn-xs btn-success">삭제</a>
@@ -170,17 +185,15 @@
 																		</p>
 																	</div>
 																</div>
-																<c:if test="${rvo.group_tab>0}">
+																<c:if test="${vo.group_tab>0}">
 													             <c:forEach var="i" begin="1" end="${vo.group_tab }">
 													               &nbsp;&nbsp;
 													             </c:forEach>
 													           </c:if>
-													           <table class="table">
-													           <c:forEach var="vo" items="${coachReply_list}">
-																	<p>${rvo.Content}</p>
-																</c:forEach>
-																</table>
-																</div>
+													           <%-- <caption class="text-center">
+																	<pre style="white-space: pre-wrap; background-color: white; border: none">${vo.content}</pre>
+																</caption> --%>
+													           	</div>
 																</c:forEach>
 																</table>
 															</div>

@@ -98,12 +98,7 @@ $(function(){
           <!-- Start Filter Bar -->
           <div class="filter-bar d-flex flex-wrap align-items-center">
             <div>
-              <div class="input-group filter-bar-search">
-                <input type=text id="Keyword" placeholder="Search">
-                <div class="input-group-append">
-                  <button type="button"><i class="ti-search"></i></button>
-                </div>
-              </div>
+             
             </div>
           </div>
           <!-- End Filter Bar -->

@@ -124,6 +124,7 @@
 		   <result property="sdv.month" column="month"/>	
 		   <result property="sdv.time" column="time"/>	
 		   <result property="sdv.place" column="place"/>	
+		   <result property="tvo.coach_name" column="name"/>	
 		   <result property="sdv.reserve_check" column="reserve_check"/>	
    	</resultMap>
    	
@@ -139,6 +140,13 @@
    		UPDATE coach_schedule SET
    		reserve_check='n'
    		WHERE coach_no=#{coach_no} AND schedule_no=#{schedule_no}
+   	</update>
+   	
+   	<!-- 코치예약 취소시 y값으로 변경 -->
+   	<update id="coachcancelOK" parameterType="int">
+   		UPDATE coach_schedule SET
+   		reserve_check='y'
+   		WHERE schedule_no=#{schedule_no}
    	</update>
    	
    	
@@ -235,9 +243,9 @@
   </select>
   
   <!-- 댓글 총 목록 -->
-  <select id="replyTotalList" resultType="int">
+  <!-- <select id="replyTotalList" resultType="int">
   	SELECT * FROM review_table
   	WHERE cate_no=${cate_no}
   </select>
-  
+   -->
 </mapper>
