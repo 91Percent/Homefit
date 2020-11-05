@@ -122,6 +122,7 @@
   	select wishlist_no,wishlist.shop_no,id,count,iswish,title,poster,price
   	from wishlist,shop
   	where wishlist.shop_no=shop.shop_no
+  	and iswish='n'
   	and id=#{id}
   	order by wishlist_no
   	</select>
@@ -130,19 +131,54 @@
     DELETE FROM wishlist
     WHERE wishlist_no=#{wishlist_no}
  	</delete>
- 	
- 	<update id="wishlistOk" parameterType="int">
-    UPDATE wishlist SET
-    iswish='y'
-    WHERE wishlist_no=#{wishlist_no}
- 	</update>
- 	
+ 	 	
  	<update id="wishlistCount" parameterType="com.sist.vo.WishlistVO">
     UPDATE wishlist SET
     count=#{count}
     WHERE wishlist_no=#{wishlist_no}
     and id=#{id}
  	</update>
+ 	
+ 	<update id="wishlist_purchase" parameterType="com.sist.vo.WishlistVO">
+ 	UPDATE wishlist SET
+    iswish='y'
+    WHERE wishlist_no=#{wishlist_no}
+    and id=#{id}
+ 	</update>
+ 	
+ 	<select id="purchaselistData" resultMap="wishlist_List" parameterType="String">
+  	select wishlist_no,wishlist.shop_no,id,count,iswish,title,poster,price
+  	from wishlist,shop
+  	where wishlist.shop_no=shop.shop_no
+  	and iswish='y'
+  	and id=#{id}
+  	order by wishlist_no
+  	</select>
+ 	
+ 	<!-- 구매하기 -->
+ 	<!-- 
+ 	private int purchase_no;
+	private int wishlist_no;
+	private String buyer_info;
+	private String address_info;
+	private String payment_info;
+	private String cancel;
+	private String admin_sign;
+	private Date purchase_date;
+	
+ 	<insert id="wishlistInsert" parameterType="com.sist.vo.WishlistVO">
+    <selectKey keyProperty="wishlist_no" resultType="int" order="BEFORE">
+      SELECT NVL(MAX(wishlist_no)+1,1) as wishlist_no FROM wishlist
+    </selectKey>
+    INSERT INTO wishlist values(#{wishlist_no}, #{shop_no}, #{id},1,'n')
+  </insert>	
+ 	 -->
+<!--  	<insert id="purchaseInsert" parameterType="com.sist.vo.PurchaseVO"> -->
+<!--  	<selectKey keyProperty="purchase_no" resultType="int" order="BEFORE"> -->
+<!--  		SELECT NVL(MAX(purchase_no)+1,1) as purchase_no FROM purchase -->
+<!--  	</selectKey> -->
+<!--  		INSERT INTO purchase values(#{purchase_no}, #{wishlist_no},'','','','n','n',sysdate) -->
+<!--  	</insert> -->
 
   	<!-- 찜 저장  -->
   <insert id="favoritelistInsert" parameterType="com.sist.vo.FavoritelistVO">

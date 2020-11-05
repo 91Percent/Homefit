@@ -91,14 +91,6 @@ public class ShopDAO {
 		return total;
 	}
 	
-	public static int movieTotalPage(int cate_no)
-	   {
-		   SqlSession session=ssf.openSession();
-		   int total=session.selectOne("shopTotalPage", cate_no);
-		   session.close();
-		   return total;
-	   }
-
 	public static ShopVO shopDetailData(int shop_no) {
 		SqlSession session=ssf.openSession();
 		ShopVO vo=session.selectOne("shopDetailData", shop_no);
@@ -125,9 +117,6 @@ public class ShopDAO {
 		}
 		return list;
 	}
-	
-	
-	
 	
 	// 장바구니
 	public static void wishlistInsert(WishlistVO wvo)
@@ -157,5 +146,18 @@ public class ShopDAO {
 		   session.close();
 	   }
 	
+	public static void wishlist_purchase(WishlistVO wvo)
+	   {
+		   SqlSession session=ssf.openSession(true);
+		   session.update("wishlist_purchase", wvo);
+		   session.close();
+	   }
+	
+	public static List<WishlistVO> purchaselistData(String id){
+		   SqlSession session=ssf.openSession();
+		   List<WishlistVO> list=session.selectList("purchaselistData",id);
+		   session.close();// 반환
+		   return list;
+	   }
 	
 }

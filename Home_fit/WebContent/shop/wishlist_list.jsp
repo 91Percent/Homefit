@@ -28,12 +28,21 @@ $(function(){
 		})
 	});
 	
-	
-// 	$('.plus').click(function() {
-// 		let wishlist_no=$(this).attr("wish-value");
-		
-// 	})
-	
+	// 체크한 물건 구매하기
+	$('.listpurchase').click(function(){
+		$("input[name='cb']:checked").each(function () {
+			let plist=$(this).val();
+			console.log('체크된값:'+plist);
+			$.ajax({
+				type:'post',
+				url:'../shop/wishlist_purchase.do',
+				data:{"plist":plist},
+				susccess: function(result){
+					$('#wishlist_list').html(result);
+				}
+			})
+		})
+	});
 	
 // 	// 카운트 
 	$('.plus').on('click',function(){
@@ -54,7 +63,7 @@ $(function(){
 			url:'../shop/count_update.do',
 			data:{"wishlist_no":wishlist_no,"count":count-1},
 			susccess: function(result){
-				console.log("증가완료");
+				$('#wishlist_list').html(result);
 			}
 		})
 	});
@@ -76,7 +85,10 @@ $(function(){
 		$.ajax({
 			type:'post',
 			url:'../shop/count_update.do',
-			data:{"wishlist_no":wishlist_no,"count":count+1}			
+			data:{"wishlist_no":wishlist_no,"count":count+1},
+			susccess: function(result){
+			$('#wishlist_list').html(result);
+			}
 		})
 	});
 	
@@ -175,9 +187,10 @@ $(function(){
               </table>
        
 			  <input type="button" class="btn" id="listdelete" value="삭제" />
-              <input type="button" class="btn" id="listpurchase" value="구매하기" />
+<!--               <input src="../shop/purchase.do" type="button" class="listpurchase" value="구매하기" /> -->
               
          </form>
+         <button onclick="location.href='../shop/purchase.do'" class="listpurchase" price-value="${vo.total}">구매하기</button>
          <button onclick="location.href='../shop/shop.do'" class="btn btn-sm btn-primary">목록</button>
               
 </body>

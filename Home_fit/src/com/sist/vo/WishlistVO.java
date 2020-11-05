@@ -17,9 +17,8 @@ public class WishlistVO {
 	private ShopVO svo=new ShopVO();
 	private int real_price;
 	private int total;
-	
-	
-	
+//	private int purchase_total;
+		
 	public int getTotal() {
 		return total;
 	}

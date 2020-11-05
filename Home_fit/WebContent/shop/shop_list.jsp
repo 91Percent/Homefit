@@ -44,7 +44,7 @@ $(function(){
 	                <div class="card text-center card-product">
 	                	<div class="shoplist">
 		                  <div class="card-product__img">
-		                    <a href=".../shop/shop_detail_before.do?shop_no=${vo.shop_no }" class="btn btn-lg" data-value="${vo.shop_no}" >
+		                    <a href="../shop/shop_detail_before.do?shop_no=${vo.shop_no }" class="btn btn-lg" data-value="${vo.shop_no}" >
 								<img src="${vo.poster }" alt="Lights" style="width:70%">
 							</a>
 		                    <ul class="card-product__imgOverlay">
