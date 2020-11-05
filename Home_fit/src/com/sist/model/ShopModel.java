@@ -113,7 +113,7 @@ public class ShopModel {
 		response.addCookie(cookie);
 		System.out.println("실행되나요" + shop_no);
 
-		return "redirect:../shop/shop_detail.do?shop_no=" + shop_no;
+		return "redirect:../shop/shop_detail.do?shop_no="+shop_no;
 	}
 	
 

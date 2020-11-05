@@ -72,7 +72,21 @@ public class CertifiedModel {
 		if (challenge_id == null) {
 			challenge_id = "null";
 		}
-		
+		String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\challenge_poster"; // 파일이
+		File Folder = new File(path);
+
+		// 해당 디렉토리가 없을경우 디렉토리를 생성합니다.
+		if (!Folder.exists()) {
+			try{
+			    Folder.mkdir(); //폴더 생성합니다.
+			    System.out.println("폴더가 생성되었습니다.");
+		        } 
+		        catch(Exception e){
+			    e.getStackTrace();
+			}        
+	         }else {
+			System.out.println("이미 폴더가 생성되어 있습니다.");
+		}
 		
 		// 챌린지 디테일 가져오는 부분
 		ChallengeVO vo = Challenge_CertifiedDAO.ChallengeDetailData(Integer.parseInt(challenge_no));
@@ -154,6 +168,20 @@ public class CertifiedModel {
 		//현재 방에 인증 Rank 순위 가져오기 (certified_no 에   인증 횟수로 받아왔음  일단은)
 		List<Challenge_CertifiedVO> rank_list = Challenge_CertifiedDAO.certified_ranking(Integer.parseInt(challenge_no));
 		System.out.println("rank_list.size()== "+rank_list.size());
+		
+		Challenge_CertifiedVO rank_1= new Challenge_CertifiedVO();
+		Challenge_CertifiedVO rank_2= new Challenge_CertifiedVO();
+		Challenge_CertifiedVO rank_3= new Challenge_CertifiedVO();
+		try {
+			if(rank_list.size()!=0)
+			{
+				rank_1= rank_list.get(0);
+				rank_2= rank_list.get(1);
+				rank_3= rank_list.get(2);
+			}
+		}catch (Exception e) {
+			
+		}
 		//=================================
 		
 		//도전한 백분률 구하는 부분 
@@ -182,17 +210,23 @@ public class CertifiedModel {
 		ReplyVO Reply_vo = new ReplyVO();
 		Reply_vo.setCate_no(9);
 		Reply_vo.setNo(Integer.parseInt(challenge_no));
-		List<ReplyVO> Reply_list = Challenge_CertifiedDAO.challeng_reply(Reply_vo);	
+		List<ReplyVO> Reply_list = Challenge_CertifiedDAO.challeng_reply(Reply_vo);
 		System.out.println("댓글 갯수"+Reply_list.size());
 		//=============================
 		
 		System.out.println("로그인이 1이면 되어있는거야! " + count);
+		
+		//순위 던지는 곳
+		request.setAttribute("rank_1", rank_1);
+		request.setAttribute("rank_2", rank_2);
+		request.setAttribute("rank_3", rank_3);
+		
 		request.setAttribute("id_certified_count",id_certified_count);
 		request.setAttribute("room_percent_str",Double.parseDouble(room_percent_str));
-		request.setAttribute("diffDay", diffDay);
+		request.setAttribute("diffDay",diffDay);
 		request.setAttribute("Period", Period);
 		request.setAttribute("Reply_list",Reply_list);
-		request.setAttribute("percent",str);
+		request.setAttribute("percent",Double.parseDouble(str));
 		request.setAttribute("rank_list",rank_list);
 		request.setAttribute("people_list",people_list);
 		request.setAttribute("certifeid_count",today_certified_count);
@@ -210,8 +244,7 @@ public class CertifiedModel {
 		String challenge_no = request.getParameter("challenge_no");
 
 		request.setAttribute("challenge_no", challenge_no);
-		request.setAttribute("main_jsp", "../challenge/Certified.jsp");
-		return "../main/main.jsp";
+		return "../challenge/Certified.jsp";
 	}
 
 	@RequestMapping("challenge/Certified_ok.do")
@@ -263,7 +296,7 @@ public class CertifiedModel {
 		// DAO를 호출한 다음에 INSERT요청 => 저장하는 SQL (databoard-mapper.xml)
 		Challenge_CertifiedDAO.Challenge_CertifiedUpload(vo); // 추가
 
-		return "redirect:../challenge/Challenge.do";
+		return "redirect:../challenge/Certified_detail.do?challenge_no="+challenge_no;
 	}
 	// 방 참가하기
 	@RequestMapping("challenge/participation.do")
@@ -273,6 +306,8 @@ public class CertifiedModel {
 		// private int challenge_no;
 		// private String challnege_id;
 		String challenge_no = request.getParameter("challenge_no");
+		System.out.println("인증하는 챌린지 방 "+challenge_no);
+		
 //		String challenge_id = request.getParameter("challnege_id");
 		// 아이디는 세션에서 받아와야함
 		String challenge_id = (String) session.getAttribute("id");

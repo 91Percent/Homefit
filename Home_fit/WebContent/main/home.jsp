@@ -85,7 +85,7 @@
           <div class="col-md-6 col-lg-4 col-xl-3">
             <div class="card text-center card-product">
               <div class="card-product__img">
-              	<a href="../ex/detail.do?home_no=${vo.evo.home_no }">
+              	<a href="../ex/ex_detail.do?home_no=${vo.evo.home_no }">
                 	<img class="card-img" src="${vo.evo.poster }" alt="">
                 </a>
                 <!-- 이미지 호버부분  
@@ -102,7 +102,7 @@
           </div>
         </c:forEach>
 		</c:if>
-        <c:if test="${sessionScope.id ==null }">
+        <c:if test="${sessionScope.id==null }">
         <c:forEach items="${list2}" var="vo" begin="0" end="3">
           <div class="col-md-6 col-lg-4 col-xl-3">
             <div class="card text-center card-product">

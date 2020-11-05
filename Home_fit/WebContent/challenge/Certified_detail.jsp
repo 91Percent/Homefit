@@ -16,10 +16,23 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="/lib/w3.css">
 <link rel='stylesheet' href='css/style.css'>
-<script type="text/javascript"
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
 <script>
-	
+$(function(){
+	   $('#certi_btn').click(function(){
+		   let challenge_no = $(this).attr("data-value");
+		   console.log('인증 버튼 클릭');
+	        $.ajax({
+	            type:'post',
+	            url:'../challenge/Certified.do',
+	            data:{"challenge_no":challenge_no},
+	            success:function(result)
+	            {
+	               $('.picture_btn').html(result);
+	            }
+	         })
+	   });
+});		
 </script>
 <style>
 .seunggu {
@@ -30,7 +43,6 @@
 .btn-basic {
 	background: #d3d3d3;
 }
-
 .btn-basic2 {
 	background: #d3d3d3;
 	padding-top: 5px;
@@ -47,12 +59,14 @@
 				<div class="col-lg-8 posts-list">
 					<div class="single-post row">
 						<h3>
-							<span class="section-intro__style"><b>${vo.title }</b></span>
+							<span class="section-intro__style"><b>${vo.title }</b>
+							<p></p></span>
+							
 						</h3>
 						<div class="col-lg-12">
-							<div class="feature-img">
-								<img class="img-fluid"
-									src="/Home_fit/challenge_poster/${vo.poster}" alt="">
+<!-- 						<div class="col-md-6 col-lg-12 mb-12 mb-lg-12" > -->
+							<div class="feature-img" style="width: 700px; height: 300px; overflow: hidden;">
+								<img class="img-fluid" src="/Home_fit/challenge_poster/${vo.poster}"  alt="" style="width:700px; height:auto;">
 							</div>
 						</div>
 
@@ -99,10 +113,7 @@
 
 										<div class="comment-form">
 											<c:if test="${count==1 || count==3}">
-												<a
-													href="../challenge/participation.do?challenge_no=${vo.challenge_no }"
-													class="button button-postComment button--active">이미 참여
-													중인 도전입니다.</a>
+												<a class="button button-postComment button--active">이미 참여 중인 도전입니다.</a>
 											</c:if>
 											<c:if test="${count==0}">
 												<a
@@ -197,23 +208,21 @@
 															<td colspan="4">${sessionScope.name }님의인증률 표시
 																<div class="w3-light-grey">
 																	<div class="w3-container w3-blue w3-center"
-																		style="width:${percent}%" width=100>${percent}%</div>
+																		style="width:${percent }%">${percent}%</div>
 																</div> <br>
 															</td>
 															<td></td>
 
 															<tr>
-																<td colspan="4">과정 진행률 표시 <c:if
-																		test="${room_percent_str==0 || room_percent_str==null }">
+																<td colspan="4">과정 진행률 표시 <c:if test="${room_percent_str==0 || room_percent_str==null }">
 																		<p align="center">아직 도전이 시작 되지 않았습니다.</p>
-																	</c:if> <c:if test="${room_percent_str>0 }">
-
+																	</c:if> 
+																	<c:if test="${room_percent_str>0 }">
 																		<div class="w3-light-grey">
 																			<div class="w3-container w3-red w3-center"
 																				style="width:${room_percent_str}%">${room_percent_str}</div>
 																		</div>
 																		<br>
-
 																	</c:if>
 																</td>
 																<td></td>
@@ -261,10 +270,10 @@
 													 -->
 													<%-- 													<c:if test="${certifeid_count==0 }">	 --%>
 													<c:if test="${count==1 || count==3}">
-														<a
-															href="../challenge/Certified.do?challenge_no=${ vo.challenge_no}"
-															class="button button-postComment button--active">인증하기</a>
+														<a class="button button-postComment button--active" id="certi_btn"  style="color: white" data-value="${vo.challenge_no}">인증하기</a>
 													</c:if>
+													<div class="row picture_btn" style="padding-left: 50;">
+													</div>
 													<%-- 													</c:if>					 --%>
 													<%-- 													<c:if test="${certifeid_count>=1}"> --%>
 													<!-- 														<span class="btn btn-la btn-danger" >오늘은  이미 인증 하셨습니다.</span> -->
@@ -300,8 +309,7 @@
 																               &nbsp;&nbsp;
 																             </c:forEach>
 																                             ☞
-																           </c:if> 
-																           																           <img src="../board/img.png"> 사용자 이미지 따로 받아서 출력하면 좋을거 같음
+																           </c:if> 																           <img src="../board/img.png"> 사용자 이미지 따로 받아서 출력하면 좋을거 같음-->
 																						&nbsp;${rvo.name }(${rvo.dbday })</td>
 																				</p>
 																				<p align="right">
@@ -366,13 +374,14 @@
 								
 
 								<c:if test="${count==3 && compare<0}">
+
 									<a href="../challenge/challenge_room_update.do?challenge_no=${vo.challenge_no }"
 										class="btn btn-basic2 btn-basic2">도전 수정하기</a>&nbsp;
 								</c:if>
 								<c:if test="${count==3 && compare>=0}">
 
 									<a href="" class="btn btn-basic2">도전 수정 불가</a>&nbsp;
-								<h4 align="center">도전이 이미 시작되었습니다.</h4>&nbsp;
+<!-- 								<h4 align="center">도전이 이미 시작되었습니다.</h4>&nbsp; -->
 								
 							</c:if>
 								<c:if test="${count==3 && compare<0}">
@@ -385,36 +394,40 @@
 								<c:if test="${count==3 && compare>=0}">
 
 									<a href="" class="btn btn-basic2">도전 삭제 불가</a>&nbsp;
-								<h4 align="center">도전이 이미 시작되었습니다.</h4>
+<!-- 								<h4 align="center">도전이 이미 시작되었습니다.</h4> -->
 
 								</c:if>
-
+							<p></p>
+							<p></p>
+							<p></p>
+							<p></p>
+							
 							</div>
 							<!-- /input-group -->
 
 						</aside>
 						<aside class="single_sidebar_widget author_widget">
-							<h3 class="widget_title">현재 참여중인 인원</h3>
-							<c:forEach var="vo" items="${rank_list}">
-								<table class="challengeRankIndex">
-									<c:if test=""></c:if>
+							<h3 class="widget_title">참여 인증 랭킹</h3>
+								<table class="challengeRankIndex" cellpadding="15" >
 									<tr>
-										<td><img src="../challenge/`.png" width=40 height=40></td>
-										<td>${vo.challenge_id }(횟수:${vo.certified_no})
-										<td>
+										<td><img src="../challenge/rank1.png" width=40 height=40></td>
+										<c:if test="${rank_list.size()>=1 }">
+										<td>${rank_1.challenge_id }(횟수:${rank_1.certified_no})</td>
+										</c:if>
 									</tr>
 									<tr>
 										<td><img src="../challenge/rank2.png" width=40 height=40>
-										<td>${vo.challenge_id }(횟수:${vo.certified_no})
-										<td></td>
+										<c:if test="${rank_list.size()>=2 }">
+										<td>${rank_2.challenge_id }(횟수:${rank_2.certified_no})</td>
+										</c:if>
 									</tr>
-									<tr>
+									<tr align="center">
 										<td><img src="../challenge/rank3.png" width=40 height=40>
-										<td>${vo.challenge_id }(횟수:${vo.certified_no})
-										<td></td>
+										<c:if test="${rank_list.size()>=3 }">
+										<td>${rank_3.challenge_id }(횟수:${rank_3.certified_no})</td>
+										</c:if>
 									</tr>
 								</table>
-							</c:forEach>
 
 
 							<!-- 									<table cellpadding="10"> -->
@@ -453,7 +466,6 @@
 							<!-- 															have to spend money on boot camp when you can get. Boot camps have itssuppor ters andits -->
 							<!-- 															detractors. -->
 							<!-- 													</p> -->
-							<div class="br"></div>
 						</aside>
 						<aside class="single_sidebar_widget popular_post_widget">
 							<h3 class="widget_title">현재 참여중인 인원</h3>
@@ -466,14 +478,21 @@
 										<div class="media-body">
 											<div>
 												<h3>${people_list.challenge_id }</h3>
-												<p>02 Hours ago</p>
+												<p>챌린저 </p>
 											</div>
 										</div>
-										<c:if test="${count==3 }">
-											<a
-												href="../challenge/kick_out.do?challenge_no=${vo.challenge_no }&challenge_id=${people_list.challenge_id}"
+										<c:if test="${count==3}">
+											<c:if test="${sessionScope.id == people_list.challenge_id}">
+											<a  class="btn btn-sm btn-success" style="color: white">챌린지 방장</a>
+											</c:if>
+											<c:if test="${sessionScope.id != people_list.challenge_id}">
+											<a href="../challenge/kick_out.do?challenge_no=${vo.challenge_no }&challenge_id=${people_list.challenge_id}"
 												class="btn btn-sm btn-danger">강퇴하기</a>
+											</c:if>
 										</c:if>
+										
+										
+										
 									</div>
 								</c:forEach>
 							</div>
@@ -567,4 +586,3 @@
 	</section>
 </body>
 </html>
-이게진짜
