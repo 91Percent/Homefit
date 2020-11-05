@@ -205,21 +205,6 @@
 		)
 	</insert>
 
-
-	<!-- 방 업데이트 하는 부분 -->
-	<update id="Challenge_room_update" parameterType="ChallengeVO">
-		UPDATE challenge SET
-		cate=#{cate},
-		start_day=#{db_start_day},
-		title=#{title},
-		limit=#{limit},
-		poster=#{poster},
-		content=#{content},
-		id_leader=#{id_leader},
-		end_day=#{db_end_day}
-		WHERE challenge_no=#{challenge_no}
-	</update>
-	
 	
 	<!-- 인증있는지 없는지 확인하기 -->
 	<select id="myChallenge_Certified_check" resultType="int" parameterType="hashmap">
