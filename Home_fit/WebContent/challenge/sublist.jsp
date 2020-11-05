@@ -43,7 +43,36 @@ margin-top: 15px;
 	});
 	$('.chstand').click(function(){
 		alert("아직 시작되지 않은 도전입니다.");
-	})
+	});
+	
+	$('.haenilink').click(function(){
+		let page=$(this).text();
+		
+		alert("page:"+page);
+		$.ajax({
+			type: 'post',
+			url:'../challenge/sublist.do',
+			data:{'page':page},
+			success:function(result){
+				$('.sublist').html(result);
+			}
+		});
+	});
+	
+	
+	$('#year3').change(function() {
+		let year = $(this).val();
+		$.ajax({
+			type : 'post',
+			url : '../challenge/certifiedcalendar.do',
+			data : {
+				"year" : year
+			},
+			success : function(result) {
+				$('#certifiedcalendar').html(result);
+			}
+		});
+	});
 	
 </script>
 </head>
@@ -74,7 +103,7 @@ margin-top: 15px;
 					</a>
 					<div class="card-body">
 						<h4 class="card-title">
-							<a href="../challenge/Certified_detail.do?challenge_no=${vo.challenge_no }">${vo.title } (방번호:${vo.challenge_no })
+							<a href="../challenge/Certified_detail.do?challenge_no=${vo.challenge_no }">${vo.title }
 							<br/>
 								<c:if test="${today==vo.regdate}">
 									<font color=red><sup>new</sup></font>
@@ -130,9 +159,47 @@ margin-top: 15px;
 					</div>
 					<!-- <div style="padding:5px 0px"> -->
 					<!-- </div> -->
+					
+					
+					
+					
 				</div>
 			</div>
 		</c:forEach>
 	</div>
+	
+	<!-- ////////////// pagination start /////////////////////// -->
+						<nav class="blog-pagination justify-content-center d-flex">
+                          <ul class="pagination">
+                          <c:if test="${curpage>BLOCK }">
+                              <li class="page-item" page=${startPage-1 }>
+                                  <a class="page-linka" aria-label="Previous">
+                                    &lt;
+                                  </a>
+                              </li>
+                              </c:if>
+                              <c:forEach var="i" begin="${startPage }" end="${endPage }">
+                              <c:if test="${i==curpage }">
+                              <li class="page-item active" page="${i}">
+                                  <a class="page-link haenilink">${i }</a>
+                              </li>
+                              </c:if>
+                              <c:if test="${i!=curpage }">
+                              	<li class="page-item" page="${i}">
+                                  <a class="page-link haenilink">${i }</a>
+                              </li>
+                              </c:if>
+                              </c:forEach>
+                              <c:if test="${endPage<totalpage }">
+                              <li class="page-item" page=${endPage+1 }>
+                                  <a class="page-linka" aria-label="Next">
+                                      &gt;
+                                  </a>
+                              </li>
+                            </c:if>
+                          </ul>
+                      </nav>  
+					<!-- ////////////// pagination end /////////////////////// -->
+	
 </body>
 </html>

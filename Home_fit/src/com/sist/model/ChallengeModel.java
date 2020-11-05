@@ -43,36 +43,35 @@ public class ChallengeModel {
 		
 		// 사용자가 클릭한 날짜 받기
 		String day= request.getParameter("day");
+		day=day.replaceAll("[^0-9]", "");
 		String year= request.getParameter("year");
 		String month= request.getParameter("month");
 		
 		if(month.length()<2)
 			month="0"+month;
-		if(day.length()<2)
+		if(day.length()==1)
 			day="0"+day;
-		
+//		
 		String date = year+"-"+month+"-"+day;
+		//String date = String.format("%4d-%02d-%02d",year,month,Integer.parseInt(day) );
 		System.out.println(date);
 		
 		
 		
 		// 인증 테이블에서 세션 id값과 일지하는 정보 가져오기
-		List<Challenge_CertifiedVO> cfList = new ArrayList<Challenge_CertifiedVO>();
+		List<ChallengeVO> cfList = new ArrayList<ChallengeVO>();
 		
 		Map map = new HashMap();
 		map.put("challenge_id", id);
-		map.put("my_selected_date", date);
+		//map.put("my_selected_date", date);
 		System.out.println(date);
-		cfList = ChallengeDAO.myChallenge_CertifiedData(map);
+		cfList = ChallengeDAO.myChallenge_roomdetail(map);
 		
-		for(Challenge_CertifiedVO vo: cfList)
-		{
-			int i=1;
-			vo.setMylist_no(i++);
-		}
+		
 		
 		List<ChallengeVO> myList= ChallengeDAO.myChallenge_roomdetail(map);
 		
+				
 		return "../challenge/myProofDetail.jsp";
 	}
 	
@@ -145,6 +144,20 @@ public class ChallengeModel {
 			}
 		}
 	
+		
+		
+		// 인증 테이블에서 세션 id값과 일지하는 정보 가져오기
+		List<ChallengeVO> cfList = new ArrayList<ChallengeVO>();
+				
+		Map map2 = new HashMap();
+		map2.put("id", id);
+
+		if(id!=null)
+		{
+		cfList = ChallengeDAO.myChallenge_roomdetail(map2);
+		}
+		request.setAttribute("cfList", cfList);
+		request.setAttribute("id", id);		
 		request.setAttribute("strday", strday);
 		request.setAttribute("arr", arr);
 		request.setAttribute("lastDay", lastDay);
@@ -325,15 +338,21 @@ public class ChallengeModel {
 		String page = request.getParameter("page");
 		if (page == null)
 			page = "1";
+		
+		System.out.println(page);
+		
 		int curpage = Integer.parseInt(page);
 		int rowSize = 12;
 		int start = rowSize * (curpage - 1) + 1;
 		int end = rowSize * curpage;
 
 		int totalpage = ChallengeDAO.challengeCateTotalPage(cate);
+		//System.out.println(totalpage);
 
 		int BLOCK = 5;
 		int startPage = ((curpage - 1) / BLOCK * BLOCK) + 1;
+		//System.out.println(startPage);
+		
 		int endPage = ((curpage - 1) / BLOCK * BLOCK) + BLOCK;
 		
 		if (endPage > totalpage)
@@ -363,7 +382,7 @@ public class ChallengeModel {
 			// 제목 글자수 자르기
 			String str = vo.getTitle();
 			if (str.length() > 20) {
-				str = str.substring(0, 10);
+				str = str.substring(0, 20);
 				str += "...";
 			}
 			vo.setTitle(str);
@@ -418,8 +437,8 @@ public class ChallengeModel {
 			e.printStackTrace();
 		}
 		String filename="";
-//		String path = "/Users/haeni/Documents/jsp-project/Homefit/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Home_fit/challenge_poster";
-		String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\challenge_poster";
+		String path = "/Users/haeni/Documents/jsp-project/Homefit/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Home_fit/challenge_poster";
+//		String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\challenge_poster";
 		String enctype = "UTF-8"; // 한글파일명을 사용 여부
 		int size = 1024 * 1024 * 100;// 파일의 최대크기
 

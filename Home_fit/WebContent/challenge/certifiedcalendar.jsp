@@ -71,10 +71,7 @@ $(function() {
 		$.ajax({
 			type:'post',
 			url:'../challenge/myProofDetail.do',
-			data:{'year':year},
-			data:{'month':month},
-			data:{'day':day},
-			data:{'date':date},
+			data:{'year':year,'month':month,'day':day,'date':date},
 			success:function(result)
 			{
 				$('#myProofDetail').html(result);
@@ -88,7 +85,16 @@ $(function() {
 <body>
 
 
-<c:forEach var="vo" items="${cfList }">
+<c:if test="${id==null }">
+<table>
+<center>
+	로그인 정보가 없습니다.
+	</center>
+</table>
+
+
+</c:if>
+<c:if test="${id!=null }">
 					<table class="table">
                       <thead>
                           <tr>
@@ -99,6 +105,7 @@ $(function() {
                               <th scope="col" class="mychallengeno2">ID</th>
                           </tr>
                       </thead>
+                      <c:forEach var="vo" items="${cfList }">
                       <tbody>
                           <tr>
                           <!-- NO -->
@@ -107,7 +114,7 @@ $(function() {
                               <td>
                                   <div class="media">
                                       <div class="d-flex">
-                                          <img src="${vo.getCcVO().poster }">
+                                          <img src="${vo.ccVO.poster }">
                                       </div>
                                   </div>
                               </td>
@@ -127,14 +134,18 @@ $(function() {
                               </td>
                           </tr>
                       </tbody>
+                       </c:forEach>
                   </table>
-                  </c:forEach>
+</c:if>                 
 
 
 
 
 <!-- -------------------------------------------------------------- -->
-	<table class="table text-center">
+<table>
+<tr>
+<td>
+	<table class="table">
 		<tr>
 			<td colspan="7" style="font-size:20px; border-top:none">
 				<select name="year" id="year3" class="selectpicker">
@@ -171,9 +182,8 @@ $(function() {
 			<c:forEach var="i" begin="1" end="${lastDay }" step="1"
 				varStatus="status">
 				<td>
-					<span class="certified_select_ok" data-year=${year } data-month="${month }"> ${status.count }
+					<span class="certified_select_ok" data-year=${year } data-month=${month }>${status.count }
 						<c:if test="${arr[i-1]!=0 }">
-						<br>
 							<img src="../challenge/checkchallenge.png" width=20px; height=20px;> 
 						</c:if>
 					</span>
@@ -188,11 +198,20 @@ $(function() {
 			</c:forEach>
 		</c:if>
 	</table>
-	<h3 class="text-left">
+	</td>
+	<td>
+	<div>
+		<h3 clsass="text-left">
 				[인증 목록]&nbsp;<span id="seldate"></span>
 			</h3> 	
-			
-	
-	
+			<table>
+				<tr>
+					<td><img src="/Home_fit/challenge_poster/${Certifiedvo.poster}"></td>
+				</tr>
+			</table>
+	</div>
+	</td>
+	</tr>
+</table>
 </body>
 </html>

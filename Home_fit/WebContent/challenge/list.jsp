@@ -14,7 +14,6 @@
 .challenge_room_count {
 	font-size: 15px;
 }
-
 .challinsert {
 	float: right;
 }
@@ -28,7 +27,7 @@
 let cate ="";
 //let state="";
 //let sorting="";
-var page = $(this).attr("page");
+//var page = $(this).attr("page");
 $(function () {
 
 	
@@ -277,38 +276,7 @@ $(function () {
 					</section>
 					<!-- end : 도전방목록list-->
 				
-					<!-- ////////////// pagination start /////////////////////// -->
-						<nav class="blog-pagination justify-content-center d-flex">
-                          <ul class="pagination">
-                          <c:if test="${curpage>BLOCK }">
-                              <li class="page-item" page=${startPage-1 }>
-                                  <a class="page-link" aria-label="Previous">
-                                    &lt;
-                                  </a>
-                              </li>
-                              </c:if>
-                              <c:forEach var="i" begin="${startPage }" end="${endPage }">
-                              <c:if test="${i==curpage }">
-                              <li class="page-item active" page="${i}">
-                                  <a class="page-link">${i }</a>
-                              </li>
-                              </c:if>
-                              <c:if test="${i!=curpage }">
-                              	<li class="page-item" page="${i}">
-                                  <a class="page-link">${i }</a>
-                              </li>
-                              </c:if>
-                              </c:forEach>
-                              <c:if test="${endPage<totalpage }">
-                              <li class="page-item" page=${endPage+1 }>
-                                  <a class="page-link" aria-label="Next">
-                                      &gt;
-                                  </a>
-                              </li>
-                            </c:if>
-                          </ul>
-                      </nav>  
-					<!-- ////////////// pagination end /////////////////////// -->
+					
 					
 
 				</div>

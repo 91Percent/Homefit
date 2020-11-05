@@ -20,7 +20,7 @@
 
 <!-- 검색 결과 총 페이지 수 -->
 <select id="challengeSearchTotalPage" parameterType="String" resultType="int">
-	SELECT CEIL(COUNT(*)/20.0) FROM challenge
+	SELECT CEIL(COUNT(*)/12.0) FROM challenge
 	WHERE title LIKE '%'||#{keyword}||'%' 
 	OR content LIKE '%'||#{keyword}||'%' 
 	ORDER BY regdate DESC)
@@ -115,7 +115,7 @@
 	</select>
 	<!-- 챌린지 필터 적용한  총페이지 수 -->
 	<select id="challengFilterTotalPage" resultType="int" parameterType="hashmap">
-			SELECT CEIL(COUNT(*)/20.0) FROM challenge
+			SELECT CEIL(COUNT(*)/12.0) FROM challenge
 			<trim prefix="WHERE" prefixOverrides="AND|OR">
 			<if test="cate != null"> 
 				cate=#{cate}
@@ -128,10 +128,10 @@
 	<!-- 챌린지 목록 전체 및 카테고리별 페이지 수 -->
 	<select id="challengeCateTotalPage" resultType="int" parameterType="String">
 		<if test="value==null || value==''">
-			SELECT CEIL(COUNT(*)/20.0) FROM challenge
+			SELECT CEIL(COUNT(*)/12.0) FROM challenge
 		</if>
 		<if test="value!=null">
-			SELECT CEIL(COUNT(*)/20.0) FROM challenge
+			SELECT CEIL(COUNT(*)/12.0) FROM challenge
 			WHERE
 			cate=#{cate}
 		</if>
@@ -217,19 +217,32 @@
 	
 	<!-- 마이페이지에 띄울 인증 정보 가져오는 부분 -->
 	<select id="myChallenge_CertifiedData" resultType="Challenge_CertifiedVO" parameterType="hashmap">
-		SELECT * FROM challenge_certified WHERE challenge_id=#{id} 
-<!-- 		AND TO_CHAR(certified_date,'yyyy-MM-dd')=#{strday} -->
+		SELECT * FROM challenge_certified 
+		WHERE challenge_id=#{id} 
+		AND TO_CHAR(Certified_date,'yyyy-MM-dd') as db_Certified_date = #{strday}
 	</select>
 	
 	
 	
 	 <!-- 회원이 인증한 방에 대한 정보 가져오기 -->
-	 <select id="myChallenge_roomdetail" parameterType="hashmap" resultType="ChallengeVO">
-	 	SELECT *
+	 
+	 <resultMap type="ChallengeVO" id="mychallengeList">
+	 	<result property="title" column="title"/>
+	 	<result property="ccVO.challenge_no" column="challenge_no"/>
+	 	<result property="ccVO.poster" column="poster"/>
+	 	<result property="ccVO.Certified_date" column="Certified_date"/>
+	 	<result property="ccVO.mylist_no" column="mylist_no"/>	 	
+		 <result property="ccVO.challenge_id" column="challenge_id"/>	 
+	 </resultMap>
+	 
+	 
+	 <select id="myChallenge_roomdetail" parameterType="hashmap" resultMap="mychallengeList">
+	 	SELECT c.challenge_no,title,cc.poster,Certified_date,rownum as mylist_no,challenge_id
 		FROM Challenge c
 		JOIN challenge_certified cc
 		ON c.challenge_no=cc.challenge_no
 		WHERE cc.challenge_id=#{id}
+		ORDER BY cc.Certified_date DESC
 	 </select>
 	
  
