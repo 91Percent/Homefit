@@ -1,5 +1,6 @@
 package com.sist.model;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
@@ -24,6 +25,40 @@ import com.sist.vo.Challenge_CertifiedVO;
 import com.sist.vo.Challenge_ParticipationVO;
 
 public class ChallengeModel {
+	
+	
+	// 내가 참여한 방
+	// 마이 인증 목록 디테일
+		@RequestMapping("challenge/myChallengeRoom.do")
+		public String myChallengeRoom(HttpServletRequest request)
+		{
+			// 로그인 중인 아이디 받기
+			HttpSession session= request.getSession();
+			String id= (String) session.getAttribute("id");
+			
+			Map map = new HashMap();
+			map.put("id", id);
+			
+			List<ChallengeVO> myRoomfList = new ArrayList<ChallengeVO>();
+			
+			if(id!=null)
+			{
+				myRoomfList = ChallengeDAO.mychallengeRoomList(map);
+
+			}
+			else
+			{
+				myRoomfList = null;
+			}
+			// 해당 id로 검색한 전체 인증내역
+			
+			
+			//map.put("my_selected_date", date);
+			session.setAttribute("id", id);
+			session.setAttribute("myRoomfList",myRoomfList);
+			return "../challenge/myChallengeRoom.jsp";
+		}
+		
 	
 	// 마이 인증 목록
 	@RequestMapping("challenge/mychallenge.do")
@@ -54,24 +89,29 @@ public class ChallengeModel {
 //		
 		String date = year+"-"+month+"-"+day;
 		//String date = String.format("%4d-%02d-%02d",year,month,Integer.parseInt(day) );
-		System.out.println(date);
-		
-		
-		
-		// 인증 테이블에서 세션 id값과 일지하는 정보 가져오기
-		List<ChallengeVO> cfList = new ArrayList<ChallengeVO>();
+		//System.out.println(date);
 		
 		Map map = new HashMap();
-		map.put("challenge_id", id);
+		map.put("id", id);
+		map.put("date",date);
+		
+		List<Challenge_CertifiedVO> myProofList = new ArrayList<Challenge_CertifiedVO>();
+		
+		if(id!=null)
+		{
+			myProofList = ChallengeDAO.myChallenge_CertifiedData(map);
+
+		}
+		else
+		{
+			myProofList = null;
+		}
+		// 해당 id로 검색한 전체 인증내역
+		
+		
 		//map.put("my_selected_date", date);
-		System.out.println(date);
-		cfList = ChallengeDAO.myChallenge_roomdetail(map);
-		
-		
-		
-		List<ChallengeVO> myList= ChallengeDAO.myChallenge_roomdetail(map);
-		
-				
+		session.setAttribute("id", id);
+		session.setAttribute("myProofList",myProofList);
 		return "../challenge/myProofDetail.jsp";
 	}
 	
@@ -143,9 +183,7 @@ public class ChallengeModel {
 			arr[i]=count;
 			}
 		}
-	
-		
-		
+
 		// 인증 테이블에서 세션 id값과 일지하는 정보 가져오기
 		List<ChallengeVO> cfList = new ArrayList<ChallengeVO>();
 				
@@ -156,6 +194,9 @@ public class ChallengeModel {
 		{
 		cfList = ChallengeDAO.myChallenge_roomdetail(map2);
 		}
+		
+		
+		
 		request.setAttribute("cfList", cfList);
 		request.setAttribute("id", id);		
 		request.setAttribute("strday", strday);
@@ -436,9 +477,28 @@ public class ChallengeModel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		String filename="";
 		String path = "/Users/haeni/Documents/jsp-project/Homefit/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Home_fit/challenge_poster";
 //		String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\challenge_poster";
+		
+		
+//		String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\challenge_poster"; // 파일이
+	      File Folder = new File(path);
+
+	      // 해당 디렉토리가 없을경우 디렉토리를 생성합니다.
+	      if (!Folder.exists()) {
+	         try{
+	             Folder.mkdir(); //폴더 생성합니다.
+	             System.out.println("폴더가 생성되었습니다.");
+	              } 
+	              catch(Exception e){
+	             e.getStackTrace();
+	         }        
+	            }else {
+	         System.out.println("이미 폴더가 생성되어 있습니다.");
+	      }
+		
 		String enctype = "UTF-8"; // 한글파일명을 사용 여부
 		int size = 1024 * 1024 * 100;// 파일의 최대크기
 

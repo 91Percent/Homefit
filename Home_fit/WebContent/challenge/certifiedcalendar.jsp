@@ -7,7 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</style>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
 //시작일
@@ -85,16 +84,6 @@ $(function() {
 <body>
 
 
-<c:if test="${id==null }">
-<table>
-<center>
-	로그인 정보가 없습니다.
-	</center>
-</table>
-
-
-</c:if>
-<c:if test="${id!=null }">
 					<table class="table">
                       <thead>
                           <tr>
@@ -105,11 +94,11 @@ $(function() {
                               <th scope="col" class="mychallengeno2">ID</th>
                           </tr>
                       </thead>
-                      <c:forEach var="vo" items="${cfList }">
+                      <c:forEach var="vo" items="${cfList }"  varStatus="status" >
                       <tbody>
                           <tr>
                           <!-- NO -->
-                          	<td>${vo.ccVO.mylist_no }</td>
+                          	<td>${status.count }</td>
                           <!-- 포스터 -->
                               <td>
                                   <div class="media">
@@ -136,18 +125,19 @@ $(function() {
                       </tbody>
                        </c:forEach>
                   </table>
-</c:if>                 
 
 
 
 
 <!-- -------------------------------------------------------------- -->
-<table>
-<tr>
-<td>
+<div  class="col-md-6" style="float:left;">
+<!-- <h3 class="text-center"> -->
+<!-- 				[인증 목록]&nbsp;<span id="seldate"></span> -->
+<!-- 		</h3> -->
+
 	<table class="table">
 		<tr>
-			<td colspan="7" style="font-size:20px; border-top:none">
+			<td colspan="7" style="font-size:20px; border-top:none; text-align:center;">
 				<select name="year" id="year3" class="selectpicker">
 						<c:forEach var="i" begin="2020" end="2030">
 							<option ${i==year?"selected":"" }>${i }</option>
@@ -198,20 +188,6 @@ $(function() {
 			</c:forEach>
 		</c:if>
 	</table>
-	</td>
-	<td>
-	<div>
-		<h3 clsass="text-left">
-				[인증 목록]&nbsp;<span id="seldate"></span>
-			</h3> 	
-			<table>
-				<tr>
-					<td><img src="/Home_fit/challenge_poster/${Certifiedvo.poster}"></td>
-				</tr>
-			</table>
-	</div>
-	</td>
-	</tr>
-</table>
+</div>
 </body>
 </html>

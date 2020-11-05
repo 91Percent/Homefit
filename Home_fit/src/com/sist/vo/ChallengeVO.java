@@ -36,9 +36,15 @@ public class ChallengeVO {
 	private String sorting; //  정렬순
 	private String keyword; // 검색 키워드	
 	private Challenge_CertifiedVO ccVO= new Challenge_CertifiedVO();
+	private Challenge_ParticipationVO cpVO = new Challenge_ParticipationVO();
 	
 	
-	
+	public Challenge_ParticipationVO getCpVO() {
+		return cpVO;
+	}
+	public void setCpVO(Challenge_ParticipationVO cpVO) {
+		this.cpVO = cpVO;
+	}
 	public Challenge_CertifiedVO getCcVO() {
 		return ccVO;
 	}

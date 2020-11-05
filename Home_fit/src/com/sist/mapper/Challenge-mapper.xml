@@ -23,7 +23,7 @@
 	SELECT CEIL(COUNT(*)/12.0) FROM challenge
 	WHERE title LIKE '%'||#{keyword}||'%' 
 	OR content LIKE '%'||#{keyword}||'%' 
-	ORDER BY regdate DESC)
+	ORDER BY regdate DESC
 </select>
 
 <!-- 진행 상태별 list -->
@@ -217,10 +217,43 @@
 	
 	<!-- 마이페이지에 띄울 인증 정보 가져오는 부분 -->
 	<select id="myChallenge_CertifiedData" resultType="Challenge_CertifiedVO" parameterType="hashmap">
-		SELECT * FROM challenge_certified 
-		WHERE challenge_id=#{id} 
-		AND TO_CHAR(Certified_date,'yyyy-MM-dd') as db_Certified_date = #{strday}
+		SELECT poster FROM challenge_certified 
+		WHERE challenge_id=#{id}
+		AND TO_CHAR(Certified_date,'yyyy-MM-dd') = #{date}
 	</select>
+	
+	
+	<!-- 회원이 참가한 방 목록 -->
+	<!-- 
+		SELECT c.challenge_no,c.cate,c.title,c.poster,c.period
+		FROM Challenge c
+		JOIN challenge_participation p
+		ON c.challenge_no=p.challenge_no
+		WHERE p.challenge_id='seunggu'
+		ORDER BY p.challenge_no;
+	 -->
+	<resultMap type="ChallengeVO" id="mychallengeRoom">
+		<result property="challenge_no" column="challenge_no"/>
+		<result property="cate" column="cate"/>
+		<result property="title" column="title"/>
+		<result property="poster" column="poster"/>
+		<result property="period" column="period"/>
+		<result property="cpVO.challenge_id" column="challenge_id"/>
+	</resultMap>
+	<select id="mychallengeRoomList" parameterType="hashmap" resultMap="mychallengeRoom">
+	SELECT c.challenge_no,cate,title,poster,period
+		FROM Challenge c
+		JOIN challenge_participation p
+		ON c.challenge_no=p.challenge_no
+		WHERE p.challenge_id=#{id}
+		ORDER BY p.challenge_no DESC
+		
+		
+	</select>
+	
+	
+	
+	
 	
 	
 	
@@ -231,13 +264,12 @@
 	 	<result property="ccVO.challenge_no" column="challenge_no"/>
 	 	<result property="ccVO.poster" column="poster"/>
 	 	<result property="ccVO.Certified_date" column="Certified_date"/>
-	 	<result property="ccVO.mylist_no" column="mylist_no"/>	 	
 		 <result property="ccVO.challenge_id" column="challenge_id"/>	 
 	 </resultMap>
 	 
-	 
+	 <!-- 회원이 인증한 사진 목록 -->
 	 <select id="myChallenge_roomdetail" parameterType="hashmap" resultMap="mychallengeList">
-	 	SELECT c.challenge_no,title,cc.poster,Certified_date,rownum as mylist_no,challenge_id
+	 	SELECT c.challenge_no,title,cc.poster,Certified_date,challenge_id
 		FROM Challenge c
 		JOIN challenge_certified cc
 		ON c.challenge_no=cc.challenge_no
@@ -248,14 +280,14 @@
  
 	 
 	 <!-- 회원이 인증한 방에 대한 정보 가져오기 -->
-	 <select id="myChallenge_roomdetail2" parameterType="hashmap" resultType="ChallengeVO">
-	 	SELECT *
-		FROM Challenge c
-		JOIN challenge_certified cc
-		ON c.challenge_no=cc.challenge_no
-		WHERE cc.challenge_id=#{challenge_id}
-		AND TO_CHAR(cc.certified_date,'yyyy-MM-dd')=#{my_selected_date};
-	 </select>
+<!-- 	 <select id="myChallenge_roomdetail2" parameterType="hashmap" resultType="ChallengeVO"> -->
+<!-- 	 	SELECT * -->
+<!-- 		FROM Challenge c -->
+<!-- 		JOIN challenge_certified cc -->
+<!-- 		ON c.challenge_no=cc.challenge_no -->
+<!-- 		WHERE cc.challenge_id=#{challenge_id} -->
+<!-- 		AND TO_CHAR(cc.certified_date,'yyyy-MM-dd')=#{my_selected_date}; -->
+<!-- 	 </select> -->
 	
 	
 	

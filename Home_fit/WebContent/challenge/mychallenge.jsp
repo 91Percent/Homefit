@@ -69,12 +69,21 @@ $(function(){
       <div class="container">
           <div class="cart_inner">
               <div class="table-responsive">
+              <c:if test="${id==null }">
+				<table>
+				<center>
+					로그인 정보가 없습니다.
+					</center>
+				</table>
+				</c:if>
               
+              <c:if test="${id!=null }">
               
-              	<div id="certifiedcalendar">
-              	</div>
+              	<!-- 내 인증 목록 + 캘린더 -->
+              	<div id="certifiedcalendar"></div>
+              	<!--  선택한 날짜의 인증 사진 -->
 					<div id="myProofDetail"></div>
-			
+			</c:if>
               </div>
           </div>
       </div>

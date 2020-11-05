@@ -19,6 +19,25 @@ public class ChallengeDAO {
 		ssf=CreateSqlSessionFactory.getSsf();
 	}
 	
+	
+	// 	<select id="mychallengeRoomList" parameterType="hashmap" resultMap="mychallengeRoom">
+	public static List<ChallengeVO> mychallengeRoomList(Map map)
+	{
+		List<ChallengeVO> list = new ArrayList<ChallengeVO>();
+		SqlSession session= null;
+		try {
+			session=ssf.openSession();
+			list=session.selectList("mychallengeRoomList", map);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return list;
+	}
+	
+	
 	//myChallenge_roomdetail
 	// <select id="myChallenge_roomdetail" parameterType="hashmap" resultType="ChallengeVO">
 	public static List<ChallengeVO> myChallenge_roomdetail(Map map)

@@ -28,6 +28,16 @@ function coach(){
        }
    });
 }
+function mychallenge(){
+	   $.ajax({
+	      type:'post',
+	       url:'../challenge/myChallengeRoom.do',
+	       success:function(result)
+	       {
+	          $('.soo').html(result);
+	       }
+	   });
+	}
 
 
 </script>
@@ -74,7 +84,7 @@ function coach(){
                      <li><a class="d-flex justify-content-between" style="cursor:pointer" onclick="coach();">
                            <p>코치 예약</p>
                      </a></li>
-                     <li><a class="d-flex justify-content-between">
+                     <li><a class="d-flex justify-content-between" style="cursor:pointer" onclick="mychallenge();">
                            <p>참여중인 도전</p>
                      </a></li>
                      <li>
