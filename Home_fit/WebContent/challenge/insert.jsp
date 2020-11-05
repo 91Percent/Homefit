@@ -11,31 +11,21 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>Home Fit - Let's Challenge Together</title>
 <link rel="icon" href="img/Fevicon.png" type="image/png">
+
 <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
 <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
 <link rel="stylesheet" href="vendors/themify-icons/themify-icons.css">
 <link rel="stylesheet" href="vendors/linericon/style.css">
-<link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css">
+<link rel="stylesheet"
+	href="vendors/owl-carousel/owl.theme.default.min.css">
 <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
 <link rel="stylesheet" href="vendors/nice-select/nice-select.css">
 <link rel="stylesheet" href="vendors/nouislider/nouislider.min.css">
+
 <link rel="stylesheet" href="css/style.css">
-<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-<script type="text/javascript">
-//달력 include
-$(function(){
-	$.ajax({
-		type:'post',
-		url:'../challenge/calendar.do',
-		success:function(result)
-		{
-			$('#calendar_table').html(result);
-		}
-	}); 
-})		
-</script>
-</head>	
-<body>	
+</head>
+<body>
+
 	<!-- ================ start banner area ================= -->
 	<section class="blog-banner-area" id="category">
 		<div class="container h-100">
@@ -45,7 +35,8 @@ $(function(){
 					<nav aria-label="breadcrumb" class="banner-breadcrumb">
 						<ol class="breadcrumb">
 							<!-- <li class="breadcrumb-item"><a href="#">Home</a></li> -->
-							<li class="breadcrumb-item active" aria-current="page">새로운 도전 만들기</li>
+							<li class="breadcrumb-item active" aria-current="page">새로운
+								도전 만들기</li>
 						</ol>
 					</nav>
 				</div>
@@ -60,15 +51,18 @@ $(function(){
 				<div class="billing_details">
 					<div class="row">
 						<table class="table table-hover">
+
 							<tr>
 								<th class="danger text-right" width=30%>등록일</th>
 								<td width=85%><fmt:formatDate value="${toDay}"
 										pattern="yyyy-MM-dd" /></td>
 							</tr>
+
 							<tr>
 								<th class="danger text-right" width=30%>아이디</th>
 								<td width=85%>${sessionScope.id }</td>
 							</tr>
+
 							<tr>
 								<th class="danger text-right" width=30%>카테고리</th>
 								<td width=85%><select NAME=cate SIZE=1
@@ -78,25 +72,39 @@ $(function(){
 										<option VALUE=etc>etc</option>
 								</select></td>
 							</tr>
+
 							<tr>
 								<th class="danger text-right" width=30%>대표 사진</th>
 								<td width=70%><input type=file name=upload size=20
 									class="input-sm" title="사진 파일만 업로드 가능합니다.">
 								</td>
 							</tr>
+
 							<tr>
 								<th class="danger text-right" width=30%>방 제목</th>
 								<td width=70%>
 									<input type="text" class="form-control title"
 										id="title" name="title" placeholder="방제목을 입력하세요" maxlength="50"> 
-									<span> * 50자 이내로 입력하세요</span>
+									<span> * 50자 이내로 입력하세요(<span id='title-length'>0</span>/50)</span>
 								</td>
 							</tr>
-							<div class="row">
-							<div id="calendar_table">
 
-							</div>
-							</div>
+							<tr>
+								<th class="danger text-right" width=30%>도전 시작일</th>
+								<td width=70%><input type=date name=start_day
+									class="input-sm" id="start_day"
+									min=<fmt:formatDate value="${toDay}" pattern="yyyy-MM-dd" />
+									required> <span class="validity"></span></td>
+								
+
+							</tr>
+
+							<tr>
+								<th class="danger text-right" width=30%>도전 종료일</th>
+																<td width=70%><input type=date name=end_day
+									class="input-sm" id="end_day" min=start_day required></td>
+								
+							</tr>
 							<tr>
 								<th class="danger text-right" width=30%>도전 가능 인원</th>
 								<td width=70%><input type="number" class="form-control"
@@ -109,7 +117,7 @@ $(function(){
 							<tr>
 								<th class="danger text-right" width=30%>도전소개글</th>
 								<td width=70%><textarea class="form-control" name="content"
-										id="challenge_content" rows="10" placeholder="소개글을 입력하세요"></textarea></td>
+										id="content" rows="10" placeholder="소개글을 입력하세요"></textarea></td>
 							</tr>
 							<tr>
 								<td colspan="2" class="text-center"><input type=submit

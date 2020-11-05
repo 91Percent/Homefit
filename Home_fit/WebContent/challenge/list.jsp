@@ -257,12 +257,9 @@ $(function () {
 
 					<!-- start : 버튼 zone -->
 					<div class=challengebtn>
-						<button type="button"
-							class="button button-subscribe mr-auto mb-1 totalchall"
-							onclick="location.href='../challenge/insert.do' ">전체 도전 목록</button>
 						<c:if test="${sessionScope.id!=null }">
 							<button type="button" class="button button-subscribe mr-auto mb-1"
-								onclick="location.href='../challenge/insert.do' ">참여 중인 도전</button>
+								onclick="location.href='../challenge/mychallenge.do' ">내도전관리</button>
 							<button type="button"
 								class="button button-subscribe mr-auto mb-1 challinsert"
 								onclick="location.href='../challenge/insert.do' ">도전만들기

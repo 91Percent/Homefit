@@ -32,12 +32,14 @@
       coach_no,coach_name,coach_detail,coach_poster,poster,subject,content,price,review_avg,num
       FROM (SELECT coach_no,coach_name,coach_detail,coach_poster,poster,subject,content,price,review_avg,rownum as num
       FROM (SELECT coach_no,coach_name,coach_detail,coach_poster,poster,subject,content,price,review_avg
-      FROM coach_info WHERE cate_no=#{cateno}))
+      FROM coach_info WHERE cate_no=#{cateno} ORDER BY cate_no DESC))
       WHERE num BETWEEN #{start} AND #{end}
    </select>
    <select id="coachTotalPage" resultType="int">
       SELECT CEIL(COUNT(*)/10.0) FROM coach_info
    </select>
+   
+   <!--  -->
 
 
    <!-- 코치스케쥴데이터 -->
@@ -103,7 +105,7 @@
    </select> 
    
    <!-- 코치예약추가 -->
-   <insert id="coachreserveInsert">
+   <insert id="coachreserveInsert" parameterType="Coach_ReserveVO">
    	<selectKey keyProperty="reserve_no" resultType="int" order="BEFORE">
    		SELECT NVL(MAX(reserve_no)+1,1) as reserve_no FROM coach_reserve 
    	</selectKey>
@@ -114,12 +116,23 @@
    			#{reserve_no}
    		)
    </insert>
-   	<resultMap type="com.sist.vo.Coach_ReserveVO" id="coachreserveList">
+   	<resultMap type="Coach_ReserveVO" id="coachreserveList">
    		   <result property="coach_no" column="coach_no"/>
 		   <result property="schedule_no" column="schedule_no"/>
 		   <result property="id" column="id"/>
 		   <result property="reserve_no" column="reserve_no"/>	
+		   <result property="sdv.month" column="month"/>	
+		   <result property="sdv.time" column="time"/>	
+		   <result property="sdv.place" column="place"/>	
+		   <result property="sdv.reserve_check" column="reserve_check"/>	
    	</resultMap>
+   	
+   	<!-- 마이페이지 예약목록  -->
+   	<select id="coachReserveList" resultMap="coachreserveList" parameterType="String">
+   		SELECT coach_reserve.coach_no,coach_reserve.schedule_no,id,reserve_no,month,time,place,reserve_check 
+   		FROM coach_reserve,coach_schedule where id=#{id} and coach_reserve.schedule_no =coach_schedule.schedule_no
+   		ORDER BY reserve_no DESC
+   	</select>
    	
    	<!-- 코치 예약 가능여부 -->
    	<update id="coachreserveOK" parameterType="hashmap">
@@ -128,14 +141,14 @@
    		WHERE coach_no=#{coach_no} AND schedule_no=#{schedule_no}
    	</update>
    	
-   	<!-- 마이페이지 예약목록  -->
-   	<select id="coachReserveList" resultType="com.sist.vo.Coach_ReserveVO" parameterType="String">
-   		SELECT * FROM coach_reserve
-   		WHERE id=#{id}
-   	</select>
    	
+   	<!-- 코치 예약 취소 -->
+   	<delete id="coachreserveDelete" parameterType="int">
+   		DELETE FROM coach_reserve
+   		WHERE schedule_no=#{schedule_no}
+   	</delete>
+
    	<!-- 코치별 qna 검색 
-   	
    	
    	coach_no     NUMBER        NOT NULL,
 	coach_qna_no NUMBER        NOT NULL,
@@ -151,7 +164,7 @@
 	depth      NUMBER       ,
    	-->
    <select id="coachQnaList" resultType="CoachQnaVO" parameterType="int">
-   	SELECT coach_no,coach_qna_no,subject,content,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,id,name,form,hit,group_id,group_tab
+   	SELECT coach_no,coach_qna_no,subject,content,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,id,name,form,hit,group_id,group_tab,
    	FROM coach_qna 
    	WHERE coach_no=#{coach_no}
    	ORDER BY group_id asc,group_tab asc
@@ -212,6 +225,19 @@
     FROM coach_qna
     WHERE coach_no=#{coach_no} 
     AND coach_qna_no=#{coach_qna_no}
+  </select>
+  
+  <!-- 댓글 가져오기 -->  
+    <select id="coach_replyListData" resultType="ReplyVO" parameterType="ReplyVO">
+    SELECT review_no,no,id,name,content,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday, group_tab 
+    FROM review_table
+    WHERE no=#{no} AND cate_no=#{cate_no}
+  </select>
+  
+  <!-- 댓글 총 목록 -->
+  <select id="replyTotalList" resultType="int">
+  	SELECT * FROM review_table
+  	WHERE cate_no=${cate_no}
   </select>
   
 </mapper>

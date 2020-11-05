@@ -50,22 +50,41 @@
 </script>
 </head>
 <body>
+	<!-- ================ start banner area ================= -->	
+	<section class="blog-banner-area" id="category">
+		<div class="container h-100">
+			<div class="blog-banner">
+				<div class="text-center">
+					<h1>코치예약</h1>
+					<nav aria-label="breadcrumb" class="banner-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">G반</a></li>
+              <li class="breadcrumb-item active" aria-current="page">안치훈</li>
+            </ol>
+          </nav>
+				</div>
+			</div>
+    </div>
+	</section>
+	<!-- ================ end banner area ================= -->
+<section class="section-margin--small mb-5">
+ <div class="container">
   <div class="row">
    <table class="table">
      <tr>
        <td width=20% height=500 rowspan="2">
-         <h5>코치리스트</h5>
+         <h4 class="text-center">코치리스트</h4>
          <table class="table">
            <tr>
              <td>
-               <div id="coach_info" style="overflow-y:auto;height:400px"></div>
+               <div id="coach_info" style="overflow-y:auto;height:500px"></div>
              </td>
            </tr>
          </table>
        </td>
-       <td width=10% height=150>
+       <td width=15% height=150>
          <table class="table">
-           <h5>장소</h5>
+          <h4 class="text-center">장소</h4>
            <tr>
              <td>
                <div id="place_info"></div>
@@ -73,9 +92,9 @@
            </tr>
          </table>
        </td>
-        <td width=10% height=150>
+        <td width=15% height=150>
          <table class="table">
-           <h5>월별</h5>
+           <h4 class="text-center">월별</h4>
            <tr>
              <td>
                <div id="month_info"></div>
@@ -83,9 +102,9 @@
            </tr>
          </table>
        </td>
-        <td width=10% height=150>
+        <td width=15% height=150>
          <table class="table">
-           <h5>시간</h5>
+           <h4 class="text-center">시간</h4>
            <tr>
              <td>
                <div id="time_info"></div>
@@ -93,12 +112,12 @@
            </tr>
          </table>
        </td>
-       <td width=40% height=500 rowspan="2">
+       <td width=35% height=500 rowspan="2">
          <table class="table">
-           <h5>예약정보</h5>
+           <h4 class="text-center">예약정보</h4>
            <tr>
              <td class="text-center" colspan="2">
-               <img src="1.png" width=200 height=200 id="coach_poster">
+               <img src="HT.png" width=200 height=200 id="coach_poster">
              </td>
            </tr>
            <tr>
@@ -145,13 +164,13 @@
            <tr style="display:none" id="okbtn">
               <td colspan="2" class="text-center">
                 <form method="post" action="../coachreserve/reserve_ok.do">
-                  <input type=hidden name="cno" id="cno">
+                  <input type=hidden name="coach_no" id="cno">
 <!--                   <input type=hidden name="place" id="place"> -->
-                  <input type=hidden name="sno" id="sno">
+                  <input type=hidden name="schedule_no" id="sno">
 <!--                   <input type=hidden name="month" id="month"> -->
 <!--                   <input type=hidden name="time" id="time"> -->
 <!--                   <input type=hidden name="price" id="price"> -->
-                  <input type=submit value="예매하기"
+                  <input type=submit value="예약하기"
                            class="btn btn-lg btn-primary">
                 </form>
               </td>
@@ -161,7 +180,7 @@
        <tr>
        	<td height=350 colspan="3">
          <table class="table">
-           <h5>금액</h5>
+           <h4 class="text-center">금액</h4>
            <tr>
              <td>
                <div id="price_info" style="overflow-y:auto;height:400px"></div>
@@ -171,8 +190,9 @@
          </table>
        </td>
       </tr>
-     </tr>
    </table>
   </div>
+  </div>
+  </section>
 </body>
 </html>

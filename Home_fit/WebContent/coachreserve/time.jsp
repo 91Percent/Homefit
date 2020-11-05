@@ -35,7 +35,7 @@ $(function(){
   <table class="table table-striped">
     <c:forEach var="vo" items="${list }">
       <tr class="time" data-value="${vo.coach_no }" data-name="${vo.time }">
-       <td style="font-size:8pt">${vo.time }</td>
+       <td style="font-size:12pt"><center>${vo.time }</center></td>
       </tr>
     </c:forEach>
   </table>

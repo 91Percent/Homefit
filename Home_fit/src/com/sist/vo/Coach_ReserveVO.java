@@ -5,6 +5,22 @@ public class Coach_ReserveVO {
 	private int schedule_no;
 	private String id;
 	private int reserve_no;
+	private ScheduleVO sdv;
+	private tutor_VO tvo;
+	
+	
+	public tutor_VO getTvo() {
+		return tvo;
+	}
+	public void setTvo(tutor_VO tvo) {
+		this.tvo = tvo;
+	}
+	public ScheduleVO getSdv() {
+		return sdv;
+	}
+	public void setSdv(ScheduleVO sdv) {
+		this.sdv = sdv;
+	}
 	public int getCoach_no() {
 		return coach_no;
 	}

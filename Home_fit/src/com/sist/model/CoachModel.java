@@ -82,27 +82,40 @@ public class CoachModel {
 	 {		
 		 	
 		 String coach_no=request.getParameter("coach_no");
-		 	
-		 	
+		 String content=request.getParameter("content");	
+		 
 		 //코치 디테일 데이터 가져오는 부분
 		 tutor_VO vo=CoachDAO.coachDeatilData(Integer.parseInt(coach_no));
 		 //=====================
 		 
+		 int cate_no = vo.getCate_no();
+		 
 		 
 		 // 코치 스케쥴 데이터 가져오는 부분 
-		 ScheduleVO Schevo= new ScheduleVO();
-		 List<ScheduleVO> list = new ArrayList<ScheduleVO>();
-		 Schevo.setCoach_no(Integer.parseInt(coach_no));
-		 list = CoachDAO.scheduleData(Schevo);		 
-		 System.out.println("사이즈 "+list.size());
+		 ScheduleVO svo= new ScheduleVO();
+		 List<ScheduleVO> slist = new ArrayList<ScheduleVO>();
+		 svo.setCoach_no(Integer.parseInt(coach_no));
+		 slist = CoachDAO.scheduleData(svo);		 
+		 System.out.println("사이즈 "+slist.size());
 		 //=================================
+		 
+		 // 댓글
+		 ReplyVO Reply_vo = new ReplyVO();
+			Reply_vo.setNo(Integer.parseInt(coach_no));
+			Reply_vo.setCate_no(cate_no);
+			Reply_vo.setContent(content);
+			List<ReplyVO> coachReply_list = CoachDAO.coach_reply(Reply_vo);
+			System.out.println("댓글 갯수"+coachReply_list.size());
 		 
 		 
 		 //1.매퍼 만들고 ( coach_no 에 해당하는 스케쥴 정보)
 		 //2.연결하는 부분 dao에서 데이터 받고
 		 //3. 여기서 호출 하면 !
-		 request.setAttribute("list", list);
+			request.setAttribute("content", coachReply_list);
 		 request.setAttribute("vo", vo);
+		 request.setAttribute("svo", svo);
+		 request.setAttribute("slist", slist);
+		 request.setAttribute("coachReply_list", coachReply_list);
 		 request.setAttribute("main_jsp", "../coach/info.jsp");
 		 return "../main/main.jsp";
 	 }
@@ -178,10 +191,12 @@ public class CoachModel {
 			 request.setCharacterEncoding("UTF-8");
 		 }catch(Exception ex) {}
 		 
-		 String Coach_no=request.getParameter("cno");
-		 String Schedule_no=request.getParameter("sno");
+		 String Coach_no=request.getParameter("coach_no");
+		 String Schedule_no=request.getParameter("schedule_no");
 		 System.out.println("cno="+Coach_no);
 		 System.out.println("sno="+Schedule_no);
+		 
+		 
 		 
 		 //String place=request.getParameter("place");
 		 //String month=request.getParameter("month");
@@ -190,11 +205,21 @@ public class CoachModel {
 		 
 		 HttpSession session=request.getSession();
 		 String id=(String)session.getAttribute("id");
+		
+		 
 		 
 		 Coach_ReserveVO vo=new Coach_ReserveVO();
 		 vo.setId(id);
 		 vo.setCoach_no(Integer.parseInt(Coach_no));
 		 vo.setSchedule_no(Integer.parseInt(Schedule_no));
+		 
+		 
+		 
+//		 ScheduleVO svo=new ScheduleVO();
+//		 svo.setCoach_no(Integer.parseInt(Coach_no));
+//		 svo.setSchedule_no(Integer.parseInt(Schedule_no));
+
+		 
 		 
 		 CoachDAO.coachreserveInsert(vo);
 		 
@@ -202,24 +227,34 @@ public class CoachModel {
 		 map.put("coach_no",Coach_no );
 		 map.put("schedule_no",Schedule_no);
 		 CoachDAO.coachreserveCheck(map);
-		 return "redirect:../coachreserve/mypage.do";
+		 //CoachDAO.coachInfoReserveCheck(map);
+		 return "redirect:../coachreserve/gogomypage.do";
 	 }
-	 
-	 @RequestMapping("coachreserve/mypage.do")
-	 public String reserve_mypage(HttpServletRequest request)
+	
+	/// 에약 삭제
+	 @RequestMapping("coachreserve/mypage_delete.do")
+	 public String coach_reverve_delete(HttpServletRequest request)
 	 {
-
+		 System.out.println("삭제 호출");
+		 String Schedule_no=request.getParameter("Schedule_no");
+		 System.out.println("스케쥴넘버:"+Schedule_no);
+		 CoachDAO.coachreserveDelete(Integer.parseInt(Schedule_no));
+		 
 		 HttpSession session=request.getSession();
 		 String id=(String)session.getAttribute("id");
 		 
+		 
 		 List<Coach_ReserveVO> list=CoachDAO.coachreserveList(id);
+		 System.out.println("사이즈는 !!"+list.size());
 		 request.setAttribute("list", list);
-		 System.out.println("사이즈는 !?!"+list.size());
-		 request.setAttribute("main_jsp","../coachreserve/mypage.jsp");
-		 return "../main/main.jsp";
+		 
+		 return "../coachreserve/mypage.jsp";
 	 }
 	 
 	 
+	 
+	 
+	 ///////////////////////////////////////////////////////////////////////////////
 	 /////////////////////////////////////////////////////////////////////////////
 	 // Q&A
 	 
@@ -364,7 +399,99 @@ public class CoachModel {
 		 
 		 return "redirect:../coach/qna.do";
 	 }
-	 //////////////////////////////////////////////////////////////////////
+	 /////////////////////////////////////////////////////////////////////////////////////////////////////
+	 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+	 
+	 
+	 
+	 
+	 
+	 
+	 //댓글
+	 @RequestMapping("coach/reply_insert.do")
+	 public String coach_reply_insert(HttpServletRequest request)
+	 {
+		 try
+		 {
+			 request.setCharacterEncoding("UTF-8");
+		 }catch(Exception ex) {}
+		 String coach_no=request.getParameter("coach_no");
+		 String content=request.getParameter("content");
+		 String cate_no=request.getParameter("cate_no");
+		 System.out.println("잘나오나?"+coach_no);
+		  System.out.println("내용잘나오고?"+content);
+		 HttpSession session=request.getSession();
+		 String id=(String)session.getAttribute("id");
+		 String name=(String)session.getAttribute("name");
+		 
+		 
+		 ReplyVO rvo=new ReplyVO();
+		 rvo.setNo(Integer.parseInt(coach_no));
+		 rvo.setId(id);
+		 rvo.setContent(content);
+		 rvo.setName(name);
+		 rvo.setCate_no(Integer.parseInt(cate_no));
+		 
+		 CoachDAO.coach_reply_insert(rvo);
+		 
+		 return "redirect../coach/info.do?coach_no="+coach_no;
+	 }
+	 
+	 
+	 @RequestMapping("coach/reply_update.do")
+	 public String coach_reply_update(HttpServletRequest request)
+	 {
+		 // 데이터 받기
+		 try
+		 {
+			 request.setCharacterEncoding("UTF-8");
+		 }catch(Exception ex) {}
+		 //String no=request.getParameter("no");
+		 String coach_no=request.getParameter("coach_no");
+		 String cate_no=request.getParameter("cate_no");
+		 String content=request.getParameter("content");
+		 System.out.println("코치:"+coach_no);
+		 System.out.println("카테넘버:"+cate_no);
+		 System.out.println("컨텐트:"+content);
+		 
+		 HttpSession session=request.getSession();
+		 String id=(String)session.getAttribute("id");
+		 String name=(String)session.getAttribute("name");
+		 
+		 // DB
+		 ReplyVO vo=new ReplyVO();
+		 vo.setCate_no(Integer.parseInt(cate_no));
+		 vo.setContent(content);
+		 
+		 CoachDAO.coach_reply_insert(vo);
+		 return "redirect:../coach/info.do?coach_no="+coach_no;
+	 }
+	 
+	 
+	 
+	 //////////////////////////////////////////////////////////////
+	 //////////////////////////////////////////////////////////////
+	 @RequestMapping("coachreserve/gogomypage.do")
+	 public String gogomypage(HttpServletRequest request)
+	 {
+		 
+		 
+		request.setAttribute("main_jsp", "../mypage/mytest.jsp");
+		return "../main/main.jsp";
+	 }
+	 /// 마이페이지!!!
+	 @RequestMapping("coachreserve/mypage.do")
+	 public String coach_mypage(HttpServletRequest request)
+	 {
+		 HttpSession session=request.getSession();
+		 String id=(String)session.getAttribute("id");
+		 
+		 List<Coach_ReserveVO> list=CoachDAO.coachreserveList(id);
+		 System.out.println("사이즈는 !!"+list.size());
+		 request.setAttribute("list", list);
+		 
+		 return "../coachreserve/mypage.jsp";
+	 }
 	 
 	 
 }

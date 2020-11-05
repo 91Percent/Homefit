@@ -148,6 +148,8 @@ public class CoachDAO {
 		   }
 		   return total;
 	   }
+	   
+	   
 	   public static tutor_VO coachDeatilData(int coach_no)
 	   {
 		   SqlSession session=ssf.openSession();
@@ -156,23 +158,23 @@ public class CoachDAO {
 		   return vo;
 	   }
 	   
-	   public static List<ScheduleVO> scheduleData(ScheduleVO vo)
+	   public static List<ScheduleVO> scheduleData(ScheduleVO svo)
 	   {
 	 	  SqlSession session=ssf.openSession();
 	 	  List<ScheduleVO> list = new ArrayList<ScheduleVO>();
-	 	  list=session.selectList("scheduleData",vo);
+	 	  list=session.selectList("scheduleData",svo);
 	 	  session.close();
 	 	  return list;
 	   }
 	   
 
-	   public static void replyInsert(ReplyVO vo)
-	   {
-		   SqlSession session=ssf.openSession(true);// commit(X)
-		   // commit() ==> DML
-		   session.insert("replyInsert",vo);
-		   session.close();
-	   }
+//	   public static void replyInsert(ReplyVO vo)
+//	   {
+//		   SqlSession session=ssf.openSession(true);// commit(X)
+//		   // commit() ==> DML
+//		   session.insert("replyInsert",vo);
+//		   session.close();
+//	   }
 	   
 	   public static List<ReplyVO> replyListData(int bno)
 	   {
@@ -224,6 +226,27 @@ public class CoachDAO {
 		   session.close();
 	   }
 	   
+	   // 코치예약 삭제
+	   public static void coachreserveDelete(int Schedule_no) 
+	   {
+		   SqlSession session=ssf.openSession(true);
+		   session.delete("coachreserveDelete",Schedule_no);
+		   session.close();
+	   }
+	   
+//	   public static void coachInfoReserve(Coach_ReserveVO vo)
+//	   {
+//		   SqlSession session=ssf.openSession(true);
+//		   session.insert("coachInfoReserve", vo);
+//		   session.close();
+//	   }
+	   
+	   
+	   
+	   
+	   
+	   
+	   
 	   // 코치예약체크변경
 	   public static void coachreserveCheck(Map map)
 	   {
@@ -231,6 +254,17 @@ public class CoachDAO {
 		   session.update("coachreserveOK", map);
 		   session.close();
 	   }
+	   
+	   
+	   // 상세페이지에서 코치예약 체크
+	   public static void coachInfoReserveCheck(Map map)
+	   {
+		   SqlSession session=ssf.openSession(true);
+		   session.update("coachreserveOk2",map);
+		   session.close();
+	   }
+	   
+	   
 	   
 	   // 예약페이지 => 마이페이지 출력
 	   public static List<Coach_ReserveVO> coachreserveList(String id)
@@ -240,6 +274,15 @@ public class CoachDAO {
 		   session.close();
 		   return list;
 	   }
+	   
+//	   public static List<ScheduleVO> coachInfoReserve(int svo)
+//	   {
+//		   SqlSession session=ssf.openSession();
+//		   List<ScheduleVO> slist=session.selectList("coachInfoReserve",svo);
+//		   session.close();
+//		   return slist;
+//	   }
+	   
 	   
 	   	//해당 코치 Qna 리스트 데이터 가져오는  부분
 	   public static List<CoachQnaVO> coachQnaList(int coach_no)
@@ -310,6 +353,45 @@ public class CoachDAO {
 		}
 		   return vo;
 	   }
+	   
+	   
+	   public static void coach_reply_insert(ReplyVO vo)
+		{
+			SqlSession session=null;
+			try {
+				session=ssf.openSession(true);
+				session.update("replyInsert",vo);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(session!=null)
+					session.close();
+			}
+		}
+	   public static List<ReplyVO> coach_reply(ReplyVO vo)
+		{
+			List<ReplyVO> list = new ArrayList<ReplyVO>();
+			SqlSession session =null ;
+			try {
+				session=ssf.openSession();
+				list=session.selectList("coach_replyListData",vo);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(session!=null)
+					session.close();
+			}
+			
+			return list;
+		}
+	   
+	   
+	 
+
+
+	   
+	   
+	   
 	}
 	   
 	   

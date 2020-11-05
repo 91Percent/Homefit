@@ -11,10 +11,10 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
-var i;
+let i;
 $(function(){
       $('.pixel-radio').click(function(){
-         var id_check = $(this).attr("id");
+          id_check = $(this).attr("id");
          if(id_check=='YOGA')
             i='72';      
          else if(id_check=='Pilates')
@@ -41,8 +41,15 @@ $(function(){
     	       {
     	          $('.list_info').html(result);
     	       }
-    	});
+    	    });
     });
+     $('#PT').trigger("click");
+     $('#keyword').keyup(function(){
+ 		let k=$('#keyword').val(); 
+ 		$('#coach-table > div.row > list_info').hide();
+ 		let temp=$('#coach-table > div.row > list_info:nth-child(2n+2):contains("'+k+'")');
+ 		$(temp).parent().show();
+ 		});
 });     
 </script>
 </head>
@@ -76,10 +83,10 @@ $(function(){
               <li class="common-filter">
                 <form action="#">
                   <ul>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="PT" name="brand"><label for="PT">P.T<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="YOGA" name="brand"><label for="YOGA">YOGA<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="Pilates" name="brand"><label for="Pilates">Pilates<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="G.X" name="brand"><label for="G.X">G.X<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="PT" name="brand"><label for="PT">P.T<span>(89)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="YOGA" name="brand"><label for="YOGA">YOGA<span> (20)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="Pilates" name="brand"><label for="Pilates">Pilates<span> (35)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="G.X" name="brand"><label for="G.X">G.X<span> (34)</span></label></li>
                   </ul>
                 </form>
               </li>
@@ -90,20 +97,6 @@ $(function(){
         <div class="col-xl-9 col-lg-8 col-md-7">
           <!-- Start Filter Bar -->
           <div class="filter-bar d-flex flex-wrap align-items-center">
-            <div class="sorting">
-              <select>
-                <option value="1">Default sorting</option>
-                <option value="1">Default sorting</option>
-                <option value="1">Default sorting</option>
-              </select>
-            </div>
-            <div class="sorting mr-auto">
-              <select>
-                <option value="1">Show 12</option>
-                <option value="1">Show 12</option>
-                <option value="1">Show 12</option>
-              </select>
-            </div>
             <div>
               <div class="input-group filter-bar-search">
                 <input type=text id="Keyword" placeholder="Search">
@@ -115,7 +108,7 @@ $(function(){
           </div>
           <!-- End Filter Bar -->
           <!-- Start Best Seller -->
-       	<section class="lattest-product-area pb-40 category-list">
+       	<section class="lattest-product-area pb-40 category-list" id="coach-table">
     	<div class="row">
           <div class="list_info">
           

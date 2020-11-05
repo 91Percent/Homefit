@@ -28,6 +28,7 @@
 	<typeAlias type="com.sist.vo.WishlistVO" alias="WishlistVO"/>
 	<typeAlias type="com.sist.vo.FavoritelistVO" alias="FavoritelistVO"/>
 	<typeAlias type="com.sist.vo.PurchaseVO" alias="PurchaseVO"/>
+	<typeAlias type="com.sist.vo.Coach_ReserveVO" alias="Coach_ReserveVO"/>
 	
 	
 	

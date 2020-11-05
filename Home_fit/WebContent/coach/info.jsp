@@ -25,6 +25,7 @@
 	</section>
 	<!-- ================ end banner area ================= -->
 
+
   <!--================Single Product Area =================-->
 	<div class="product_image_area">
 		<div class="container">
@@ -48,6 +49,21 @@
 						<h3>${vo.coach_name }</h3>
 						<h3>${vo.subject }</h3>
 						<h3>${vo.price }</h3>
+						<!-- <div class="col-lg-6"> -->
+						<div class="review_box">
+						<h4>Add to Review</h4>
+						<form action="../coach/reply_insert.do" method="post" class="form-contact form-review mt-3">
+						<div class="form-group">
+						<textarea class="form-control different-control w-200" name="content" id="textarea" cols="500" rows="5" placeholder="Enter Message"></textarea>
+						<input type="hidden" value="${vo.coach_no}" name="coach_no">
+						<input type="hidden" value="${vo.cate_no}" name="cate_no">
+						</div>
+						<div class="form-group text-center text-md-right mt-3">
+						<button type="submit" class="button button--active button-review">리뷰남기기</button>
+						</div>
+						</form>
+						</div>
+						</div>
 	
 					</div>
 				</div>
@@ -85,202 +101,115 @@
 				</div>
 				<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
 					<div class="row">
-						<div class="col-lg-6">
-							<div class="comment_list">
+						<div>
+							<div>
 								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-1.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>월</h4>
-											<a class="reply_btn" href="#">더보기</a>
-										</div>
-									</div>
-						<c:forEach var="vo" items="${list }">
-									<p>${vo.month }</p>
-								</div>
-								<div class="review_item reply">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-2.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>시간별</h4>
-											<a class="reply_btn" href="#">더보기</a>
-										</div>
-									</div>
-									<p>${vo.time }</p>
-								</div>
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-3.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>장소</h4>
-											<a class="reply_btn" href="#">Reply</a>
-										</div>
-									</div>
-									<p>${vo.place }</p>
-					</c:forEach>				
+									<table class="table">
+										<tr>
+											<td><h5>스케쥴번호</h5></td>
+											<td><h5>코치번호</h5></td>
+											<td><h5>월별</h5></td>
+											<td><h5>시간별</h5></td>
+											<td><h5>장소</h5></td>
+										</tr>
+											<form action="../coachreserve/reserve_ok.do">
+												<c:forEach var="svo" items="${slist }">
+										<tr>
+											<td><input type="checkbox" name="schedule_no" value="${svo.schedule_no}">&nbsp;${svo.schedule_no}</td>
+											<td><input type="hidden" name="coach_no" value="${svo.coach_no}">${svo.coach_no}</td>
+											<td>${svo.month}</td>
+											<td>${svo.time}</td>
+											<td>${svo.place}</td>
+										</tr>
+												</c:forEach>
+											<input type="submit" value="간편예약">
+											</form>
+									</table>
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-6">
-							<div class="review_box">
-								<h4>Post a comment</h4>
-								<form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="text" class="form-control" id="name" name="name" placeholder="Your Full name">
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="email" class="form-control" id="email" name="email" placeholder="Email Address">
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="text" class="form-control" id="number" name="number" placeholder="Phone Number">
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<textarea class="form-control" name="message" id="message" rows="1" placeholder="Message"></textarea>
-										</div>
-									</div>
-									<div class="col-md-12 text-right">
-										<button type="submit" value="submit" class="btn primary-btn">Submit Now</button>
-									</div>
-								</form>
-							</div>
-						</div>
+						
 					</div>
 				</div>
 				<div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="row total_rate">
-								<div class="col-6">
-									<div class="box_total">
-										<h5>Overall</h5>
-										<h4>${vo.review_avg }</h4>
-										<h6></h6>
-									</div>
-								</div>
-								<div class="col-6">
-									<div class="rating_list">
-										<h3>Based on 3 Reviews</h3>
-										<ul class="list">
-											<li><a href="#">5 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-											<li><a href="#">4 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-											<li><a href="#">3 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-											<li><a href="#">2 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-											<li><a href="#">1 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div class="review_list">
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-1.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-2.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-3.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
+												<div class="row">
+													<div class="col-lg-12">
+														<div class="row total_rate">
+															<div class="col-12">
+																<div class="rating_list">
+																	<h3>Coach Reviews</h3>
+																</div>
+															</div>
+														</div>	
+														<div>
+															<table class="table">
+															<c:forEach var="vo" items="${coachReply_list}">
+															<div style="height: auto; width: 100%; border-top:1px solid;">
+																<div class="media">
+																	<div class="d-flex">
+																		<img src="img/product/review-2.png" alt="">
+																	</div>
+																	<div class="media-body">
+																		<p align="right">
+																		<a class="text-left">
+																           <c:if test="${rvo.group_tab>0 }">
+																             <c:forEach var="i" begin="1" end="${rvo.group_tab }">
+																               &nbsp;&nbsp;
+																             </c:forEach>
+																                             ☞
+																           </c:if>
+																           &nbsp;${rvo.name }(${rvo.dbday })
+																          </a>
+																		</p>
+																		<p align="right">
+																		<c:if test="${sessionScope.id!=rvo.id }">
+															             <a href="#" class="btn btn-xs btn-primary">수정</a>
+															             <a href="#" class="btn btn-xs btn-success">삭제</a>
+															            </c:if>
+															             <a href="#" class="btn btn-xs btn-danger">댓글</a>
+																		</p>
+																	</div>
+																</div>
+																<c:if test="${rvo.group_tab>0}">
+													             <c:forEach var="i" begin="1" end="${vo.group_tab }">
+													               &nbsp;&nbsp;
+													             </c:forEach>
+													           </c:if>
+													           <table class="table">
+													           <c:forEach var="vo" items="${coachReply_list}">
+																	<p>${rvo.Content}</p>
+																</c:forEach>
+																</table>
+																</div>
+																</c:forEach>
+																</table>
+															</div>
+														</div>
+													</div>
+													
+													<%-- <div class="col-lg-6">
+														<div class="review_box">
+															<h4>Add to Review</h4>
+															<form action="../coach/reply_insert.do" method="post" class="form-contact form-review mt-3">
+																<div class="form-group">
+																	<textarea class="form-control different-control w-200" name="content" id="textarea" cols="90" rows="5" placeholder="Enter Message"></textarea>
+																	<input type="hidden" value="${vo.coach_no}" name="coach_no">
+																	<input type="hidden" value="${vo.cate_no}" name="cate_no">
+																</div>
+																<div class="form-group text-center text-md-right mt-3">
+																	<button type="submit"
+																		class="button button--active button-review">Submit
+																		Now</button>
+																</div>
+															</form>
+														</div>
+												</div> --%>
+												</div>
+											</div>
 										</div>
 									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="review_box">
-								<h4>리뷰남기기</h4>
-								<p>Your Rating:</p>
-								<ul class="list">
-									<li><a href="#"><i class="fa fa-star"></i></a></li>
-									<li><a href="#"><i class="fa fa-star"></i></a></li>
-									<li><a href="#"><i class="fa fa-star"></i></a></li>
-									<li><a href="#"><i class="fa fa-star"></i></a></li>
-									<li><a href="#"><i class="fa fa-star"></i></a></li>
-								</ul>
-								<p>Outstanding</p>
-                <form action="#/" class="form-contact form-review mt-3">
-                  <div class="form-group">
-                    <input class="form-control" name="month" type="text" placeholder="Enter your name" required>
-                  </div>
-                  <div class="form-group">
-                    <input class="form-control" name="time" type="email" placeholder="Enter email address" required>
-                  </div>
-                  <div class="form-group">
-                    <input class="form-control" name="subject" type="text" placeholder="Enter Subject">
-                  </div>
-                  <div class="form-group">
-                    <textarea class="form-control different-control w-100" name="textarea" id="textarea" cols="30" rows="5" placeholder="Enter Message"></textarea>
-                  </div>
-                  <div class="form-group text-center text-md-right mt-3">
-                    <button type="submit" class="button button--active button-review">Submit Now</button>
-                  </div>
-                </form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+</section>
+						
 	<!--================End Product Description Area =================-->
 
 </body>

@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
 /*
@@ -17,6 +18,12 @@
                                                 false : 동기화 
  */
  $(function(){
+	 	$('#keyword').keyup(function(){
+		let k=$('#keyword').val(); 
+		$('#coach-table > tbody > tr').hide();
+		let temp=$('#coach-table > tbody > tr> td:nth-child(2n+2):contains("'+k+'")');
+		$(temp).parent().show();
+		});
 		$('.coach').hover(function(){
 			$(this).css("cursor","pointer");
 		},function(){
@@ -42,13 +49,20 @@
 </script>
 </head>
 <body>
+   <table class="table">
+   			<tr>
+      			<td>
+       				<input type=text id="keyword" size=15 placeholder="검색어 입력">
+      			</td>
+    		</tr>
+  		 </table>
    <table class="table table-striped" id="coach-table">
        <tbody>
 		     <c:forEach var="vo" items="${list }">
 		       <tr class="coach" data-value="${vo.coach_no }"
 		           data-poster="${vo.coach_poster }" data-name="${vo.coach_name }">
 		         <td><img src="${vo.coach_poster }" width=20 height=20></td>
-		         <td style="font-size:8pt">${vo.coach_name }</td>
+		         <td style="font-size:12pt"><center>${vo.coach_name }</center></td>
 		       </tr>
 		     </c:forEach>
      </tbody>

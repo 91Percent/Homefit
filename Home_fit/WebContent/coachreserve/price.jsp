@@ -28,7 +28,7 @@ $(function(){
   <table class="table table-striped">
     <c:forEach var="vo" items="${list }">
       <tr class="price" data-value="${vo.coach_no }" data-name="${vo.price }">
-       <td style="font-size:8pt">${vo.price }</td>
+       <td style="font-size:12pt"><center>${vo.price }</center></td>
       </tr>
     </c:forEach>
   </table>
