@@ -6,12 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../assets/vendors/linericon/style.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
-let alldelchk=[];
-let allpurchk=[];
 
 $(function(){
+	
+	// 삭제버튼 누를 시 동작
 	$('.wishdelete').click(function(){
 		let wishlist_no=$(this).attr("data-value");
 		//$('#wishlist_no').val(wishlist_no);
@@ -25,32 +26,83 @@ $(function(){
 				$('#wishlist_list').html(result);
 			}
 		})
-	})
+	});
 	
+	
+// 	$('.plus').click(function() {
+// 		let wishlist_no=$(this).attr("wish-value");
+		
+// 	})
+	
+	
+// 	// 카운트 
+	$('.plus').on('click',function(){
+		let wishlist_no=$(this).attr("wish-value");
+		let index=$(this).attr("data-value");
+		console.log('i.index값'+index);
+		let temp='#sst'+index;
+		console.log('temp는'+temp);
+		let count=$(temp).val();
+		count=Number(count)+1;
+		let c=$(temp).val();
+		console.log('count출력값??'+count);
+		console.log('wishlist_no값:'+wishlist_no);
+		console.log('.countplus 출력값:'+c);
+		console.log('====================');
+		$.ajax({
+			type:'post',
+			url:'../shop/count_update.do',
+			data:{"wishlist_no":wishlist_no,"count":count-1},
+			susccess: function(result){
+				console.log("증가완료");
+			}
+		})
+	});
+	
+	$('.minus').on('click',function(){
+		let wishlist_no=$(this).attr("wish-value");
+		let index=$(this).attr("data-value");
+		console.log('i.index값'+index);
+		let temp='#sst'+index;
+		console.log('temp는'+temp);
+		let count=$(temp).val();
+		if(Number(count)>0)
+			count=Number(count)-1;
+		else
+			alert("1개 이하의 상품은 구매할 수 없습니다");		
+		console.log('count출력값??'+count);
+		console.log('wishlist_no값:'+wishlist_no);			
+		console.log('====================');
+		$.ajax({
+			type:'post',
+			url:'../shop/count_update.do',
+			data:{"wishlist_no":wishlist_no,"count":count+1}			
+		})
+	});
+	
+
+	
+	// 전체체크
 	$('#check_all').click( function() {
          $('.cb').prop( 'checked', this.checked );
     });
 	
-	$('#listdelete').click(function(){
-		// 체크박스의 선택여부 확인 => radio
-		//checkbox의 name값이 cb이면서 체크되어 있는 함수를 each함수로 호출한다. 
-		$(".cb:checked").each(function() { 
-			alldelchk.push($(this).val());
-			});
+	// 전체체크 풀림
+	$('.cb').click(function() {
+		$('#check-all').prop('checked', false);
 	});
 	
-// 	$('#listpurchase').click(function(){
-// 		// 체크박스의 선택여부 확인 => radio
-// 		let len=$('.cb:checked').length;
-// 		if(len==0)
-// 		{
-// 		   alert("승인할 대상을 선택하세요!!");
-// 		}
-// 		else
-// 		{
-// 			$('#frm').submit();//submit효과 => form태그의 action에등록 파일로 데이터 전송
-// 		}
-// 	});
+	// 체크한 물건 삭제
+	$('#listdelete').click(function(){
+		let len = $('.cb:checked').length;
+		if(len == 0) {
+			alert("삭제할 대상을 선택하세요!!");
+		} else {
+			$('#frm').submit();//submit효과 => form태그의 action에등록 파일로 데이터 전송
+		}
+	});
+	
+
 	
 });
 </script>
@@ -59,7 +111,7 @@ $(function(){
 
 
 
-
+			<form id="frm" method="post" action="../shop/wishlist_all_ok.do">
 				<table class="table">
 					<thead>
                           <tr>
@@ -74,7 +126,7 @@ $(function(){
                           </tr>
                       </thead>
 					<tbody>
-                      	<c:forEach var="vo" items="${list }">
+                      	<c:forEach var="vo" items="${list }" varStatus="i" begin="0" step="1">
                           <tr>
                           	  <td class="text-center">
 				                <c:if test="${vo.iswish=='n' }">
@@ -96,34 +148,23 @@ $(function(){
                               <td style="width:15%">
                                   <h5>${vo.svo.price }</h5>
                               </td>
-                              <td>
-                                  <div class="product_count">
-                                      <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
-                                          class="input-text qty">
-                                      <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                          class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                                      <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                          class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
-                                  </div>
-                              </td>
-                              <!-- 
-                              <td>
-                                  <div class="product_count">
-                                      <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
-                                          class="input-text qty">
-                                      <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                          class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                                      <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                          class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
-                                  </div>
-                              </td>
-                               -->
-                              <td style="width:15%">
-                                  <h5>합계</h5>
+                              <td>           
+                                  <td>
+                                      <input type="text" name="qty" id="sst${i.index }" value="${vo.count }" wish-value="${vo.wishlist_no }" title="Quantity:" class="input-text qty" style="width:30px;height:20px;text-align:center;">
+                                      </td>
+                                      <td colspan="2">                                      
+                                      <img src="../shop/up.jpg" onclick="var result = document.getElementById('sst${i.index }'); var sst${i.index } = result.value; if( !isNaN( sst${i.index } )) result.value++;return false;"
+                                          class="plus" width="20" height="15" style="cursor: pointer;" data-value="${i.index }" wish-value="${vo.wishlist_no }" price-value="${vo.svo.price }">
+                                      <img src="../shop/down.jpg" onclick="var result = document.getElementById('sst${i.index }'); var sst${i.index } = result.value; if( !isNaN( sst${i.index } ) &amp;&amp; sst${i.index } > 0 ) result.value--;return false;"
+                                          class="minus" width="20" height="15" style="cursor: pointer;" data-value="${i.index }" wish-value="${vo.wishlist_no }" price-value="${vo.svo.price }">
+                                  </td>
+                         	</td>
+                              <td style="width:15%" >
+                              	${vo.total}
                               </td>
                               <td style="width:5%">
                                  <c:if test="${vo.iswish=='n' }">
-                                 	<button class="btn btn-sm btn-primary wishdelete" data-value="${vo.wishlist_no}" >삭제</button>
+                                 	<input type="button" class="wishdelete" value="삭제" data-value="${vo.wishlist_no}"/>
 					             </c:if>
                               </td>
                           </tr>
@@ -132,11 +173,12 @@ $(function(){
 
                       </tbody>
               </table>
+       
+			  <input type="button" class="btn" id="listdelete" value="삭제" />
+              <input type="button" class="btn" id="listpurchase" value="구매하기" />
               
-              <button class="btn btn-sm btn-danger" id="alldelete">삭제</button>
-              <button onclick="location.href='../shop/shop.do'" class="btn btn-sm btn-primary">목록</button>
-              <button class="btn btn-sm btn-success" id="allpurchase">구매하기</button>
-             
+         </form>
+         <button onclick="location.href='../shop/shop.do'" class="btn btn-sm btn-primary">목록</button>
               
 </body>
 </html>

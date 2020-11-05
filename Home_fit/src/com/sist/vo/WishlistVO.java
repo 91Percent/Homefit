@@ -15,6 +15,23 @@ public class WishlistVO {
 	private int count;
 	private String iswish;
 	private ShopVO svo=new ShopVO();
+	private int real_price;
+	private int total;
+	
+	
+	
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
+	}
+	public int getReal_price() {
+		return real_price;
+	}
+	public void setReal_price(int real_price) {
+		this.real_price = real_price;
+	}
 	public int getWishlist_no() {
 		return wishlist_no;
 	}

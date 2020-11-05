@@ -78,33 +78,22 @@
 						</ul>
 						<p>${vo.subtitle }</p>
 						<div class="product_count">
-              <label for="qty">Quantity:</label>
-              <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-							 class="increase items-count" type="button"><i class="ti-angle-left"></i></button>
-							<input type="text" name="qty" id="sst" size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-<!-- 							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" -->
-<!--                class="reduced items-count" type="button"><i class="ti-angle-right"></i></button> -->
+              			<label for="qty">Quantity:</label>
+              			<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+						class="increase items-count" type="button"><i class="ti-angle-left"></i></button>
+						<input type="text" name="qty" id="sst" size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
+<!-- 					<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" -->
+<!--                	class="reduced items-count" type="button"><i class="ti-angle-right"></i></button> -->
                
-<!-- 			               <form method="post" action="../shop/shop_detail_ok.do"> -->
 			                  
-<!-- 			                  <input type=submit value="Add to Cart" class="button primary-btn"> -->
-<a class="button primary-btn" href="../shop/shop_detail_ok.do?shop_no=${vo.shop_no }" data-value="${vo.shop_no }" data-poster="${vo.poster }" data-title="${vo.title}" data-price="${vo.price }">
-<!-- 			                  <input type=hidden name="shop_no" id="shop_no"> -->
-			                  Add to Cart</a>
-			                  			                  
-<!-- 			                </form> -->
-							               
+						<a class="button primary-btn" href="../shop/shop_detail_ok.do?shop_no=${vo.shop_no }" 
+						data-value="${vo.shop_no }" data-poster="${vo.poster }" data-title="${vo.title}" data-price="${vo.price }">Add to Cart</a>
+			            	               
 						</div>
+						
 						<div class="card_area d-flex align-items-center">
 							<a class="icon_btn" href="#"><i class="ti-heart"></i></a>
 						</div>
-						<!-- 
-						<ul class="card-product__imgOverlay">
-		                      <li><button><i class="ti-search"></i></button></li>
-		                      <li><button><i class="ti-shopping-cart"></i></button></li>
-		                      <li><button><i class="ti-heart"></i></button></li>
-		                </ul>
-						 -->
 					</div>
 				</div>
 			</div>

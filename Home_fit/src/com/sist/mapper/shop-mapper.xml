@@ -123,7 +123,7 @@
   	from wishlist,shop
   	where wishlist.shop_no=shop.shop_no
   	and id=#{id}
-  	order by wishlist_no asc
+  	order by wishlist_no
   	</select>
   	
   	<delete id="wishlistDelete" parameterType="int">
@@ -135,6 +135,13 @@
     UPDATE wishlist SET
     iswish='y'
     WHERE wishlist_no=#{wishlist_no}
+ 	</update>
+ 	
+ 	<update id="wishlistCount" parameterType="com.sist.vo.WishlistVO">
+    UPDATE wishlist SET
+    count=#{count}
+    WHERE wishlist_no=#{wishlist_no}
+    and id=#{id}
  	</update>
 
   	<!-- 찜 저장  -->

@@ -14,6 +14,9 @@ public class ShopVO {
 	private String delivery_fee; // 배송비
 	private int hit; // 조회수 
 //	private int option; // 옵션
+
+	
+	
 	public int getCate_no() {
 		return cate_no;
 	}

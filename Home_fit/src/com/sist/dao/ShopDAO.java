@@ -149,11 +149,13 @@ public class ShopDAO {
 		   session.delete("wishlistDelete", wishlist_no);
 		   session.close();
 	   }
-//	public static void wishlistOk(int wishlist_no)
-//	   {
-//		   SqlSession session=ssf.openSession(true);//autocommit
-//		   session.update("wishlistOk",wishlist_no);
-//		   session.close();
-//	   }
 
+	public static void wishlistCount(WishlistVO wvo)
+	   {
+		   SqlSession session=ssf.openSession(true);
+		   session.update("wishlistCount", wvo);
+		   session.close();
+	   }
+	
+	
 }
