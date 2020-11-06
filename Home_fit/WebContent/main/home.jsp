@@ -84,11 +84,11 @@
 		</ul>
 		<div class="carousel-inner">
 			<div class="carousel-item active">
-				<a href="../challenge/list.do"><img src="../img/bg-2.jpg" alt="Los Angeles" width="1100"
+				<a href="../ex/total.do"><img src="../img/bg-2.jpg" alt="Los Angeles" width="1100"
 					height="500"></a>			
 			</div>
 			<div class="carousel-item">
-				<a href="../ex/total.do"><img src="../img/bg-1.jpg" alt="Chicago" width="1100" height="500"></a>
+				<a href="../challenge/list.do"><img src="../img/bg-1.jpg" alt="Chicago" width="1100" height="500"></a>
 			</div>
 			<div class="carousel-item">
 				<a href="../ex/total.do"><img src="../img/bg-3.jpg" alt="New York" width="1100" height="500"></a>
