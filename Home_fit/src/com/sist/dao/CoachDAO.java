@@ -217,7 +217,22 @@ public class CoachDAO {
 //		   session.close();
 //		   return list;
 //	   }
-	   
+	// 코치 QNA 답변 유무 
+	   public static int CoachQnaCount(CoachQnaVO vo)
+	   {
+		   SqlSession session=null;
+		   int count=0;
+		   try {
+			   session=ssf.openSession();
+			   count=session.selectOne("CoachQnaCount",vo);
+		   }catch (Exception e) {
+			   e.printStackTrace();
+		   }finally {
+			   if(session!=null)
+				   session.close();
+		   }
+		   return count;
+	   }
 	   // 코치예약 추가
 	   public static void coachreserveInsert(Coach_ReserveVO vo)
 	   {

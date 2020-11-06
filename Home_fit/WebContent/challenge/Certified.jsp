@@ -8,14 +8,13 @@
 <title>Insert title here</title>
 </head>
 <body> 
-  <div class="row">
+  <div class="row" align="center">
    <form method="post" action="../challenge/Certified_ok.do" enctype="multipart/form-data">
    <table class="table table-hover">
      <tr>
        <th class="danger text-right" width=25%>첨부파일</th>
        <td width=85%> 
          <input type=file name=upload size=20 class="input-sm">
-         	값값!!${challenge_no }
          <input type="hidden" name="challenge_no" value="${challenge_no}">
        </td>
      </tr>

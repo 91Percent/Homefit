@@ -103,7 +103,7 @@ $(function() {
                               <td>
                                   <div class="media">
                                       <div class="d-flex">
-                                          <img src="${vo.ccVO.poster }">
+                                          <img src="/Home_fit/challenge_poster/${vo.ccVO.poster }" width="150px" height="150px">
                                       </div>
                                   </div>
                               </td>

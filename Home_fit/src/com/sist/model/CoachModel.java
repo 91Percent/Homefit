@@ -369,17 +369,27 @@ public class CoachModel {
 		 
 		 String coach_qna_no=request.getParameter("coach_qna_no");
 		 String coach_no=request.getParameter("coach_no");
-		 
+		 String group_id=request.getParameter("group_id");
+//		 String group_tab=request.getParameter("group_tab");
 		 System.out.println("코치번호"+coach_no);
 		 System.out.println("코치별 글 번호"+coach_qna_no);
+		 System.out.println("group_id 번호"+group_id);
+//		 System.out.println("group_tab 번호"+group_tab);
+		 
 		 
 		 Map map = new HashMap();
 		 map.put("coach_qna_no",coach_qna_no);
 		 map.put("coach_no",coach_no);
 		 
-		   
+		 CoachQnaVO count_vo = new CoachQnaVO();
+		 count_vo.setGroup_id(Integer.parseInt(group_id));
+//		 count_vo.setGroup_tab(Integer.parseInt(group_tab));
+		 int count = CoachDAO.CoachQnaCount(count_vo);
+		 System.out.println("답변 횟수 "+count);
+		 
 		 CoachQnaVO vo =CoachDAO.coachQnaDetailData(map);
 		 
+		 request.setAttribute("count", count);
 		 request.setAttribute("vo", vo);
 		 return "../coach/qna_detail.jsp";
 	 }

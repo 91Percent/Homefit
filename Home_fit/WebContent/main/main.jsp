@@ -25,10 +25,10 @@
 	<div class="container-fluid">
 	  	<jsp:include page="${main_jsp }" />
 	</div>
-	
+	  
 	<!--  footer  -->
 	<jsp:include page="../main/footer.jsp"></jsp:include>
-	 		
+	  		
 	<!-- jquery / js -->
 	  <script src="../theme/vendors/jquery/jquery-3.2.1.min.js"></script>
 	  <script src="../theme/vendors/bootstrap/bootstrap.bundle.min.js"></script>

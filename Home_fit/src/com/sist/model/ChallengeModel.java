@@ -102,13 +102,13 @@ public class ChallengeModel {
 			myProofList = ChallengeDAO.myChallenge_CertifiedData(map);
 
 		}
+		
 		else
 		{
 			myProofList = null;
 		}
 		// 해당 id로 검색한 전체 인증내역
-		
-		
+
 		//map.put("my_selected_date", date);
 		session.setAttribute("id", id);
 		session.setAttribute("myProofList",myProofList);
@@ -479,9 +479,8 @@ public class ChallengeModel {
 		}
 		
 		String filename="";
-		String path = "/Users/haeni/Documents/jsp-project/Homefit/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Home_fit/challenge_poster";
-//		String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\challenge_poster";
-		
+//		String path = "/Users/haeni/Documents/jsp-project/Homefit/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Home_fit/challenge_poster";
+		String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\challenge_poster";
 		
 //		String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\challenge_poster"; // 파일이
 	      File Folder = new File(path);

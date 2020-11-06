@@ -28,7 +28,7 @@
      <tr>
        <th class="danger text-right" width=15%>이름</th>
        <td width=85%>
-         <input type=text name=name size=15 class="input-sm">
+			${sessionScope.name}
        </td>
      </tr>
      <tr>

@@ -45,19 +45,15 @@
 						</td>
 						<!-- POSTER -->
 						<td>
-							<h5><img src="/Home_fit/challenge_poster/${vo.poster}"></h5>
+							<h5><img src="/Home_fit/challenge_poster/${vo.poster}"  width="150px" height="150px"></h5>
 						</td>
 						<!-- ROOM -->
 						<td>
-							<div class="product_count">
-								<h5>
-									${vo.title }
-								</h5>
-							</div>
+							${vo.title }
 						</td>
 						<!-- PERIOD -->
 						<td>
-							<h5>총 ${vo.period}일</h5>
+							총 ${vo.period}일
 						</td>
 					</tr>
 				</tbody>

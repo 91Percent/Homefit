@@ -15,14 +15,21 @@
 
 <div  class="col-md-6" style="float:left;">
 <h3 id="myproofdate"></h3>
-<c:forEach var="vo" items="${myProofList }">
-			<table>
-				<tr>
-					<td><img src="/Home_fit/challenge_poster/${Certifiedvo.poster}"></td>
-				</tr>
-			</table>
-	
-</c:forEach>
+	<div class="row">
+	<c:forEach var="vo" items="${myProofList }">
+														<div class="col-md-4 col-lg-4 mb-4 mb-lg-0 seunggu">
+															<div class="card card-blog">
+																<div class="card-blog__img">
+																	<img src="/Home_fit/challenge_poster/${vo.poster}" width=200 height=200>
+																</div>
+																<div class="card-body">
+																	<ul class="card-blog__info">
+																	</ul>
+																</div>
+															</div>
+														</div>
+													</c:forEach>
+												</div>
 </div>
 </body>
 </html>

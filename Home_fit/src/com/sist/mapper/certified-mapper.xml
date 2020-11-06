@@ -67,6 +67,11 @@
 	AND challenge_id=#{challenge_id}
 </delete>
 
+<!-- 방강퇴하면서 해당 방의 해당 아이디의 사진삭제 -->
+<delete id="kick_out_certified" parameterType="Challenge_ParticipationVO">
+	DELETE FROM challenge_certified 
+	WHERE challenge_no=#{challenge_no} AND challenge_id=#{challenge_id}
+</delete>
 <!-- 댓글 올리기  -->
   <insert id="replyInsert" parameterType="ReplyVO">
     <!-- 적용할 수 없다(한번) -->

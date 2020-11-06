@@ -172,7 +172,7 @@
 	depth      NUMBER       ,
    	-->
    <select id="coachQnaList" resultType="CoachQnaVO" parameterType="int">
-   	SELECT coach_no,coach_qna_no,subject,content,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,id,name,form,hit,group_id,group_tab,
+   	SELECT coach_no,coach_qna_no,subject,content,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,id,name,form,hit,group_id,group_tab
    	FROM coach_qna 
    	WHERE coach_no=#{coach_no}
    	ORDER BY group_id asc,group_tab asc
@@ -226,7 +226,13 @@
     WHERE coach_no=#{coach_no} 
     AND coach_qna_no=#{coach_qna_no}
   </update>
-  
+ 
+ <!-- 코치 qna 답변이 있으면 댓글 추가 x  -->
+	<select id="CoachQnaCount" parameterType="CoachQnaVO" resultType="int">
+		SELECT count(*) FROM coach_qna 
+		WHERE group_id=#{group_id} AND group_tab=1
+	</select>
+	
    <!-- 내용보기   조회수 증가-->
   <select id="coachQnaDetailData" parameterType="hashmap" resultType="CoachQnaVO">
     SELECT coach_no,coach_qna_no,subject,content,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,id,name,form,hit,group_id

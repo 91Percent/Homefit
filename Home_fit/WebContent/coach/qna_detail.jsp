@@ -58,7 +58,9 @@ $(function(){
           <a href="#" class="btn btn-xs btn-danger">수정</a>
           <a href="#" class="btn btn-xs btn-info">삭제</a>
           <a href="../board/list.do" class="btn btn-xs btn-success">목록</a>
+		<c:if test="${count!=1}">
           <a href="#" class="btn btn-xs btn-success rUp">답글 작성</a>
+         </c:if>
         </td>
       </tr>
     </table>

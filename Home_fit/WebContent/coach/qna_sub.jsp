@@ -21,14 +21,16 @@ $(function(){
          })
    });
 	$('.coach_detail_btn').click(function(){
-        var coach_no = $(this).attr("data-name");
-        var coach_qna_no = $(this).attr("data-value");
-            console.log('coach_no는 '+coach_no);
-            console.log('coach_qna_no는'+coach_qna_no);
+        let coach_no = $(this).attr("data-name");
+        let coach_qna_no = $(this).attr("data-value");
+        let group_id=$(this).attr("data-id");
+        let group_tab=$(this).attr("data-tab");
+        console.log('coach_no'+coach_no);
+        console.log('coach_qna_no'+coach_qna_no);
+        console.log('group_tab은?'+group_tab)
         $.ajax({
             type:'post',
-            url:'../coach/coach_qna_detail.do?coach_no=${vo.coach_no}',
-//             data:{"coach_no":coach_no},
+            url:'../coach/coach_qna_detail.do?coach_no='+coach_no+'&group_id='+group_id+'&group_tab='+group_tab,
             data:{"coach_qna_no":coach_qna_no},
             success:function(result)
             {
@@ -62,25 +64,26 @@ $(function(){
     <table class="table">
           <c:forEach var="vo" items="${list }">
         <tr>
-	        <td class="text-center btd" width=10%>${vo.group_id }</td>
-	        <td class="text-left btd" width=45%>
-	        <c:if test="${vo.group_tab>0 }">
-	         <a href="#" data-value="${vo.coach_qna_no }" data-name="${vo.coach_no}"  class="coach_detail_btn">
-	        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;※ ${vo.name }님의 답변 입니다.
-	        	</a>
-	        </c:if>
-	        <c:if test="${vo.group_tab==0 }">
-	         <a href="#" data-value="${vo.coach_qna_no }" data-name="${vo.coach_no}"  class="coach_detail_btn">${vo.subject }</a>
-	        <c:if test="${today==vo.dbday }">
-	          <font color=red><sup>new</sup></font>
-	        </c:if>
-	        </c:if>
-	        </td>
-	        <td class="text-center btd" width=15%>${vo.name }</td>
-	        <td class="text-center btd" width=20%>${vo.dbday }</td>
-	        <td class="text-center btd" width=10%>${vo.hit }</td>
+           <td class="text-center btd" width=10%>${vo.group_id }</td>
+           <td class="text-left btd" width=45%>
+           <c:if test="${vo.group_tab>0 }">
+            <a href="#" data-value="${vo.coach_qna_no }" data-name="${vo.coach_no}"  data-id="${vo.group_id }" data-tab="${vo.group_tab }"
+            class="coach_detail_btn">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;※ ${vo.name }님의 답변 입니다.
+              </a>
+           </c:if>
+           <c:if test="${vo.group_tab==0 }">
+            <a href="#" data-value="${vo.coach_qna_no }" data-name="${vo.coach_no}"  data-id="${vo.group_id }" data-tab="${vo.group_tab }" class="coach_detail_btn">${vo.subject }</a>
+           <c:if test="${today==vo.dbday }">
+             <font color=red><sup>new</sup></font>
+           </c:if>
+           </c:if>
+           </td>
+           <td class="text-center btd" width=15%>${vo.name }</td>
+           <td class="text-center btd" width=20%>${vo.dbday }</td>
+           <td class="text-center btd" width=10%>${vo.hit }</td>
       </tr> 
-     	 </c:forEach>
+         </c:forEach>
       <tr>
         <td class="text-left"></td>
         <td class="text-right">

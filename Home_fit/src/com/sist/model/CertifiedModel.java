@@ -324,8 +324,9 @@ public class CertifiedModel {
 
 		request.setAttribute("vo", vo);
 		request.setAttribute("Certifiedvo", list);
-		request.setAttribute("main_jsp", "../challenge/Certified_detail.jsp");
-		return "../main/main.jsp";
+//		request.setAttribute("main_jsp", "../challenge/Certified_detail.jsp");
+//		return "../main/main.jsp";
+		return "redirect:../challenge/Certified_detail.do?challenge_no="+challenge_no;
 	}
 
 	@RequestMapping("challenge/challenge_room_update.do")

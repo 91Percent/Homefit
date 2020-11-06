@@ -282,8 +282,11 @@ public class Challenge_CertifiedDAO {
 	{
 		SqlSession session =null;
 		try {
-			session=ssf.openSession(true);
+			session=ssf.openSession();
 			session.delete("participation_kick_out",vo);
+			session.commit();
+			session.delete("kick_out_certified",vo);
+			session.commit();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {

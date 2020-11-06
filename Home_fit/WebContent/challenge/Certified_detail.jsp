@@ -268,18 +268,19 @@ $(function(){
 														Certifieid_count는 사용자가 인증한 횟수다 ! 테스트를위해서 일단은 주석 처리!!!!!!!
 													
 													 -->
-													<%-- 													<c:if test="${certifeid_count==0 }">	 --%>
+																										<c:if test="${certifeid_count==0 }">	
 													<c:if test="${count==1 || count==3}">
 														<a class="button button-postComment button--active" id="certi_btn"  style="color: white" data-value="${vo.challenge_no}">인증하기</a>
 													</c:if>
-													<div class="row picture_btn" style="padding-left: 50;">
-													</div>
-													<%-- 													</c:if>					 --%>
-													<%-- 													<c:if test="${certifeid_count>=1}"> --%>
-													<!-- 														<span class="btn btn-la btn-danger" >오늘은  이미 인증 하셨습니다.</span> -->
-													<%-- 													</c:if> --%>
+														<div class="row picture_btn" text-align:center;>
+														
+														</div>
+																										</c:if>					
+																										<c:if test="${certifeid_count>=1}">
+																											<span class="btn btn-la btn-danger" >오늘은  이미 인증 하셨습니다.</span>
+																										</c:if>
 												</p>
-											</div>
+												</div>
 											<div class="tab-pane fade show active" id="review"
 												role="tabpanel" aria-labelledby="review-tab">
 												<div class="row">
@@ -309,15 +310,10 @@ $(function(){
 																               &nbsp;&nbsp;
 																             </c:forEach>
 																                             ☞
-																           </c:if> 																           <img src="../board/img.png"> 사용자 이미지 따로 받아서 출력하면 좋을거 같음-->
+																           </c:if> 																          
 																						&nbsp;${rvo.name }(${rvo.dbday })</td>
 																				</p>
 																				<p align="right">
-																					<c:if test="${sessionScope.id==rvo.id }">
-																						<a href="#" class="btn btn-sm btn-basic">수정</a>
-																						<a href="#" class="btn btn-sm btn-basic">삭제</a>
-																					</c:if>
-																					<a href="#" class="btn btn-sm btn-basic">댓글</a>
 																				</p>
 																			</div>
 																		</div>
@@ -369,10 +365,10 @@ $(function(){
 				<div class="col-lg-4">
 					<div class="blog_right_sidebar">
 						<aside class="single_sidebar_widget search_widget">
-							<div class="input-group1">
+							<div class="input-group1" align="center">
 								
 								
-
+		
 								<c:if test="${count==3 && compare<0}">
 
 									<a href="../challenge/challenge_room_update.do?challenge_no=${vo.challenge_no }"
@@ -397,11 +393,6 @@ $(function(){
 <!-- 								<h4 align="center">도전이 이미 시작되었습니다.</h4> -->
 
 								</c:if>
-							<p></p>
-							<p></p>
-							<p></p>
-							<p></p>
-							
 							</div>
 							<!-- /input-group -->
 
