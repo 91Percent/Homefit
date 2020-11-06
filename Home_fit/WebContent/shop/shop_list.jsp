@@ -57,7 +57,6 @@ $(function(){
 		                  </div>
 		                  <div class="card-body">
 		                    <a href="../shop/shop_detail_before.do?shop_no=${vo.shop_no }" class="btn btn-lg" data-value="${vo.shop_no}" >${vo.title }</a>
-		                    ${vo.cate_no }
 		                    <p class="card-product__price">${vo.price }</p>
 		                  </div>
 	                  	</div>
