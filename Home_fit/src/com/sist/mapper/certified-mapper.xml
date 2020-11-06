@@ -89,7 +89,14 @@
       (SELECT NVL(MAX(group_id)+1,1) FROM review_table)
     ) 
     </insert>
-    
+ 
+ <!-- 해당방에 해당유저의 사진 (삭제용)  -->
+<select id="kick_out_delete_poster" parameterType="Challenge_CertifiedVO" resultType="String">
+	SELECT poster FROM challenge_certified
+	WHERE challenge_no=#{challenge_no} AND challenge_id=#{challenge_id}
+</select>
+ 
+ 
  <!-- 댓글 가져오기 -->  
     <select id="challenge_replyListData" resultType="ReplyVO" parameterType="ReplyVO">
     SELECT review_no,no,id,name,content,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday, group_tab 

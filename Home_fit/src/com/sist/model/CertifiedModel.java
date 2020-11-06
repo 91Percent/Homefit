@@ -466,12 +466,45 @@ public class CertifiedModel {
 			String challenge_no = request.getParameter("challenge_no");
 			String challenge_id = request.getParameter("challenge_id");	
 			
+		
+			//방에서 강퇴당하면 사진도 삭제당함====
+			Challenge_CertifiedVO kick_vo = new Challenge_CertifiedVO();
+			System.out.println("삭제아이디!!"+challenge_id);
+			System.out.println("삭제번호!!"+challenge_no);
+			kick_vo.setChallenge_id(challenge_id);
+			kick_vo.setChallenge_no(Integer.parseInt(challenge_no));
+			List<String> list=Challenge_CertifiedDAO.kick_out_delete_poster(kick_vo);
+			
+			String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\challenge_poster";
+			for(String a:list)
+			{
+//				a = a.substring(0,a.indexOf('.'));
+//				System.out.println("a는"+a);
+				path = path+"\\"+a;
+				File file = new File(path);
+				if(file.exists())
+				{
+					if(file.delete())
+					{
+						System.out.println(a+"의 파일 삭제!");
+					}
+					else
+						System.out.println(a+"의 파일 삭제 실패!");
+				}else
+					System.out.println("파일이 존재하지 않습니다.");
+				path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\Home_fit\\challenge_poster";
+			}
+			
+			//=========================
+			
 			//방장이 방에서  인원 강퇴하는 부분======
 			Challenge_ParticipationVO vo = new Challenge_ParticipationVO();
 			vo.setChallenge_id(challenge_id);
 			vo.setChallenge_no(Integer.parseInt(challenge_no));
 			Challenge_CertifiedDAO.participation_kick_out(vo);
 			//===========================
+			
+			
 			
 			return "redirect:../challenge/Certified_detail.do?challenge_no="+challenge_no;
 		}	
