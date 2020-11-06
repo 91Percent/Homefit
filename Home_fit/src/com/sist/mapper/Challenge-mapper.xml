@@ -204,10 +204,6 @@
 		#{challenge_id}
 		)
 	</insert>
-
-
-
-	
 	
 	<!-- 인증있는지 없는지 확인하기 -->
 	<select id="myChallenge_Certified_check" resultType="int" parameterType="hashmap">
@@ -221,7 +217,6 @@
 		WHERE challenge_id=#{id}
 		AND TO_CHAR(Certified_date,'yyyy-MM-dd') = #{date}
 	</select>
-	
 	
 	<!-- 회원이 참가한 방 목록 -->
 	<!-- 
@@ -247,13 +242,7 @@
 		ON c.challenge_no=p.challenge_no
 		WHERE p.challenge_id=#{id}
 		ORDER BY p.challenge_no DESC
-		
-		
 	</select>
-	
-	
-	
-	
 	
 	
 	
@@ -277,8 +266,6 @@
 		ORDER BY cc.Certified_date DESC
 	 </select>
 	
- 
-	 
 	 <!-- 회원이 인증한 방에 대한 정보 가져오기 -->
 <!-- 	 <select id="myChallenge_roomdetail2" parameterType="hashmap" resultType="ChallengeVO"> -->
 <!-- 	 	SELECT * -->
@@ -288,8 +275,6 @@
 <!-- 		WHERE cc.challenge_id=#{challenge_id} -->
 <!-- 		AND TO_CHAR(cc.certified_date,'yyyy-MM-dd')=#{my_selected_date}; -->
 <!-- 	 </select> -->
-	
-	
 	
 	
 </mapper>

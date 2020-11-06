@@ -91,9 +91,13 @@
 
 							<tr>
 								<th class="danger text-right" width=30%>도전 시작일</th>
-								<td width=70%><input type=date name=start_day
+<!-- 								<td width=70%><input type=date name=start_day -->
+<!-- 									class="input-sm" id="start_day" -->
+<%-- 									min=<fmt:formatDate value="${toDay}" pattern="yyyy-MM-dd" /> --%>
+<!-- 									required> <span class="validity"></span></td> -->
+									<td width=70%><input type=date name=start_day
 									class="input-sm" id="start_day"
-									min=<fmt:formatDate value="${toDay}" pattern="yyyy-MM-dd" />
+									 pattern="yyyy-MM-dd" />
 									required> <span class="validity"></span></td>
 								
 

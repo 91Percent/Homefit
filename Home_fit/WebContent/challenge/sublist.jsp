@@ -47,8 +47,6 @@ margin-top: 15px;
 	
 	$('.haenilink').click(function(){
 		let page=$(this).text();
-		
-		alert("page:"+page);
 		$.ajax({
 			type: 'post',
 			url:'../challenge/sublist.do',
@@ -58,7 +56,6 @@ margin-top: 15px;
 			}
 		});
 	});
-	
 	
 	$('#year3').change(function() {
 		let year = $(this).val();
@@ -144,7 +141,7 @@ margin-top: 15px;
 									<c:if test="${vo.participantionCheck!=0 }">
 										<button type="button"
 											class="btn btn-outline-dark btn-sm list-btn doproof"
-											onclick="location.href='../challenge/Certified.do?challenge_no=${vo.challenge_no}'">인증하기</button>
+											onclick="location.href='..//challenge/Certified_detail.do?challenge_no=${vo.challenge_no}'">인증하기</button>
 									</c:if>
 									<c:if test="${vo.participantionCheck==0}">
 										<!--  참여중이 아니라면? count(*) = 0 -->

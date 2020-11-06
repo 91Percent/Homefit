@@ -373,4 +373,28 @@ public class Challenge_CertifiedDAO {
 		return count;
 	}
 	
+	/*
+	  <!-- 해당방에 해당유저의 사진 (삭제용)  -->
+	<select id="participation_kick_out" parameterType="Challenge_CertifiedVO">
+		SELECT poster FROM challenge_certified 
+		WHERE challenge_no=#{challenge_no} 
+		AND challenge_id=#{challenge_id}
+	</select>
+	 */
+	public static List<String> kick_out_delete_poster(Challenge_CertifiedVO vo)
+	{
+		List<String> list = new ArrayList<String>();
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			list=session.selectList("kick_out_delete_poster",vo);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return list;
+	}
 }
