@@ -4,6 +4,7 @@ import com.sist.controller.RequestMapping;
 import com.sist.dao.*;
 import com.sist.vo.*;
 
+
 import java.util.*;
 
 import javax.servlet.http.Cookie;
@@ -113,7 +114,7 @@ public class ShopModel {
 		response.addCookie(cookie);
 		System.out.println("실행되나요" + shop_no);
 
-		return "redirect:../shop/shop_detail.do?shop_no="+shop_no;
+		return "redirect:../shop/shop_detail.do?shop_no=" + shop_no;
 	}
 	
 
@@ -250,14 +251,10 @@ public class ShopModel {
 		System.out.println("확인");
 		String str = "d";
 		for (WishlistVO vo : list) {
-			System.out.println("횟수");
 			System.out.println("번호" + vo.getWishlist_no());
 			str = vo.getSvo().getPrice();
-			System.out.println("출력" + vo.getSvo().getPrice().toString());
-			System.out.println("str은?" + str);
 			str = str.substring(0, str.lastIndexOf("원"));
 			str = str.replace(",", "");
-			System.out.println("과연?!!");
 			System.out.println(str);
 			int price = Integer.parseInt(str);
 			vo.setReal_price(price);
@@ -282,16 +279,6 @@ public class ShopModel {
 		return "redirect:../shop/wishlist_list.do";
 	}
 
-//	@RequestMapping("shop/wishlist_ok.do")
-//	  public String wishlist_check_ok(HttpServletRequest request)
-//	  {
-//		  // 예약번호 
-//		  String wishlist_no=request.getParameter("wishlist_no");
-//		  // UPDATE
-//		  ShopDAO.wishlistOk(Integer.parseInt(wishlist_no));
-//		  return "redirect:../shop/wishlist_list.do";// 원상복귀
-//	  }
-//	
 	@RequestMapping("shop/wishlist_all_ok.do")
 	public String wishlist_all_ok(HttpServletRequest request) {
 		// 데이터 받기
@@ -322,4 +309,145 @@ public class ShopModel {
 
 		return "redirect:../shop/wishlist_list.do";
 	}
+	
+	@RequestMapping("shop/wishlist_purchase.do")
+	public String wishlist_purchase_list(HttpServletRequest request) {
+		System.out.println("구매");
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		
+		String[] nos=request.getParameterValues("plist");
+		System.out.println("(wishlist_purchase)nos값:"+nos.length);
+		
+		WishlistVO wvo=new WishlistVO();	
+		wvo.setId(id);
+		  for(String n:nos)
+		  {			  			
+			  System.out.println("n값은"+n);
+			  wvo.setWishlist_no(Integer.parseInt(n));
+			  ShopDAO.wishlist_purchase(wvo);
+		  }		
+			
+		return "redirect:../shop/wishlist_list.do";
+	}
+	
+	@RequestMapping("shop/purchase.do")
+	public String purchase_main(HttpServletRequest request) {
+		System.out.println("구매메인");
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("id");
+		System.out.println("(purchase)id:" + id);
+		
+		String str = "d";
+		int p_t=0;
+		List<WishlistVO> list = ShopDAO.purchaselistData(id);
+		System.out.println("(purchase)list사이즈" + list.size());	
+			for (WishlistVO vo : list) {
+				System.out.println("번호" + vo.getWishlist_no());
+				str = vo.getSvo().getPrice();
+				str = str.substring(0, str.lastIndexOf("원"));
+				str = str.replace(",", "");
+				System.out.println(str);
+				int price = Integer.parseInt(str);
+				vo.setReal_price(price);
+	
+				int p = vo.getReal_price();
+				int c = vo.getCount();
+				int total = p * c;
+				System.out.println(total);
+				vo.setTotal(total);
+				
+				p_t=p_t+total;
+				vo.setPurchase_total(p_t);
+				System.out.println("(purchase)p_t:"+p_t);
+			}
+		
+		request.setAttribute("list", list);		
+		request.setAttribute("p_total", p_t);		
+		request.setAttribute("main_jsp", "../shop/purchase.jsp");
+		return "../main/main.jsp";
+	}
+	
+//	@RequestMapping("shop/purchase_list.do")
+//	public String purchase_list(HttpServletRequest request) {
+//		System.out.println("구매리스트");
+//		HttpSession session = request.getSession();
+//		String id = (String) session.getAttribute("id");
+//		System.out.println("(purchase)id:" + id);
+//		
+//		String str = "d";
+//		
+//		List<WishlistVO> list = ShopDAO.purchaselistData(id);
+//		System.out.println("(purchase)list사이즈" + list.size());	
+//			for (WishlistVO vo : list) {
+//				System.out.println("번호" + vo.getWishlist_no());
+//				str = vo.getSvo().getPrice();
+//				str = str.substring(0, str.lastIndexOf("원"));
+//				str = str.replace(",", "");
+//				System.out.println(str);
+//				int price = Integer.parseInt(str);
+//				vo.setReal_price(price);
+//	
+//				int p = vo.getReal_price();
+//				int c = vo.getCount();
+//				int total = p * c;
+//				System.out.println(total);
+//				vo.setTotal(total);
+//				int p_t=0;
+//				p_t=p_t+total;
+//				vo.setPurchase_total(p_t);
+//				System.out.println("(purchase)p_t:"+p_t);
+//			}
+//		
+//		
+//		request.setAttribute("list", list);		
+//		return "../shop/purchase_list.jsp";
+//	}
+	
+	
+	// 마이페이지
+//	@RequestMapping("shop/purchasemypage.do")
+//	 public String wishlist_mypage(HttpServletRequest request)
+//	 {
+//		 
+//		 
+//		request.setAttribute("main_jsp", "../mypage/mytest.jsp");
+//		return "../main/main.jsp";
+//	 }
+//	 @RequestMapping("shop/mypage.do")
+//	 public String coach_mypage(HttpServletRequest request)
+//	 {
+//		 HttpSession session=request.getSession();
+//		 String id=(String)session.getAttribute("id");
+//		 
+//		 String str = "d";
+//		 List<WishlistVO> list = ShopDAO.purchaselistData(id);
+//		 System.out.println("(purchase)list사이즈" + list.size());	
+//			for (WishlistVO vo : list) {
+//				System.out.println("번호" + vo.getWishlist_no());
+//				str = vo.getSvo().getPrice();
+//				str = str.substring(0, str.lastIndexOf("원"));
+//				str = str.replace(",", "");
+//				System.out.println(str);
+//				int price = Integer.parseInt(str);
+//				vo.setReal_price(price);
+//	
+//				int p = vo.getReal_price();
+//				int c = vo.getCount();
+//				int total = p * c;
+//				System.out.println(total);
+//				vo.setTotal(total);
+//				int p_t=0;
+//				p_t=p_t+total;
+//				vo.setPurchase_total(p_t);
+//				System.out.println("(purchase)p_t:"+p_t);
+//			}
+//		 
+//		 
+//		 request.setAttribute("list", list);
+//		 
+//		 return "../shop/mypage.jsp";
+//	 }
+	 
+	
 }

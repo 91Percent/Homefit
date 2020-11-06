@@ -127,29 +127,29 @@ $(function(){
 				<table class="table">
 					<thead>
                           <tr>
-                          	  <th scope="col" style="width:15%">
+                          	  <th style="width:20%">
                           	  <h7>전체선택 </h7><input type="checkbox" id="check_all"/>
           					  </th>
-                              <th scope="col" style="width:40%">제품</th>
-                              <th scope="col" style="width:15%">가격</th>
-                              <th scope="col" style="width:10%">수량</th>
-                              <th scope="col" style="width:15%">합계</th>
-                              <th scope="col" style="width:5%"></th>
+                              <th style="width:50%">제품</th>
+                              <th style="width:20%">가격</th>
+                              <th style="width:10%">수량</th>
+<!--                               <th style="width:0%"></th> -->
+<!--                               <th style="width:5%"></th> -->
                           </tr>
                       </thead>
 					<tbody>
                       	<c:forEach var="vo" items="${list }" varStatus="i" begin="0" step="1">
                           <tr>
-                          	  <td class="text-center">
+                          	  <td class="text-center" style="width:10%">
 				                <c:if test="${vo.iswish=='n' }">
 				                  <input type="checkbox" value="${vo.wishlist_no }" class="cb" name=cb>
 				                </c:if>
 				              </td>
-                              <td style="width:50%">
+                              <td >
                                   <div class="media">
                                       <div class="d-flex" style="width:20%">
                                       	<a href="../shop/shop_detail.do?shop_no=${vo.shop_no }">
-                                          <img src="${vo.svo.poster }" style="width:90%">
+                                          <img src="${vo.svo.poster }" width="50" height="50">
                                         </a>
                                       </div>
                                       <div class="media-body" style="width:70%">
@@ -160,20 +160,20 @@ $(function(){
                               <td style="width:15%">
                                   <h5>${vo.svo.price }</h5>
                               </td>
-                              <td>           
-                                  <td>
+                              
+                                  		<td>
                                       <input type="text" name="qty" id="sst${i.index }" value="${vo.count }" wish-value="${vo.wishlist_no }" title="Quantity:" class="input-text qty" style="width:30px;height:20px;text-align:center;">
                                       </td>
-                                      <td colspan="2">                                      
+                                      <td colspan="2" style="width: 30%">                                      
                                       <img src="../shop/up.jpg" onclick="var result = document.getElementById('sst${i.index }'); var sst${i.index } = result.value; if( !isNaN( sst${i.index } )) result.value++;return false;"
                                           class="plus" width="20" height="15" style="cursor: pointer;" data-value="${i.index }" wish-value="${vo.wishlist_no }" price-value="${vo.svo.price }">
                                       <img src="../shop/down.jpg" onclick="var result = document.getElementById('sst${i.index }'); var sst${i.index } = result.value; if( !isNaN( sst${i.index } ) &amp;&amp; sst${i.index } > 0 ) result.value--;return false;"
                                           class="minus" width="20" height="15" style="cursor: pointer;" data-value="${i.index }" wish-value="${vo.wishlist_no }" price-value="${vo.svo.price }">
-                                  </td>
-                         	</td>
-                              <td style="width:15%" >
-                              	${vo.total}
-                              </td>
+                                  		</td>
+                         		
+<!--                               <td style="width:15%" > -->
+<%--                               	${vo.total} --%>
+<!--                               </td> -->
                               <td style="width:5%">
                                  <c:if test="${vo.iswish=='n' }">
                                  	<input type="button" class="wishdelete" value="삭제" data-value="${vo.wishlist_no}"/>
@@ -186,12 +186,14 @@ $(function(){
                       </tbody>
               </table>
        
-			  <input type="button" class="btn" id="listdelete" value="삭제" />
+			  <input type="button" class="btn btn-sm btn-danger" id="listdelete" value="삭제" />
 <!--               <input src="../shop/purchase.do" type="button" class="listpurchase" value="구매하기" /> -->
               
          </form>
-         <button onclick="location.href='../shop/purchase.do'" class="listpurchase" price-value="${vo.total}">구매하기</button>
+         <button onclick="location.href='../shop/purchase.do'" class="btn btn-sm btn-success listpurchase" price-value="${vo.total}">구매하기</button>
          <button onclick="location.href='../shop/shop.do'" class="btn btn-sm btn-primary">목록</button>
-              
+<!--               <input type="button" class="btn btn-sm btn-primary" id="listdelete" value="삭제" /> -->
+<%--               <button onclick="location.href='../shop/purchase.do'" class="btn btn-sm btn-success listpurchase" price-value="${vo.total}">구매하기</button> --%>
+<!--          	<button onclick="location.href='../shop/shop.do'" class="btn btn-sm btn-primary">목록</button> -->
 </body>
 </html>

@@ -17,8 +17,15 @@ public class WishlistVO {
 	private ShopVO svo=new ShopVO();
 	private int real_price;
 	private int total;
-//	private int purchase_total;
+	private int purchase_total;
 		
+	
+	public int getPurchase_total() {
+		return purchase_total;
+	}
+	public void setPurchase_total(int purchase_total) {
+		this.purchase_total = purchase_total;
+	}
 	public int getTotal() {
 		return total;
 	}

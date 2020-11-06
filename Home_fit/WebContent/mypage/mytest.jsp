@@ -28,6 +28,16 @@ function coach(){
        }
    });
 }
+	function purchaselist(){
+	   $.ajax({
+	      type:'post',
+	       url:'../shop/mypage.do',
+	       success:function(result)
+	       {
+	          $('.soo').html(result);
+	       }
+	   });
+	}
 function mychallenge(){
 	   $.ajax({
 	      type:'post',
@@ -78,8 +88,8 @@ function mychallenge(){
                      <li><a class="d-flex justify-content-between">
                            <p>내 정보 수정</p>
                      </a></li>
-                     <li><a class="d-flex justify-content-between">
-                           <p>장바구니</p>
+                     <li><a class="d-flex justify-content-between" style="cursor:pointer" onclick="purchaselist();">
+                           <p>구매내역</p>
                      </a></li>
                      <li><a class="d-flex justify-content-between" style="cursor:pointer" onclick="coach();">
                            <p>코치 예약</p>

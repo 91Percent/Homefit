@@ -146,7 +146,16 @@
     and id=#{id}
  	</update>
  	
- 	<select id="purchaselistData" resultMap="wishlist_List" parameterType="String">
+ 	<resultMap type="WishlistVO" id="purchase_List">
+	<result property="wishlist_no" column="wishlist_no"/>
+	<result property="id" column="id"/>
+	<result property="count" column="count"/>
+	<result property="iswish" column="iswish"/>
+	<result property="svo.title" column="title"/>
+	<result property="svo.poster" column="poster"/>
+	<result property="svo.price" column="price"/>
+	</resultMap>
+ 	<select id="purchaselistData" resultMap="purchase_List" parameterType="String">
   	select wishlist_no,wishlist.shop_no,id,count,iswish,title,poster,price
   	from wishlist,shop
   	where wishlist.shop_no=shop.shop_no

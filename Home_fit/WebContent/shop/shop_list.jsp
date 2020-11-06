@@ -48,9 +48,11 @@ $(function(){
 								<img src="${vo.poster }" alt="Lights" style="width:70%">
 							</a>
 		                    <ul class="card-product__imgOverlay">
-		                      <li><button><i class="ti-search"></i></button></li>
+<!-- 		                      <li><button><i class="ti-search"></i></button></li> -->
+		                      <a href="../shop/shop_detail_ok.do?shop_no=${vo.shop_no }" >
 		                      <li><button><i class="ti-shopping-cart"></i></button></li>
-		                      <li><button><i class="ti-heart"></i></button></li>
+		                      </a>
+<!-- 		                      <li><button><i class="ti-heart"></i></button></li> -->
 		                    </ul>
 		                  </div>
 		                  <div class="card-body">
